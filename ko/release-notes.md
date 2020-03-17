@@ -29,7 +29,7 @@
 		* 예) 기존: /images/toast.png -> 변경: http://[서비스ID].toastcdn.net/images/toast.png
 	* 와일드카드 타입 캐시 재배포 기능 종료
 	* 사용량 제한 정책 변경
-		* 상세한 내용은 [사용자 콘솔 가이드 > CDN 캐시 재배포](./console-guide/#cdn_4)를 참고합니다.
+		* 상세한 내용은 [사용자 콘솔 가이드 > CDN 캐시 재배포](./console-guide/#cdn-purge)를 참고합니다.
 * 감시 설정 기능이 종료됩니다.
 
 
