@@ -250,7 +250,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
         "resultMessage" :  "SUCCESS",
       "isSuccessful" :  true
     },
-    "domain" :  "lhcsxuo0.toastcdn.com",
+    "domain" :  "lhcsxuo0.toastcdn.net",
     "domainAlias" :  "test.domain.com",
     "region" :  "GLOBAL",
     "description" :  "api test pad",
