@@ -126,8 +126,8 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 | -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
 | distributions                          | List    | 必須      |        |                             | 作成するCDNのオブジェクトリスト                               |
 | distributions[0].region                | String  | 필수      |        | GLOBAL                | 서비스 지역("GLOBAL": 글로벌)           |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정)|
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| distributions[0].forwardHostHeader     | String  | 필수      | 도메인 별칭 설정시: REQUEST_HOST_HEADER, 도메인 별칭 미설정시: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
 | distributions[0].useOrigin             | String  | 必須      |        | Y/N                         | キャッシュ満了設定("Y"：原本設定を使用、 "N"：ユーザー設定を使用)   |
 | distributions[0].referrerType          | String  | 必須      |        | BLACKLIST/WHITELIST         | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
 | distributions[0].description           | String  | 任意      |        | 最大255文字               | 説明                                                     |
@@ -347,8 +347,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | 名前              | タイプ | 必須か | デフォルト値 | 有効範囲                                                | 説明                                                     |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 必須      |        | 最大255文字                                                | 修正するドメイン(サービス名)                                   |
-| useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
+| useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| forwardHostHeader     | String  | 필수      | 도메인 별칭 설정시: REQUEST_HOST_HEADER, 도메인 별칭 미설정시: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
 | useOrigin             | String  | 必須      |        | Y/N                                                          | キャッシュ満了設定(Y：原本設定を使用、 "N"：ユーザー設定を使用)      |
 | referrerType          | String  | 必須      |        | BLACKLIST/WHITELIST                                          | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
 | description           | String  | 任意      |        | 最大255文字                                                | 説明                                                     |

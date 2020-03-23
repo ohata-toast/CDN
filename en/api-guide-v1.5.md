@@ -124,8 +124,8 @@ Below shows the status codes of CDN service, which are available at the query of
 | -------------------------------------- | ------- | -------- | ------- | -------------------------------------------- | ------------------------------------------------------------ |
 | distributions                          | List    | Required |         |                                              | List of CDN objects to create                                |
 | distributions[0].region                | String  | 필수      |        | GLOBAL                | 서비스 지역("GLOBAL": 글로벌)           |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정)|
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| distributions[0].forwardHostHeader     | String  | 필수      | 도메인 별칭 설정시: REQUEST_HOST_HEADER, 도메인 별칭 미설정시: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
 | distributions[0].useOrigin             | String  | Required |         | Y/N                                          | Cache expiration setting ("Y": Original setting, "N":User-configured) |
 | distributions[0].referrerType          | String  | Required |         | BLACKLIST/WHITELIST                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].description           | String  | Optional |         | Up to  255 characters                        | Description                                                  |
@@ -344,8 +344,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
 | --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
-| useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
+| useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| forwardHostHeader     | String  | 필수      | 도메인 별칭 설정시: REQUEST_HOST_HEADER, 도메인 별칭 미설정시: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
 | useOrigin             | String  | Required |         | Y/N                                                          | Cache expiration setting (Y: Original setting, "N": User-configured) |
 | referrerType          | String  | Required |         | BLACKLIST/WHITELIST                                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
