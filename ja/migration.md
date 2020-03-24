@@ -100,7 +100,7 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
     - nslookupコマンドは、OSによってコマンドや結果の形式が異なる場合があります。
     AレコードのIPアドレスを確認します。下記の例のように複数登録されている場合があります。複数照会される場合は任意の1つのIPのみ使用してください。
 
-    ![nslookup-IP確認](https://static.toastoven.net/prod_cdn/v2/ja/migration-nslookup.png)
+    ![nslookup-IP確認](https://static.toastoven.net/prod_cdn/v2/migration-nslookup.png)
 
 2. テストを行うローカルまたは開発環境のhostsファイルに確認したエッジIPアドレスとドメインを入力します。
     ```
