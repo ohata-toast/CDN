@@ -12,20 +12,20 @@ To continue to use CDN service, please execute migration in reference of the gui
 
 ## 마이그레이션 진행 순서 Order of Migration
 
-### 1. Check Target of Migration for CDN CDN 서비스 마이그레이션 대상 확인
+### 1. Check Target of Migration for CDN Service CDN 서비스 마이그레이션 대상 확인
 1. Go to the TOAST CDN 콘솔 페이지의 **CDN Service** tab on the console page of TOAST CDN. 탭으로 이동합니다. 
-2. 서비스 도메인이 **[서비스ID].cdn.toastcloud.com** 인 경우 마이그레이션이 필요한 CDN 서비스입니다.
-    ![마이그레이션-대상목록](https://static.toastoven.net/prod_cdn/v2/migration-target-list.png)
-3. 서비스 이름 옆에 위치한 **마이그레이션** 버튼을 클릭합니다. 
-4. **마이그레이션** 버튼을 클릭하면 CDN 서비스 생성 화면이 표시됩니다. CDN 서비스 생성화면은 기존 CDN 서비스 설정 정보가 기본으로 설정되어 있습니다. 
+2. If the service domain is 서비스 도메인이 **[ServiceID].cdn.toastcloud.com**, the CDN service requires migration. 인 경우 마이그레이션이 필요한 CDN 서비스입니다.
+    ![Migration-Target List상목록](https://static.toastoven.net/prod_cdn/v2/migration-target-list.png)
+3. Click **Migration** next to service name. 서비스 이름 옆에 위치한 **마이그레이션** 버튼을 클릭합니다. 
+4. Click **Migration** and a page for CDN service creation shows. The CDN service creation page has previous CDN setting information as default.   버튼을 클릭하면 CDN 서비스 생성 화면이 표시됩니다. CDN 서비스 생성화면은 기존 CDN 서비스 설정 정보가 기본으로 설정되어 있습니다. 
 
 ### 2. 신규 CDN 서비스 설정 확인 후 서비스 생성 Check Setting of New CDN Service and Create Service 
 
-1. CDN 서비스 생성 화면에서 CDN 서비스 설정 내용을 확인합니다.
-    CDN 서비스 설정에 대한 상세한 정보는 [Console User Guide 사용자 콘솔 가이드](./console-guide/#cdn)를 참고합니다.
+1. Check CDN service setting on the CDN service creation page. CDN 서비스 생성 화면에서 CDN 서비스 설정 내용을 확인합니다.
+    For details regarding CDN service setting, see [Console User Guide](./console-guide/#cdn).
 
-    ![마이그레이션-서비스생성1](https://static.toastoven.net/prod_cdn/v2/migration-create-modal.png)
-    ![마이그레이션-서비스생성2](https://static.toastoven.net/prod_cdn/v2/migration-create-modal-options.png)    
+    ![Migration-Service Creation1](https://static.toastoven.net/prod_cdn/v2/migration-create-modal.png)
+    ![Migration-Service Creation2](https://static.toastoven.net/prod_cdn/v2/migration-create-modal-options.png)    
     
     1. **Service Region** 
         - KOREA region is not supported. (한국) 서비스 지역을 지원하지 않습니다. 
@@ -38,7 +38,7 @@ To continue to use CDN service, please execute migration in reference of the gui
             - 인증서에 대한 상세한 내용은 [사용자 콘솔 가이드 > 인증서 관리](./console-guide/#_5)를 참고합니다.
         
     3. **Origin Server**
-        - 기존 CDN 서비스는 HTTP 프로토콜 전송만 지원했으나, 신규 CDN 서비스는 **[서비스ID].toastcdn.net** 서비스 도메인에 대해 HTTP/HTTPS 프로토콜의 전송을 지원합니다.
+        - 기존 CDN 서비스는 HTTP 프로토콜 전송만 지원했으나, 신규 CDN 서비스는 **[ServiceID].toastcdn.net** 서비스 도메인에 대해 HTTP/HTTPS 프로토콜의 전송을 지원합니다.
         - **원본 서버 포트**는 원본 서버의 운영 중인 HTTP/HTTPS 포트 번호를 설정합니다. 설정하지 않으면 미설정으로 표시되며, 기본 포트(HTTP:80, HTTPS:443)으로 설정됩니다.
             - 원본 서버는 허용된 포트만 사용 할 수 있습니다. 허용된 포트는 [사용자 콘솔 가이드 > 원본 서버](./console-guide/#_2)의 **[표2] 사용 가능한 원본 서버 포트 번호**를 참고 하시기 바랍니다.
         - CDN 서비스 도메인(또는 도메인 별칭)으로 보안 전송(HTTPS)을 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.
