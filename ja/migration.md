@@ -15,7 +15,7 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 ### 1. CDNサービスマイグレーション対象確認
 1. TOAST CDNコンソールページの**CDNサービス**タブに移動します。 
 2. サービスドメインが**[サービスID].cdn.toastcloud.com**の場合、マイグレーションが必要なCDNサービスです。
-    ![マイグレーション-対象リスト](https://static.toastoven.net/prod_cdn/v2/migration-target-list.png)
+    ![マイグレーション-対象リスト](https://static.toastoven.net/prod_cdn/v2/ja/migration-target-list.png)
 3. サービス名の横にある**マイグレーション**ボタンをクリックします。 
 4. **マイグレーション**ボタンをクリックすると、CDNサービス作成画面が表示されます。CDNサービス作成画面は既存CDNサービス設定情報がデフォルトで設定されています。 
 
@@ -24,8 +24,8 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 1. CDNサービス作成画面でCDNサービス設定内容を確認します。
     CDNサービス設定の詳細な情報は[ユーザーコンソールガイド](./console-guide/#cdn)を参照します。
 
-    ![マイグレーション-サービス作成1](https://static.toastoven.net/prod_cdn/v2/migration-create-modal.png)
-    ![マイグレーション-サービス作成2](https://static.toastoven.net/prod_cdn/v2/migration-create-modal-options.png)    
+    ![マイグレーション-サービス作成1](https://static.toastoven.net/prod_cdn/v2/ja/migration-create-modal.png)
+    ![マイグレーション-サービス作成2](https://static.toastoven.net/prod_cdn/v2/ja/migration-create-modal-options.png)    
     
     1. **サービス地域** 
         - KOREA(韓国)サービス地域をサポートしません。 
@@ -71,7 +71,7 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 
 2. **確認**ボタンをクリックしてCDNサービスを作成します。 
 3. 新たに作成されたCDNサービスは、**[サービスID].toastcdn.net**ドメインで作成され、青色の感嘆符アイコンが表示されます。
-    ![マイグレーションサービス作成後リスト](https://static.toastoven.net/prod_cdn/v2/migration-new-create.png)
+    ![マイグレーションサービス作成後リスト](https://static.toastoven.net/prod_cdn/v2/ja/migration-new-create.png)
 
     
 ### 3. 新規作成したCDNサービスのテストと運用サービスの適用
@@ -83,9 +83,9 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 1. 新規作成したCDNサービスをテストするためのテスト用ビルドを作成します。 
     - テスト用ビルドは、既存**[サービスID].cdn.toastcloud.com**のサービスドメインの代わりに、新規作成したCDNサービスの **[サービスID].toastcdn.net**サービスドメインアドレスでビルドします。 
 3. テスト用ビルドをローカル環境または開発環境サーバーで実行し、動作に問題がないかテストします。 
-    ![基本サービスドメイン-テスト環境](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-before.png)
+    ![基本サービスドメイン-テスト環境](https://static.toastoven.net/prod_cdn/v2/ja/migration-test-test-build-before.png)
 4. テストが完了したら、運用中のサービスビルドに新規作成したCDNサービスドメイン**[サービスID].toastcdn.net**を適用して配布します。
-    ![基本サービスドメイン-テスト環境-適用](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-after.png)
+    ![基本サービスドメイン-テスト環境-適用](https://static.toastoven.net/prod_cdn/v2/ja/migration-test-test-build-after.png)
 
 #### 3.2ドメインエイリアス(domain alias)でサービス中の場合 
 ドメインエイリアスは基本で提供するサービスドメインアドレス**[サービスID].cdn.toastcloud.com**ではなく、所有ドメインでCDNサービスを利用する場合です。
@@ -100,16 +100,16 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
     - nslookupコマンドは、OSによってコマンドや結果の形式が異なる場合があります。
     AレコードのIPアドレスを確認します。下記の例のように複数登録されている場合があります。複数照会される場合は任意の1つのIPのみ使用してください。
 
-    ![nslookup-IP確認](https://static.toastoven.net/prod_cdn/v2/migration-nslookup.png)
+    ![nslookup-IP確認](https://static.toastoven.net/prod_cdn/v2/ja/migration-nslookup.png)
 
 2. テストを行うローカルまたは開発環境のhostsファイルに確認したエッジIPアドレスとドメインを入力します。
     ```
     xxx.xxx.xxx.xxx your-alias.domain.com
     ```
 3. ローカルまたは開発環境でHostsファイルを編集し、動作に問題がないかテストします。
-   ![ドメインエイリアス-hostsファイル編集](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-before.png)
+   ![ドメインエイリアス-hostsファイル編集](https://static.toastoven.net/prod_cdn/v2/ja/migration-test-alias-hosts-before.png)
 4. テストが完了したら、運用中のドメインエイリアスのCNAMEレコードを**[サービスID].toastcdn.net**に委任します。 
-   ![ドメインエイリアス-hostsファイル編集-適用](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-after.png)
+   ![ドメインエイリアス-hostsファイル編集-適用](https://static.toastoven.net/prod_cdn/v2/ja/migration-test-alias-hosts-after.png)
 
 
 ##### テスト方法2：新しいDomain Aliasを作成してテストする方法 
@@ -117,11 +117,11 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 2. 任意の新しいドメインエイリアスも証明書の発行が必要なため、証明書管理で先に証明書の発行と配布を行ってください。(文書上部の**[事前作業]クライアントとCDNエッジ(edge)間で暗号化通信(HTTPS)をサポートするには、先に[証明書発行]作業を進行します。**内容を参照します。)
 3. テスト用ビルドを作り、任意の新しいドメインエイリアスで設定してテスト用ビルドを作成します。 
 4. ローカルまたは開発環境でサービスを起動し、サービスの動作に問題がないかテストします。
-   ![ドメインエイリアス-テストビルド](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-before.png)
+   ![ドメインエイリアス-テストビルド](https://static.toastoven.net/prod_cdn/v2/ja/migration-test-alias-build-before.png)
 5. テストが完了したら、ドメインエイリアスのCNAMEレコードを**[サービスID].toastcdn.net**に委任します。 
-   ![ドメインエイリアス-テストビルド-適用](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-after.png)
+   ![ドメインエイリアス-テストビルド-適用](https://static.toastoven.net/prod_cdn/v2/ja/migration-test-alias-build-after.png)
 
 ### 4. 既存CDNサービスの削除 
 1. すべてのマイグレーション作業が完了したら、**統計**タブで既存CDNサービスの統計を照会します。 
 2. 既存CDNサービスの統計を確認して、トラフィック流入がなければ、既存**[サービスID].cdn.toastcloud.com**サービスを削除します。統計データは約30分遅延して作成されるため、十分に時間を置いてトラフィックの流入を確認します。
-  ![マイグレーション完了後、削除](https://static.toastoven.net/prod_cdn/v2/migration-old-delete.png)
+  ![マイグレーション完了後、削除](https://static.toastoven.net/prod_cdn/v2/ja/migration-old-delete.png)
