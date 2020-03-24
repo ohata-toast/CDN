@@ -452,8 +452,8 @@ Apply partial modification API to change a part of the service setting.
 | callback.httpMethod   | String  | Optional |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
 | callback.url          | String  | Optional |         | Up to 1024 characters                                        | Callback URL                                                 |
 
-- To set the origins field, origin and originPath fields are required, and port or, either httpPort or httpsPort field must be included. 
-- To set the callback field, 필드를 설정할 때 htt
+- To set the origins field, origin and originPath fields are required, and either port, httpPort, or httpsPort field must be included. 
+- To set the callback field, httpMethod and url fields are required. 
 - The forwardHostHeader field and the useOriginHttpProtocolDowngrade field can be set when the *.toastcdn.net domain is enabled, but the  *.cdn.toastcloud.com domain cannot be enabled
 #### Response
 
