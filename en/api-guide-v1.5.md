@@ -1,6 +1,6 @@
 ## Content Delivery > CDN > API v1.5 Guide
 
-TOAST CDN에서 제공하는 Public API v1.5를 설명합니다.
+This document describes Public API v1.5 provided by TOAST CDN. 에서 제공하는 Public API v1.5를 설명합니다.
 
 ## Common API Information  
 
@@ -123,9 +123,9 @@ Below shows the status codes of CDN service, which are available at the query of
 | Name                                   | Type    | Required | Default | Valid Range                                  | Description                                                  |
 | -------------------------------------- | ------- | -------- | ------- | -------------------------------------------- | ------------------------------------------------------------ |
 | distributions                          | List    | Required |         |                                              | List of CDN objects to create                                |
-| distributions[0].region                | String  | 필수      |        | GLOBAL                | 서비스 지역("GLOBAL": 글로벌)           |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정)|
+| distributions[0].region                | String  | Required      |        | GLOBAL                | Service Region ("GLOBAL": Global service)           |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | Required     |        | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP  |
+| distributions[0].forwardHostHeader     | String  | Required      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Setting host header to be delivered when CDN server requests content to origin server  ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
 | distributions[0].useOrigin             | String  | Required |         | Y/N                                          | Cache expiration setting ("Y": Original setting, "N":User-configured) |
 | distributions[0].referrerType          | String  | Required |         | BLACKLIST/WHITELIST                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].description           | String  | Optional |         | Up to  255 characters                        | Description                                                  |
@@ -134,15 +134,15 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens | Referrers (Delimit by \n tokens.)                            |
 | distributions[0].origins               | List    | Required |         |                                              | List of origin server objects                                |
 | distributions[0].origins[0].origin     | String  | Required |         | Up to 255 characters                         | Origin server (domain or IP)                                 |
-| distributions[0].origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| distributions[0].origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| distributions[0].origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
+| distributions[0].origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| distributions[0].origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | distributions[0].origins[0].originPath | String  | Optional |         | Up to 8192 characters                        | Lower paths of origin server (path must include /.)          |
 | distributions[0].callback              | Object  | Optional |         |                                              | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
 | distributions[0].callback.httpMethod   | String  | Required |         | GET/POST/PUT                                 | HTTP method of callback                                      |
 | distributions[0].callback.url          | String  | Required |         | Up to 1024 characters                        | Callback URL                                                 |
 
-- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
+- The forwardHostHeader field and the useOriginHttpProtocolDowngrade field can be set when the *.toastcdn.net domain is enabled, but the  *.cdn.toastcloud.com domain cannot be enabled. 
 
 
 #### Response
@@ -194,8 +194,8 @@ Below shows the status codes of CDN service, which are available at the query of
 | header.resultMessage                   | String  | Result message                                               |
 | distributions                          | List    | List of created CDN objects                                  |
 | distributions[0].domain                | String  | Created domain (service) name                                |
-| distributions[0].domainAlias           | String  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)              |
-| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)            |
+| distributions[0].domainAlias           | String  | List of domain alias (personal or company-owned domains)               |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global service)            |
 | distributions[0].description           | String  | Description                                                  |
 | distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
 | distributions[0].createTime            | String  | Date and time of creation                                    |
@@ -283,8 +283,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | header.resultMessage                   | String  | Result message                                               |
 | distributions                          | List    | List of created CDN objects                                  |
 | distributions[0].domain                | String  | Domain (service) name                                        |
-| distributions[0].domainAlias           | String  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)                    |
-| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)                                    |
+| distributions[0].domainAlias           | String  | List of domain alias (personal or company-owned domains)                   |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global service)                                    |
 | distributions[0].description           | String  | Description                                                  |
 | distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
 | distributions[0].createTime            | String  | Date and time of creation                                    |
@@ -344,8 +344,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
 | --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
-| useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
+| useOriginHttpProtocolDowngrade | Boolean  | Required     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| forwardHostHeader     | String  | Required      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
 | useOrigin             | String  | Required |         | Y/N                                                          | Cache expiration setting (Y: Original setting, "N": User-configured) |
 | referrerType          | String  | Required |         | BLACKLIST/WHITELIST                                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
@@ -354,9 +354,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | referrers             | String  | Optional |         | Up to 1024 characters, including '\n\' tokens                | Referrers (delimit by \n tokens. )                           |
 | origins               | List    | Required |         |                                                              | Origin server                                                |
 | origins[0].origin     | String  | Required |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
-| origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
+| origins[0].port       | Integer  | Optional      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| origins[0].httpPort   | Integer  | Optional      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | Optional      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
 | callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
 | callback.httpMethod   | String  | Required |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
@@ -434,8 +434,8 @@ Apply partial modification API to change a part of the service setting.
 | Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
 | --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
-| useOriginHttpProtocolDowngrade | Boolean  | 선택     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| forwardHostHeader     | String  | 선택      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정 |
+| useOriginHttpProtocolDowngrade | Boolean  | Optional     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| forwardHostHeader     | String  | Optional      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정 |
 | useOrigin             | String  | Optional |         | Y/N                                                          | Cache expiration setting (Y: Original setting, N: User-configured) |
 | referrerType          | String  | Optional |         | BLACKLIST / WHITELIST                                        | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
@@ -444,9 +444,9 @@ Apply partial modification API to change a part of the service setting.
 | referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens                 | Referrers (delimit by \n tokens. )                           |
 | origins               | List    | Optional |         |                                                              | Origin server                                                |
 | origins[0].origin     | String  | Optional |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
-| origins[0].port       | Integer | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
+| origins[0].port       | Integer | Optional      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| origins[0].httpPort   | Integer  | Optional      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | Optional      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
 | callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
 | callback.httpMethod   | String  | Optional |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
@@ -724,21 +724,21 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
 }
 ```
 
-[필드]
+[Field]
 
-| 필드                                   | 타입    | 설명                                                         |
+| Field                                   | Type    | Description                                                         |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 헤더 영역                                                    |
-| header.isSuccessful                    | Boolean | 성공 여부                                                    |
-| header.resultCode                      | Integer | 결과 코드                                                    |
-| header.resultMessage                   | String  | 결과 메시지                                                  |
+| header                                 | Object  | Header area                                                    |
+| header.isSuccessful                    | Boolean | Successful or not                                                 |
+| header.resultCode                      | Integer | Result code                                                    |
+| header.resultMessage                   | String  | Result message                                                  |
 | distribution                          | Object    | 변경작업이 완료된 CDN 오브젝트                                     |
-| distribution.appKey                   | String    | 앱키                                  |
-| distribution.domain                | String  | 도메인 이름(서비스 이름)                                     |
+| distribution.appKey                   | String    | Appkey                                  |
+| distribution.domain                | String  | Domain name (service name)                                     |
 | distribution.domainAlias           | String  | 소유 도메인                                                  |
-| distribution.region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
-| distribution.description           | String  | 설명                                                         |
-| distribution.status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
+| distribution.region                | String  | Service region ("GLOBAL": Global service)             |
+| distribution.description           | String  | Description                                                         |
+| distribution.status                | String  | CDN status code ([표] CDN 상태 코드 참고)                                 |
 | distribution.createTime            | String  | 생성 일시                                                    |
 | distribution.deleteTime            | String  | 삭제 일시                                                    |
 | distribution.useOrigin             | String  | 원본 서버 설정 사용 여부("Y": 원본 서버 설정 사용, "N": 사용자 설정) |
@@ -750,5 +750,5 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
 | distribution.origins[0].originPath | String  | 원본 서버 하위 경로                                          |
 | distribution.origins[0].port       | Integer | 원본 서버 포트                                               |
 | distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
-| distribution.callback.httpMethod   | String  | 콜백의 HTTP Method                                           |
-| distribution.callback.url          | String  | 콜백 URL                                                     |
+| distribution.callback.httpMethod   | String  | Callback HTTP Method                                           |
+| distribution.callback.url          | String  | Callback URL                                                     |
