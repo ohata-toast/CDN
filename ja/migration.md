@@ -16,7 +16,7 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 ### 1. CDNサービスマイグレーション対象確認
 1. TOAST CDNコンソールページの**CDNサービス**タブに移動します。 
 2. サービスドメインが**[サービスID].cdn.toastcloud.com**の場合、マイグレーションが必要なCDNサービスです。
-    ![マイグレーション-対象リスト](https://static.toastoven.net/prod_cdn/v2/ja/migration-target-list.png)
+    ![マイグレーション-対象リスト](https://static.toastoven.net/prod_cdn/v2/migration-target-list.png)
 3. サービス名の横にある**マイグレーション**ボタンをクリックします。 
 4. **マイグレーション**ボタンをクリックすると、CDNサービス作成画面が表示されます。CDNサービス作成画面は既存CDNサービス設定情報がデフォルトで設定されています。 
 
@@ -25,8 +25,8 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 1. CDNサービス作成画面でCDNサービス設定内容を確認します。
     CDNサービス設定の詳細な情報は[ユーザーコンソールガイド](./console-guide/#cdn)を参照します。
 
-    ![マイグレーション-サービス作成1](https://static.toastoven.net/prod_cdn/v2/ja/migration-create-modal.png)
-    ![マイグレーション-サービス作成2](https://static.toastoven.net/prod_cdn/v2/ja/migration-create-modal-options.png)    
+    ![マイグレーション-サービス作成1](https://static.toastoven.net/prod_cdn/v2/migration-create-modal.png)
+    ![マイグレーション-サービス作成2](https://static.toastoven.net/prod_cdn/v2/migration-create-modal-options.png)    
     
     1. **サービス地域** 
         - KOREA(韓国)サービス地域をサポートしません。 
@@ -72,7 +72,7 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 
 2. **確認**ボタンをクリックしてCDNサービスを作成します。 
 3. 新たに作成されたCDNサービスは、**[サービスID].toastcdn.net**ドメインで作成され、青色の感嘆符アイコンが表示されます。
-    ![マイグレーションサービス作成後リスト](https://static.toastoven.net/prod_cdn/v2/ja/migration-new-create.png)
+    ![マイグレーションサービス作成後リスト](https://static.toastoven.net/prod_cdn/v2/migration-new-create.png)
 
     
 ### 3. 新規作成したCDNサービスのテストと運用サービスの適用
@@ -125,4 +125,4 @@ CDNサービスを継続して利用するには、下記のガイドを参照�
 ### 4. 既存CDNサービスの削除 
 1. すべてのマイグレーション作業が完了したら、**統計**タブで既存CDNサービスの統計を照会します。 
 2. 既存CDNサービスの統計を確認して、トラフィック流入がなければ、既存**[サービスID].cdn.toastcloud.com**サービスを削除します。統計データは約30分遅延して作成されるため、十分に時間を置いてトラフィックの流入を確認します。
-  ![マイグレーション完了後、削除](https://static.toastoven.net/prod_cdn/v2/ja/migration-old-delete.png)
+  ![マイグレーション完了後、削除](https://static.toastoven.net/prod_cdn/v2/migration-old-delete.png)
