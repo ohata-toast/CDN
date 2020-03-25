@@ -29,8 +29,8 @@ To continue to use CDN service, please execute migration in reference of the gui
     
     1. **Service Region** 
         - KOREA region is not supported. (한국) 서비스 지역을 지원하지 않습니다. 
-        - Only the GLOBAL service region, including Korea region, is provided.  한국 지역을 포함하고 있는 GLOBAL 서비스 지역만 제공됩니다. 
-        - **China and Russia** regions are not included to Global service region. 국가 지역은 GLOBAL 서비스 지역에 포함되지 않습니다. 
+        - Only the GLOBAL service region, including Korea region, is provided.  
+        - **China and Russia** regions are not included to Global service region. 
 
     2. **Domain Alias** 
         - To enable secured transfer (HTTPS) via domain set for domain alias, please get a certificate first. 
@@ -42,9 +42,9 @@ To continue to use CDN service, please execute migration in reference of the gui
         - **Origin Server Port원본 서버 포트** sets HTTP/HTTPS port number under operation of the origin server. If not set, Not Set shows and it is set with default port (HTTP:80, HTTPS:443). 
             - Only allowed ports can be used for origin servers. For allowed ports, see **[Table2] Avalable Port Numbers for Origin Server** of [User Console Guide > Origin Server](./console-guide/#_2).
         - To support secured transfer (HTTPS) via CDN service domain (or domain alias), origin servers must support HTTPS response. 
-            - The CDN edge server checks certificate validity of an origin server to prevent 'man-in-the-middle(MITM)' attacks. 공격을 예방하기 위해 원본 서버의 인증서 유효 여부를 확인합니다. 
-            - The origin server must have certificate of credible certificate authority 원본 서버에는 TOAST CDN이 신뢰하는 인증서 또는 인증 기관(CA, certificate authority)의 인증서가 설치되어야 합니다.
-            - TOAST CDN이 신뢰하는 인증서 또는 인증기관은 [사용자 콘솔 가이드 > 원본 서버](./console-guide/#_2)의 **[표1] 신뢰하는 인증서 목록**을 참고합니다.
+            - The CDN edge server checks certificate validity of an origin server to prevent 'man-in-the-middle(MITM)' attacks.  
+            - The origin server must have a certificate credited by TOAST CDN or one by certificate authority. 원본 서버에는 TOAST CDN이 신뢰하는 인증서 또는 인증 기관(CA, certificate authority)의 인증서가 설치되어야 합니다.
+            - Regarding certificates or certificate authorities credited by TOAST CDN, go to [Console User Guide > Origin Server](./console-guide/#_2) and see **[Table1] List of Credible Certificates**.
         - 만약 원본 서버가 HTTPS 응답을 지원하기 어려운 경우, **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용 하시기 바랍니다. 
             - 단, **원본 요청 HTTP 프로토콜 다운그레이드** 설정은 제약 사항이 있으므로 해당 내용을 반드시 확인 하시기 바랍니다. 
 
@@ -74,9 +74,9 @@ To continue to use CDN service, please execute migration in reference of the gui
     ![마이그레이션서비스생성후목록](https://static.toastoven.net/prod_cdn/v2/migration-new-create.png)
 
     
-### 3. 신규 생성한 CDN 서비스 테스트와 운영 서비스 적용
+### 3. Apply Newly Created CDN Service for Testing and Operations 신규 생성한 CDN 서비스 테스트와 운영 서비스 적용
 
-신규 생성한 **[서비스ID].toastcdn.net** 서비스를 운영 중인 서비스에 적용하기 전에 테스트를 진행하고 서비스에 배포합니다.
+Test and deploy newly created **[ServiceID].toastcdn.net** service before it is applied to an existing service. 서비스를 운영 중인 서비스에 적용하기 전에 테스트를 진행하고 서비스에 배포합니다.
 
 
 #### 3.1 기본 서비스 도메인([서비스ID].cdn.toastcloud.com)으로 서비스 중인 경우 
@@ -121,7 +121,7 @@ To continue to use CDN service, please execute migration in reference of the gui
 5. 테스트가 완료되면 도메인 별칭의 CNAME 레코드를 **[서비스ID].toastcdn.net** 으로 위임합니다. 
    ![도메인별칭-테스트빌드-적용](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-after.png)
 
-### 4. 기존 CDN 서비스 삭제 
+### 4. 기존 CDN 서비스 삭제 Delete Previous CDN Service 
 1. 모든 마이그레이션 작업이 완료되면 기존 CDN 서비스를 **통계** 탭에서 통계를 조회합니다. 
 2. 기존 CDN 서비스의 통계를 확인하여 더 이상 트래픽 유입이 없다면 기존 **[서비스ID].cdn.toastcloud.com** 서비스를 삭제합니다. 통계 데이터는 약 30분의 지연 후 생성되므로 충분한 시간을 두고 트래픽 유입을 확인합니다.
   ![마이그레이션완료후삭제](https://static.toastoven.net/prod_cdn/v2/migration-old-delete.png)
