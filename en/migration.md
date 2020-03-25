@@ -2,26 +2,26 @@
 
 ### Overview
 CDN service of the **[ServiceID].cdn.toastcloud.com** domain created before TOAST regular maintenance on March 24 of 2020 shall be provided **until 10:00:00 KST on May 26 of 2020**. 
-Afterwards, the CDN service of the **[ServiceID].cdn.toastcloud.com** domain is to be closed. 도메인의 CDN 서비스는 종료됩니다. 
+Afterwards, the CDN service of the **[ServiceID].cdn.toastcloud.com** domain is to be closed. 
 
-After service of the **[ServiceID].cdn.toastcloud.com** domain is closed, below tasks become unavailable. 도메인의 CDN 서비스 종료 이후에는 아래의 작업이 불가합니다.
-  - Downloading content from the CDN service domain CDN 서비스 도메인으로 콘텐츠 다운로드가 불가합니다.
-  - Service operations on console and API 콘솔과 API를 통해 서비스 조작이 불가합니다. 
+After service of the **[ServiceID].cdn.toastcloud.com** domain is closed, below tasks become unavailable. 
+  - Downloading content from the CDN service domain.
+  - Service operations on console and API. 
 
-To continue to use CDN service, please execute migration in reference of the guide as below. CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이그레이션 작업을 진행하시기 바랍니다. 
+To continue to use CDN service, please execute migration in reference of the guide as below. 
 
-## 마이그레이션 진행 순서 Order of Migration
+## Order of Migration
 
-### 1. Check Target of Migration for CDN Service CDN 서비스 마이그레이션 대상 확인
-1. Go to the TOAST CDN 콘솔 페이지의 **CDN Service** tab on the console page of TOAST CDN. 탭으로 이동합니다. 
-2. If the service domain is 서비스 도메인이 **[ServiceID].cdn.toastcloud.com**, the CDN service requires migration. 인 경우 마이그레이션이 필요한 CDN 서비스입니다.
-    ![Migration-Target List상목록](https://static.toastoven.net/prod_cdn/v2/migration-target-list.png)
-3. Click **Migration** next to service name. 서비스 이름 옆에 위치한 **마이그레이션** 버튼을 클릭합니다. 
-4. Click **Migration** and a page for CDN service creation shows. The CDN service creation page has previous CDN setting information as default.   버튼을 클릭하면 CDN 서비스 생성 화면이 표시됩니다. CDN 서비스 생성화면은 기존 CDN 서비스 설정 정보가 기본으로 설정되어 있습니다. 
+### 1. Check Target of Migration for CDN Service 
+1. Go to the **CDN Service** tab on the console page of TOAST CDN.  
+2. If the service domain is **[ServiceID].cdn.toastcloud.com**, the CDN service requires migration.
+    ![Migration-Target List](https://static.toastoven.net/prod_cdn/v2/migration-target-list.png)
+3. Click **Migration** next to service name.  
+4. Click **Migration** and a page for CDN service creation shows. The CDN service creation page has previous CDN setting information as default.   
 
-### 2. 신규 CDN 서비스 설정 확인 후 서비스 생성 Check Setting of New CDN Service and Create Service 
+### 2. Check Setting of New CDN Service and Create Service 
 
-1. Check CDN service setting on the CDN service creation page. CDN 서비스 생성 화면에서 CDN 서비스 설정 내용을 확인합니다.
+1. Check CDN service setting on the CDN service creation page. 
     For details regarding CDN service setting, see [Console User Guide](./console-guide/#cdn).
 
     ![Migration-Service Creation1](https://static.toastoven.net/prod_cdn/v2/migration-create-modal.png)
@@ -33,32 +33,32 @@ To continue to use CDN service, please execute migration in reference of the gui
         - **China and Russia** regions are not included to Global service region. 국가 지역은 GLOBAL 서비스 지역에 포함되지 않습니다. 
 
     2. **Domain Alias** 
-        - To enable secured transfer (HTTPS) via domain set for domain alias, please get a certificate first. 도메인 별칭에 설정된 도메인으로 보안 전송(HTTPS)을 이용하려면, 먼저 인증서 발급을 하시기 바랍니다.
-            - Before creating CDN, go to CDN 서비스를 생성 하기 전 **Certificate Management** tab and click **Issue New Certificates** to get a certificate first. 탭에서 **신규 인증서 발급** 버튼을 클릭하여 먼저 인증서를 발급 하시기 바랍니다. 인증서 발급을 하지 않은 경우 HTTPS 프로토콜 서비스를 이용할 경우 인증서 오류가 발생합니다.
-            - 인증서에 대한 상세한 내용은 [사용자 콘솔 가이드 > 인증서 관리](./console-guide/#_5)를 참고합니다.
+        - To enable secured transfer (HTTPS) via domain set for domain alias, please get a certificate first. 
+            - Before creating CDN, go to the **Certificate Management** tab and click **Issue New Certificates** to get a certificate first. Without a certificate issued, error may occur in certificate while using HTTPS protocol service.  
+            - For more details on certificates, see [User Console Guide > Certificate Management](./console-guide/#_5).
         
     3. **Origin Server**
-        - 기존 CDN 서비스는 HTTP 프로토콜 전송만 지원했으나, 신규 CDN 서비스는 **[ServiceID].toastcdn.net** 서비스 도메인에 대해 HTTP/HTTPS 프로토콜의 전송을 지원합니다.
-        - **원본 서버 포트**는 원본 서버의 운영 중인 HTTP/HTTPS 포트 번호를 설정합니다. 설정하지 않으면 미설정으로 표시되며, 기본 포트(HTTP:80, HTTPS:443)으로 설정됩니다.
-            - 원본 서버는 허용된 포트만 사용 할 수 있습니다. 허용된 포트는 [사용자 콘솔 가이드 > 원본 서버](./console-guide/#_2)의 **[표2] 사용 가능한 원본 서버 포트 번호**를 참고 하시기 바랍니다.
-        - CDN 서비스 도메인(또는 도메인 별칭)으로 보안 전송(HTTPS)을 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.
-            - CDN 에지(edge) 서버는 'man-in-the-middle(MITM)' 공격을 예방하기 위해 원본 서버의 인증서 유효 여부를 확인합니다. 
-            - 원본 서버에는 TOAST CDN이 신뢰하는 인증서 또는 인증 기관(CA, certificate authority)의 인증서가 설치되어야 합니다.
+        - Previsouly CDN service supported HTTP protocol transfer only, but new CDN service supports transfer of HTTP/HTTPS protocol for the **[ServiceID].toastcdn.net** domain. 
+        - **Origin Server Port원본 서버 포트** sets HTTP/HTTPS port number under operation of the origin server. If not set, Not Set shows and it is set with default port (HTTP:80, HTTPS:443). 
+            - Only allowed ports can be used for origin servers. For allowed ports, see **[Table2] Avalable Port Numbers for Origin Server** of [User Console Guide > Origin Server](./console-guide/#_2).
+        - To support secured transfer (HTTPS) via CDN service domain (or domain alias), origin servers must support HTTPS response. 
+            - The CDN edge server checks certificate validity of an origin server to prevent 'man-in-the-middle(MITM)' attacks. 공격을 예방하기 위해 원본 서버의 인증서 유효 여부를 확인합니다. 
+            - The origin server must have certificate of credible certificate authority 원본 서버에는 TOAST CDN이 신뢰하는 인증서 또는 인증 기관(CA, certificate authority)의 인증서가 설치되어야 합니다.
             - TOAST CDN이 신뢰하는 인증서 또는 인증기관은 [사용자 콘솔 가이드 > 원본 서버](./console-guide/#_2)의 **[표1] 신뢰하는 인증서 목록**을 참고합니다.
         - 만약 원본 서버가 HTTPS 응답을 지원하기 어려운 경우, **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용 하시기 바랍니다. 
             - 단, **원본 요청 HTTP 프로토콜 다운그레이드** 설정은 제약 사항이 있으므로 해당 내용을 반드시 확인 하시기 바랍니다. 
 
-    4. **원본 요청 HTTP 프로토콜 다운그레이드**
+    4. **Downgrading HTTP Protocol Requesting Originals원본 요청 HTTP 프로토콜 다운그레이드**
         - 원본 서버가 HTTP 응답만 지원 가능한 경우, 원본 요청 HTTP 프로토콜 다운그레이드 설정을 **사용**으로 설정합니다. 
         - 원본 요청 HTTP 프로토콜 다운그레이드를 **사용**으로 설정한 경우, CDN 에지(edge) 서버에서 원본 요청시 HTTPS 프로토콜 요청은 HTTP 프로토콜로 다운그레이드하여 요청합니다. 
         - 단, 이 설정은 다음과 같은 제약 사항이 있으므로 주의하여 사용하시기 바랍니다. 
             1. 전체 사이트 주소는 프로토콜 다운그레이드가 불가합니다. (예: 원본 서버의 전체 사이트 주소인 "www.toast.com"은 다운그레이드가 불가합니다.)
-            2. GET, HEAD 및 OPTIONS 메서드 외 메서드는 지원되지 않습니다. 
-            3. CDN 서버에서 원본 서버로 다운그레이드 요청시 다음의 헤더는 제외될 수 있습니다.
+            2. No other methods than GET, HEAD and및 OPTIONS are supported. 메서드 외 메서드는 지원되지 않습니다. 
+            3. Following headers may be excluded when a downgrade is requested from a CDN to an original server. CDN 서버에서 원본 서버로 다운그레이드 요청시 다음의 헤더는 제외될 수 있습니다.
                 - Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
-    5. **Forward Host Header** 
-    CDN 서버가 원본 서버에 원본 파일을 요청시 전달 할 **Host** 헤더 값을 설정합니다. 
+    5. **Forwarding Host Header** 
+    Set the **Host** header value to be forwarded when CDN server requests origin server of original files. CDN 서버가 원본 서버에 원본 파일을 요청시 전달 할 **Host** 헤더 값을 설정합니다. 
     원본 서버가 Name-based virtual host로 운영 중이라면 **요청 호스트 헤더** 설정이 필요할 수 있습니다. 원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하시기 바랍니다.
         - 원본 호스트 이름: 원본 서버의 호스트네임을 Host 헤더로 설정합니다. 
         - 요청 호스트 헤더: 클라이언트 요청의 Host 헤더로 설정합니다.
@@ -69,7 +69,7 @@ To continue to use CDN service, please execute migration in reference of the gui
         - **사용자 설정 사용**: 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다. 
         - **캐시 만료 시간(초)**: CDN 캐시 서버에 원본 파일을 얼마나 오래 캐시할 것인지 TTL을 설정합니다.
 
-2. **확인** 버튼을 클릭하여 CDN 서비스를 생성합니다. 
+2. Click **OK확인** to create CDN service.  버튼을 클릭하여 CDN 서비스를 생성합니다. 
 3. 새로 생성된 CDN 서비스는 **[서비스ID].toastcdn.net** 도메인으로 생성되며, 파란색 느낌표 아이콘이 표시됩니다.
     ![마이그레이션서비스생성후목록](https://static.toastoven.net/prod_cdn/v2/migration-new-create.png)
 
@@ -95,7 +95,7 @@ To continue to use CDN service, please execute migration in reference of the gui
 2. 인증서 발급 및 배포가 완료되면 CDN 서비스 연동 단계에서 **CNAME 레코드 설정을 제외하고** 도메인 별칭 설정만 신규 생성된 CDN 서비스에 설정합니다. 
     - **CNAME 레코드 설정은 운영 중인 서비스에 영향이 발생하므로 테스트가 완료 된 후 진행해야 합니다.**
 
-##### 테스트 방법 1: 로컬 PC 환경의 hosts 파일을 변조하여 확인 하는 방법
+##### How to Test 테스트 방법 1: 로컬 PC 환경의 hosts 파일을 변조하여 확인 하는 방법
 1. nslookup 명령어을 통해 **[서비스ID].toastcdn.net**의 A 레코드에 설정된 CDN 에지(edge) 서버의 IP 주소를 확인합니다.  
     - nslookup 명령어는 운영체제에 따라 명령어가 다르거나 결과 형식이 다를 수 있습니다.
     A 레코드의 IP 주소를 확인 합니다. 아래 예시와 같이 복수 개가 등록되어 있을 수 있습니다. 복수 개가 조회되는 경우 임의의 하나 IP만 사용하면 됩니다.
