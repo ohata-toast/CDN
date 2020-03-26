@@ -45,27 +45,27 @@ To continue to use CDN service, please execute migration in reference of the gui
             - The CDN edge server checks certificate validity of an origin server to prevent 'man-in-the-middle(MITM)' attacks.  
             - The origin server must have a certificate credited by TOAST CDN or one by certificate authority. 원본 서버에는 TOAST CDN이 신뢰하는 인증서 또는 인증 기관(CA, certificate authority)의 인증서가 설치되어야 합니다.
             - Regarding certificates or certificate authorities credited by TOAST CDN, go to [Console User Guide > Origin Server](./console-guide/#_2) and see **[Table1] List of Credible Certificates**.
-        - 만약 원본 서버가 HTTPS 응답을 지원하기 어려운 경우, **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용 하시기 바랍니다. 
-            - 단, **원본 요청 HTTP 프로토콜 다운그레이드** 설정은 제약 사항이 있으므로 해당 내용을 반드시 확인 하시기 바랍니다. 
+        - If origin server is not available for the support of HTTPS response, enable the setting for 만약 원본 서버가 HTTPS 응답을 지원하기 어려운 경우, **Downgrade HTTP Protocol Requesting Originals원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용 하시기 바랍니다. 
+            - Neveretheless, since the **Downgrade Request Original HTTP Protocol** setting has constraints, make sure to check details.  설정은 제약 사항이 있으므로 해당 내용을 반드시 확인 하시기 바랍니다. 
 
-    4. **Downgrading HTTP Protocol Requesting Originals원본 요청 HTTP 프로토콜 다운그레이드**
-        - 원본 서버가 HTTP 응답만 지원 가능한 경우, 원본 요청 HTTP 프로토콜 다운그레이드 설정을 **사용**으로 설정합니다. 
-        - 원본 요청 HTTP 프로토콜 다운그레이드를 **사용**으로 설정한 경우, CDN 에지(edge) 서버에서 원본 요청시 HTTPS 프로토콜 요청은 HTTP 프로토콜로 다운그레이드하여 요청합니다. 
+    4. **Downgrading Request Original HTTP Protocol 원본 요청 HTTP 프로토콜 다운그레이드**
+        - When the origin server can support for HTTP response only, set **Enable** for the setting of Downgrade Request Original HTTP Protocol. 원본 서버가 HTTP 응답만 지원 가능한 경우, 원본 요청 HTTP 프로토콜 다운그레이드 설정을 **사용**으로 설정합니다. 
+        - When the downgrade setting is set as **Enable**, 원본 요청 HTTP 프로토콜 다운그레이드를 **사용**으로 설정한 경우, CDN 에지(edge) 서버에서 원본 요청시 HTTPS 프로토콜 요청은 HTTP 프로토콜로 다운그레이드하여 요청합니다. 
         - 단, 이 설정은 다음과 같은 제약 사항이 있으므로 주의하여 사용하시기 바랍니다. 
             1. 전체 사이트 주소는 프로토콜 다운그레이드가 불가합니다. (예: 원본 서버의 전체 사이트 주소인 "www.toast.com"은 다운그레이드가 불가합니다.)
-            2. No other methods than GET, HEAD and및 OPTIONS are supported. 메서드 외 메서드는 지원되지 않습니다. 
+            2. No other methods than GET, HEAD and OPTIONS are supported. 메서드 외 메서드는 지원되지 않습니다. 
             3. Following headers may be excluded when a downgrade is requested from a CDN to an original server. CDN 서버에서 원본 서버로 다운그레이드 요청시 다음의 헤더는 제외될 수 있습니다.
                 - Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
     5. **Forwarding Host Header** 
-    Set the **Host** header value to be forwarded when CDN server requests origin server of original files. CDN 서버가 원본 서버에 원본 파일을 요청시 전달 할 **Host** 헤더 값을 설정합니다. 
-    원본 서버가 Name-based virtual host로 운영 중이라면 **요청 호스트 헤더** 설정이 필요할 수 있습니다. 원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하시기 바랍니다.
-        - 원본 호스트 이름: 원본 서버의 호스트네임을 Host 헤더로 설정합니다. 
-        - 요청 호스트 헤더: 클라이언트 요청의 Host 헤더로 설정합니다.
+    Set the **Host** header value to be forwarded when CDN server requests origin server of original files. 
+    If origin server is under the operation of name-based virtual host, 원본 서버가 Name-based virtual host로 운영 중이라면the **Request Host Header요청 호스트 헤더** setting may be required. 설정이 필요할 수 있습니다. Select appropriate value of setting, depending on the operation type of an origin server.  원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하시기 바랍니다.
+        - Origin Host Name원본 호스트 이름: Set host name of origin server as the host header. 원본 서버의 호스트네임을 Host 헤더로 설정합니다. 
+        - Request Host Header요청 호스트 헤더: Set a client request as the host header. 클라이언트 요청의 Host 헤더로 설정합니다.
 
     6. **Cache** 
-    CDN 캐시 서버의 캐시 운영 방법과 만료시간을 설정합니다. 
-        - **원본 설정 사용**: 원본 서버의 응답에서 제공한 캐시 제어 헤더(Cache-Control, Expires)를 우선하여 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(Cache-Control, Expires)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다.  **원본 설정 사용** 옵션이 기본값입니다.
+    CDN 캐시 서버의 캐시 운영 방법과 만료시간을 설정합니다. Set the operation method and expiration time of CDN cache server. 
+        - **Enable Original Settings원본 설정 사용**: 원본 서버의 응답에서 제공한 캐시 제어 헤더(Cache-Control, Expires)를 우선하여 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(Cache-Control, Expires)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다.  **원본 설정 사용** 옵션이 기본값입니다.
         - **사용자 설정 사용**: 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다. 
         - **캐시 만료 시간(초)**: CDN 캐시 서버에 원본 파일을 얼마나 오래 캐시할 것인지 TTL을 설정합니다.
 
