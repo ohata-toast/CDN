@@ -126,7 +126,7 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 | distributions                          | List    | 必須     |        |                             | 作成するCDNのオブジェクトリスト                              |
 | distributions[0].region                | String  | 必須  |        | GLOBAL                | サービス地域("GLOBAL"：グローバル)           |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 必須 |        | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するかどうか |
-| distributions[0].forwardHostHeader     | String  | 必須  |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホストネームで設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定)|
+| distributions[0].forwardHostHeader     | String  | 必須  |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホストネームで設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定)|
 | distributions[0].useOrigin             | String  | 必須     |        | Y/N                         | キャッシュ満了設定("Y"：原本設定を使用、 "N"：ユーザー設定を使用)   |
 | distributions[0].referrerType          | String  | 必須     |        | BLACKLIST/WHITELIST         | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
 | distributions[0].description           | String  | 任意     |        | 最大255文字              | 説明                                                    |
@@ -347,7 +347,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 必須     |        | 最大255文字                                               | 修正するドメイン(サービス名)                                   |
 | useOriginHttpProtocolDowngrade | Boolean  | 必須 |        | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストをHTTPリクエストにダウングレードするための設定を使用するかどうか |
-| forwardHostHeader     | String  | 必須  |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストをする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホストネームで設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定)|
+| forwardHostHeader     | String  | 必須  |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストをする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホストネームで設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定)|
 | useOrigin             | String  | 必須     |        | Y/N                                                          | キャッシュ満了設定(Y：原本設定を使用、 "N"：ユーザー設定を使用)      |
 | referrerType          | String  | 必須     |        | BLACKLIST/WHITELIST                                          | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
 | description           | String  | 任意     |        | 最大255文字                                               | 説明                                                    |
@@ -365,6 +365,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | callback.url          | String  | 必須     |        | 最大1024文字                                              | コールバックURL                                                     |
 
 - forwardHostHeaderフィールドとuseOriginHttpProtocolDowngradeフィールドは*.toastcdn.netドメインを使用する場合は設定できます。*.cdn.toastcloud.comドメインは設定できません。
+- forwardHostHeaderのデフォルト値は、domainAliasを設定した場合はREQUEST_HOST_HEADERで、未設定の場合はORIGIN_HOSTNAMEです。
 
 #### レスポンス
 
@@ -437,7 +438,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 必須     |        | 最大255文字                                               | 修正するドメイン(サービス名)                                   |
 | useOriginHttpProtocolDowngrade | Boolean  | 任意 |        | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するかどうか |
-| forwardHostHeader     | String  | 任意     |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーへコンテンツをリクエストする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名に設定、 "REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダに設定 |
+| forwardHostHeader     | String  | 任意     |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーへコンテンツをリクエストする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名に設定、 "REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダに設定 |
 | useOrigin             | String  | 任意     |        | Y/N                                                          | キャッシュ満了設定(Y：原本設定使用、 N：ユーザー設定使用)        |
 | referrerType          | String  | 任意     |        | BLACKLIST / WHITELIST                                        | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
 | description           | String  | 任意     |        | 最大255文字                                               | 説明                                                    |
