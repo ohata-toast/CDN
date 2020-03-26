@@ -76,10 +76,10 @@ To continue to use CDN service, please execute migration in reference of the gui
     
 ### 3. Apply Newly Created CDN Service for Testing and Operations 신규 생성한 CDN 서비스 테스트와 운영 서비스 적용
 
-Test and deploy newly created **[ServiceID].toastcdn.net** service before it is applied to an existing service. 서비스를 운영 중인 서비스에 적용하기 전에 테스트를 진행하고 서비스에 배포합니다.
+Test and deploy newly created **[ServiceID].toastcdn.net** service before it is applied to an existing service. 
 
 
-#### 3.1 기본 서비스 도메인([서비스ID].cdn.toastcloud.com)으로 서비스 중인 경우 
+#### 3.1 When Serviced with Default Service Domain기본 서비스 도메인([ServiceID].cdn.toastcloud.com)으로 서비스 중인 경우 
 1. 신규 생성한 CDN 서비스를 테스트 하기 위한 테스트용 빌드를 생성합니다. 
     - 테스트용 빌드는 기존 **[서비스ID].cdn.toastcloud.com** 의 서비스 도메인 대신, 신규 생성한 CDN 서비스의 **[서비스ID].toastcdn.net** 서비스 도메인 주소로 빌드합니다. 
 3. 테스트용 빌드를 로컬 환경 또는 개발 환경 서버에서 서비스를 구동하여 동작에 문제가 없는지 테스트 합니다. 
@@ -87,13 +87,13 @@ Test and deploy newly created **[ServiceID].toastcdn.net** service before it is 
 4. 테스트가 완료되면 운영 중인 서비스 빌드에 신규 생성한 CDN 서비스 도메인 **[서비스ID].toastcdn.net** 을 적용하여 배포합니다.
     ![기본서비스도메인-테스트환경-적용](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-after.png)
 
-#### 3.2 도메인 별칭(domain alias)으로 서비스 중인 경우 
+#### 3.2 When Serviced with Domain Alias Service 도메인 별칭(domain alias)으로 서비스 중인 경우 
 도메인 별칭은 기본으로 제공하는 서비스 도메인 주소 **[서비스ID].cdn.toastcloud.com** 이 아닌 소유한 도메인으로 CDN 서비스를 이용하는 경우입니다.
 
-##### [사전 작업] 클라이언트와 CDN 에지(edge) 구간에 보안 전송(HTTPS)을 지원하려면 먼저 [인증서 발급] 작업을 진행합니다.
-1. 클라이언트와 CDN 에지 서버 구간에 보안 전송(HTTPS)를 지원 하려면 CDN 에지 서버에 소유한 도메인의 인증서가 배포되어야 합니다. 인증서 발급과 배포 작업은 **인증서 관리** 탭에서 작업 할 수 있습니다. [사용자 콘솔 가이드 > 인증서 관리](./console-guide/#_5)를 참고하여 **인증서 발급 및 배포** 단계까지 진행합니다. 
-2. 인증서 발급 및 배포가 완료되면 CDN 서비스 연동 단계에서 **CNAME 레코드 설정을 제외하고** 도메인 별칭 설정만 신규 생성된 CDN 서비스에 설정합니다. 
-    - **CNAME 레코드 설정은 운영 중인 서비스에 영향이 발생하므로 테스트가 완료 된 후 진행해야 합니다.**
+##### [Prerequisites사전 작업] To support secured transfer (HTTPS) between client and CDN edge, execute 클라이언트와 CDN 에지(edge) 구간에 보안 전송(HTTPS)을 지원하려면 먼저 [Issue Certificate인증서 발급] first. 작업을 진행합니다.
+1. To support secured transfer (HTTPS) in the sector between client and CDN edge server, certificate of owned domain must be deployed to CDN edge server. To issue and deploy certificates, go to the **Certificate Management** tab. See  탭에서 작업 할 수 있습니다. [Console User Guide > Certificate Management](./console-guide/#_5) to execute 참고하여 **Certificate Issuance and Deployment인증서 발급 및 배포** 단계까지 진행합니다. 
+2. When it is done up to certificate deployment, in the CDN service integration phase, 인증서 발급 및 배포가 완료되면 CDN 서비스 연동 단계에서 **exclude CNAME record setting레코드 설정을 제외하고** and set domain alias setup only to newly created CDN service. 도메인 별칭 설정만 신규 생성된 CDN 서비스에 설정합니다. 
+    - **CNAME record setting must be executed after testing is completed so that impact on service could be minimized. 레코드 설정은 운영 중인 서비스에 영향이 발생하므로 테스트가 완료 된 후 진행해야 합니다.**
 
 ##### How to Test 테스트 방법 1: 로컬 PC 환경의 hosts 파일을 변조하여 확인 하는 방법
 1. nslookup 명령어을 통해 **[서비스ID].toastcdn.net**의 A 레코드에 설정된 CDN 에지(edge) 서버의 IP 주소를 확인합니다.  
