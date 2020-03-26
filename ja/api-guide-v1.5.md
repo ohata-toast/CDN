@@ -1,13 +1,12 @@
-﻿
-## Content Delivery > CDN > API v1.5 가이드
+## Content Delivery > CDN > API v1.5ガイド
 
-TOAST CDN에서 제공하는 Public API v1.5를 설명합니다.
+TOAST CDNで提供するPublic API v1.5について説明します。
 
 ## API共通情報
 
 ### ドメイン
 
-| 名前           | ドメイン                                |
+| 名前          | ドメイン                               |
 | --------------- | ------------------------------------- |
 | CDN Public APIドメイン | https://api-gw.cloud.toast.com/tc-cdn |
 
@@ -20,7 +19,7 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 
 #### リクエストヘッダ
 
-| 名前         | 説明                     |
+| 名前        | 説明                    |
 | ------------- | ------------------------- |
 | Authorization | コンソールで発行されたセキュリティーキー(SecretKey) |
 
@@ -29,7 +28,7 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 すべてのAPIは、appKeyをpathパラメータに指定する必要があります。
 * 例) /v1.5/appKeys/**{appKey}**/distributions
 
-| 名前  | 説明                 |
+| 名前 | 説明                |
 | ------ | --------------------- |
 | appKey | コンソールで発行されたアプリキー(Appkey) | 
 
@@ -52,9 +51,9 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 
 [フィールド]
 
-| フィールド                | タイプ   | 説明  |
+| フィールド               | タイプ  | 説明 |
 | -------------------- | ------- | ------ |
-| header               | Object  | ヘッダ領域     |
+| header               | Object  | ヘッダ領域    |
 | header.isSuccessful  | Boolean | 成功したか |
 | header.resultCode | Integer | 結果コード |
 | header.resultMessage | String | 結果メッセージ |
@@ -63,16 +62,16 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 
 次はCDNサービスの状態を表す状態コードで、サービス照会時にサービス状態を確認できます。
 
-| 値      | 説明                  |
+| 値     | 説明                 |
 | ---------- | ------------------------ |
-| OPENING    | サービス起動中        |
-| OPEN       | サービス中             |
-| MODIFYING  | 修正中               |
-| RESUME     | 開始                  |
-| SUSPENDING | 停止進行中          |
-| SUSPEND    | 停止                  |
-| CLOSING    | 使用終了中          |
-| CLOSE      | 使用終了             |
+| OPENING    | サービス起動中       |
+| OPEN       | サービス中            |
+| MODIFYING  | 修正中              |
+| RESUME     | 開始                 |
+| SUSPENDING | 停止進行中         |
+| SUSPEND    | 停止                 |
+| CLOSING    | 使用終了中         |
+| CLOSE      | 使用終了            |
 | ERROR      | サービス作成中にエラーが発生 |
 
 
@@ -122,29 +121,29 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 
 [フィールド]
 
-| 名前                                | タイプ | 必須化 | デフォルト値 | 有効範囲                | 説明                                                      |
+| 名前                               | タイプ | 必須化 | デフォルト値 | 有効範囲               | 説明                                                     |
 | -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
-| distributions                          | List    | 必須      |        |                             | 作成するCDNのオブジェクトリスト                               |
-| distributions[0].region                | String  | 필수      |        | GLOBAL                | 서비스 지역("GLOBAL": 글로벌)           |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | 필수      | 도메인 별칭 설정시: REQUEST_HOST_HEADER, 도메인 별칭 미설정시: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
-| distributions[0].useOrigin             | String  | 必須      |        | Y/N                         | キャッシュ満了設定("Y"：原本設定を使用、 "N"：ユーザー設定を使用)   |
-| distributions[0].referrerType          | String  | 必須      |        | BLACKLIST/WHITELIST         | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
-| distributions[0].description           | String  | 任意      |        | 最大255文字               | 説明                                                     |
-| distributions[0].domainAlias           | String  | 任意      |        | 最大255文字               | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンで区分して入力してください。) |
-| distributions[0].maxAge                | Integer | 任意      | 0      | 0～2,147,483,647             | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。             |
-| distributions[0].referrers             | String  | 任意      |        | '\n'トークンを含め、最大1024文字 | リファラー(複数入力時\nトークンで区分して入力してください。)    |
-| distributions[0].origins               | List    | 必須      |        |                             | 原本サーバーオブジェクトリスト                                  |
-| distributions[0].origins[0].origin     | String  | 必須      |        | 最大255文字               | 原本サーバー(domainまたはIP)                                     |
-| distributions[0].origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| distributions[0].origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| distributions[0].origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
-| distributions[0].origins[0].originPath | String  | 任意      |        | 最大8192文字              | 原本サーバーの下層パス(/を含むパスで入力してください。)        |
-| distributions[0].callback              | Object  | 任意      |        |                             | CDN作成処理結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |
-| distributions[0].callback.httpMethod   | String  | 必須      |        | GET/POST/PUT                | コールバックのHTTP Method                                           |
-| distributions[0].callback.url          | String  | 必須      |        | 最大1024文字              | コールバックURL                                                     |
+| distributions                          | List    | 必須     |        |                             | 作成するCDNのオブジェクトリスト                              |
+| distributions[0].region                | String  | 必須  |        | GLOBAL                | サービス地域("GLOBAL"：グローバル)           |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 必須 |        | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するかどうか |
+| distributions[0].forwardHostHeader     | String  | 必須  |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホストネームで設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定)|
+| distributions[0].useOrigin             | String  | 必須     |        | Y/N                         | キャッシュ満了設定("Y"：原本設定を使用、 "N"：ユーザー設定を使用)   |
+| distributions[0].referrerType          | String  | 必須     |        | BLACKLIST/WHITELIST         | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
+| distributions[0].description           | String  | 任意     |        | 最大255文字              | 説明                                                    |
+| distributions[0].domainAlias           | String  | 任意     |        | 最大255文字              | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンで区分して入力してください。) |
+| distributions[0].maxAge                | Integer | 任意     | 0      | 0～2,147,483,647             | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。             |
+| distributions[0].referrers             | String  | 任意     |        | '\n'トークンを含め、最大1024文字 | リファラー(複数入力時\nトークンで区分して入力してください。)    |
+| distributions[0].origins               | List    | 必須     |        |                             | 原本サーバーオブジェクトリスト                                 |
+| distributions[0].origins[0].origin     | String  | 必須     |        | 最大255文字              | 原本サーバー(domainまたはIP)                                     |
+| distributions[0].origins[0].port       | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
+| distributions[0].origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| distributions[0].origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
+| distributions[0].origins[0].originPath | String  | 任意     |        | 最大8192文字             | 原本サーバーの下層パス(/を含むパスで入力してください。)        |
+| distributions[0].callback              | Object  | 任意     |        |                             | CDN作成処理結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |
+| distributions[0].callback.httpMethod   | String  | 必須     |        | GET/POST/PUT                | コールバックのHTTP Method                                           |
+| distributions[0].callback.url          | String  | 必須     |        | 最大1024文字             | コールバックURL                                                     |
 
-- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
+- forwardHostHeaderフィールドとuseOriginHttpProtocolDowngradeフィールドは*.toastcdn.netドメインを使用する場合は設定できます。*.cdn.toastcloud.comドメインは設定できません。
 
 
 #### レスポンス
@@ -188,28 +187,28 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 
 [フィールド]
 
-| フィールド                               | タイプ | 説明                                                     |
+| フィールド                              | タイプ | 説明                                                    |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | ヘッダ領域                                                |
-| header.isSuccessful                    | Boolean | 成功したか                                                 |
-| header.resultCode                      | Integer | 結果コード                                                |
-| header.resultMessage                   | String  | 結果メッセージ                                              |
-| distributions                          | List    | 作成されたCDNオブジェクトリスト                               |
-| distributions[0].domain                | String  | 作成されたドメイン(サービス)名                               |
-| distributions[0].domainAlias           | String  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)              |
-| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)            |
-| distributions[0].description           | String  | 説明                                                     |
+| header                                 | Object  | ヘッダ領域                                               |
+| header.isSuccessful                    | Boolean | 成功したか                                                |
+| header.resultCode                      | Integer | 結果コード                                               |
+| header.resultMessage                   | String  | 結果メッセージ                                             |
+| distributions                          | List    | 作成されたCDNオブジェクトリスト                              |
+| distributions[0].domain                | String  | 作成されたドメイン(サービス)名                              |
+| distributions[0].domainAlias           | String  | ドメインエイリアスリスト(個人または会社が所有するドメインを使用)              |
+| distributions[0].region                | String  | サービス地域("GLOBAL"：グローバル)            |
+| distributions[0].description           | String  | 説明                                                    |
 | distributions[0].status                | String  | CDN状態コード([表] CDN状態コード参照)                                 |
-| distributions[0].createTime            | String  | 作成日時                                                |
+| distributions[0].createTime            | String  | 作成日時                                               |
 | distributions[0].useOrigin             | String  | 原本サーバー設定を使用するか("Y"：原本サーバー設定を使用、 "N"：ユーザー設定) |
 | distributions[0].maxAge                | String  | キャッシュ満了時間(秒)                                           |
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
-| distributions[0].referrers             | String  | リファラーリスト                                              |
-| distributions[0].origins               | List    | 原本サーバーオブジェクトリスト                                  |
+| distributions[0].referrers             | String  | リファラーリスト                                             |
+| distributions[0].origins               | List    | 原本サーバーオブジェクトリスト                                 |
 | distributions[0].origins[0].origin     | String  | 原本サーバー(domainまたはIP)                                      |
-| distributions[0].origins[0].originPath | String  | 原本サーバーの下層パス                                      |
-| distributions[0].origins[0].port       | Integer | 原本サーバーポート                                           |
-| distributions[0].callback              | Object  | サービス作成処理結果の通知を受けるコールバック                    |
+| distributions[0].origins[0].originPath | String  | 原本サーバーの下層パス                                     |
+| distributions[0].origins[0].port       | Integer | 原本サーバーポート                                          |
+| distributions[0].callback              | Object  | サービス作成処理結果の通知を受けるコールバック                   |
 | distributions[0].callback.httpMethod   | String  | コールバックのHTTP Method                                           |
 | distributions[0].callback.url          | String  | コールバックURL                                                     |
 
@@ -228,10 +227,10 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 
 [パラメータ]
 
-| 名前 | タイプ | 必須か | 有効範囲 | 説明                     |
+| 名前 | タイプ | 必須か | 有効範囲 | 説明                    |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
-| domain | String | 任意      | 最大255文字 | 照会するドメイン(サービス名)   |
-| status | String | 任意      | CDN状態コード | CDN状態コード([表] CDN状態コード参考) |
+| domain | String | 任意     | 最大255文字 | 照会するドメイン(サービス名)   |
+| status | String | 任意     | CDN状態コード | CDN状態コード([表] CDN状態コード参考) |
 
 [例]
 ```
@@ -277,28 +276,28 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| フィールド                               | タイプ | 説明                                                     |
+| フィールド                              | タイプ | 説明                                                    |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | ヘッダ領域                                                |
-| header.isSuccessful                    | Boolean | 成功したか                                                 |
-| header.resultCode                      | Integer | 結果コード                                                |
-| header.resultMessage                   | String  | 結果メッセージ                                              |
-| distributions                          | List    | 作成されたCDNオブジェクトリスト                                 |
+| header                                 | Object  | ヘッダ領域                                               |
+| header.isSuccessful                    | Boolean | 成功したか                                                |
+| header.resultCode                      | Integer | 結果コード                                               |
+| header.resultMessage                   | String  | 結果メッセージ                                             |
+| distributions                          | List    | 作成されたCDNオブジェクトリスト                                |
 | distributions[0].domain                | String  | ドメイン名(サービス名)                                     |
-| distributions[0].domainAlias           | String  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)              |
-| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)                              |
-| distributions[0].description           | String  | 説明                                                     |
+| distributions[0].domainAlias           | String  | ドメインエイリアスリスト(個人または会社が所有するドメインを使用)              |
+| distributions[0].region                | String  | サービス地域("GLOBAL":グローバル)                              |
+| distributions[0].description           | String  | 説明                                                    |
 | distributions[0].status                | String  | CDN状態コード([表] CDN状態コード参考)                                 |
-| distributions[0].createTime            | String  | 作成日時                                                |
+| distributions[0].createTime            | String  | 作成日時                                               |
 | distributions[0].useOrigin             | String  | 原本サーバー設定を使用するか("Y"：原本サーバー設定を使用、 "N"：ユーザーを設定) |
 | distributions[0].maxAge                | String  | キャッシュ満了時間(秒)                                           |
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
-| distributions[0].referrers             | String  | リファラーリスト                                              |
-| distributions[0].origins               | List    | 原本サーバーオブジェクトリスト                                  |
+| distributions[0].referrers             | String  | リファラーリスト                                             |
+| distributions[0].origins               | List    | 原本サーバーオブジェクトリスト                                 |
 | distributions[0].origins[0].origin     | String  | 原本サーバー(domainまたはIP)                                      |
-| distributions[0].origins[0].originPath | String  | 原本サーバーの下層パス                                      |
-| distributions[0].origins[0].port       | Integer | 原本サーバーポート                                           |
-| distributions[0].callback              | Object  | サービス配布処理結果の通知を受けるコールバック                    |
+| distributions[0].origins[0].originPath | String  | 原本サーバーの下層パス                                     |
+| distributions[0].origins[0].port       | Integer | 原本サーバーポート                                          |
+| distributions[0].callback              | Object  | サービス配布処理結果の通知を受けるコールバック                   |
 | distributions[0].callback.httpMethod   | String  | コールバックのHTTP Method                                           |
 | distributions[0].callback.url          | String  | コールバックURL                                                     |
 
@@ -344,28 +343,28 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| 名前              | タイプ | 必須か | デフォルト値 | 有効範囲                                                | 説明                                                     |
+| 名前             | タイプ | 必須か | デフォルト値 | 有効範囲                                               | 説明                                                    |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| domain                | String  | 必須      |        | 最大255文字                                                | 修正するドメイン(サービス名)                                   |
-| useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| forwardHostHeader     | String  | 필수      | 도메인 별칭 설정시: REQUEST_HOST_HEADER, 도메인 별칭 미설정시: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
-| useOrigin             | String  | 必須      |        | Y/N                                                          | キャッシュ満了設定(Y：原本設定を使用、 "N"：ユーザー設定を使用)      |
-| referrerType          | String  | 必須      |        | BLACKLIST/WHITELIST                                          | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
-| description           | String  | 任意      |        | 最大255文字                                                | 説明                                                     |
-| domainAlias           | String  | 任意      |        | 最大255文字                                                | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンで区分して入力してください。) |
-| maxAge                | Integer | 任意      | 0      | 0 ～ 2,147,483,647                                            | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。              |
-| referrers             | String  | 任意      |        | '\n'トークンを含めて最大1024文字                               | リファラー(複数入力時\\nトークンで区分して入力してください。 )  |
-| origins               | List    | 必須      |        |                                                              | 原本サーバー                                                |
-| origins[0].origin     | String  | 必須      |        | 最大255文字                                                | 原本サーバー(domainまたはIP)                                      |
-| origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
-| origins[0].originPath | String  | 任意      |        | 最大8192文字                                               | 原本サーバーの下層パス                                      |
-| callback              | Object  | 任意      |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
-| callback.httpMethod   | String  | 必須      |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
-| callback.url          | String  | 必須      |        | 最大1024文字                                               | コールバックURL                                                     |
+| domain                | String  | 必須     |        | 最大255文字                                               | 修正するドメイン(サービス名)                                   |
+| useOriginHttpProtocolDowngrade | Boolean  | 必須 |        | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストをHTTPリクエストにダウングレードするための設定を使用するかどうか |
+| forwardHostHeader     | String  | 必須  |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストをする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホストネームで設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定)|
+| useOrigin             | String  | 必須     |        | Y/N                                                          | キャッシュ満了設定(Y：原本設定を使用、 "N"：ユーザー設定を使用)      |
+| referrerType          | String  | 必須     |        | BLACKLIST/WHITELIST                                          | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
+| description           | String  | 任意     |        | 最大255文字                                               | 説明                                                    |
+| domainAlias           | String  | 任意     |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンで区分して入力してください。) |
+| maxAge                | Integer | 任意     | 0      | 0 ～ 2,147,483,647                                            | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。              |
+| referrers             | String  | 任意     |        | '\n'トークンを含めて最大1024文字                              | リファラー(複数入力時\\nトークンで区分して入力してください。 )  |
+| origins               | List    | 必須     |        |                                                              | 原本サーバー                                               |
+| origins[0].origin     | String  | 必須     |        | 最大255文字                                               | 原本サーバー(domainまたはIP)                                      |
+| origins[0].port       | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
+| origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
+| origins[0].originPath | String  | 任意     |        | 最大8192文字                                              | 原本サーバーの下層パス                                     |
+| callback              | Object  | 任意     |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
+| callback.httpMethod   | String  | 必須     |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
+| callback.url          | String  | 必須     |        | 最大1024文字                                              | コールバックURL                                                     |
 
-- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
+- forwardHostHeaderフィールドとuseOriginHttpProtocolDowngradeフィールドは*.toastcdn.netドメインを使用する場合は設定できます。*.cdn.toastcloud.comドメインは設定できません。
 
 #### レスポンス
 
@@ -385,9 +384,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| フィールド               | タイプ  | 説明 |
+| フィールド              | タイプ | 説明 |
 | -------------------- | ------- | ------ |
-| header               | Object  | ヘッダ領域     |
+| header               | Object  | ヘッダ領域    |
 | header.isSuccessful  | Boolean | 成功したか |
 | header.resultCode    | Integer | 結果コード |
 | header.resultMessage | String  | 結果メッセージ |
@@ -434,30 +433,30 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| 名前              | タイプ | 必須か | デフォルト値 | 有効範囲                                                | 説明                                                     |
+| 名前             | タイプ | 必須か | デフォルト値 | 有効範囲                                               | 説明                                                    |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| domain                | String  | 必須      |        | 最大255文字                                                | 修正するドメイン(サービス名)                                   |
-| useOriginHttpProtocolDowngrade | Boolean  | 선택     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| forwardHostHeader     | String  | 선택      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정 |
-| useOrigin             | String  | 任意      |        | Y/N                                                          | キャッシュ満了設定(Y：原本設定使用、 N：ユーザー設定使用)        |
-| referrerType          | String  | 任意      |        | BLACKLIST / WHITELIST                                        | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
-| description           | String  | 任意      |        | 最大255文字                                                | 説明                                                     |
-| domainAlias           | String  | 任意      |        | 最大255文字                                                | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンに分離して入力してください。) |
-| maxAge                | Integer | 任意      | 0      | 0～2,147,483,647                                              | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。           |
-| referrers             | String  | 任意      |        | '\n'トークンを含めて最大1024文字                               | リファラー(複数入力時\\nトークンに分離して入力してください。 )  |
-| origins               | List    | 任意      |        |                                                              | 原本サーバー                                                |
-| origins[0].origin     | String  | 任意      |        | 最大255文字                                                | 原本サーバー(domainまたはIP)                                     |
-| origins[0].port       | Integer | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
-| origins[0].originPath | String  | 任意      |        | 最大8192文字                                               | 原本サーバー下層パス                                      |
-| callback              | Object  | 任意      |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
-| callback.httpMethod   | String  | 任意      |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
-| callback.url          | String  | 任意      |        | 最大1024文字                                               | コールバックURL                                                     |
+| domain                | String  | 必須     |        | 最大255文字                                               | 修正するドメイン(サービス名)                                   |
+| useOriginHttpProtocolDowngrade | Boolean  | 任意 |        | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するかどうか |
+| forwardHostHeader     | String  | 任意     |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーへコンテンツをリクエストする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名に設定、 "REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダに設定 |
+| useOrigin             | String  | 任意     |        | Y/N                                                          | キャッシュ満了設定(Y：原本設定使用、 N：ユーザー設定使用)        |
+| referrerType          | String  | 任意     |        | BLACKLIST / WHITELIST                                        | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
+| description           | String  | 任意     |        | 最大255文字                                               | 説明                                                    |
+| domainAlias           | String  | 任意     |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンに分離して入力してください。) |
+| maxAge                | Integer | 任意     | 0      | 0～2,147,483,647                                              | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。           |
+| referrers             | String  | 任意     |        | '\n'トークンを含めて最大1024文字                              | リファラー(複数入力時\\nトークンに分離して入力してください。 )  |
+| origins               | List    | 任意     |        |                                                              | 原本サーバー                                               |
+| origins[0].origin     | String  | 任意     |        | 最大255文字                                               | 原本サーバー(domainまたはIP)                                     |
+| origins[0].port       | Integer | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
+| origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
+| origins[0].originPath | String  | 任意     |        | 最大8192文字                                              | 原本サーバー下層パス                                     |
+| callback              | Object  | 任意     |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
+| callback.httpMethod   | String  | 任意     |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
+| callback.url          | String  | 任意     |        | 最大1024文字                                              | コールバックURL                                                     |
 
-- origins 필드를 설정할 때 origin, originPath 필드는 필수 입력값이며, port 필드나 httpPort, httpsPort 필드 중 하나는 필수로 입력해야 합니다.
-- callback 필드를 설정할 때 httpMethod, url 필드는 필수 입력값입니다.
-- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
+- originsフィールドを設定する時、origin、originPathフィールドは必須入力値です。portフィールド、httpPort、httpsPortフィールドのいずれか1つは必ず入力する必要があります。
+- callbackフィールドを設定する時、httpMethod、urlフィールドは必須入力値です。
+- forwardHostHeaderフィールドとuseOriginHttpProtocolDowngradeフィールドは*.toastcdn.netドメインを使用する場合は設定できます。*.cdn.toastcloud.comドメインは設定できません。
 
 #### レスポンス
 
@@ -477,9 +476,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| フィールド               | タイプ  | 説明 |
+| フィールド              | タイプ | 説明 |
 | -------------------- | ------- | ------ |
-| header               | Object  | ヘッダ領域     |
+| header               | Object  | ヘッダ領域    |
 | header.isSuccessful  | Boolean | 成功したか |
 | header.resultCode    | Integer | 結果コード |
 | header.resultMessage | String  | 結果メッセージ |
@@ -510,9 +509,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| 名前  | タイプ | 必須か | デフォルト値 | 有効範囲 | 説明                |
+| 名前 | タイプ | 必須か | デフォルト値 | 有効範囲 | 説明               |
 | ------- | ------ | ----- | ---- | ----- | --------------------- |
-| domains | String | 必須    |      |       | 削除するドメイン、複数ドメイン入力可 |
+| domains | String | 必須   |      |       | 削除するドメイン、複数ドメイン入力可 |
 
 **\* 複数のドメイン入力時、該当サービスはすべて終了します。**
 
@@ -534,9 +533,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| フィールド               | タイプ  | 説明 |
+| フィールド              | タイプ | 説明 |
 | -------------------- | ------- | ------ |
-| header               | Object  | ヘッダ領域     |
+| header               | Object  | ヘッダ領域    |
 | header.isSuccessful  | Boolean | 成功したか |
 | header.resultCode    | Integer | 結果コード |
 | header.resultMessage | String  | 結果メッセージ |
@@ -567,11 +566,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| 名前  | タイプ | 必須か | デフォルト値 | 有効範囲         | 説明                                                     |
+| 名前 | タイプ | 必須か | デフォルト値 | 有効範囲        | 説明                                                    |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | 必須      |        | 最大255文字         | 再配布するドメイン(サービス)名                             |
-| purgeType | List   | 必須      |        | ITEM / WILDCARD / ALL | 再配布タイプ("ITEM"、"WILDCARD"、"ALL")                       |
-| purgeList | String | 任意      |        |                       | 再配布対象項目リスト(複数入力する時は\\nトークンで区分して入力してください。purgeTypeがALLの場合は入力しなくても構いません。) |
+| domain    | String | 必須     |        | 最大255文字        | 再配布するドメイン(サービス)名                            |
+| purgeType | List   | 必須     |        | ITEM / WILDCARD / ALL | 再配布タイプ("ITEM"、"WILDCARD"、"ALL")                       |
+| purgeList | String | 任意     |        |                       | 再配布対象項目リスト(複数入力する時は\\nトークンで区分して入力してください。purgeTypeがALLの場合は入力しなくても構いません。) |
 
 #### レスポンス
 
@@ -591,17 +590,17 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [フィールド]
 
-| フィールド               | タイプ  | 説明    |
+| フィールド              | タイプ | 説明   |
 | -------------------- | ------- | --------- |
-| header               | Object  | ヘッダ領域     |
-| header.isSuccessful  | Boolean | 成功したか     |
-| header.resultCode    | Integer | 結果コード     |
-| header.resultMessage | String  | 結果メッセージ    |
+| header               | Object  | ヘッダ領域    |
+| header.isSuccessful  | Boolean | 成功したか    |
+| header.resultCode    | Integer | 結果コード    |
+| header.resultMessage | String  | 結果メッセージ   |
 | purgeSeq             | Integer | 再配布要請番号 |
 
-- CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 지속되는 경우 고객센터로 문의해주시기 바랍니다.
-- 퍼지 API은 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide/#cdn_3)의 '캐시 재배포 사용량 제한' 내용을 확인해주세요.
-- ITEM, WILDCARD 타입은 요청 당 퍼지 경로 수가 제한 되어 있습니다. 초과하여 요청한 경우 요청 당 퍼지 경로 개수 만큼씩 나누어 퍼지 요청이 진행됩니다. 이 경우 처음 퍼지 요청의 재배포 요청 번호만 응답으로 전달됩니다.   
+- CDNサービスを新規で作成した後、約1時間はキャッシュ再配布リクエストは失敗する場合があります。その後も失敗が続く場合はサポートへお問い合わせください。
+- パージAPIは使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#cdn_3)の「キャッシュ再配布使用量制限」を確認してください。
+- ITEM、WILDCARDタイプは1リクエスト当たりのパージパス数が制限されています。超過してリクエストした場合、リクエストが複数に分かれてパージリクエストが進行されます。この場合、パージリクエストの再配布リクエスト番号のみレスポンスで伝達されます。   
 
 ### キャッシュ再配布(Purge)照会
 
@@ -617,13 +616,13 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [パラメータ]
 
-| 名前       | タイプ  | 必須か | デフォルト値 | 有効範囲                                | 説明          |
+| 名前      | タイプ | 必須か | デフォルト値 | 有効範囲                               | 説明         |
 | ------------ | ------- | ----- | ---- | ---------------------------------------- | --------------- |
-| domain       | String  | 必須    |      | 最大255文字                               | ドメイン(サービス)名 |
-| page         | Integer | 任意    |      |                                          | ページ番号      |
-| itemsPerPage | Integer | 任意    |      |                                          | 1ページ当たりの再配布された項目個数 |
-| startTime    | String  | 任意    |      | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z"(UTC) | 期間検索       |
-| endTime      | String  | 任意    |      | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z"(UTC) | 期間検索       |
+| domain       | String  | 必須   |      | 最大255文字                              | ドメイン(サービス)名 |
+| page         | Integer | 任意   |      |                                          | ページ番号     |
+| itemsPerPage | Integer | 任意   |      |                                          | 1ページ当たりの再配布された項目個数 |
+| startTime    | String  | 任意   |      | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z"(UTC) | 期間検索      |
+| endTime      | String  | 任意   |      | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z"(UTC) | 期間検索      |
 
 
 ```
@@ -673,25 +672,25 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?
 
 [フィールド]
 
-| フィールド                  | タイプ  | 説明                            |
+| フィールド                 | タイプ | 説明                           |
 | ----------------------- | ------- | --------------------------------- |
-| header                  | Object  | ヘッダ領域                         |
-| header.isSuccessful     | Boolean | 成功したか                          |
-| header.resultCode       | Integer | 結果コード                         |
-| header.resultMessage    | String  | 結果メッセージ                        |
-| totalItems              | Integer | 再配布した総個数                      |
-| purges                  | List    | 再配布項目リスト                    |
-| purges[0].seq           | Integer | 再配布要請番号                     |
-| purges[0].progress      | Integer | 再配布進行率                        |
-| purges[0].purgeTime     | Long    | 再配布要請時間                     |
-| purges[0].lastCheckTime | Long    | 再配布実行最後のチェック時間              |
+| header                  | Object  | ヘッダ領域                        |
+| header.isSuccessful     | Boolean | 成功したか                         |
+| header.resultCode       | Integer | 結果コード                        |
+| header.resultMessage    | String  | 結果メッセージ                       |
+| totalItems              | Integer | 再配布した総個数                     |
+| purges                  | List    | 再配布項目リスト                   |
+| purges[0].seq           | Integer | 再配布要請番号                    |
+| purges[0].progress      | Integer | 再配布進行率                       |
+| purges[0].purgeTime     | Long    | 再配布要請時間                    |
+| purges[0].lastCheckTime | Long    | 再配布実行最後のチェック時間             |
 | purges[0].type          | String  | 再配布タイプ("ITEM"、"WILDCARD"、"ALL") |
-| purges[0].path          | String  | 再配布要請項目                     |
+| purges[0].path          | String  | 再配布要請項目                    |
 
-## 콜백 응답
-CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일시정지/재개/삭제 의 변경 작업 완료 시 콜백 URL에 아래와 같은 응답값을 전달합니다.
+## コールバックレスポンス
+CDNサービスにコールバック機能が設定されている場合、作成/修正/一時停止/再開/削除の変更作業完了時、コールバックURLに下記のようなレスポンス値を伝達します。
 
-[응답 본문]
+[レスポンス本文]
 ``` json
 {
   "header" : {
@@ -727,31 +726,31 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
 }
 ```
 
-[필드]
+[フィールド]
 
-| 필드                                   | 타입    | 설명                                                         |
+| フィールド                            | タイプ | 説明                                                  |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 헤더 영역                                                    |
-| header.isSuccessful                    | Boolean | 성공 여부                                                    |
-| header.resultCode                      | Integer | 결과 코드                                                    |
-| header.resultMessage                   | String  | 결과 메시지                                                  |
-| distribution                          | Object    | 변경작업이 완료된 CDN 오브젝트                                     |
-| distribution.appKey                   | String    | 앱키                                  |
-| distribution.domain                | String  | 도메인 이름(서비스 이름)                                     |
-| distribution.domainAlias           | String  | 소유 도메인                                                  |
-| distribution.region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
-| distribution.description           | String  | 설명                                                         |
-| distribution.status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
-| distribution.createTime            | String  | 생성 일시                                                    |
-| distribution.deleteTime            | String  | 삭제 일시                                                    |
-| distribution.useOrigin             | String  | 원본 서버 설정 사용 여부("Y": 원본 서버 설정 사용, "N": 사용자 설정) |
-| distribution.maxAge                | String  | 캐시 만료 시간(초)                                           |
-| distribution.referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
-| distribution.referrers             | String  | 리퍼러 목록                                                  |
-| distribution.origins               | List    | 원본 서버 오브젝트 목록                                      |
-| distribution.origins[0].origin     | String  | 원본 서버(domain 또는 IP)                                      |
-| distribution.origins[0].originPath | String  | 원본 서버 하위 경로                                          |
-| distribution.origins[0].port       | Integer | 원본 서버 포트                                               |
-| distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
-| distribution.callback.httpMethod   | String  | 콜백의 HTTP Method                                           |
-| distribution.callback.url          | String  | 콜백 URL                                                     |
+| header                                 | Object  | ヘッダ領域                                             |
+| header.isSuccessful                    | Boolean | 成否                                              |
+| header.resultCode                      | Integer | 結果コード                                             |
+| header.resultMessage                   | String  | 結果メッセージ                                           |
+| distribution                          | Object    | 変更作業が完了したCDNオブジェクト                                 |
+| distribution.appKey                   | String    | アプリケーションキー                              |
+| distribution.domain                | String  | ドメイン名(サービス名)                                     |
+| distribution.domainAlias           | String  | 所有ドメイン                                              |
+| distribution.region                | String  | サービス地域("GLOBAL"：グローバル)             |
+| distribution.description           | String  | 説明                                                     |
+| distribution.status                | String  | CDNステータスコード([表] CDNステータスコード参照)                                 |
+| distribution.createTime            | String  | 作成日時                                                |
+| distribution.deleteTime            | String  | 削除日時                                                |
+| distribution.useOrigin             | String  | オリジンサーバー設定を使用するか("Y"：オリジンサーバー設定を使用、"N"：ユーザー設定) |
+| distribution.maxAge                | String  | キャッシュ満了時間(秒)                                           |
+| distribution.referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
+| distribution.referrers             | String  | リファラーリスト                                              |
+| distribution.origins               | List    | オリジンサーバーオブジェクトリスト                                  |
+| distribution.origins[0].origin     | String  | オリジンサーバー(domainまたはIP)                                      |
+| distribution.origins[0].originPath | String  | オリジンサーバー下層パス                                      |
+| distribution.origins[0].port       | Integer | オリジンサーバーポート                                           |
+| distribution.callback              | Object  | サービス配布処理結果を受け取るコールバック                    |
+| distribution.callback.httpMethod   | String  | コールバックのHTTP Method                                           |
+| distribution.callback.url          | String  | コールバックURL                                                     |
