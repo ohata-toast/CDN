@@ -82,9 +82,9 @@ Test and deploy newly created **[ServiceID].toastcdn.net** service before it is 
 1. Create a test build to test newly created CDN service. 
     - To do this, use service domain address of **[ServiceID].toastcdn.net** for newly created CDN service, instaed of service domain of **[ServiceID].cdn.toastcloud.com** for the existing domain. 
 3. Test the testing build on a local or development environment server to see if it works well.
-    ![DefaultServiceDomain-TestEnvironment](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-before.png)
+    ![DefaultServiceDomain-TestEnvironment](https://static.toastoven.net/prod_cdn/v2/en/migration-test-test-build-before.png)
 4. When test is completed, apply and deploy **[ServiceID].toastcdn.net**, the newly created CDN service domain, to the running service build. 
-    ![DefaultServiceDomain-TestEnvironment-Apply](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-after.png)
+    ![DefaultServiceDomain-TestEnvironment-Apply](https://static.toastoven.net/prod_cdn/v2/en/migration-test-test-build-after.png)
 
 #### 3.2 When Serviced with Domain Alias Service 
 Domain alias service regards to using CDN service with owned domain, instead of **[ServiceID].cdn.toastcloud.com** which is the default domain address.
@@ -106,9 +106,9 @@ Domain alias service regards to using CDN service with owned domain, instead of 
     xxx.xxx.xxx.xxx your-alias.domain.com
     ```
 3. Alter the host file on local or development environment to see if it works fine. 
-   ![DomainAlias-AlterHostFile](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-before.png)
+   ![DomainAlias-AlterHostFile](https://static.toastoven.net/prod_cdn/v2/en/migration-test-alias-hosts-before.png)
 4. When testing is done, delegate CNAME record of domain alias under operations to **[ServiceID].toastcdn.net**. 
-   ![DomainAlias-AlterHostFile-Apply](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-after.png)
+   ![DomainAlias-AlterHostFile-Apply](https://static.toastoven.net/prod_cdn/v2/en/migration-test-alias-hosts-after.png)
 
 
 ##### How to Test 2: By Creating New Domain Alias  
@@ -116,9 +116,9 @@ Domain alias service regards to using CDN service with owned domain, instead of 
 2. As new domain alias also requires a certificate, first get a certificate and deploy it from certificate management. (See **[Prerequisites] To support secured transfer (HTTPS) between client and CDN edge, execute [Issue Certificate] first.** in the above.)
 3. Create a test build by setting new domain alias.
 4. Run service on a local or development environment to test if it works well. 
-   ![DomainAlias-TestBuild](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-before.png)
+   ![DomainAlias-TestBuild](https://static.toastoven.net/prod_cdn/v2/en/migration-test-alias-build-before.png)
 5. When testing is done, delegate CNAME record of domain alias to **[ServiceID].toastcdn.net**. 
-   ![DomainAlias-TestBuild-Apply](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-after.png)
+   ![DomainAlias-TestBuild-Apply](https://static.toastoven.net/prod_cdn/v2/en/migration-test-alias-build-after.png)
 
 ### 4. Delete Previous CDN Service 
 1. When all migration tasks are completed, go to the **Statistics** tab to query statistics on previous CDN service.
