@@ -377,7 +377,7 @@ TOAST CDNの証明書管理は次のような機能を提供します。
   - レコード値：**任意の文字列**(コンソールまたは送信されたメールガイドの**レコード値**を作成します。)
 
 2. nslookupコマンドを使って、追加したTXTレコードを確認します。DNS配信時間に応じて確認できるまで時間がかかる場合があります。
-    `nslookup -type=TXT **_acme-challenge.[発行リクエストした証明書ドメイン].**`
+    `nslookup -type=TXT _acme-challenge.[発行リクエストした証明書ドメイン].`
 
 次の画面はTOAST DNS+ サービスで設定した例です。DNSサービス提供業者によって設定方法は異なる場合があります。
 ![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns.png)

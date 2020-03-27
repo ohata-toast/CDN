@@ -388,6 +388,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP 메서드                                           |
 | callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                                                     |
 
+- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다. 
 
 #### 응답
 

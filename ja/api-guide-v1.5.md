@@ -144,7 +144,7 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 | distributions[0].callback.url          | String  | 必須     |        | 最大1024文字             | コールバックURL                                                     |
 
 - forwardHostHeaderフィールドとuseOriginHttpProtocolDowngradeフィールドは*.toastcdn.netドメインを使用する場合は設定できます。*.cdn.toastcloud.comドメインは設定できません。
-
+- forwardHostHeaderのデフォルト値は、domainAliasを設定した場合はREQUEST_HOST_HEADERで、未設定の場合はORIGIN_HOSTNAMEです。
 
 #### レスポンス
 
