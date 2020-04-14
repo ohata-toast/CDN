@@ -3,27 +3,27 @@
 ### March 24, 2020
 
 #### Feature Updates  
-* CDN Service Regions: Provided for the GLOBAL region only  서비스 지역만 제공됩니다.
-	* Korea-only CDN service is to be closed. CDN 서비스 지역을 KOREA(한국) 지역만 대상으로 제공하는 기능이 종료됩니다.
-	* Please use the Global Service region that includes the Korea region.  한국 지역을 포함하는 전체 서비스 지역(GLOBAL)을 이용하시기 바랍니다.
-* 신규 CDN 서비스 도메인의 변경 Change of New CDN Service Domain 
-	* When a new CDN service is created,  신규 CDN 서비스 생성 시 [ServiceID].toastcdn.net is provided as service domain address. 도메인으로 서비스 도메인 주소가 제공됩니다.
-	* Previous존 [ServiceID].cdn.cloudtoast.com service domain cannot be issued anew 서비스 도메인은 새로 발급할 수 없으며, and, since [ServiceID].cdn.cloudtoast.com is valid until도메인은 2020-05-26 10:00:00 KST of May 26, 2020, it must be migrated to a new CDN service. 까지 제공되므로 마이그레이션으로 신규 CDN 서비스로 이전해야 합니다.
+* CDN Service Regions: Provided for the GLOBAL region only.
+	* Korea-only CDN service is to be closed. 
+	* Please use the Global Service region that includes the Korea region.  
+* Change of New CDN Service Domain 
+	* When a new CDN service is created, [ServiceID].toastcdn.net is provided as service domain address
+	* Previous [ServiceID].cdn.cloudtoast.com service domain cannot be issued anew; since [ServiceID].cdn.cloudtoast.com is valid until 10:00:00 KST of May 26, 2020, it must be migrated to a new CDN service. 
 	* Regarding migration method, see [Migration Guide](./migration/).
-* Support of HTTP/HTTPS Service Protocols 서비스 프로토콜 지원
-	* 신규 생성 시 발급되는 [Service ID].toastcdn.net, which is issued for a new service, supports HTTP/HTTPS by default. 프로토콜을 기본으로 지원합니다.
-* Adding CDN Service Setup Option 서비스 설정 옵션 추가
-	* Setting HTTP/HTTPS Port at Origin Server: Service port can be set for each HTTP/HTTPS protocol at the origin server 원본 서버의 HTTP/HTTPS 포트 설정: 원본 서버의 HTTP/HTTPS 프로토콜별 서비스 포트를 설정할 수 있습니다.
-	* Downgrading HTTP Protocols 프로토콜 다운그레이드: HTTPS request from CDN Server to the Origin Server can be downgraded to HTTP protocol.  원본 서버로의 HTTPS 요청을 HTTP 프로토콜로 다운그레이드할 수 있습니다.
-	* Forward Host Header: When a content is requested from CDN server to origin server, either host name or requested host header can be selected as the host header.  서버에서 원본 서버로 콘텐츠 요청 시 Host Header를 원본 서버의 호스트 이름 또는 요청의 Host 헤더 중 선택할 수 있습니다.
-	* For more details, see [Console User Guide](./console-guide/)를 참고합니다.
-* Adding Certificate Management 인증서 관리 기능 추가
-	* To use CDN service with your own domain, HTTPS protocol service is provided as part of the certificate management features. With certificate management, certificates can be easily issued and automatically renewed before expired. 소유한 도메인으로 CDN 서비스를 이용하는 경우, HTTPS 프로토콜로 서비스할 수 있는 인증서 관리 기능이 제공됩니다. 인증서 관리 기능으로 손쉽게 인증서를 발급할 수 있으며, 만료 이전에 인증서도 자동으로 갱신됩니다.
+* Support of HTTP/HTTPS Service Protocols 
+	* [Service ID].toastcdn.net, which is issued for a new service, supports HTTP/HTTPS by default. 
+* Added CDN Service Setup Option 
+	* Setting HTTP/HTTPS Port at Origin Server: Service port can be set for each HTTP/HTTPS protocol at the origin server.
+	* Downgrading HTTP Protocols: HTTPS request from CDN Server to the Origin Server can be downgraded to HTTP protocol. 
+	* Forward Host Header: When a content is requested from CDN server to origin server, either host name or requested host header can be selected as host header.  
+	* For more details, see [Console User Guide](./console-guide/).
+* Added Certificate Management Features
+	* To use CDN service with your own domain, HTTPS protocol service is provided as part of certificate management features. With certificate management, certificates can be easily issued and automatically renewed before expired. 
 	* For more details, see [Console User Guide > Certificate Management](./console-guide/#_5).
 * API Support for (Old) Service Domain (*.cdn.toastcloud.com) and (New) Service Domain (*.toastcdn.net)
-	* (Old) [ServiceID].cdn.toastcloud.com is available without changing the old API (lower than v1.5). However, newly added features are not available. 서비스 도메인은 기존 API(v1.5 이하 버전)를 변경하지 않고 사용할 수 있습니다. 단, 신규 추가된 기능은 사용할 수 없습니다.
-	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications that are higher than v1.5. 서비스 도메인은 기존 API(v1.5 이하 버전)를 변경하지 않고 사용할 수 있습니다. 신규 추가된 기능은 v1.5 버전 이상의 API 사양에 추가하여 제공됩니다.
-* Cache Purging 캐시 재배포(purge)
+	* (Old) [ServiceID].cdn.toastcloud.com is available without changing the old API (lower than v1.5). However, newly added features are not available. 
+	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications that are higher than v1.5. 
+* Purge Cache  Purging 캐시 재배포(purge)
 	* Support of High-speed Cache Purge 고속 캐시 재배포 지원 : 캐시 재배포를 요청한 후 몇 초 이내 캐시 재배포가 완료됩니다. 고속 캐시 재배포를 이용해 변경된 콘텐츠를 바로 반영해 콘텐츠의 신뢰성을 높일 수 있습니다.
 	* 특정 파일 타입의 캐시 재배포 요청 방식 변경: 캐시 재배포를 할 파일의 전체 URL 주소를 입력하도록 변경되었습니다.
 		* 예) 기존: /images/toast.png -> 변경: http://[서비스ID].toastcdn.net/images/toast.png
@@ -35,20 +35,20 @@
 ### February 26, 2019 
 
 #### Feature Updates
-* 특정 CDN 서비스 퍼지 오류 수정
+* Fixed Purge Error at Particular CDN Service 특정 CDN 서비스 퍼지 오류 수정
 	* 원본 서버의 원본 경로가 설정된 경우, 원본 경로를 포함한 퍼지 경로를 작성하지 않을 경우 퍼지가 정상적으로 수행되지 않는 오류를 수정하였습니다.
 		* 퍼지 경로는 원본 서버의 원본 경로는 제외한 경로를 입력해야합니다.
 	* 복수 개의 도메인 별칭을 등록한 경우 퍼지가 정상적으로 수행되지 않는 오류를 수정하였습니다.
 
-* 도메인 별칭 제한
-	* 도메인 별칭이 최대 3개까지 입력할 수 있도록 제한되었습니다.
+* Domain Alias Restriction 도메인 별칭 제한
+	* No more than 3 domain alises are allowed. 도메인 별칭이 최대 3개까지 입력할 수 있도록 제한되었습니다.
 
 
 ### January 15, 2019 
 
 #### Feature Updates 
-* CDN 서비스 부분 수정 API 추가 Added Modify Partial CDN Service API. 
-	* 서비스 일부 설정만 변경할 수 있는 부분 수정 API를 추가하였습니다.
+* CDN 서비스 부분 수정 API 추가 Added API for Partial CDN Modification 
+	* Added API to modify only partial service settings 서비스 일부 설정만 변경할 수 있는 부분 수정 API를 추가하였습니다.
 
 ### August 28, 2018 
 
@@ -59,7 +59,7 @@
 ### May 29, 2018 
 
 #### Feature Updates
-* CDN API 1.5v 업데이트
+* Updates for CDN API 1.5v 업데이트
 	* API 안정성을 강화하여 품질을 향상하였습니다.
 	* 서비스 배포(변경) 작업이 완료되면 콜백을 통하여 작업의 성공여부와 서비스 상태를 전달합니다.
 * 서비스 배포(변경) 진행 상태를 확인 할 수 있도록 대시보드에 배포 상태를 표시하도록 수정하였습니다.
