@@ -22,9 +22,9 @@
 	* For more details, see [Console User Guide > Certificate Management](./console-guide/#_5).
 * API Support for (Old) Service Domain (*.cdn.toastcloud.com) and (New) Service Domain (*.toastcdn.net)
 	* (Old) [ServiceID].cdn.toastcloud.com is available without changing the old API (lower than v1.5). However, newly added features are not available. 서비스 도메인은 기존 API(v1.5 이하 버전)를 변경하지 않고 사용할 수 있습니다. 단, 신규 추가된 기능은 사용할 수 없습니다.
-	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications higher than v1.5. 서비스 도메인은 기존 API(v1.5 이하 버전)를 변경하지 않고 사용할 수 있습니다. 신규 추가된 기능은 v1.5 버전 이상의 API 사양에 추가하여 제공됩니다.
-* 캐시 재배포(purge)
-	* 고속 캐시 재배포 지원 : 캐시 재배포를 요청한 후 몇 초 이내 캐시 재배포가 완료됩니다. 고속 캐시 재배포를 이용해 변경된 콘텐츠를 바로 반영해 콘텐츠의 신뢰성을 높일 수 있습니다.
+	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications that are higher than v1.5. 서비스 도메인은 기존 API(v1.5 이하 버전)를 변경하지 않고 사용할 수 있습니다. 신규 추가된 기능은 v1.5 버전 이상의 API 사양에 추가하여 제공됩니다.
+* Cache Purging 캐시 재배포(purge)
+	* Support of High-speed Cache Purge 고속 캐시 재배포 지원 : 캐시 재배포를 요청한 후 몇 초 이내 캐시 재배포가 완료됩니다. 고속 캐시 재배포를 이용해 변경된 콘텐츠를 바로 반영해 콘텐츠의 신뢰성을 높일 수 있습니다.
 	* 특정 파일 타입의 캐시 재배포 요청 방식 변경: 캐시 재배포를 할 파일의 전체 URL 주소를 입력하도록 변경되었습니다.
 		* 예) 기존: /images/toast.png -> 변경: http://[서비스ID].toastcdn.net/images/toast.png
 	* 와일드카드 타입 캐시 재배포 기능 종료
