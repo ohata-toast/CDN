@@ -1,27 +1,27 @@
-## Content Delivery > CDN > 콘솔 사용 가이드
+## Content Delivery > CDN > Console user Guide 콘솔 사용 가이드
 
-이 문서는 TOAST CDN 콘솔에서 CDN 서비스를 구성하고 이용하는 방법을 설명합니다.
+This document describes how CDN service is configured and applied on TOAST CDN console. 이 문서는 TOAST CDN 콘솔에서 CDN 서비스를 구성하고 이용하는 방법을 설명합니다.
 
-## CDN 서비스 생성
+## Creating CDN 서비스 생성
 
-**Contents Delivery > CDN**의 **CDN 서비스** 탭에서 **생성** 버튼을 클릭하면 **CDN 서비스 생성** 대화 상자가 나타납니다.
-CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(domain alias) 기능을 이용할 수 있습니다.
-생성을 요청한 후 서비스 배포가 완료될 때까지 최대 2시간이 걸립니다. 배포가 완료된 후 서비스를 이용할 수 있습니다.
+Go to **Contents Delivery > CDN** and to **CDN Service**, click 탭에서 **Create** and 버튼을 클릭하면 the **Creat CDN Service서비스 생성** window pops up.  대화 상자가 나타납니다.
+CDN service domain is autoatically created in the 서비스 도메인은 **[ServiceID].toastcdn.net** format. To use your own domain, enable **Domain Alias**.  형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(domain alias) 기능을 이용할 수 있습니다.
+It takes up to 2 hours to complete deployment after service is requested for creation. Service becomes available after it is completely deployed. 생성을 요청한 후 서비스 배포가 완료될 때까지 최대 2시간이 걸립니다. 배포가 완료된 후 서비스를 이용할 수 있습니다.
 
-### 기본 정보 
-기본 정보를 설정합니다.
+### Basic Information 
+Basic information is set. 기본 정보를 설정합니다.
 ![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
 
-- **서비스 지역**
-  GLOBAL 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
-  단, **중국과 러시아**는 서비스 지역에서 제외됩니다.
+- **Service Region비스 지역**
+  GLOBAL service is provided via CDN edge servers located around the globe. 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
+  Note, however단, **China and Russia중국과 러시아** are excluded from service regions. 는 서비스 지역에서 제외됩니다.
 
-- **설명**
-  CDN 서비스의 설명을 추가합니다.
+- **Description**
+  More description is added on CDN service.  CDN 서비스의 설명을 추가합니다.
 
-- **도메인 별칭**
-  TOSAT CDN은 기본으로 **[서비스ID].toastcdn.net** 형식의 서비스 도메인 주소를 제공하고 있습니다.
-  기본 서비스 도메인 주소가 아닌 소유한 도메인으로 CDN 서비스를 이용하려면 **도메인 별칭**에서 설정하면 됩니다.
+- **Domain Alias도메인 별칭**
+  The default service domain address of TOAST CDN is provided in the 은 기본으로 **[ServiceID].toastcdn.net** format. 형식의 서비스 도메인 주소를 제공하고 있습니다.
+  To use CDN service with your own domain, enable **Domain Alias**. 기본 서비스 도메인 주소가 아닌 소유한 도메인으로 CDN 서비스를 이용하려면 **도메인 별칭**에서 설정하면 됩니다.
   소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 **인증서 관리** 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
   도메인 별칭 설정 후에는 도메인의 DNS 서비스 제공 업체에서 CNAME 레코드를 다음과 같이 등록해야 합니다. DNS 설정 관련 문의는 DNS 서비스 제공 업체에 하시기 바랍니다.
     - 레코드 타입: **CNAME**
@@ -29,7 +29,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
     - 레코드값(Rdata): **[서비스ID].toastcdn.net**
     - TTL: 임의의 값
 
-- **콜백**
+- **Callback**
   CDN 서비스 생성과 변경 작업(수정, 일시정지/재시작, 삭제)은 몇 시간이 걸립니다. 
   작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하시기 바랍니다. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#_23)를 참고하시기 바랍니다.
     1. **HTTP Method**와 **콜백 URL**을 입력합니다.
