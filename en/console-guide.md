@@ -24,14 +24,14 @@ Basic information is set. 기본 정보를 설정합니다.
   To use CDN service with your own domain, enable **Domain Alias**. 기본 서비스 도메인 주소가 아닌 소유한 도메인으로 CDN 서비스를 이용하려면 **도메인 별칭**에서 설정하면 됩니다.
   소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 **인증서 관리** 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
   도메인 별칭 설정 후에는 도메인의 DNS 서비스 제공 업체에서 CNAME 레코드를 다음과 같이 등록해야 합니다. DNS 설정 관련 문의는 DNS 서비스 제공 업체에 하시기 바랍니다.
-    - 레코드 타입: **CNAME**
-    - 레코드 이름: **[도메인 별칭에 등록한 도메인]**
-    - 레코드값(Rdata): **[서비스ID].toastcdn.net**
-    - TTL: 임의의 값
+    - Record Type: **CNAME**
+    - Record Name: **[도메인 별칭에 등록한 도메인]**
+    - Record Value (Rdata): **[ServiceID].toastcdn.net**
+    - TTL: Random 임의의 값
 
 - **Callback**
-  CDN 서비스 생성과 변경 작업(수정, 일시정지/재시작, 삭제)은 몇 시간이 걸립니다. 
-  작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하시기 바랍니다. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#_23)를 참고하시기 바랍니다.
+  CDN 서비스 생성과 변경 작업(수정, 일시정지/재시작, 삭제)은 몇 시간이 걸립니다. It takes hours to create and change CDN service (e.g. edit, suspend/restart, and delete)
+  작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하시기 바랍니다. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#_23)를 참고하시기 바랍니다. To receive change status via callback URL and CDN setting information, enable the callback setting. 
     1. **HTTP Method**와 **콜백 URL**을 입력합니다.
     2. Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 전달받으려면 **콜백 URL**에 다음의 경로(path) 변수를 포함해 입력해 주세요. 
          예: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
