@@ -1,46 +1,46 @@
-## Content Delivery > CDN > API v2.0 가이드
+## Content Delivery > CDN > API v2.0 Guide 
 
-TOAST CDN에서 제공하는 Public API v2.0을 설명합니다.
+This document describes Public API v2.0 of TOAST CDN. 
 
-## API V2.0의 서비스 도메인별 지원 안내  
-API V2.0은 \*.toastcdn.net 서비스 도메인만 지원합니다.
+## API V2.0 Support for Each Service Domain 의 서비스 도메인별 지원 안내  
+API V2.0 supports \*.toastcdn.net domain only.  서비스 도메인만 지원합니다.
 \*.cdn.toastcloud.com 서비스 도메인은 v1.5 버전 이하의 API를 사용하세요.
 
-## API 공통 정보
+## Common API Information 
 
-### 도메인
+### Domain
 
-| 이름              | 도메인                                   |
+| Name              | Domain                                   |
 | --------------- | ------------------------------------- |
-| CDN Public API 도메인 | https://api-gw.cloud.toast.com/tc-cdn |
+| CDN Public API Domain | https://api-gw.cloud.toast.com/tc-cdn |
 
-### 사전 준비
+### Prerequisites
 
 API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니다.
 앱 키와 보안 키는 콘솔 오른쪽 위의 **URL & Appkey** 메뉴에서 확인할 수 있습니다.
 
-### 요청 공통 정보
+### Common Request Information
 
-#### 요청 헤더
+#### Request Header
 
-| 이름            | 설명                        |
+| Name            | Description                        |
 | ------------- | ------------------------- |
 | Authorization | 콘솔에서 발급받은 보안 키(SecretKey) |
 
-#### Path 파라미터
+#### Path Parameter 
 
-모든 API는 앱 키를 path 파라미터로 지정해야 합니다.
-* 예) /v2.0/appKeys/**{appKey}**/distributions
+All APIs must specify 모든 API는 앱 키를 path 파라미터로 지정해야 합니다.
+* e.g.) /v2.0/appKeys/**{appKey}**/distributions
 
-| 이름     | 설명                    |
+| Name     | Description                    |
 | ------ | --------------------- |
-| appKey | 콘솔에서 발급받은 앱 키(Appkey) |
+| appKey | Appkey issued on console |
 
-### 응답 공통 정보
+### Common Response Information 
 
-#### 헤더
+#### Header 
 
-모든 API 요청에 대해서 **200 OK**로 응답합니다. 자세한 응답 결과는 다음의 예와 같이 응답 본문의 헤더를 참고합니다.
+Respond with 모든 API 요청에 대해서 **200 OK** for all API requests. For more response details, see the header at the response body like below:  응답합니다. 자세한 응답 결과는 다음의 예와 같이 응답 본문의 헤더를 참고합니다.
 
 ```json
 {
@@ -53,47 +53,47 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 ```
 
 
-[필드]
+[Field]
 
-| 필드                   | 타입      | 설명     |
+| Field                   | Type      | Description     |
 | -------------------- | ------- | ------ |
-| header               | Object  | 헤더 영역  |
-| header.isSuccessful  | Boolean | 성공 여부  |
-| header.resultCode    | Integer | 결과 코드  |
-| header.resultMessage | String  | 결과 메시지 |
+| header               | Object  | Header area  |
+| header.isSuccessful  | Boolean | Successful or not  |
+| header.resultCode    | Integer | Result code  |
+| header.resultMessage | String  | Result message |
 
-#### CDN 상태 코드
+#### CDN Status Codes
 
 다음은 CDN 서비스 상태를 나타내는 상태 코드로, 서비스 조회 시 서비스 상태를 확인할 수 있습니다.
 
-| 값         | 설명                     |
+| Value         | Description                     |
 | ---------- | ------------------------ |
-| OPENING    | 서비스 시작 중           |
-| OPEN       | 서비스 중                |
-| MODIFYING  | 수정 중                  |
-| RESUME     | 시작                     |
-| SUSPENDING | 정지 진행 중             |
-| SUSPEND    | 정지                     |
-| CLOSING    | 사용 종료 중             |
-| CLOSE      | 사용 종료                |
-| ERROR      | 서비스 생성 중 오류 발생 |
+| OPENING    | Starting service 서비스 시작 중           |
+| OPEN       | In service 서비스 중                |
+| MODIFYING  | Under modification 수정 중                  |
+| RESUME     | Resumed시작                     |
+| SUSPENDING | Under suspension 정지 진행 중             |
+| SUSPEND    | Suspended정지                     |
+| CLOSING    | Closing service 사용 종료 중             |
+| CLOSE      | Closed 사용 종료                |
+| ERROR      | Error occurred while creating service 서비스 생성 중 오류 발생 |
 
 
-## 서비스 API
+## Service API
 
 ### 서비스 생성
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드  | URI                                  |
+| Method  | URI                                  |
 | ---- | ------------------------------------ |
 | POST | /v2.0/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
@@ -124,11 +124,11 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 }
 ```
 
-[필드]
+[Field]
 
-| 이름                                   | 타입    | 필수 여부 | 기본값 | 유효 범위                   | 설명                                                         |
+| Name                                   | Type    | Required | Default | Valid Range                   | Description                                                         |
 | -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
-| distributions                          | List    | 필수      |        |                              | 생성할 CDN의 오브젝트 목록                                   |
+| distributions                          | List    | Required      |        |                              | 생성할 CDN의 오브젝트 목록                                   |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | 필수      | 도메인 별칭 설정시: REQUEST_HOST_HEADER, 도메인 별칭 미설정시: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
 | distributions[0].useOriginCacheControl | Boolean | 필수      |        | true/false                  | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정)   |
