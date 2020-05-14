@@ -2,9 +2,9 @@
 
 This document describes Public API v2.0 of TOAST CDN. 
 
-## API V2.0 Support for Each Service Domain 의 서비스 도메인별 지원 안내  
-API V2.0 supports \*.toastcdn.net domain only.  서비스 도메인만 지원합니다.
-\*.cdn.toastcloud.com 서비스 도메인은 v1.5 버전 이하의 API를 사용하세요.
+## API V2.0 Support for Each Service Domain   
+API V2.0 supports \*.toastcdn.net domain only.  
+To use the \*.cdn.toastcloud.com domain, use v1.5 or lowr version of API. 
 
 ## Common API Information 
 
@@ -16,8 +16,7 @@ API V2.0 supports \*.toastcdn.net domain only.  서비스 도메인만 지원합
 
 ### Prerequisites
 
-API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니다.
-앱 키와 보안 키는 콘솔 오른쪽 위의 **URL & Appkey** 메뉴에서 확인할 수 있습니다.
+Requires Appkey and Secretkey API, which are available in **URL & Appkey** on top right of the console.
 
 ### Common Request Information
 
@@ -25,11 +24,11 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 
 | Name            | Description                        |
 | ------------- | ------------------------- |
-| Authorization | 콘솔에서 발급받은 보안 키(SecretKey) |
+| Authorization | SecretKey issued on a console |
 
 #### Path Parameter 
 
-All APIs must specify 모든 API는 앱 키를 path 파라미터로 지정해야 합니다.
+In all APIs, the appKey must be specified in the path parameter.
 * e.g.) /v2.0/appKeys/**{appKey}**/distributions
 
 | Name     | Description                    |
@@ -40,7 +39,7 @@ All APIs must specify 모든 API는 앱 키를 path 파라미터로 지정해야
 
 #### Header 
 
-Respond with 모든 API 요청에 대해서 **200 OK** for all API requests. For more response details, see the header at the response body like below:  응답합니다. 자세한 응답 결과는 다음의 예와 같이 응답 본문의 헤더를 참고합니다.
+Respond with **200 OK** to all API requests. For more details, see the header at the response body as below
 
 ```json
 {
@@ -64,24 +63,24 @@ Respond with 모든 API 요청에 대해서 **200 OK** for all API requests. For
 
 #### CDN Status Codes
 
-다음은 CDN 서비스 상태를 나타내는 상태 코드로, 서비스 조회 시 서비스 상태를 확인할 수 있습니다.
+Below shows the status codes of CDN service, which are available at the query of service.
 
 | Value         | Description                     |
 | ---------- | ------------------------ |
-| OPENING    | Starting service 서비스 시작 중           |
-| OPEN       | In service 서비스 중                |
-| MODIFYING  | Under modification 수정 중                  |
-| RESUME     | Resumed시작                     |
-| SUSPENDING | Under suspension 정지 진행 중             |
-| SUSPEND    | Suspended정지                     |
-| CLOSING    | Closing service 사용 종료 중             |
-| CLOSE      | Closed 사용 종료                |
-| ERROR      | Error occurred while creating service 서비스 생성 중 오류 발생 |
+| OPENING    | Starting service            |
+| OPEN       | In service                 |
+| MODIFYING  | Under modification         |
+| RESUME     | Resumed                     |
+| SUSPENDING | Under suspension            |
+| SUSPEND    | Suspended                   |
+| CLOSING    | Closing service              |
+| CLOSE      | Closed                 |
+| ERROR      | Error occurred while creating service  |
 
 
 ## Service API
 
-### 서비스 생성
+### Create
 
 #### Request
 
@@ -149,7 +148,7 @@ Respond with 모든 API 요청에 대해서 **200 OK** for all API requests. For
 
 
 
-#### 응답
+#### Response
 
 
 [응답 본문]
