@@ -129,7 +129,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
 | distributions                          | List    | Required      |        |                              | List of CDN objects to create                                   |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP|
-| distributions[0].forwardHostHeader     | String  | Required      | When domain alias setting is enabled: REQUEST_HOST_HEADER, When domain alias setting is enabled: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Setting host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)| 
+| distributions[0].forwardHostHeader     | String  | Required      | When domain alias setting is enabled: REQUEST_HOST_HEADER, When domain alias setting is enabled: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)| 
 | distributions[0].useOriginCacheControl | Boolean | Required      |        | true/false                  | Cache expiration setting (true: Original setting, false: User-configured)   |
 | distributions[0].referrerType          | String  | Required      |        | BLACKLIST/WHITELIST         | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | Optional      |        |                           | List of regex referrer headers   |
@@ -218,9 +218,9 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].origins[0].originPath | String  | Lower paths of origin server                                           |
 | distributions[0].origins[0].httpPort   | Integer | HTTP protocol port of origin server                                               |
 | distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                              |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트헤더로 설정 |
-| distributions[0].callback              | Object  | Callback to receive 서비스 생성 처리 결과를 통보받을 콜백                        |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean |Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP  |
+| distributions[0].forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
+| distributions[0].callback              | Object  | Callback to receive service creation result                 |
 | distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
 | distributions[0].callback.url          | String  | Callbak URL                                                     |
 
@@ -298,41 +298,41 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | header.isSuccessful                    | Boolean | Successful or not                                                   |
 | header.resultCode                      | Integer | Result code                                                   |
 | header.resultMessage                   | String  | Result message                                                  |
-| distributions                          | List    | 생성된 CDN 오브젝트 목록                                     |
-| distributions[0].domain                | String  | 도메인 이름(서비스 이름)                                     |
-| distributions[0].domainAlias           | List  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)                                                  |
-| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
-| distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
-| distributions[0].defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
-| distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
-| distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
-| distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
-| distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
-| distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
-| distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
-| distributions[0].origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                  |
-| distributions[0].origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                 |
-| distributions[0].forwardHostHeader     | String  | 서비스 배포 처리 결과를 통보받을 콜백                        |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트헤더로 설정 |
-| distributions[0].callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
-| distributions[0].callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
-| distributions[0].callback.url          | String  | 콜백 URL                                                     |
+| distributions                          | List    | List of created CDN objects                                     |
+| distributions[0].domain                | String  | Domain name (service name)                                     |
+| distributions[0].domainAlias           | List  | List of domain aliases (use personal or company-owned domain)                                                  |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global service)             |
+| distributions[0].status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
+| distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                          |
+| distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].referrers             | List    | List of regex referrer headers                                 |
+| distributions[0].useOriginCacheControl | Boolean | Whether to enable origin server setting or not (true: Enable origin server setting, false: User-configured) |
+| distributions[0].origins               | List    | List of origin server objects                                      |
+| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
+| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                          |
+| distributions[0].origins[0].httpPort   | Integer | HTTP protocol port of origin server                                  |
+| distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origi server                                 |
+| distributions[0].forwardHostHeader     | String  | Callback to receive service deployment result                         |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
+| distributions[0].forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
+| distributions[0].callback              | Object  | Callback to receive service deployment result                         |
+| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
+| distributions[0].callback.url          | String  | Callback URL                                                     |
 
 
-### 서비스 수정
+### Modify
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드  | URI                                  |
+| Method  | URI                                  |
 | ---- | ------------------------------------ |
 | PUT  | /v2.0/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
@@ -364,9 +364,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 이름                  | 타입    | 필수 여부 | 기본값 | 유효 범위                                                    | 설명                                                         |
+| Name                  | Type    | Required | Default | Valid Range                                                    | Description                                                        |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 필수      |        | 최대 255자                                                   | 수정할 도메인(서비스 이름)                                   |
 | useOriginCacheControl | Boolean | 필수      |        | true/false                                                        | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정)      |
@@ -389,10 +389,10 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 
 - forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다. 
 
-#### 응답
+#### Response
 
 
-[응답 본문]
+[Rseponse Body]
 
 ```json
 {
@@ -405,28 +405,28 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드                   | 타입      | 설명     |
+| Field                   | Type      | Description     |
 | -------------------- | ------- | ------ |
-| header               | Object  | 헤더 영역  |
-| header.isSuccessful  | Boolean | 성공 여부  |
-| header.resultCode    | Integer | 결과 코드  |
-| header.resultMessage | String  | 결과 메시지 |
+| header               | Object  | Header area  |
+| header.isSuccessful  | Boolean | Successful or not  |
+| header.resultCode    | Integer | Result code  |
+| header.resultMessage | String  | Result message |
 
-### 서비스 삭제
+### Delete
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드    | URI                                  |
+| Method    | URI                                  |
 | ------ | ------------------------------------ |
 | DELETE | /v2.0/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
@@ -437,18 +437,18 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 이름      | 타입     | 필수 여부 | 기본값  | 유효 범위 | 설명                    |
+| Name      | Type     | Required | Default  | Valid Range | Description                    |
 | ------- | ------ | ----- | ---- | ----- | --------------------- |
-| domains | String | 필수    |      |       | 삭제할 도메인, 여러 도메인 입력 가능 |
+| domains | String | Required    |      |       | Domains to delete; many domains allowed  |
 
-**\* 여러 도메인 입력 시, 해당하는 서비스는 모두 종료됩니다.**
+**\* With the input of many domains, all corresponding services are closed.**
 
-#### 응답
+#### Response
 
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -461,30 +461,30 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드                   | 타입      | 설명     |
+| Field                   | Type      | Description     |
 | -------------------- | ------- | ------ |
-| header               | Object  | 헤더 영역  |
-| header.isSuccessful  | Boolean | 성공 여부  |
-| header.resultCode    | Integer | 결과 코드  |
-| header.resultMessage | String  | 결과 메시지 |
+| header               | Object  | Header area  |
+| header.isSuccessful  | Boolean | Successful or not  |
+| header.resultCode    | Integer | Result code  |
+| header.resultMessage | String  | Result message |
 
 
-## 캐시 재배포 API
+## Purge Cache 캐시 재배포 API
 
 ### 캐시 재배포(Purge) -  ITEM(특정 파일 타입)
 
-#### 요청
+#### Request
 
 [URI]
 
-| 메서드  | URI                           |
+| Method  | URI                           |
 | ---- | ----------------------------- |
 | POST | /v2.0/appKeys/{appKey}/purge/item |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
@@ -495,16 +495,16 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
+| Name     | Type   | Required | Default | Valid Range            | Description                                                  |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스) 이름                                 |
-| purgeList | List | 필수      |        |                       | 재배포 대상 URL 목록 |
+| domain    | String | Required      |        | Up to 255 characters     | Domain (service) name to be redeployed                      |
+| purgeList | List | Required     |        |                       | List o URL for redeployment |
 
-#### 응답
+#### Response
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -517,27 +517,27 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드                   | 타입      | 설명        |
+| Field                   | Type      | Description        |
 | -------------------- | ------- | --------- |
-| header               | Object  | 헤더 영역     |
-| header.isSuccessful  | Boolean | 성공 여부     |
-| header.resultCode    | Integer | 결과 코드     |
-| header.resultMessage | String  | 결과 메시지    |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
 
 ### 캐시 재배포(Purge) -  ALL(전체 파일 타입)
 
-#### 요청
+#### Request
 
 [URI]
 
-| 메서드  | URI                           |
+| Method  | URI                           |
 | ---- | ----------------------------- |
 | POST | /v2.0/appKeys/{appKey}/purge/all |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
@@ -546,15 +546,15 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
+| Name      | Type  | Required | Default | Valid Range             | Description                                                       |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스) 이름                                 |
+| domain    | String | Required      |        | Up to 255 characters            | Domain (service) name to be redeployed         |
 
-#### 응답
+#### Response
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -567,14 +567,14 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드                   | 타입      | 설명        |
+| Field                   | Type      | Description        |
 | -------------------- | ------- | --------- |
-| header               | Object  | 헤더 영역     |
-| header.isSuccessful  | Boolean | 성공 여부     |
-| header.resultCode    | Integer | 결과 코드     |
-| header.resultMessage | String  | 결과 메시지    |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
 
 - CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 계속되면 고객 센터로 문의해 주시기 바랍니다.
 - 퍼지 API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide/#cdn_4)의 캐시 재배포 사용량 제한] 내용을 확인해주세요.
@@ -582,11 +582,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ### 캐시 재배포(Purge) 조회
 - API v2.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
 
-## 콜백 응답
+## Callback Response
 CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정지, 재개, 삭제 변경이 완료되면 설정된 콜백 URL을 호출합니다.
 콜백 호출시 요청 본문에는 다음과 같은 CDN 서비스 설정 정보가 포함됩니다.
 
-[응답 본문]
+[Response Body]
 ```json
 {
   "header" : {
@@ -624,14 +624,14 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 }
 ```
 
-[필드]
+[Field]
 
-| 필드                                   | 타입    | 설명                                                         |
+| Field                                   | Type    | Description                                                         |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 헤더 영역                                                    |
-| header.isSuccessful                    | Boolean | 성공 여부                                                    |
-| header.resultCode                      | Integer | 결과 코드                                                    |
-| header.resultMessage                   | String  | 결과 메시지                                                  |
+| header                                 | Object  | Header area                                                    |
+| header.isSuccessful                    | Boolean | Successful or not                                                    |
+| header.resultCode                      | Integer | Result code                                                    |
+| header.resultMessage                   | String  | Result message                                                  |
 | distribution                          | Object    | 변경 작업이 완료된 CDN 오브젝트                                   |
 | distribution.appKey                   | String    | 앱키                                  |
 | distribution.domain                | String  | 도메인 이름(서비스 이름)                                     |
@@ -653,5 +653,5 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distribution.forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트헤더로 설정 |
 | distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
-| distribution.callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
-| distribution.callback.url          | String  | 콜백 URL                                                     |
+| distribution.callback.httpMethod   | String  | HTTP method of callback                                           |
+| distribution.callback.url          | String  | Callback URL                                                     |
