@@ -139,11 +139,11 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].origins               | List    | Required      |        |                             | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Required      |        | Up to 255 characters                  | Origin server (domain or IP)                                     |
 | distributions[0].origins[0].originPath | String  | Optional      |        | Up to 8192 characters                 | Lower paths of origin server (path must include /.)        |
-| distributions[0].origins[0].httpPort   | Integer  | Optional      |        | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
-| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
-| distributions[0].callback              | Object  | Optional      |        |                             | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |
+| distributions[0].origins[0].httpPort   | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Number' of [Console User Guide > Origin Server](./console-guide/#_2) | HTTP protocol port of origin server(must enter either origins[0].httpPort or origins[0].httpsPort.)  |
+| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Number' of[Console User Guide > Origin Server](./console-guide/#_2) | HTTPS protocol port of origin server (must enter either origins[0].httpPort or origins[0].httpsPort.) |
+| distributions[0].callback              | Object  | Optional      |        |                             | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
 | distributions[0].callback.httpMethod   | String  | Required      |        | GET/POST/PUT                | HTTP method of callback                                           |
-| distributions[0].callback.url          | String  | Required      |        | 최대 1024자                 | Callback URL                                                     |
+| distributions[0].callback.url          | String  | Required      |        | Up to 1024 characters                 | Callback URL                                                     |
 
 
 
@@ -195,67 +195,67 @@ Below shows the status codes of CDN service, which are available at the query of
 ```
 
 
-[필드]
+[Field]
 
-| 필드                                   | 타입    | 설명                                                         |
+| Field                                   | Type    | Description                                                         |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 헤더 영역                                                    |
-| header.isSuccessful                    | Boolean | 성공 여부                                                    |
-| header.resultCode                      | Integer | 결과 코드                                                    |
-| header.resultMessage                   | String  | 결과 메시지                                                  |
-| distributions                          | List    | 생성된 CDN 오브젝트 목록                                   |
-| distributions[0].domain                | String  | 생성된 도메인(서비스) 이름                                   |
-| distributions[0].domainAlias           | List    | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)              |
-| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)            |
-| distributions[0].description           | String  | 설명                                                         |
-| distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
-| distributions[0].defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
-| distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
-| distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                  |
-| distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
-| distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
-| distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
-| distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
-| distributions[0].origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                               |
-| distributions[0].origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                               |
+| header                                 | Object  | Header area                                                   |
+| header.isSuccessful                    | Boolean | Successful or not                                                    |
+| header.resultCode                      | Integer | Result code                                                    |
+| header.resultMessage                   | String  | Result message                                                  |
+| distributions                          | List    | List of created CDN objects                                    |
+| distributions[0].domain                | String  | Name of created domain (service)                               |
+| distributions[0].domainAlias           | List    | List of domain aliases (use personal or company-owned domain)              |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global service)            |
+| distributions[0].description           | String  | Description                                                     |
+| distributions[0].status                | String  | CDN status code (see [Table] CDN Status Code)                                 |
+| distributions[0].defaultMaxAge         | Integer | Cache expiration time (seconds)                                           |
+| distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].referrers             | List    | List of regex referrer headers                                   |
+| distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Enable origin server setting, false: User-configured setting) |
+| distributions[0].origins               | List    | List of origin server objects                                      |
+| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
+| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                           |
+| distributions[0].origins[0].httpPort   | Integer | HTTP protocol port of origin server                                               |
+| distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                              |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트헤더로 설정 |
-| distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보받을 콜백                        |
-| distributions[0].callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
-| distributions[0].callback.url          | String  | 콜백 URL                                                     |
+| distributions[0].callback              | Object  | Callback to receive 서비스 생성 처리 결과를 통보받을 콜백                        |
+| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
+| distributions[0].callback.url          | String  | Callbak URL                                                     |
 
 
 
-### 서비스 조회
+### Get
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드  | URI                                  |
+| Method  | URI                                  |
 | ---- | ------------------------------------ |
 | GET  | /v2.0/appKeys/{appKey}/distributions |
 
 
-[파라미터]
+[Parameter]
 
-| 이름   | 타입   | 필수 여부 | 유효 범위     | 설명                         |
+| Name   | Type   | Required | Valid Range     | Description                         |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
-| domain | String | 선택      | 최대 255자    | 조회할 도메인(서비스 이름)   |
-| status | String | 선택      | CDN 상태 코드 | CDN 상태 코드([표] CDN 상태 코드 참고) |
+| domain | String | Optional      | Up to 255 characters    | Domain to get (service name)   |
+| status | String | Optional      | CDN status code | CDN Status Code (see [Table] CDN Status Code) |
 
-[예]
+[Example]
 ```
 curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
-#### 응답
+#### Response
 
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -290,14 +290,14 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드                                   | 타입    | 설명                                                         |
+| Field                                   | Type    | Description                                                         |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 헤더 영역                                                    |
-| header.isSuccessful                    | Boolean | 성공 여부                                                    |
-| header.resultCode                      | Integer | 결과 코드                                                    |
-| header.resultMessage                   | String  | 결과 메시지                                                  |
+| header                                 | Object  | Header area                                                    |
+| header.isSuccessful                    | Boolean | Successful or not                                                   |
+| header.resultCode                      | Integer | Result code                                                   |
+| header.resultMessage                   | String  | Result message                                                  |
 | distributions                          | List    | 생성된 CDN 오브젝트 목록                                     |
 | distributions[0].domain                | String  | 도메인 이름(서비스 이름)                                     |
 | distributions[0].domainAlias           | List  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)                                                  |
