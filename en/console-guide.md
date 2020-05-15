@@ -1,4 +1,4 @@
-## Content Delivery > CDN > Console user Guide 콘솔 사용 가이드
+## Content Delivery > CDN > Console User Guide
 
 This document describes how CDN service is configured and applied on TOAST CDN console. 이 문서는 TOAST CDN 콘솔에서 CDN 서비스를 구성하고 이용하는 방법을 설명합니다.
 
@@ -117,14 +117,14 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 |GeoTrust Global CA|21.May.22|de28f4a4ffe5b92fa3c503d1a349a7f9962a8212|
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
-- **원본 서버 포트**  
+- **Origin Server Port**  
   원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
   원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.  
   원본 서버 포트는 제한된 포트만 설정할 수 있습니다. 설정 가능한 포트 번호는 다음 표를 참고하시기 바랍니다.  
 
-**[표 2] 사용 가능한 원본 서버 포트 번호**
+**[Table 2] Available Origin Server Port Number 사용 가능한 원본 서버 포트 번호**
 
-|포트 번호|
+|Port Number|
 |---|
 |72, 488, 1080, 1443, 7070|
 |8000-9001|
@@ -136,7 +136,7 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 |9901-9908|
 |45002|
 
-- **원본 경로**  
+- **Original Path본 경로**  
   원본 파일의 경로 중 하위 경로를 설정합니다. 콘텐츠를 요청할 때 원본 경로를 생략하고 요청할 수 있습니다.
 
 > **[예시] 원본 경로를 /files/images로 설정한 경우** 
@@ -163,7 +163,7 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
   - **원본 호스트 이름**: 원본 서버의 호스트 이름을 Host 헤더로 설정합니다. 
     - **요청 호스트 헤더**: 클라이언트 요청의 Host 헤더로 설정합니다.
 
-### 캐시
+### Cache
 
 CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다. 
 ![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
@@ -177,7 +177,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 > 캐시 만료 시간 기본값은 0입니다. 기본값을 0으로 설정하면 캐시 만료 시간은 604,800(단위/초)=1주일입니다.
 > 캐시 만료 시간은 기본값인 0부터 2,147,483,647(단위/초)까지 입력할 수 있습니다.
 
-### 리퍼러(referer) 헤더 접근 관리
+### Referrer Header Access Management 리퍼러(referer) 헤더 접근 관리
 리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
 ![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
@@ -191,16 +191,16 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
     * 특정 리퍼러 요청 헤더만 접근을 허용할 때 적합합니다.
     * 리퍼러 요청 헤더값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
 
-> **[주의]**
+> **[Caution]**
 > 리퍼러 요청 헤더가 없는 경우 접근 제어는 동작하지 않습니다.
 >
-> **[예시]**
+> **[Example]**
 >
 > * 타입: 화이트리스트(whitelist)
 > * 정규 표현식: `^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
 > 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
 >
-> **[참고] 정규 표현식의 이스케이프 문자**
+> **[Note] Regex Escape Characters정규 표현식의 이스케이프 문자**
 > 일부 문자는 정규 표현식에서 특수 문자로 사용됩니다. 
 > 점(`.`)을 예로 들자면, 정규 표현식에서 점(`.`)은 모든 문자와 일치함을 나타내는 특수 문자입니다. 
 > 특수 문자로의 의미가 아닌 일반 문자 그대로 해석해야 한다면 이스케이프 문자 백슬래시(`\`)를 특수 문자 앞에 추가하면 됩니다(예: `\.`).
@@ -209,9 +209,9 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 > API를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
 
 
-## 설정
+## Settings
 
-### CDN 서비스 설정 변경
+### CDN 서비스 설정 변경 Change CDN Service Setting 
 서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경할 수 있습니다. 
 ![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
 
@@ -231,7 +231,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 > 서비스 수정 작업이 진행 중이면 기존 CDN 서비스 설정으로 운영됩니다.
 > 만약 수정 작업에 실패하면 기존 설정 정보로 롤백되며, CDN 서비스 목록의 배포 상태가 빨간색 원으로 표시됩니다. 설정 정보에 오류가 있거나 내부적으로 오류가 발생했을 때 수정 작업에 실패합니다. 
 
-### CDN 서비스 일시 정지와 재시작
+### CDN 서비스 일시 정지와 재시작 Suspend and Resume CDN
 CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
 
 
@@ -256,7 +256,7 @@ CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
 > 인증서 갱신 시작일로 부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 일시정지를 하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
 
 
-### CDN 서비스 삭제 
+### CDN 서비스 삭제 Delete CDN
 CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 유의하시기 바랍니다. 
 
 1. 삭제할 CDN 서비스를 선택합니다.
@@ -408,19 +408,19 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 이 작업을 진행하지 않거나 작업 내용을 유지하지 않으면 발급된 인증서가 만료될 수 있으므로 주의하시기 바랍니다. 
 
 1. **CNAME 레코드 설정**: 인증서 도메인의 DNS 서비스 제공 업체의 DNS 관리에서 다음의 CNAME 레코드를 추가합니다. 
-    - 레코드 타입:  **CNAME**
-    - TTL: 임의의 값. 자주 변경해야 한다면 작게 설정하시기를 권장합니다. 레코드 변경 시 캐시 DNS 서버에 TTL 시간 동안 캐시될 수 있습니다.
-    - 레코드 이름:  **[인증서 도메인].** (예시: test.alias.com.com.)
-    - 레코드값:  **[연동할 CDN 서비스 도메인]** (예시: xxxxxxxx.toastcdn.net)
+    - Record Type:  **CNAME**
+    - TTL: Random. 자주 변경해야 한다면 작게 설정하시기를 권장합니다. 레코드 변경 시 캐시 DNS 서버에 TTL 시간 동안 캐시될 수 있습니다.
+    - Record Name:  **[Certificate Domain].** (예시: test.alias.com.com.)
+    - Record Value:  **[CDN Service Domain to be Integrated]** (예시: xxxxxxxx.toastcdn.net)
 다음 화면은 TOAST DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
 ![CDN서비스연동-CNAME위임](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname.png)
 
-2. **도메인 별칭 설정**: 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
-    -  **CDN 서비스** 탭에서 연동할 CDN 서비스를 선택하고  **수정** 버튼을 클릭합니다. 도메인 별칭에 인증서 도메인을 추가한 후  **확인** 버튼을 클릭합니다.
+2. **Domain Alias Setting**: Add domain alias setting for the CDN to use certificate. 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
+    -  Select CDN to be integrated from **CDN Service** and click **Modify**.  버튼을 클릭합니다. 도메인 별칭에 인증서 도메인을 추가한 후  **확인** 버튼을 클릭합니다.
 ![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias.png)
 
 
->  **[주의] 인증서 만료 주의 사항**
+>  **[Caution] 인증서 만료 주의 사항**
 > TOAST CDN에서 제공하는 인증서는 인증서 만료 전 자동으로 인증서를 갱신합니다. 
 > 자동으로 인증서를 갱신하려면 반드시 사용 중인 인증서가 CDN 서비스와 연동돼 있어야 합니다. 
 > CDN 서비스와 연동돼 있지 않으면 인증서 갱신 기간에 갱신되지 않아 인증서가 만료될 수 있습니다.
@@ -435,14 +435,14 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
 ![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active.png)
 
-## 통계
+## Statistics
 
 네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 확인할 수 있습니다.
 7일 이내 통계 데이터는 정확하지 않으므로 참고용으로만 이용하시기 바랍니다. 정확한 통계 데이터는 7일 이후에 확인하시기 바랍니다. 
 
-1. **Contents Delivery > CDN**의 **통계** 탭을 클릭합니다.
+1. Click **Statistics** from **Contents Delivery > CDN**.
 ![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_201812.png)
-2. 통계를 확인하려면 CDN 서비스를 선택합니다.
-3. 검색 기간을 입력합니다.
-4. 검색 기간 내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.
-5. **검색** 버튼을 클릭합니다.
+2. 통계를 확인하려면 CDN 서비스를 선택합니다. Select CDN to check statistics. 
+3. 검색 기간을 입력합니다. Enter search period. 
+4. 검색 기간 내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다. Data cycle within a search period is automatically selected depending on the period. 
+5. **검색** 버튼을 클릭합니다. Click **Search**. 
