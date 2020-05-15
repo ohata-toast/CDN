@@ -9,17 +9,17 @@ CDN service domain is autoatically created in the 서비스 도메인은 **[Serv
 It takes up to 2 hours to complete deployment after service is requested for creation. Service becomes available after it is completely deployed. 생성을 요청한 후 서비스 배포가 완료될 때까지 최대 2시간이 걸립니다. 배포가 완료된 후 서비스를 이용할 수 있습니다.
 
 ### Basic Information 
-Basic information is set. 기본 정보를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
+Basic information is set. 
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
 
-- **Service Region비스 지역**
-  GLOBAL service is provided via CDN edge servers located around the globe. 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
-  Note, however단, **China and Russia중국과 러시아** are excluded from service regions. 는 서비스 지역에서 제외됩니다.
+- **Service Region**
+  GLOBAL service is provided via CDN edge servers located around the globe. 
+  Note, however, **China and Russia** are excluded from service regions. 
 
 - **Description**
   More description is added on CDN service.  CDN 서비스의 설명을 추가합니다.
 
-- **Domain Alias도메인 별칭**
+- **Domain Alias**
   The default service domain address of TOAST CDN is provided in the 은 기본으로 **[ServiceID].toastcdn.net** format. 형식의 서비스 도메인 주소를 제공하고 있습니다.
   To use CDN service with your own domain, enable **Domain Alias**. 기본 서비스 도메인 주소가 아닌 소유한 도메인으로 CDN 서비스를 이용하려면 **도메인 별칭**에서 설정하면 됩니다.
   소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 **인증서 관리** 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
@@ -30,24 +30,24 @@ Basic information is set. 기본 정보를 설정합니다.
     - TTL: Random 임의의 값
 
 - **Callback**
-  CDN 서비스 생성과 변경 작업(수정, 일시정지/재시작, 삭제)은 몇 시간이 걸립니다. It takes hours to create and change CDN service (e.g. edit, suspend/restart, and delete)
-  작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하시기 바랍니다. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#_23)를 참고하시기 바랍니다. To receive change status via callback URL and CDN setting information, enable the callback setting. 
-    1. **HTTP Method**와 **콜백 URL**을 입력합니다.
-    2. Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 전달받으려면 **콜백 URL**에 다음의 경로(path) 변수를 포함해 입력해 주세요. 
+ It takes hours to create and change CDN service (e.g. edit, suspend/restart, and delete)
+ After task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#_23) to find information sent to callback. 
+    1. Enter **HTTP Method** and **콜백 URL**.
+    2. To receive results on the change of CDN via query parameter, enter로 CDN 서비스 변경 작업에 대한 결과를 전달받으려면 **콜백 URL**에 다음의 경로(path) 변수를 포함해 입력해 주세요. 
          예: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
 
-| 경로(path) 변수 | 설명 | 예시 전달 값 |
+| Path Variables | Description | 예시 전달 값 |
 | ------------- | --- | ------- |
 | {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급한 앱 키 |
 | {domain} | CDN 서비스 이름 | [서비스ID].cdn.toastcloud.com 또는 [서비스ID].toastcdn.net |
 | {status} | 현재 CDN 서비스 상태 | OPEN, SUSPEND, CLOSE, ERROR |
 | {isSuccessful} | 서비스 변경 작업 성공 여부(API v1.0은 지원하지 않습니다.) | "true" 또는 "false" |
 
-### 원본 서버
-CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
+### Origin Server
+CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다. Set server providing original files to be deployd by CDN. 
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
 
-- **원본 서버**
+- **Origin Server**
   원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
   운영 중인 원본 서버가 없다면, TOAST Compute 서비스의 인스턴스를 사용하거나 TOAST Storage 서비스의 Object Storage를 이용할 수 있습니다.  
   CDN 서비스 도메인으로 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.  
@@ -56,7 +56,7 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
   만일, 원본 서버가 HTTPS 응답을 지원할 수 없다면 **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용하시기 바랍니다.  
   단, **원본 요청 HTTP 프로토콜 다운그레이드**는 제약 사항이 있으므로 원본 서버가 HTTPS 프로토콜을 지원하는 것을 권장합니다.  
 
-**[표 1] 신뢰하는 인증서 목록**
+**[Table 1] List of Credible Certificates 신뢰하는 인증서 목록**
 
 | Common name| Expire Date |SHA-1 Fingerprint |
 |---|---|---|
