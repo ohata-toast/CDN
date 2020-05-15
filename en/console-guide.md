@@ -40,7 +40,7 @@ Basic information is set.
 | ------------- | --- | ------- |
 | {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급한 앱 키 |
 | {domain} | CDN 서비스 이름 | [Service ID].cdn.toastcloud.com or [ServiceID].toastcdn.net |
-| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR |
+| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR | 
 | {isSuccessful} | Whether service change is successful (API v1.0 is not supported.) | "true" or "false" |
 
 ### Origin Server
