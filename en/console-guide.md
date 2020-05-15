@@ -4,9 +4,9 @@ This document describes how CDN service is configured and applied on TOAST CDN c
 
 ## Creating CDN 서비스 생성
 
-Go to **Contents Delivery > CDN** and to **CDN Service**, click 탭에서 **Create** and 버튼을 클릭하면 the **Creat CDN Service서비스 생성** window pops up.  대화 상자가 나타납니다.
-CDN service domain is autoatically created in the 서비스 도메인은 **[ServiceID].toastcdn.net** format. To use your own domain, enable **Domain Alias**.  형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(domain alias) 기능을 이용할 수 있습니다.
-It takes up to 2 hours to complete deployment after service is requested for creation. Service becomes available after it is completely deployed. 생성을 요청한 후 서비스 배포가 완료될 때까지 최대 2시간이 걸립니다. 배포가 완료된 후 서비스를 이용할 수 있습니다.
+Go to **Contents Delivery > CDN** and to **CDN Service** and click **Create**, and the **Creating CDN** window pops up.  
+CDN service domain is autoatically created in the **[ServiceID].toastcdn.net** format. To use your own domain, enable **Domain Alias**. 
+It takes up to 2 hours to complete deployment after service is requested for creation. Service becomes available after it is completely deployed. 
 
 ### Basic Information 
 Basic information is set. 
@@ -17,34 +17,34 @@ Basic information is set.
   Note, however, **China and Russia** are excluded from service regions. 
 
 - **Description**
-  More description is added on CDN service.  CDN 서비스의 설명을 추가합니다.
+  More description is added on CDN service.  
 
 - **Domain Alias**
-  The default service domain address of TOAST CDN is provided in the 은 기본으로 **[ServiceID].toastcdn.net** format. 형식의 서비스 도메인 주소를 제공하고 있습니다.
-  To use CDN service with your own domain, enable **Domain Alias**. 기본 서비스 도메인 주소가 아닌 소유한 도메인으로 CDN 서비스를 이용하려면 **도메인 별칭**에서 설정하면 됩니다.
+  The default service domain address of TOAST CDN is provided in the **[ServiceID].toastcdn.net** format. 
+  To use CDN service with your own domain, enable **Domain Alias**. 
   소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 **인증서 관리** 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
   도메인 별칭 설정 후에는 도메인의 DNS 서비스 제공 업체에서 CNAME 레코드를 다음과 같이 등록해야 합니다. DNS 설정 관련 문의는 DNS 서비스 제공 업체에 하시기 바랍니다.
     - Record Type: **CNAME**
-    - Record Name: **[도메인 별칭에 등록한 도메인]**
+    - Record Name: **[Registered domain for domain alias]**
     - Record Value (Rdata): **[ServiceID].toastcdn.net**
-    - TTL: Random 임의의 값
+    - TTL: Randomly selected 
 
 - **Callback**
  It takes hours to create and change CDN service (e.g. edit, suspend/restart, and delete)
  After task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#_23) to find information sent to callback. 
-    1. Enter **HTTP Method** and **콜백 URL**.
-    2. To receive results on the change of CDN via query parameter, enter로 CDN 서비스 변경 작업에 대한 결과를 전달받으려면 **콜백 URL**에 다음의 경로(path) 변수를 포함해 입력해 주세요. 
-         예: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
+    1. Enter **HTTP Method** and **Callback URL**.
+    2. To receive results on the change of CDN via query parameter, include the following path variable to **Callback URL**.  
+         e.g.: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
 
 | Path Variables | Description | 예시 전달 값 |
 | ------------- | --- | ------- |
 | {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급한 앱 키 |
-| {domain} | CDN 서비스 이름 | [Service ID].cdn.toastcloud.com 또는 [서비스ID].toastcdn.net |
-| {status} | Current status of CDN 서비스 상태 | OPEN, SUSPEND, CLOSE, ERROR |
-| {isSuccessful} | 서비스 변경 작업 성공 여부(API v1.0은 지원하지 않습니다.) | "true" 또는 "false" |
+| {domain} | CDN 서비스 이름 | [Service ID].cdn.toastcloud.com or [ServiceID].toastcdn.net |
+| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR |
+| {isSuccessful} | Whether service change is successful (API v1.0 is not supported.) | "true" or "false" |
 
 ### Origin Server
-CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다. Set server providing original files to be deployd to CDN. 
+Set server providing original files to be deployd to CDN. 
 ![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
 
 - **Origin Server**
@@ -136,7 +136,7 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 |9901-9908|
 |45002|
 
-- **Original Path본 경로**  
+- **Original Path**  
   원본 파일의 경로 중 하위 경로를 설정합니다. 콘텐츠를 요청할 때 원본 경로를 생략하고 요청할 수 있습니다.
 
 > **[예시] 원본 경로를 /files/images로 설정한 경우** 
@@ -177,7 +177,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 > 캐시 만료 시간 기본값은 0입니다. 기본값을 0으로 설정하면 캐시 만료 시간은 604,800(단위/초)=1주일입니다.
 > 캐시 만료 시간은 기본값인 0부터 2,147,483,647(단위/초)까지 입력할 수 있습니다.
 
-### Referrer Header Access Management 리퍼러(referer) 헤더 접근 관리
+### Referrer Header Access Management 
 리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
 ![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
@@ -313,10 +313,10 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 | 와일드 카드 | 1시간당 요청 가능: 60회, 요청당 경로(path) 수 제한: 10개 | 미지원 |
 | 전체 파일 타입 | 1시간당 요청 가능: 5회 | 5분당 요청 가능: 1회 |
 
-> **[주의] 도메인 별칭을 여러 개 사용 중인 서비스ID].cdn.toastcloud.com 서비스의 캐시 재배포**
+> **[Caution] 도메인 별칭을 여러 개 사용 중인 서비스ID].cdn.toastcloud.com 서비스의 캐시 재배포**
 > 도메인 별칭이 여러 개 등록된 CDN 서비스는 요청한 캐시 재배포 경로에 대해 각 도메인 별칭별로 작업이 진행됩니다. 
 > 
-> (예시)
+> (Example)
 > `custom1.domain-alias.com` 과 `custom2.domain-alias.com` 이 도메인 별칭으로 설정된 CDN 서비스가 있다고 가정합니다.
 > 위 CDN 서비스에 대해 **특정 파일** 타입, `/images/photo.png`로 캐시 재배포를 요청하면 아래 2개의 경로로 캐시 재배포가 수행됩니다. 
 >
@@ -327,10 +327,10 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 > 만일, 전체 캐시 재배포 경로 수가 캐시 재배포 사용량 제한의 요청당 최대 캐시 재배포 경로 수를 초과하면 요청당 최대 캐시 재배포 경로 수만큼씩 나눠 요청됩니다. 
 > 나눠서 진행된 요청 수만큼 캐시 재배포 제한 사용량은 증가하므로 사용량 초과에 유의해주세요.
 >
-> **[주의] [서비스ID].toastcdn.net 서비스를 생성한 후 캐시 재배포 실패 오류**
+> **[Caution] [서비스ID].toastcdn.net 서비스를 생성한 후 캐시 재배포 실패 오류**
 > CDN 서비스를 생성한 후 약 1시간 이내에는 캐시 재배포 요청에 실패할 수 있습니다. 이후에도 계속 실패하면  고객 센터로 문의해주시기 바랍니다.
 
-## 인증서 관리 
+## 인증서 관리 Managing Certificates
 소유한 도메인으로 콘텐츠를 보안 전송(HTTPS)하려면 CDN 서버에 소유한 도메인의 인증서를 배포해야 합니다. 인증서가 없으면 클라이언트(브라우저)와 CDN 에지 서버 간 보안 통신(HTTPS)을 할 수 없어 인증서 오류가 발생합니다.
 TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
@@ -347,14 +347,14 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 3. 인증서 발급 안내 내용을 확인하고 **확인** 버튼을 클릭합니다.
 4. 신규 발급 인증서를 요청하면 **인증서 관리** 탭의 인증서 도메인이 표시됩니다. 인증서 상태가 **도메인 검증** 상태로 변경되면 이후 도메인 검증 작업을 진행하시기 바랍니다. 
 
-> **[주의] 인증서 발급 전 확인 사항**
+> **[Caution]  인증서 발급 전 확인 사항**
 > 1. 소유한 도메인만 인증서를 발급할 수 있으므로 먼저 도메인을 구매하신 후 진행하시기 바랍니다. 
 > 2. 다른 인증 기관(CA, certificate authority)에서 발급한 인증서는 이용할 수 없습니다. 
 > 3. 단일 도메인의 인증서 발급만 가능합니다. 와일드 카드, 멀티 도메인 등의 인증서는 지원하지 않습니다.
 > 4. 인증서 발급은 프로젝트당 5개로 제한됩니다. 한도 조정이 필요한 경우 TOAST 고객 센터로 문의하시기 바랍니다.
 > 5. 신규 인증서 발급 요청 후 도메인 검증 단계는 몇 십분(최대 1~2시간) 후 변경될 수 있습니다. 인증서 상태가 도메인 검증 상태로 변경되면 TOAST 프로젝트 멤버를 대상으로 이메일 발송됩니다. 만일 시스템 오류로 이메일이 발송되지 않는다면 콘솔에서 상태를 확인하시기 바랍니다. 
 
-### 도메인 검증 
+### 도메인 검증 Validate Domain
 신규 인증서 발급을 요청한 후 인증서 상태가 '도메인 검증'이 되면 도메인을 검증하시기 바랍니다.
 도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다.
 
@@ -366,15 +366,15 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
 ![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2.png)
 
-#### DNS TXT 레코드 추가 방식 
+#### DNS TXT 레코드 추가 방식 Adding DNS TXT Records 
 도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다. 
 
 1. 도메인의 DNS 서비스 제공 업체의 DNS 관리 페이지에서 TXT 레코드를 추가합니다. 
    DNS 설정 방법은 DNS 서비스 제공 업체에 따라 다를 수 있습니다. 관련 설정은 해당 서비스 업체로 문의하시기 바랍니다.
-  - 레코드 타입: **TXT**
+  - Record Type: **TXT**
   - TTL: **60**. 60으로 설정할 수 없다면 되도록 작게 설정하시기 바랍니다.
-  - 레코드 이름: **_acme-challenge.[발급 요청한 인증서 도메인].**  콘솔 또는 발송된 이메일 가이드의 **레코드 이름**을 작성합니다.
-  - 레코드값: **임의의 문자열** (콘솔 또는 발송된 이메일 가이드의 **레코드값**을 작성합니다.)
+  - Record Name: **_acme-challenge.[발급 요청한 인증서 도메인].**  콘솔 또는 발송된 이메일 가이드의 **레코드 이름**을 작성합니다.
+  - Record Value: **임의의 문자열** (콘솔 또는 발송된 이메일 가이드의 **레코드값**을 작성합니다.)
 
 2. nslookup 명령어로 추가한 TXT 레코드가 질의되는지 확인합니다. DNS 전파 시간에 따라 질의되기까지 시간이 소요될 수 있습니다.
     `nslookup -type=TXT _acme-challenge.[발급 요청한 인증서 도메인].`
@@ -383,19 +383,19 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 ![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns.png)
 
 
-#### HTTP 페이지 추가 방식 
+#### HTTP 페이지 추가 방식 Adding HTTP Pages
 도메인이 연결된 웹 서버에 HTTP 페이지를 추가해 도메인을 검증합니다. 
 
 1. 웹 서버의 **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** 경로에 HTTP 페이지를 추가합니다. 
 2. HTTP 페이지의 본문에 콘솔 또는 발송된 이메일 가이드의 **페이지 콘텐츠(토큰) **값으로 설정합니다. 
 3. 웹 브라우저에서  **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** URL로 접속하면  **페이지 콘텐츠(토큰)** 값이 화면에 표시되는지 확인합니다. 
 
-> **[주의] 도메인 검증 주의 사항**
+> **[Caution] 도메인 검증 주의 사항**
 > 1. 도메인 검증은 인증서 발급 요청일로부터 **5일 이내**에 진행해야 합니다. **기간 내 진행하지 않으면 인증서 발급은 자동으로 취소**됩니다.
 > 2. 도메인 검증 작업 완료 후 검증에 성공하면 몇 시간 내 인증서 발급 및 배포 작업이 진행됩니다. 하루 이상 진행되지 않으면 도메인 검증 작업 내용이 올바른지 확인합니다. 문제가 없는데도 진행되지 않으면 TOAST 고객 센터로 문의해 주시기 바랍니다.
 > 3. 도메인 검증 방식 중 HTTP 페이지 추가 방식은 HTTP 서버가 기본 포트 80 포트로 운영 중일 때만 가능합니다. 포트를 변경할 수 없다면 DNS TXT 레코드 추가 방식을 이용하시기 바랍니다.
 
-### 인증서 발급 및 배포
+### 인증서 발급 및 배포 Issue and Deploy Certificates
 도메인 검증을 통과하면 몇 시간 내 인증서 발급 및 배포 작업이 진행됩니다. 
 콘솔의 인증서 상태가  **인증서 발급 및 배포** 단계로 표시되며, TOAST 프로젝트 멤버 대상으로 알림 메일이 발송됩니다. 
 이 단계에서는 별도로 작업할 내용은 없습니다.
@@ -403,7 +403,7 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 >  **[참고] 인증서 발급과 배포 단계의 작업 시간**
 > 인증서 발급 및 배포 작업은 최대 9시간 이상 걸릴 수 있습니다. 
 
-### CDN 서비스 연동 
+### CDN 서비스 연동 Integrate with CDN Service
 발급된 인증서를 이용하려면 CDN 서비스와 연동해야 합니다. 
 이 작업을 진행하지 않거나 작업 내용을 유지하지 않으면 발급된 인증서가 만료될 수 있으므로 주의하시기 바랍니다. 
 
