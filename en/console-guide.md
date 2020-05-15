@@ -39,17 +39,17 @@ Basic information is set.
 | Path Variables | Description | 예시 전달 값 |
 | ------------- | --- | ------- |
 | {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급한 앱 키 |
-| {domain} | CDN 서비스 이름 | [서비스ID].cdn.toastcloud.com 또는 [서비스ID].toastcdn.net |
-| {status} | 현재 CDN 서비스 상태 | OPEN, SUSPEND, CLOSE, ERROR |
+| {domain} | CDN 서비스 이름 | [Service ID].cdn.toastcloud.com 또는 [서비스ID].toastcdn.net |
+| {status} | Current status of CDN 서비스 상태 | OPEN, SUSPEND, CLOSE, ERROR |
 | {isSuccessful} | 서비스 변경 작업 성공 여부(API v1.0은 지원하지 않습니다.) | "true" 또는 "false" |
 
 ### Origin Server
-CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다. Set server providing original files to be deployd by CDN. 
+CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다. Set server providing original files to be deployd to CDN. 
 ![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
 
 - **Origin Server**
-  원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
-  운영 중인 원본 서버가 없다면, TOAST Compute 서비스의 인스턴스를 사용하거나 TOAST Storage 서비스의 Object Storage를 이용할 수 있습니다.  
+  The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain. 원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
+  If 운영 중인 원본 서버가 없다면, TOAST Compute 서비스의 인스턴스를 사용하거나 TOAST Storage 서비스의 Object Storage를 이용할 수 있습니다.  
   CDN 서비스 도메인으로 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.  
   이는 원본 서버에 TOAST CDN이 신뢰하는 인증서가 설치돼 있어야한다는 뜻입니다.  
   신뢰하는 인증서는 다음 표를 참고하시기 바랍니다.  
@@ -250,7 +250,7 @@ CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
 > CDN 서비스 일시정지와 재시작은 CDN 서비스 도메인의 DNS 레코드를 변경하여 동작됩니다. 
 > 따라서 캐시 DNS 서버에서 TTL 동안 캐시되어 있거나 DNS 전파에 따라 일시정지/재시작이 완료 되어도 즉시 일시정지/재시작이 동작되지 않을 수 있습니다.
 
-> **[주의] 발급된 인증서가 연동된 CDN서비스의 일시정지**
+> **[Caution] Suspending CDN Service Integrated with Issued Certificate 발급된 인증서가 연동된 CDN서비스의 일시정지**
 > 인증서가 연동된 CDN 서비스를 일시정지 하는 경우, 인증서 갱신이 불가합니다. 
 > **인증서 관리** > 인증서 목록의 **인증서 갱신 시작일** 이전에 CDN 서비스를 재시작하시기 바랍니다. 
 > 인증서 갱신 시작일로 부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 일시정지를 하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
@@ -259,16 +259,16 @@ CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
 ### CDN 서비스 삭제 Delete CDN
 CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 유의하시기 바랍니다. 
 
-1. 삭제할 CDN 서비스를 선택합니다.
-2. **삭제** 버튼을 클릭합니다.
+1. 삭제할 CDN 서비스를 선택합니다. Select a CDN service to delete. 
+2. **삭제** 버튼을 클릭합니다. Click **Delete**. 
 ![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
 3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
 
 
-> **[참고] CDN 서비스 삭제 소요 시간**
+> **[Note] CDN 서비스 삭제 소요 시간**
 > CDN 서비스 삭제 작업은 몇 시간(최대 2~3시간)이 걸릴 수 있습니다.
 
-> **[주의] 발급된 인증서가 연동된 CDN 서비스의 삭제**
+> **[Caution] 발급된 인증서가 연동된 CDN 서비스의 삭제**
 > 인증서가 연동된 CDN 서비스를 삭제하면, 인증서를 갱신할 수 없습니다. 
 > **인증서 관리**의 인증서 목록에서 **인증서 갱신 시작일** 이전에 서비스 중인 다른 CDN 서비스로 연동하시기 바랍니다.
 > 인증서 갱신 시작일로부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 삭제하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
@@ -283,7 +283,7 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 2. **캐시 재배포** 탭을 클릭합니다.
 ![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
 
-3. 캐시 재배포 타입을 선택합니다.
+3. 캐시 재배포 타입을 선택합니다. Select a type of cache purge. 
   - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다. 
   - **[서비스ID].toastcdn.net** 서비스 도메인의 재배포 타입과 요청 양식
     * 특정 파일: 재배포할 콘텐츠의 URL을 입력합니다. 요청한 URL만 캐시가 재배포되므로 도메인 별칭으로 여러 서비스 도메인 주소가 있다면 각 URL 주소로 요청해야 합니다.
