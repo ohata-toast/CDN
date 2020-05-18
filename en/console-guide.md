@@ -1,8 +1,8 @@
 ## Content Delivery > CDN > Console User Guide
 
-This document describes how CDN service is configured and applied on TOAST CDN console. 이 문서는 TOAST CDN 콘솔에서 CDN 서비스를 구성하고 이용하는 방법을 설명합니다.
+This document describes how CDN service is configured and applied on TOAST CDN console. 
 
-## Creating CDN 서비스 생성
+## Creating CDN 
 
 Go to **Contents Delivery > CDN** and to **CDN Service** and click **Create**, and the **Creating CDN** window pops up.  
 CDN service domain is autoatically created in the **[ServiceID].toastcdn.net** format. To use your own domain, enable **Domain Alias**. 
@@ -22,8 +22,8 @@ Basic information is set.
 - **Domain Alias**
   The default service domain address of TOAST CDN is provided in the **[ServiceID].toastcdn.net** format. 
   To use CDN service with your own domain, enable **Domain Alias**. 
-  소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 **인증서 관리** 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
-  도메인 별칭 설정 후에는 도메인의 DNS 서비스 제공 업체에서 CNAME 레코드를 다음과 같이 등록해야 합니다. DNS 설정 관련 문의는 DNS 서비스 제공 업체에 하시기 바랍니다.
+  To use HTTPS protocol with your own domain, get a certificate issued from **Certificate Management** and set domain alias.
+  After domain alias is set, register CNAME record at DNS provider of domain like follows. Please consult your DNS provider regarding DNS settings. 
     - Record Type: **CNAME**
     - Record Name: **[Registered domain for domain alias]**
     - Record Value (Rdata): **[ServiceID].toastcdn.net**
@@ -38,8 +38,8 @@ Basic information is set.
 
 | Path Variables | Description | 예시 전달 값 |
 | ------------- | --- | ------- |
-| {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급한 앱 키 |
-| {domain} | CDN 서비스 이름 | [Service ID].cdn.toastcloud.com or [ServiceID].toastcdn.net |
+| {appKey} | Appkey of CDN Service | Appkey issued on console |
+| {domain} | Name of CDN Service | [Service ID].cdn.toastcloud.com or [ServiceID].toastcdn.net |
 | {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR | 
 | {isSuccessful} | Whether service change is successful (API v1.0 is not supported.) | "true" or "false" |
 
@@ -118,7 +118,7 @@ Set server providing original files to be deployd to CDN.
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
 - **Origin Server Port**  
-  Original servers must be operated by a web-protocol support service. 원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
+  Origin servers must be operated by a web-protocol support service. 원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
   Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.  
   Only restricted ports are available as an origina port. Refer to the following table for available port numbers. 원본 서버 포트는 제한된 포트만 설정할 수 있습니다. 설정 가능한 포트 번호는 다음 표를 참고하시기 바랍니다.  
 
@@ -327,10 +327,10 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 > 만일, 전체 캐시 재배포 경로 수가 캐시 재배포 사용량 제한의 요청당 최대 캐시 재배포 경로 수를 초과하면 요청당 최대 캐시 재배포 경로 수만큼씩 나눠 요청됩니다. 
 > 나눠서 진행된 요청 수만큼 캐시 재배포 제한 사용량은 증가하므로 사용량 초과에 유의해주세요.
 >
-> **[Caution] [서비스ID].toastcdn.net 서비스를 생성한 후 캐시 재배포 실패 오류**
+> **[Caution] [ServiceID].toastcdn.net 서비스를 생성한 후 캐시 재배포 실패 오류**
 > CDN 서비스를 생성한 후 약 1시간 이내에는 캐시 재배포 요청에 실패할 수 있습니다. 이후에도 계속 실패하면  고객 센터로 문의해주시기 바랍니다.
 
-## 인증서 관리 Managing Certificates
+## Managing Certificates
 소유한 도메인으로 콘텐츠를 보안 전송(HTTPS)하려면 CDN 서버에 소유한 도메인의 인증서를 배포해야 합니다. 인증서가 없으면 클라이언트(브라우저)와 CDN 에지 서버 간 보안 통신(HTTPS)을 할 수 없어 인증서 오류가 발생합니다.
 TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
