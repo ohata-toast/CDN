@@ -118,11 +118,11 @@ Set server providing original files to be deployd to CDN.
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
 - **Origin Server Port**  
-  원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
-  원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.  
-  원본 서버 포트는 제한된 포트만 설정할 수 있습니다. 설정 가능한 포트 번호는 다음 표를 참고하시기 바랍니다.  
+  Original servers must be operated by a web-protocol support service. 원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
+  Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.  
+  Only restricted ports are available as an origina port. Refer to the following table for available port numbers. 원본 서버 포트는 제한된 포트만 설정할 수 있습니다. 설정 가능한 포트 번호는 다음 표를 참고하시기 바랍니다.  
 
-**[Table 2] Available Origin Server Port Number 사용 가능한 원본 서버 포트 번호**
+**[Table 2] Available Origin Server Port Numbers 사용 가능한 원본 서버 포트 번호**
 
 |Port Number|
 |---|
@@ -137,15 +137,15 @@ Set server providing original files to be deployd to CDN.
 |45002|
 
 - **Original Path**  
-  원본 파일의 경로 중 하위 경로를 설정합니다. 콘텐츠를 요청할 때 원본 경로를 생략하고 요청할 수 있습니다.
+  Set the lower paths of an original file. Content may be requested without the original path. 원본 파일의 경로 중 하위 경로를 설정합니다. 콘텐츠를 요청할 때 원본 경로를 생략하고 요청할 수 있습니다.
 
-> **[예시] 원본 경로를 /files/images로 설정한 경우** 
+> **[Example] When the original path is set with원본 경로를 /files/images로 설정한 경우** 
 >
-> - 원본 파일 URL: http://your.origin.com/**files/images**/logo.png 
-> - CDN 서비스 URL: http://[서비스ID].toastcdn.net/logo.png
+> - 원본 파일 URL of Original File: http://your.origin.com/**files/images**/logo.png 
+> - CDN 서비스 URL of CDN Service: http://[ServiceID].toastcdn.net/logo.png
 > - CDN 서비스 URL에서 원본 경로(/files/images)를 생략하여 요청할 수 있습니다. 
 
-- **원본 요청 HTTP 프로토콜 다운그레이드**  
+- **Downgrading HTTP Protocols Requesting Originals 원본 요청 HTTP 프로토콜 다운그레이드**  
   CDN 에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클라이언트의 원본 요청(request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.  
   즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않으면, CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜로 요청하기 때문에 원본 파일을 응답받을 수 없습니다.  
   원본 서버에서 HTTP 프로토콜만 운영한다면, **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용해 CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜을 HTTP 프로토콜로 다운그레이드해서 요청할 수 있습니다.  
@@ -168,36 +168,36 @@ Set server providing original files to be deployd to CDN.
 CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다. 
 ![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
-- **캐시 만료 설정**
-  원본 서버의 Cache Control 응답 헤더를 통해 캐시를 설정할 수 있습니다. 
-    - **원본 설정 사용**: 원본 서버의 응답에서 제공한 캐시 제어 헤더(Cache-Control, Expires)를 우선 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(Cache-Control, Expires)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐시됩니다.  **원본 설정 사용** 옵션이 기본값입니다.
-    - **사용자 설정 사용**: 캐시 만료 시간(초)에 지정한 시간 동안 캐시됩니다. 
+- **Setting Cache Expiration캐시 만료 설정**
+  Cache can be configured from the response header of cache control at the origin server. 
+    - **Enable Original Setting**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Enable Original Setting** is default. 
+    - **Enable User-Configuration**: Cached during specified cache expiration time (seconds). 
 
-> **[참고] 캐시 만료 시간 기본값과 유효 범위**
-> 캐시 만료 시간 기본값은 0입니다. 기본값을 0으로 설정하면 캐시 만료 시간은 604,800(단위/초)=1주일입니다.
-> 캐시 만료 시간은 기본값인 0부터 2,147,483,647(단위/초)까지 입력할 수 있습니다.
+> **[Note] Default and Validity of Cache Expiration Time 캐시 만료 시간 기본값과 유효 범위**
+> Default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds)=1 week.
+> Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
 
 ### Referrer Header Access Management 
-리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+Content access management is set with the referrer request header. 
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
 
-- **블랙리스트(blacklist) 타입**:
+- **Blacklist Type 블랙리스트(blacklist) 타입**:
     * 특정 리퍼러 요청 헤더만 접근을 제한할 때 적합합니다.
     * 리퍼러 요청 헤더값이 설정한 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 제한됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 허용됩니다.
-- **화이트리스트(whitelist) 타입**:
+- **Whitelist Type 화이트리스트(whitelist) 타입**:
     * 특정 리퍼러 요청 헤더만 접근을 허용할 때 적합합니다.
     * 리퍼러 요청 헤더값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
 
 > **[Caution]**
-> 리퍼러 요청 헤더가 없는 경우 접근 제어는 동작하지 않습니다.
+> If referrer request header is not available, access control does not work. 
 >
 > **[Example]**
 >
-> * 타입: 화이트리스트(whitelist)
-> * 정규 표현식: `^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
+> * Typ: Whitelist
+> * Regex:`^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
 > 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
 >
 > **[Note] Regex Escape Characters정규 표현식의 이스케이프 문자**
@@ -211,7 +211,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 
 ## Settings
 
-### CDN 서비스 설정 변경 Change CDN Service Setting 
+### Change CDN Service Setting 
 서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경할 수 있습니다. 
 ![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
 
