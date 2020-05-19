@@ -48,7 +48,7 @@ Set server providing original files to be deployd to CDN.
 ![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
 
 - **Origin Server**
-  The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain. 원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
+  The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
   If 운영 중인 원본 서버가 없다면, TOAST Compute 서비스의 인스턴스를 사용하거나 TOAST Storage 서비스의 Object Storage를 이용할 수 있습니다.  
   CDN 서비스 도메인으로 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.  
   이는 원본 서버에 TOAST CDN이 신뢰하는 인증서가 설치돼 있어야한다는 뜻입니다.  
@@ -137,43 +137,43 @@ Set server providing original files to be deployd to CDN.
 |45002|
 
 - **Original Path**  
-  Set the lower paths of an original file. Content may be requested without the original path. 원본 파일의 경로 중 하위 경로를 설정합니다. 콘텐츠를 요청할 때 원본 경로를 생략하고 요청할 수 있습니다.
-
-> **[Example] When the original path is set with원본 경로를 /files/images로 설정한 경우** 
+  Set the lower paths of an original file. Content may be requested without the original path. 
+  
+> **[Example] When the original path is set with /files/images** 
 >
-> - 원본 파일 URL of Original File: http://your.origin.com/**files/images**/logo.png 
-> - CDN 서비스 URL of CDN Service: http://[ServiceID].toastcdn.net/logo.png
-> - CDN 서비스 URL에서 원본 경로(/files/images)를 생략하여 요청할 수 있습니다. 
+> - URL of Original File: http://your.origin.com/**files/images**/logo.png 
+> - URL of CDN Service: http://[ServiceID].toastcdn.net/logo.png
+> - Origin paths may be missing from URL of CDN Service when it is requested. 
 
-- **Downgrading HTTP Protocols Requesting Originals 원본 요청 HTTP 프로토콜 다운그레이드**  
+- **Downgrading HTTP Protocols Requesting Originals**  
   CDN 에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클라이언트의 원본 요청(request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.  
   즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않으면, CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜로 요청하기 때문에 원본 파일을 응답받을 수 없습니다.  
   원본 서버에서 HTTP 프로토콜만 운영한다면, **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용해 CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜을 HTTP 프로토콜로 다운그레이드해서 요청할 수 있습니다.  
   즉, 클라이언트에서 CDN 에지 서버 구간은 보안 통신(HTTPS)으로 통신하고, CDN 에지 서버에서 원본 서버 구간은 비보안 통신(HTTP)으로 통신하게 됩니다.  
   원본 요청 HTTP 프로토콜을 다운그레이드할 때는 다음과 같은 제약 사항이 있습니다.  
-> **[주의] 원본 요청 HTTP 프로토콜 다운그레이드 제약 사항**
-> 1. 전체 사이트 주소는 프로토콜 다운그레이드를 할 수 없습니다. 예를 들어 원본 서버의 전체 사이트 주소인 **www.toast.com**는 다운그레이드할 수 없습니다.
-> 2. GET, HEAD 및 OPTIONS 메서드 외 메서드는 지원되지 않습니다. 
-> 3. CDN 서버에서 원본 서버로 다운그레이드를 요청할 때 다음의 헤더는 제외될 수 있습니다.
+> **[Caution] Restrictions for Downgrading HTTP Protocols Requesting Originals 원본 요청 HTTP 프로토콜 다운그레이드 제약 사항**
+> 1. Protocol downgrade is not applied to a whole website address. For instance, **www.toast.com**, which is the entire site address of the origin server cannot be downgraded.   
+> 2. Any other methods than GET, HEAD, or OPTIONS, are not supported. 메서드 외 메서드는 지원되지 않습니다. 
+> 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
 - **Forward Host Header**
-  CDN 서버가 원본 서버에 원본 파일을 요청할 때 전달할 **Host** 헤더값을 설정합니다.  
-  원본 서버가 Name-based virtual host로 운영 중이라면 **요청 호스트 헤더** 설정이 필요할 수 있습니다. 원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하시기 바랍니다.
-  - **원본 호스트 이름**: 원본 서버의 호스트 이름을 Host 헤더로 설정합니다. 
-    - **요청 호스트 헤더**: 클라이언트 요청의 Host 헤더로 설정합니다.
+  Set **Host** header value to be sent along with a request of CDN server for original files to origin server. 
+  If the origin server is run as name-based virtual host, **Request Host Header** setting may be required. Select an appropriate value depending on the opearting type of an origin server.  
+  - **Original Host Name**: Set the host name of origin server as the host header.
+    - **Request Host Header**: Set as the host header of client request. 
 
 ### Cache
 
-CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다. 
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+CDN cache operations and expiration time can be set.  
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
-- **Setting Cache Expiration캐시 만료 설정**
+- **Setting Cache Expiration**
   Cache can be configured from the response header of cache control at the origin server. 
     - **Enable Original Setting**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Enable Original Setting** is default. 
     - **Enable User-Configuration**: Cached during specified cache expiration time (seconds). 
 
-> **[Note] Default and Validity of Cache Expiration Time 캐시 만료 시간 기본값과 유효 범위**
+> **[Note] Default and Validity of Cache Expiration Time**
 > Default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds)=1 week.
 > Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
 
@@ -181,15 +181,15 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 Content access management is set with the referrer request header. 
 ![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
-리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
+The referrer request header includes the webpage address 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
 
-- **Blacklist Type 블랙리스트(blacklist) 타입**:
-    * 특정 리퍼러 요청 헤더만 접근을 제한할 때 적합합니다.
-    * 리퍼러 요청 헤더값이 설정한 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 제한됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 허용됩니다.
-- **Whitelist Type 화이트리스트(whitelist) 타입**:
-    * 특정 리퍼러 요청 헤더만 접근을 허용할 때 적합합니다.
-    * 리퍼러 요청 헤더값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
+- **Blacklist Type**:
+    * Appropriate to restrict the access of particular referrer request headers only. 
+    * Content access is restricted if a referrer request header matches regex setup. If not, content access is allowed. 
+- **Whitelist Type**:
+    * Appropriate to allow the access of particular referrer request headers only. 
+    * Content access is allowed if a referrer request header matches regex setup. If not, content access is not allowed. 
 
 > **[Caution]**
 > If referrer request header is not available, access control does not work. 
@@ -212,11 +212,11 @@ Content access management is set with the referrer request header.
 ## Settings
 
 ### Change CDN Service Setting 
-서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경할 수 있습니다. 
+CDN service setting can be changed, except the name and region of service domain. 
 ![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
 
-1. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
-2. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
+1. Select a CDN service to change from the list. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
+2. Click **Modify** from the **Setting** at the bottom of the page. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
 
 다음과 같이 변경할 수 있는 항목이 활성화됩니다.
 ![CDN서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
@@ -347,7 +347,7 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 3. 인증서 발급 안내 내용을 확인하고 **확인** 버튼을 클릭합니다.
 4. 신규 발급 인증서를 요청하면 **인증서 관리** 탭의 인증서 도메인이 표시됩니다. 인증서 상태가 **도메인 검증** 상태로 변경되면 이후 도메인 검증 작업을 진행하시기 바랍니다. 
 
-> **[Caution]  인증서 발급 전 확인 사항**
+> **[Caution] Checkpoints before Getting Certificates인증서 발급 전 확인 사항**
 > 1. 소유한 도메인만 인증서를 발급할 수 있으므로 먼저 도메인을 구매하신 후 진행하시기 바랍니다. 
 > 2. 다른 인증 기관(CA, certificate authority)에서 발급한 인증서는 이용할 수 없습니다. 
 > 3. 단일 도메인의 인증서 발급만 가능합니다. 와일드 카드, 멀티 도메인 등의 인증서는 지원하지 않습니다.
