@@ -49,14 +49,11 @@ Set server providing original files to be deployd to CDN.
 
 - **Origin Server**
   The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
-  If 운영 중인 원본 서버가 없다면, TOAST Compute 서비스의 인스턴스를 사용하거나 TOAST Storage 서비스의 Object Storage를 이용할 수 있습니다.  
-  CDN 서비스 도메인으로 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.  
-  이는 원본 서버에 TOAST CDN이 신뢰하는 인증서가 설치돼 있어야한다는 뜻입니다.  
-  신뢰하는 인증서는 다음 표를 참고하시기 바랍니다.  
-  만일, 원본 서버가 HTTPS 응답을 지원할 수 없다면 **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용하시기 바랍니다.  
-  단, **원본 요청 HTTP 프로토콜 다운그레이드**는 제약 사항이 있으므로 원본 서버가 HTTPS 프로토콜을 지원하는 것을 권장합니다.  
+  If there is no operating origin server, use an instance of TOAST Compute or object storage of TOAST Storage. To support secured transfer (HTTPS) via CDN domain, the origin server must support HTTPS response. This means a certificate credited by TOAST CDN must be installed at the origin server. Refer to the following table for credible certificates. 
+  If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting. 
+  Nevertheless, since **Downgrading HTTP Protocols Requesting Originals** has constraints, it is recommended that the origin server support HTTPS protocol.   
 
-**[Table 1] List of Credible Certificates 신뢰하는 인증서 목록**
+**[Table 1] List of Credible Certificates**
 
 | Common name| Expire Date |SHA-1 Fingerprint |
 |---|---|---|
@@ -118,11 +115,11 @@ Set server providing original files to be deployd to CDN.
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
 - **Origin Server Port**  
-  Origin servers must be operated by a web-protocol support service. Service port numbers can be set for HTTP/HTTPS protocols under operations. 원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
-  Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.  
-  Only restricted ports are available as an origina port. Refer to the following table for available port numbers. 원본 서버 포트는 제한된 포트만 설정할 수 있습니다. 설정 가능한 포트 번호는 다음 표를 참고하시기 바랍니다.  
+  An origin server must be operated by a web-protocol support service. Service port numbers can be set for HTTP/HTTPS protocols under operations.  
+  Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.
+  Only limited number of ports are available as the origina port. Refer to the following table for available port numbers. 
 
-**[Table 2] Available Origin Server Port Numbers 사용 가능한 원본 서버 포트 번호**
+**[Table 2] Available Origin Server Port Numbers**
 
 |Port Number|
 |---|
@@ -151,8 +148,8 @@ Set server providing original files to be deployd to CDN.
   원본 서버에서 HTTP 프로토콜만 운영한다면, **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용해 CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜을 HTTP 프로토콜로 다운그레이드해서 요청할 수 있습니다.  
   즉, 클라이언트에서 CDN 에지 서버 구간은 보안 통신(HTTPS)으로 통신하고, CDN 에지 서버에서 원본 서버 구간은 비보안 통신(HTTP)으로 통신하게 됩니다.  
   원본 요청 HTTP 프로토콜을 다운그레이드할 때는 다음과 같은 제약 사항이 있습니다.  
-> **[Caution] Restrictions for Downgrading HTTP Protocols Requesting Originals 원본 요청 HTTP 프로토콜 다운그레이드 제약 사항**
-> 1. Protocol downgrade is not applied to a whole website address. For instance, **www.toast.com**, which is the entire site address of the origin server cannot be downgraded.   
+> **[Caution] Contraints for Downgrading HTTP Protocols Requesting Originals**
+> 1. Protocol downgrade is not applied to a whole website address. For instance, **www.toast.com**, which is the entire site address of the origin server, cannot be downgraded.   
 > 2. Any other methods than GET, HEAD, or OPTIONS, are not supported. 메서드 외 메서드는 지원되지 않습니다. 
 > 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
@@ -390,7 +387,7 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 2. HTTP 페이지의 본문에 콘솔 또는 발송된 이메일 가이드의 **페이지 콘텐츠(토큰) **값으로 설정합니다. 
 3. 웹 브라우저에서  **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** URL로 접속하면  **페이지 콘텐츠(토큰)** 값이 화면에 표시되는지 확인합니다. 
 
-> **[Caution] 도메인 검증 주의 사항**
+> **[Caution] Cautions for Validating Domain 도메인 검증 주의 사항**
 > 1. 도메인 검증은 인증서 발급 요청일로부터 **5일 이내**에 진행해야 합니다. **기간 내 진행하지 않으면 인증서 발급은 자동으로 취소**됩니다.
 > 2. 도메인 검증 작업 완료 후 검증에 성공하면 몇 시간 내 인증서 발급 및 배포 작업이 진행됩니다. 하루 이상 진행되지 않으면 도메인 검증 작업 내용이 올바른지 확인합니다. 문제가 없는데도 진행되지 않으면 TOAST 고객 센터로 문의해 주시기 바랍니다.
 > 3. 도메인 검증 방식 중 HTTP 페이지 추가 방식은 HTTP 서버가 기본 포트 80 포트로 운영 중일 때만 가능합니다. 포트를 변경할 수 없다면 DNS TXT 레코드 추가 방식을 이용하시기 바랍니다.
