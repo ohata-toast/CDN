@@ -234,8 +234,8 @@ CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.C
 
 1. 일시 정지할 CDN 서비스의 선택합니다.Select a CDN service to suspend. 
 2. **일시 정지** 버튼을 클릭합니다.Click **Suspend**. 
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다. 
+![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
+3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다. A warning guide will show for CDN services that are integrated with certificate 
 ![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
 4. 일시 정지 상태의 CDN 서비스를 재시작하려면 재시작할 CDN 서비스를 선택합니다.
 5. **재시작** 버튼을 클릭합니다.
