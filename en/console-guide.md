@@ -143,14 +143,14 @@ Set server providing original files to be deployd to CDN.
 > - Origin paths may be missing from URL of CDN Service when it is requested. 
 
 - **Downgrading HTTP Protocols Requesting Originals**  
-  CDN 에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클라이언트의 원본 요청(request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.  
-  즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않으면, CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜로 요청하기 때문에 원본 파일을 응답받을 수 없습니다.  
-  원본 서버에서 HTTP 프로토콜만 운영한다면, **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용해 CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜을 HTTP 프로토콜로 다운그레이드해서 요청할 수 있습니다.  
+  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.  에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클라이언트의 원본 요청(request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.  
+  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, 즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않으면, CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜로 요청하기 때문에 원본 파일을 응답받을 수 없습니다.  
+  If the origin server operates HTTPS protocols only, 원본 서버에서 HTTP 프로토콜만 운영한다면, **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용해 CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜을 HTTP 프로토콜로 다운그레이드해서 요청할 수 있습니다.  
   즉, 클라이언트에서 CDN 에지 서버 구간은 보안 통신(HTTPS)으로 통신하고, CDN 에지 서버에서 원본 서버 구간은 비보안 통신(HTTP)으로 통신하게 됩니다.  
   원본 요청 HTTP 프로토콜을 다운그레이드할 때는 다음과 같은 제약 사항이 있습니다.  
 > **[Caution] Contraints for Downgrading HTTP Protocols Requesting Originals**
 > 1. Protocol downgrade is not applied to a whole website address. For instance, **www.toast.com**, which is the entire site address of the origin server, cannot be downgraded.   
-> 2. Any other methods than GET, HEAD, or OPTIONS, are not supported. 메서드 외 메서드는 지원되지 않습니다. 
+> 2. No other methods than GET, HEAD, or OPTIONS, are supported. 
 > 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
@@ -178,7 +178,7 @@ CDN cache operations and expiration time can be set.
 Content access management is set with the referrer request header. 
 ![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
-The referrer request header includes the webpage address 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
+The referrer request header includes the webpage address of previous links of the currently requested page. 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
 
 - **Blacklist Type**:
@@ -198,42 +198,42 @@ The referrer request header includes the webpage address 리퍼러 요청 헤더
 > 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
 >
 > **[Note] Regex Escape Characters정규 표현식의 이스케이프 문자**
-> 일부 문자는 정규 표현식에서 특수 문자로 사용됩니다. 
-> 점(`.`)을 예로 들자면, 정규 표현식에서 점(`.`)은 모든 문자와 일치함을 나타내는 특수 문자입니다. 
-> 특수 문자로의 의미가 아닌 일반 문자 그대로 해석해야 한다면 이스케이프 문자 백슬래시(`\`)를 특수 문자 앞에 추가하면 됩니다(예: `\.`).
-> 정규 표현식의 특수 문자에는 `^ . [ ] $ ( ) | * + ? { } \` 등이 있습니다.
-> 여러 개의 리퍼러를 제어할 때는 다음 줄에 연속해 입력합니다.
-> API를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
+> Some characters are used as special characters for regex. 
+> For instance, a period (`.`) indicates agreement with all characters for regex을 예로 들자면, 정규 표현식에서 점(`.`)은 모든 문자와 일치함을 나타내는 특수 문자입니다. 
+> To understand a special character as a general one, add backlash before it. 특수 문자로의 의미가 아닌 일반 문자 그대로 해석해야 한다면 이스케이프 문자 백슬래시(`\`)를 특수 문자 앞에 추가하면 됩니다(예: `\.`).
+> Regex special characters include 정규 표현식의 특수 문자에는 `^, ., [, ], $, (, ), |, *, +, ?, {, }, and \` 등이 있습니다.
+> To control many referrers, enter in consecutive lines. 여러 개의 리퍼러를 제어할 때는 다음 줄에 연속해 입력합니다.
+> To set many referrers with APIs, delimit with \n tokens. 를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
 
 
 ## Settings
 
-### Change CDN Service Setting 
-CDN service setting can be changed, except the name and region of service domain. 
+### Modify CDN Service Setting 
+CDN service setting can be modified, except the name and region of service domain. 
 ![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
 
-1. Select a CDN service to change from the list. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
+1. Select a CDN service to modify from the list. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
 2. Click **Modify** from the **Setting** at the bottom of the page. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
 
-다음과 같이 변경할 수 있는 항목이 활성화됩니다.
+Then, items that are modifiable are activated like below.  다음과 같이 변경할 수 있는 항목이 활성화됩니다.
 ![CDN서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
 
-* 변경할 설정 내용을 수정합니다. 
-* **확인** 버튼을 클릭해 변경을 완료합니다.
-* 설명과 콜백 설정을 제외한 다른 설정을 변경하려면 전체 CDN 서버에 반영돼야 해서 시간이 오래 걸릴 수 있습니다. 
+* Modify the setting. 변경할 설정 내용을 수정합니다. 
+* Click **OK확인** to complete with changes. 버튼을 클릭해 변경을 완료합니다.
+* To edit other settings, except description and callack setting, it may take more time than usual since changes must be applied throughout the whole CDN server. 설명과 콜백 설정을 제외한 다른 설정을 변경하려면 전체 CDN 서버에 반영돼야 해서 시간이 오래 걸릴 수 있습니다. 
 
-**수정 작업은 몇 십분 내 완료되며, 도메인 별칭 설정이 변경된 경우에는 몇 시간이 걸릴 수 있습니다.**
+**Modification takes dozens of minutes, but domain alias change may take a few hours. 수정 작업은 몇 십분 내 완료되며, 도메인 별칭 설정이 변경된 경우에는 몇 시간이 걸릴 수 있습니다.**
 
-> **[참고] CDN 서비스 수정 중 배포 상태와 서비스 상태** 
+> **[Note] CDN 서비스 수정 중 배포 상태와 서비스 상태** 
 > 서비스 수정 작업이 진행 중이면 기존 CDN 서비스 설정으로 운영됩니다.
 > 만약 수정 작업에 실패하면 기존 설정 정보로 롤백되며, CDN 서비스 목록의 배포 상태가 빨간색 원으로 표시됩니다. 설정 정보에 오류가 있거나 내부적으로 오류가 발생했을 때 수정 작업에 실패합니다. 
 
 ### CDN 서비스 일시 정지와 재시작 Suspend and Resume CDN
-CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
+CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.CDN service can be suspended or resumed. 
 
 
-1. 일시 정지할 CDN 서비스의 선택합니다.
-2. **일시 정지** 버튼을 클릭합니다.
+1. 일시 정지할 CDN 서비스의 선택합니다.Select a CDN service to suspend. 
+2. **일시 정지** 버튼을 클릭합니다.Click **Suspend**. 
 ![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
 3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다. 
 ![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
@@ -434,7 +434,7 @@ CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 �
 
 ## Statistics
 
-네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 확인할 수 있습니다.
+Check statistics on the network transfer volume, HTTP status code, most downloaded content, and more.  네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 확인할 수 있습니다.
 7일 이내 통계 데이터는 정확하지 않으므로 참고용으로만 이용하시기 바랍니다. 정확한 통계 데이터는 7일 이후에 확인하시기 바랍니다. 
 
 1. Click **Statistics** from **Contents Delivery > CDN**.
