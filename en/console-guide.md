@@ -258,35 +258,34 @@ CDN service can be deleted. Once deleted, however, a service cannot be recovered
 1. Select a CDN service to delete. 
 2. Click **Delete**. 
 ![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
-
+3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate to another working CDN service. 
 
 > **[Note] Deleting CDN 서비스 삭제 소요 시간**
 > It may take a few hours (up to 3 hours) to delete CDN service. 
 
-> **[Caution] 발급된 인증서가 연동된 CDN 서비스의 삭제**
-> 인증서가 연동된 CDN 서비스를 삭제하면, 인증서를 갱신할 수 없습니다. 
-> **인증서 관리**의 인증서 목록에서 **인증서 갱신 시작일** 이전에 서비스 중인 다른 CDN 서비스로 연동하시기 바랍니다.
-> 인증서 갱신 시작일로부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 삭제하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
+> **[Caution] Deleting CDN Service Integrated with Issued Certificate발급된 인증서가 연동된 CDN 서비스의 삭제**
+> When a CDN service integrated with certificate is deleted, the certificate cannot be renewed. 인증서가 연동된 CDN 서비스를 삭제하면, 인증서를 갱신할 수 없습니다. 
+> **인증서 관리**의 인증서 목록에서 **인증서 갱신 시작일** 이전에 서비스 중인 다른 CDN 서비스로 연동하시기 바랍니다.Please integrate certificate to another working CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List.
+> 인증서 갱신 시작일로부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 삭제하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.A certificate is allowed to be renewed for 5 days after start day of renewal, and deletion during the period may cause the certificate to be expired.
 
 
-## CDN 캐시 재배포(purge)
+## CDN 캐시 재배포(purge) CDN Cache Purge 
 CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원본 서버의 파일을 캐시합니다. 파일을 캐시하면 원본 파일이 변경되어도 캐시가 만료되기 전까지는 변경전 원본 파일을 유지합니다. 
 변경된 원본 파일로 콘텐츠가 즉시 업데이트되려면 **캐시 재배포**를 요청해야 합니다.
 캐시 재배포를 하면 요청한 콘텐츠의 오래된 캐시 데이터를 삭제하고 원본 서버에서 새 원본 파일을 다시 캐시합니다. 
 
-1. 변경하려는 서비스를 CDN 서비스 목록에서 선택합니다.
-2. **캐시 재배포** 탭을 클릭합니다.
+1. 변경하려는 서비스를 CDN 서비스 목록에서 선택합니다. Select a service to change from the list of CDN services. 
+2. **캐시 재배포** 탭을 클릭합니다. Click **Purge Cache**. 
 ![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
 
-3. 캐시 재배포 타입을 선택합니다. Select a type of cache purge. 
+3. 캐시 재배포 타입을 선택합니다. Select a purge type. 
   - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다. 
-  - **[서비스ID].toastcdn.net** 서비스 도메인의 재배포 타입과 요청 양식
+  - **[ServiceID].toastcdn.net** 서비스 도메인의 재배포 타입과 요청 양식
     * 특정 파일: 재배포할 콘텐츠의 URL을 입력합니다. 요청한 URL만 캐시가 재배포되므로 도메인 별칭으로 여러 서비스 도메인 주소가 있다면 각 URL 주소로 요청해야 합니다.
       * 예) 기본 서비스 도메인 주소: http://[서비스ID].toastcdn.net/path/to/file1.jpg
       * 예) 도메인 별칭 도메인 주소: http://customer.domain.com/path/to/file1.jpg
     * 전체 파일: 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다. 
-  - **[서비스ID].cdn.toastcloud.com** 서비스 도메인의 재배포 타입과 요청 양식
+  - **[ServiceID].cdn.toastcloud.com** 서비스 도메인의 재배포 타입과 요청 양식
     * 특정 파일: 재배포할 콘텐츠의 경로를 입력합니다.
       * 예) /path/to/file1.jpg
     * 와일드 카드: 파일 이름과 경로 이름에 와일드 카드 문자를 이용할 수 있습니다. 와일드 카드는 **\*.cdn.toastcloud.com** 서비스만 제공됩니다.
@@ -302,7 +301,7 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 
 캐시 재배포는 사용량 제한이 있으므로 아래의 표를 참고하시고 사용량이 초과되지 않도록 유의하시기 바랍니다.
 
-|분류 |[서비스ID].cdn.toastcloud.com|[서비스ID].toastcdn.net |
+|Category |[ServiceID].cdn.toastcloud.com|[ServiceID].toastcdn.net |
 |---|---|---|
 | 제한 단위 | 서비스 도메인별 | 프로젝트별(Appkey) |
 | 특정 파일 | 1시간당 요청 가능: 60회, 요청당 경로(path) 수 제한: 1,000개 | 1초당 요청 가능: 1회, 요청당 URL 수 제한: 200 URL |
