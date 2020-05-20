@@ -243,11 +243,11 @@ CDN service can be suspended or resumed.
 
 
 > **[Note] Delays in Suspension and Resumption**
-> Suspension and resumption of CDN service operates by changing DNS records of CDN domain. CDN 서비스 일시정지와 재시작은 CDN 서비스 도메인의 DNS 레코드를 변경하여 동작됩니다. 
-> Accordingly, even if 따라서 캐시 DNS 서버에서 TTL 동안 캐시되어 있거나 DNS 전파에 따라 일시정지/재시작이 완료 되어도 즉시 일시정지/재시작이 동작되지 않을 수 있습니다.
+> Suspension and resumption of CDN service operates by changing DNS records of CDN domain.  
+> Accordingly, even if it is cached during TTL at cache DNS server or suspension/resumption is completed, immediate suspension/resumption may not work depending on DNS transfer. 
 
-> **[Caution] Suspending CDN Service Integrated with Issued Certificate 발급된 인증서가 연동된 CDN서비스의 일시정지**
-> To suspend a CDN service integrated with certificate, the certificate cannot be renewed. 인증서가 연동된 CDN 서비스를 일시정지 하는 경우, 인증서 갱신이 불가합니다. 
+> **[Caution] Suspending CDN Service Integrated with Issued Certificate**
+> When a CDN service integrated with certificate is suspended, the certificate cannot be renewed. 인증서가 연동된 CDN 서비스를 일시정지 하는 경우, 인증서 갱신이 불가합니다. 
 > Please resume CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List. 의 **인증서 갱신 시작일** 이전에 CDN 서비스를 재시작하시기 바랍니다. 
 > A certificate is allowed to be renewed for 5 days after start day of renewal, and a suspension during the period may cause the certificate to be expired. 인증서 갱신 시작일로 부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 일시정지를 하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
 
@@ -258,37 +258,37 @@ CDN service can be deleted. Once deleted, however, a service cannot be recovered
 1. Select a CDN service to delete. 
 2. Click **Delete**. 
 ![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate to another working CDN service. 
+3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate to another running CDN service. 
 
-> **[Note] Deleting CDN 서비스 삭제 소요 시간**
+> **[Note] Required Time to Delete CDN 서비스 삭제 소요 시간**
 > It may take a few hours (up to 3 hours) to delete CDN service. 
 
 > **[Caution] Deleting CDN Service Integrated with Issued Certificate발급된 인증서가 연동된 CDN 서비스의 삭제**
 > When a CDN service integrated with certificate is deleted, the certificate cannot be renewed. 인증서가 연동된 CDN 서비스를 삭제하면, 인증서를 갱신할 수 없습니다. 
-> **인증서 관리**의 인증서 목록에서 **인증서 갱신 시작일** 이전에 서비스 중인 다른 CDN 서비스로 연동하시기 바랍니다.Please integrate certificate to another working CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List.
+> **인증서 관리**의 인증서 목록에서 **인증서 갱신 시작일** 이전에 서비스 중인 다른 CDN 서비스로 연동하시기 바랍니다.Please integrate certificate to another running CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List.
 > 인증서 갱신 시작일로부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 삭제하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.A certificate is allowed to be renewed for 5 days after start day of renewal, and deletion during the period may cause the certificate to be expired.
 
 
-## CDN 캐시 재배포(purge) CDN Cache Purge 
-CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원본 서버의 파일을 캐시합니다. 파일을 캐시하면 원본 파일이 변경되어도 캐시가 만료되기 전까지는 변경전 원본 파일을 유지합니다. 
-변경된 원본 파일로 콘텐츠가 즉시 업데이트되려면 **캐시 재배포**를 요청해야 합니다.
-캐시 재배포를 하면 요청한 콘텐츠의 오래된 캐시 데이터를 삭제하고 원본 서버에서 새 원본 파일을 다시 캐시합니다. 
+## CDN 캐시 재배포(purge) Purging CDN Cache  
+CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원본 서버의 파일을 캐시합니다. 파일을 캐시하면 원본 파일이 변경되어도 캐시가 만료되기 전까지는 변경전 원본 파일을 유지합니다. CDN cache server cahces origin server files during specified expiration time depending on the cache setting. When a file is cached, the original file before change shall be maintained until cache is expired, even if there is a change in the original file. 
+변경된 원본 파일로 콘텐츠가 즉시 업데이트되려면 **캐시 재배포**를 요청해야 합니다. To immediately update content to changed original file, **Purge Cache** must be requested. 
+캐시 재배포를 하면 요청한 콘텐츠의 오래된 캐시 데이터를 삭제하고 원본 서버에서 새 원본 파일을 다시 캐시합니다. By purging cache, outdated cache data are deleted from requested content while a new original file is cached again at the origin server. 
 
 1. 변경하려는 서비스를 CDN 서비스 목록에서 선택합니다. Select a service to change from the list of CDN services. 
 2. **캐시 재배포** 탭을 클릭합니다. Click **Purge Cache**. 
-![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
+![Purge CDN Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
 
 3. 캐시 재배포 타입을 선택합니다. Select a purge type. 
-  - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다. 
-  - **[ServiceID].toastcdn.net** 서비스 도메인의 재배포 타입과 요청 양식
-    * 특정 파일: 재배포할 콘텐츠의 URL을 입력합니다. 요청한 URL만 캐시가 재배포되므로 도메인 별칭으로 여러 서비스 도메인 주소가 있다면 각 URL 주소로 요청해야 합니다.
-      * 예) 기본 서비스 도메인 주소: http://[서비스ID].toastcdn.net/path/to/file1.jpg
-      * 예) 도메인 별칭 도메인 주소: http://customer.domain.com/path/to/file1.jpg
-    * 전체 파일: 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다. 
+  - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다. Note that each CDN service domain may support different purge type and request format of cache.  
+  - **[ServiceID].toastcdn.net** 서비스 도메인의 재배포 타입과 요청 양식 Purge type and request format of the **[ServiceID].toastcdn.net** domain
+    * Particular Files특정 파일: 재배포할 콘텐츠의 URL을 입력합니다. 요청한 URL만 캐시가 재배포되므로 도메인 별칭으로 여러 서비스 도메인 주소가 있다면 각 URL 주소로 요청해야 합니다.
+      * e.g.) Domain address for default service 기본 서비스 도메인 주소: http://[서비스ID].toastcdn.net/path/to/file1.jpg
+      * e.g.) Domain address for domain alias 도메인 별칭 도메인 주소: http://customer.domain.com/path/to/file1.jpg
+    * All Files전체 파일: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server. 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다. 
   - **[ServiceID].cdn.toastcloud.com** 서비스 도메인의 재배포 타입과 요청 양식
     * 특정 파일: 재배포할 콘텐츠의 경로를 입력합니다.
-      * 예) /path/to/file1.jpg
-    * 와일드 카드: 파일 이름과 경로 이름에 와일드 카드 문자를 이용할 수 있습니다. 와일드 카드는 **\*.cdn.toastcloud.com** 서비스만 제공됩니다.
+      * e.g.) /path/to/file1.jpg
+    * Wildcard 와일드 카드: 파일 이름과 경로 이름에 와일드 카드 문자를 이용할 수 있습니다. 와일드 카드는 **\*.cdn.toastcloud.com** 서비스만 제공됩니다.
       * \*: 임의의 문자열
       * ?: 1개의 문자
       * \: 이스케이프(escape) 문자
@@ -419,25 +419,25 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 > Certificates provided by TOAST CDN are automatically renewed before expired. 에서 제공하는 인증서는 인증서 만료 전 자동으로 인증서를 갱신합니다. 
 > For auto-renewal, user's certificate must be integrated with CDN service. 자동으로 인증서를 갱신하려면 반드시 사용 중인 인증서가 CDN 서비스와 연동돼 있어야 합니다. 
 > Otherwise, certificates may not be renewed during specific period and expired. CDN 서비스와 연동돼 있지 않으면 인증서 갱신 기간에 갱신되지 않아 인증서가 만료될 수 있습니다.
-> 인증서 갱신은 **인증서 관리**의 목록에 표시된 인증서 갱신 시작일로부터 **5일 이내** 진행됩니다. 
-> 인증서가 만료되지 않도록 다음의 설정 사항을 항상 유지하시기 바랍니다.
+> A certificate shall be renewed within **5 days** after a renewal start day as indicated on the list of **Certificate Management**.  인증서 갱신은 **인증서 관리**의 목록에 표시된 인증서 갱신 시작일로부터 **5일 이내** 진행됩니다. 
+> 인증서가 만료되지 않도록 다음의 설정 사항을 항상 유지하시기 바랍니다. To prevent certificates from expired, maintain the following settings at all times: 
 > 
-> 1. 인증서의 도메인은 CNAME 레코드로 연동할 CDN 서비스 도메인 주소로 위임해야 합니다. 
-> 2. 연동할 CDN 서비스의 도메인 별칭에 인증서 도메인이 설정되어 있어야 합니다.
-> 3. 인증서가 연동된 CDN 서비스를 일시 정지하면 인증서를 갱신할 수 없습니다. 인증서 갱신 시작일 이전에 재시작하거나 다른 운영 중인 CDN 서비스에 인증서를 연동하시기 바랍니다.
-> 4. 인증서가 연동된 CDN 서비스를 삭제하면 인증서를 갱신할 수 없습니다. 삭제하기 전에 운영 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
+> 1. Assign domain of a certificate to the domain address of CDN service which is to be integrated with CNAME record. 
+> 2. Set certificate domain for domain alias of CDN service to be integrated with. 
+> 3. When a CDN service integrated with certificate is suspended, the certificate cannot be renewed. Resume before a renewal start day or integrate it to another running CDN service.  
+> 4. When a CDN service integrated with certificate is deleted, the certificate cannot be renewed: integrate it to another running CDN service before deleting. 
 
 CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
 ![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active.png)
 
 ## Statistics
 
-Check statistics on the network transfer volume, HTTP status code, most downloaded content, and more.  네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 확인할 수 있습니다.
-7일 이내 통계 데이터는 정확하지 않으므로 참고용으로만 이용하시기 바랍니다. 정확한 통계 데이터는 7일 이후에 확인하시기 바랍니다. 
+Check statistics on the network transfer volume, HTTP status code, most downloaded content, and more.  
+Statistical data within 7 days are recommended only as reference, since they may not be precise: precise data are available after 7 days.   
 
-1. Click **Statistics** from **Contents Delivery > CDN**.
+1. Click **Statistics** from **Content Delivery > CDN**.
 ![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_201812.png)
-2. 통계를 확인하려면 CDN 서비스를 선택합니다. Select CDN to check statistics. 
-3. 검색 기간을 입력합니다. Enter search period. 
-4. 검색 기간 내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다. Data cycle within a search period is automatically selected depending on the period. 
-5. **검색** 버튼을 클릭합니다. Click **Search**. 
+2. Select a CDN service to check statistics. 
+3. Enter search period. 
+4. Data cycle within a search period is automatically selected depending on the period. 
+5. Click **Search**. 
