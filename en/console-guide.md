@@ -36,7 +36,7 @@ Basic information is set.
     2. To receive results on the change of CDN via query parameter, include the following path variable to **Callback URL**.  
          e.g.: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
 
-| Path Variables | Description | 예시 전달 값 |
+| Path Variables | Description | Delivered Value|
 | ------------- | --- | ------- |
 | {appKey} | Appkey of CDN Service | Appkey issued on console |
 | {domain} | Name of CDN Service | [Service ID].cdn.toastcloud.com or [ServiceID].toastcdn.net |
@@ -242,7 +242,7 @@ CDN service can be suspended or resumed.
 
 
 
-> **[Note] Delays of Suspension and Resumption일시 정지와 재시작 동작의 지연**
+> **[Note] Delays in Suspension and Resumption**
 > Suspension and resumption of CDN service operates by changing DNS records of CDN domain. CDN 서비스 일시정지와 재시작은 CDN 서비스 도메인의 DNS 레코드를 변경하여 동작됩니다. 
 > Accordingly, even if 따라서 캐시 DNS 서버에서 TTL 동안 캐시되어 있거나 DNS 전파에 따라 일시정지/재시작이 완료 되어도 즉시 일시정지/재시작이 동작되지 않을 수 있습니다.
 
