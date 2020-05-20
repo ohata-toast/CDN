@@ -253,16 +253,16 @@ CDN service can be suspended or resumed.
 
 
 ### Delete CDN
-CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 유의하시기 바랍니다. 
+CDN service can be deleted. Once deleted, however, a service cannot be recovered. 
 
-1. 삭제할 CDN 서비스를 선택합니다. Select a CDN service to delete. 
-2. **삭제** 버튼을 클릭합니다. Click **Delete**. 
-![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
+1. Select a CDN service to delete. 
+2. Click **Delete**. 
+![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
 3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
 
 
-> **[Note] CDN 서비스 삭제 소요 시간**
-> CDN 서비스 삭제 작업은 몇 시간(최대 2~3시간)이 걸릴 수 있습니다.
+> **[Note] Deleting CDN 서비스 삭제 소요 시간**
+> It may take a few hours (up to 3 hours) to delete CDN service. 
 
 > **[Caution] 발급된 인증서가 연동된 CDN 서비스의 삭제**
 > 인증서가 연동된 CDN 서비스를 삭제하면, 인증서를 갱신할 수 없습니다. 
@@ -334,7 +334,7 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 - 전 세계 거점의 CDN 서버에 인증서 배포(중국과 러시아 지역은 제외)
 - 인증서 만료 전 자동 갱신
 
-### 신규 인증서 발급 
+### 신규 인증서 발급 Issue New Certificates
 **인증서 관리** 탭에서 인증서를 발급할 수 있습니다.
 ![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create.png)
 
@@ -416,10 +416,10 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 ![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias.png)
 
 
->  **[Caution] 인증서 만료 주의 사항**
-> TOAST CDN에서 제공하는 인증서는 인증서 만료 전 자동으로 인증서를 갱신합니다. 
-> 자동으로 인증서를 갱신하려면 반드시 사용 중인 인증서가 CDN 서비스와 연동돼 있어야 합니다. 
-> CDN 서비스와 연동돼 있지 않으면 인증서 갱신 기간에 갱신되지 않아 인증서가 만료될 수 있습니다.
+>  **[Caution] Caution for Expiration 인증서 만료 주의 사항**
+> Certificates provided by TOAST CDN are automatically renewed before expired. 에서 제공하는 인증서는 인증서 만료 전 자동으로 인증서를 갱신합니다. 
+> For auto-renewal, user's certificate must be integrated with CDN service. 자동으로 인증서를 갱신하려면 반드시 사용 중인 인증서가 CDN 서비스와 연동돼 있어야 합니다. 
+> Otherwise, certificates may not be renewed during specific period and expired. CDN 서비스와 연동돼 있지 않으면 인증서 갱신 기간에 갱신되지 않아 인증서가 만료될 수 있습니다.
 > 인증서 갱신은 **인증서 관리**의 목록에 표시된 인증서 갱신 시작일로부터 **5일 이내** 진행됩니다. 
 > 인증서가 만료되지 않도록 다음의 설정 사항을 항상 유지하시기 바랍니다.
 > 
