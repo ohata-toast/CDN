@@ -55,7 +55,7 @@ Set server providing original files to be deployd to CDN.
 
 **[Table 1] List of Credible Certificates**
 
-| Common name| Expire Date |SHA-1 Fingerprint |
+| Common Name| Expiry Date |SHA-1 Fingerprint |
 |---|---|---|
 |SecureTrust CA|1.Jan.30|8782c6c304353bcfd29692d2593e7d44d934ff11|
 |Entrust.net Certification Authority (2048)|24.Jul.29|503006091d97d4f5ae39f7cbe7927d7d652d3431|
@@ -143,11 +143,11 @@ Set server providing original files to be deployd to CDN.
 > - Origin paths may be missing from URL of CDN Service when it is requested. 
 
 - **Downgrading HTTP Protocols Requesting Originals**  
-  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.  에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클라이언트의 원본 요청(request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.  
-  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, 즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않으면, CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜로 요청하기 때문에 원본 파일을 응답받을 수 없습니다.  
-  If the origin server operates HTTPS protocols only, 원본 서버에서 HTTP 프로토콜만 운영한다면, **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용해 CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜을 HTTP 프로토콜로 다운그레이드해서 요청할 수 있습니다.  
-  즉, 클라이언트에서 CDN 에지 서버 구간은 보안 통신(HTTPS)으로 통신하고, CDN 에지 서버에서 원본 서버 구간은 비보안 통신(HTTP)으로 통신하게 됩니다.  
-  원본 요청 HTTP 프로토콜을 다운그레이드할 때는 다음과 같은 제약 사항이 있습니다.  
+  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.    
+  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, original files do not come as response.   
+  If the origin server operates HTTPS protocols only, enable the **Downgrading HTTP Protocols Requesting Originals** setting and make a request from CDN edge server to origin server by downgrading HTTPS to HTTP protocol.    
+  In short, the CDN edge server section of client is communicated via HTTPS, while the origin server section of CDN edge server is communicated via HTTP.   
+  Note the following constraints when downgrading HTTP protocols requesting originals:   
 > **[Caution] Contraints for Downgrading HTTP Protocols Requesting Originals**
 > 1. Protocol downgrade is not applied to a whole website address. For instance, **www.toast.com**, which is the entire site address of the origin server, cannot be downgraded.   
 > 2. No other methods than GET, HEAD, or OPTIONS, are supported. 
@@ -178,8 +178,7 @@ CDN cache operations and expiration time can be set.
 Content access management is set with the referrer request header. 
 ![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
-The referrer request header includes the webpage address of previous links of the currently requested page. 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
-정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
+The referrer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referrer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
 
 - **Blacklist Type**:
     * Appropriate to restrict the access of particular referrer request headers only. 
@@ -195,65 +194,65 @@ The referrer request header includes the webpage address of previous links of th
 >
 > * Typ: Whitelist
 > * Regex:`^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
-> 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
+> Content access is allowed only when resources are requested from lower paths of a toast.com sub-domain. 
 >
-> **[Note] Regex Escape Characters정규 표현식의 이스케이프 문자**
+> **[Note] Regex Escape Characters**
 > Some characters are used as special characters for regex. 
-> For instance, a period (`.`) indicates agreement with all characters for regex을 예로 들자면, 정규 표현식에서 점(`.`)은 모든 문자와 일치함을 나타내는 특수 문자입니다. 
-> To understand a special character as a general one, add backlash before it. 특수 문자로의 의미가 아닌 일반 문자 그대로 해석해야 한다면 이스케이프 문자 백슬래시(`\`)를 특수 문자 앞에 추가하면 됩니다(예: `\.`).
-> Regex special characters include 정규 표현식의 특수 문자에는 `^, ., [, ], $, (, ), |, *, +, ?, {, }, and \` 등이 있습니다.
-> To control many referrers, enter in consecutive lines. 여러 개의 리퍼러를 제어할 때는 다음 줄에 연속해 입력합니다.
-> To set many referrers with APIs, delimit with \n tokens. 를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
+> For instance, a period (`.`) indicates agreement with all characters for regex. 
+> To understand a special character as a general one, add backlash before it.(e.g.: `\.`).
+> Regex special characters include `^, ., [, ], $, (, ), |, *, +, ?, {, }, and \`.
+> To control many referrers, enter in consecutive lines. 
+> To set many referrers with APIs, delimit with \n tokens. 
 
 
 ## Settings
 
 ### Modify CDN Service Setting 
 CDN service setting can be modified, except the name and region of service domain. 
-![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
+![Enable Modifying CDN Service](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
 
-1. Select a CDN service to modify from the list. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
-2. Click **Modify** from the **Setting** at the bottom of the page. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
+1. Select a CDN service to modify from the list. 
+2. Click **Modify** from the **Setting** at the bottom of the page. 
 
-Then, items that are modifiable are activated like below.  다음과 같이 변경할 수 있는 항목이 활성화됩니다.
-![CDN서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
+Then, items that are modifiable are activated like below.  
+![Check Modifying CDN Service서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
 
-* Modify the setting. 변경할 설정 내용을 수정합니다. 
-* Click **OK확인** to complete with changes. 버튼을 클릭해 변경을 완료합니다.
-* To edit other settings, except description and callack setting, it may take more time than usual since changes must be applied throughout the whole CDN server. 설명과 콜백 설정을 제외한 다른 설정을 변경하려면 전체 CDN 서버에 반영돼야 해서 시간이 오래 걸릴 수 있습니다. 
+* Modify the setting.  
+* Click **OK** to complete with changes. 
+* To edit other settings, except description and callack setting, it may take more time than usual since changes must be applied throughout the whole CDN server.  
 
-**Modification takes dozens of minutes, but domain alias change may take a few hours. 수정 작업은 몇 십분 내 완료되며, 도메인 별칭 설정이 변경된 경우에는 몇 시간이 걸릴 수 있습니다.**
+**Modification takes dozens of minutes, but change of domain alias may take a few hours.**
 
-> **[Note] CDN 서비스 수정 중 배포 상태와 서비스 상태** 
-> 서비스 수정 작업이 진행 중이면 기존 CDN 서비스 설정으로 운영됩니다.
-> 만약 수정 작업에 실패하면 기존 설정 정보로 롤백되며, CDN 서비스 목록의 배포 상태가 빨간색 원으로 표시됩니다. 설정 정보에 오류가 있거나 내부적으로 오류가 발생했을 때 수정 작업에 실패합니다. 
+> **[Note] Deployment Status while Modifying CDN and Service Status** 
+> If service is under modification, CDN runs in the existing service setting.
+> If it fails to modify, it is rolled back to the existing setting information and the deployment status shows red circle on CDN list.  Modification fails if there is error in setting information, or internal error occurs.  
 
-### CDN 서비스 일시 정지와 재시작 Suspend and Resume CDN
-CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.CDN service can be suspended or resumed. 
+### Suspend and Resume CDN
+CDN service can be suspended or resumed. 
 
 
-1. 일시 정지할 CDN 서비스의 선택합니다.Select a CDN service to suspend. 
-2. **일시 정지** 버튼을 클릭합니다.Click **Suspend**. 
+1. Select a CDN service to suspend. 
+2. Click **Suspend**. 
 ![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다. A warning guide will show for CDN services that are integrated with certificate 
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
-4. 일시 정지 상태의 CDN 서비스를 재시작하려면 재시작할 CDN 서비스를 선택합니다.
-5. **재시작** 버튼을 클릭합니다.
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal. 
+![CDN Service-Suspend시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
+4. To resume suspended CDN service, select a CDN service to resume. 
+5. Click **Resume**.
 
 
 
 
-> **[참고] 일시 정지와 재시작 동작의 지연**
-> CDN 서비스 일시정지와 재시작은 CDN 서비스 도메인의 DNS 레코드를 변경하여 동작됩니다. 
-> 따라서 캐시 DNS 서버에서 TTL 동안 캐시되어 있거나 DNS 전파에 따라 일시정지/재시작이 완료 되어도 즉시 일시정지/재시작이 동작되지 않을 수 있습니다.
+> **[Note] Delays of Suspension and Resumption일시 정지와 재시작 동작의 지연**
+> Suspension and resumption of CDN service operates by changing DNS records of CDN domain. CDN 서비스 일시정지와 재시작은 CDN 서비스 도메인의 DNS 레코드를 변경하여 동작됩니다. 
+> Accordingly, even if 따라서 캐시 DNS 서버에서 TTL 동안 캐시되어 있거나 DNS 전파에 따라 일시정지/재시작이 완료 되어도 즉시 일시정지/재시작이 동작되지 않을 수 있습니다.
 
 > **[Caution] Suspending CDN Service Integrated with Issued Certificate 발급된 인증서가 연동된 CDN서비스의 일시정지**
-> 인증서가 연동된 CDN 서비스를 일시정지 하는 경우, 인증서 갱신이 불가합니다. 
-> **인증서 관리** > 인증서 목록의 **인증서 갱신 시작일** 이전에 CDN 서비스를 재시작하시기 바랍니다. 
-> 인증서 갱신 시작일로 부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 일시정지를 하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
+> To suspend a CDN service integrated with certificate, the certificate cannot be renewed. 인증서가 연동된 CDN 서비스를 일시정지 하는 경우, 인증서 갱신이 불가합니다. 
+> Please resume CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List. 의 **인증서 갱신 시작일** 이전에 CDN 서비스를 재시작하시기 바랍니다. 
+> A certificate is allowed to be renewed for 5 days after start day of renewal, and a suspension during the period may cause the certificate to be expired. 인증서 갱신 시작일로 부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 일시정지를 하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
 
 
-### CDN 서비스 삭제 Delete CDN
+### Delete CDN
 CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 유의하시기 바랍니다. 
 
 1. 삭제할 CDN 서비스를 선택합니다. Select a CDN service to delete. 
