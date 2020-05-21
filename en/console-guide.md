@@ -343,45 +343,46 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다. Cer
 4. When a new certificate is requested, certificate domain shows on the **Certificate Management** tab. When the certificate status is change to **Validate Domain**, domain can be validated.  신규 발급 인증서를 요청하면 **인증서 관리** 탭의 인증서 도메인이 표시됩니다. 인증서 상태가 **도메인 검증** 상태로 변경되면 이후 도메인 검증 작업을 진행하시기 바랍니다. 
 
 > **[Caution] Checkpoints before Getting a Certificate인증서 발급 전 확인 사항**
-> 1. 소유한 도메인만 인증서를 발급할 수 있으므로 먼저 도메인을 구매하신 후 진행하시기 바랍니다. Certificates can be issued to owned domains only
-> 2. 다른 인증 기관(CA, certificate authority)에서 발급한 인증서는 이용할 수 없습니다. 
-> 3. 단일 도메인의 인증서 발급만 가능합니다. 와일드 카드, 멀티 도메인 등의 인증서는 지원하지 않습니다.
-> 4. 인증서 발급은 프로젝트당 5개로 제한됩니다. 한도 조정이 필요한 경우 TOAST 고객 센터로 문의하시기 바랍니다.
-> 5. 신규 인증서 발급 요청 후 도메인 검증 단계는 몇 십분(최대 1~2시간) 후 변경될 수 있습니다. 인증서 상태가 도메인 검증 상태로 변경되면 TOAST 프로젝트 멤버를 대상으로 이메일 발송됩니다. 만일 시스템 오류로 이메일이 발송되지 않는다면 콘솔에서 상태를 확인하시기 바랍니다. 
+> 1. 소유한 도메인만 인증서를 발급할 수 있으므로 먼저 도메인을 구매하신 후 진행하시기 바랍니다. Please purchase a domain first, if not owned, becuase certificates can be issued to owned domains only. 
+> 2. 다른 인증 기관(CA, certificate authority)에서 발급한 인증서는 이용할 수 없습니다. Certificates issued from other certificate authorities are not allowed. 
+> 3. 단일 도메인의 인증서 발급만 가능합니다. 와일드 카드, 멀티 도메인 등의 인증서는 지원하지 않습니다. Certificate can be issued for a singlel domain only. Wildcard or multi-domain certificates are not supported. 
+> 4. 인증서 발급은 프로젝트당 5개로 제한됩니다. 한도 조정이 필요한 경우 TOAST 고객 센터로 문의하시기 바랍니다. Each project allows no more than 5 certificates. If you need more than that, contact TOAST Customer Center.  
+> 5. 신규 인증서 발급 요청 후 도메인 검증 단계는 몇 십분(최대 1~2시간) 후 변경될 수 있습니다. 인증서 상태가 도메인 검증 상태로 변경되면 TOAST 프로젝트 멤버를 대상으로 이메일 발송됩니다. 만일 시스템 오류로 이메일이 발송되지 않는다면 콘솔에서 상태를 확인하시기 바랍니다. After certificate issuance is requested, the Validate Domain phase may be activated in a dozon of minutes (up to 2 hours). If your certificate changes status to Validate Domain, email shall be sent to TOAST project members. If email is not sent due to system error, check status on console.    
 
 ### 도메인 검증 Validate Domain
-신규 인증서 발급을 요청한 후 인증서 상태가 '도메인 검증'이 되면 도메인을 검증하시기 바랍니다.
-도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다.
+신규 인증서 발급을 요청한 후 인증서 상태가 '도메인 검증'이 되면 도메인을 검증하시기 바랍니다. You're ready to validate domain, after a new certificate is requeted, when certificate status is changed to 'Validate Domain'. 
+도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다. You may select a domain on console or refer to domain validation guide via email sent to project members.
 
 ![Validate CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation.png)
 
-도메인 검증은 발급 요청한 인증서 도메인의 실제 소유자인지 확인하는 단계 입니다. 도메인 검증을 진행하지 않으면 인증서를 발급할 수 없습니다.
-도메인 소유자인지 확인하기 위해 도메인 검증 방식으로 도메인의 제어 권한을 확인합니다. 
-도메인 검증 방식에는 **DNS TXT 레코드 추가** 또는 **HTTP 페이지 추가** 방식이 있으며 **두 가지 방식 중 하나만 진행**하면 됩니다.
+도메인 검증은 발급 요청한 인증서 도메인의 실제 소유자인지 확인하는 단계 입니다. 도메인 검증을 진행하지 않으면 인증서를 발급할 수 없습니다. Domain validation is required to see if the requester for certificate is the actual owner of its domain. Without this process, certificate cannot be issued.  
+도메인 소유자인지 확인하기 위해 도메인 검증 방식으로 도메인의 제어 권한을 확인합니다. As part of a domain validation method to check domain owner, domain control role must be validated.   
+Domain validation can be carried out by 도메인 검증 방식에는 **Adding DNS TXT Recors레코드 추가** or또는 **Adding HTTP Pages 페이지 추가**, and you can  방식이 있으며 **Choose Only One out of the Two Methods두 가지 방식 중 하나만 진행**.
 
 ![Validate CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2.png)
 
 #### DNS TXT 레코드 추가 방식 Adding DNS TXT Records 
 도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다. Check DNS control role of domain to validate domain.  
 
-1. 도메인의 DNS 서비스 제공 업체의 DNS 관리 페이지에서 TXT 레코드를 추가합니다. 
-   DNS 설정 방법은 DNS 서비스 제공 업체에 따라 다를 수 있습니다. 관련 설정은 해당 서비스 업체로 문의하시기 바랍니다.
+1. 도메인의 DNS 서비스 제공 업체의 DNS 관리 페이지에서 TXT 레코드를 추가합니다. Add TXT record on the DNS management page of domain's DNS service provider. 
+   Each DNS service provider may provide different method of configuration. Consult with your service provider regarding the setting.  DNS 설정 방법은 DNS 서비스 제공 업체에 따라 다를 수 있습니다. 관련 설정은 해당 서비스 업체로 문의하시기 바랍니다.
   - Record Type: **TXT**
-  - TTL: **60**. 60으로 설정할 수 없다면 되도록 작게 설정하시기 바랍니다.
-  - Record Name: **_acme-challenge.[발급 요청한 인증서 도메인].**  콘솔 또는 발송된 이메일 가이드의 **레코드 이름**을 작성합니다.
-  - Record Value: **임의의 문자열** (콘솔 또는 발송된 이메일 가이드의 **레코드값**을 작성합니다.)
+  - TTL: **60**. 60으로 설정할 수 없다면 되도록 작게 설정하시기 바랍니다. If 60 is unavailable, set the smallest possible number. 
+  - Record Name: **_acme-challenge.[Certificate domain requested of issuance발급 요청한 인증서 도메인].**  콘솔 또는 발송된 이메일 가이드의 Fill in the **Record Name** of console or email guide as sent.   
+  - Record Value: **Random Character String의의 문자열** (fill in the **Record Value** of console or email guide as sent. 콘솔 또는 발송된 이메일 가이드의 **레코드값**을 작성합니다.)
 
-2. nslookup 명령어로 추가한 TXT 레코드가 질의되는지 확인합니다. DNS 전파 시간에 따라 질의되기까지 시간이 소요될 수 있습니다.
+2. See if TXT record, added for nslookup command, is well queried. It may take some time to query depending on the DNS transfer time. nslookup 명령어로 추가한 TXT 레코드가 질의되는지 확인합니다. DNS 전파 시간에 따라 질의되기까지 시간이 소요될 수 있습니다.
     `nslookup -type=TXT _acme-challenge.[발급 요청한 인증서 도메인].`
 
-다음 화면은 TOAST DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
+
+Following page shows a setting example of TOAST DNS+ service. Each DNS provider may provide different method of configuration. 다음 화면은 TOAST DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
 ![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns.png)
 
 
 #### HTTP 페이지 추가 방식 Adding HTTP Pages
-도메인이 연결된 웹 서버에 HTTP 페이지를 추가해 도메인을 검증합니다. 
+도메인이 연결된 웹 서버에 HTTP 페이지를 추가해 도메인을 검증합니다. Add an HTTP page to a web server connected with domain and validate domain. 
 
-1. 웹 서버의 **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** 경로에 HTTP 페이지를 추가합니다. 
+1. Add HTTP page to 웹 서버의 **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** 경로에 HTTP 페이지를 추가합니다. 
 2. HTTP 페이지의 본문에 콘솔 또는 발송된 이메일 가이드의 **페이지 콘텐츠(토큰) **값으로 설정합니다. 
 3. 웹 브라우저에서  **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** URL로 접속하면  **페이지 콘텐츠(토큰)** 값이 화면에 표시되는지 확인합니다. 
 
@@ -399,8 +400,8 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다. Cer
 > 인증서 발급 및 배포 작업은 최대 9시간 이상 걸릴 수 있습니다. 
 
 ### CDN 서비스 연동 Integrate with CDN Service
-발급된 인증서를 이용하려면 CDN 서비스와 연동해야 합니다. 
-이 작업을 진행하지 않거나 작업 내용을 유지하지 않으면 발급된 인증서가 만료될 수 있으므로 주의하시기 바랍니다. 
+발급된 인증서를 이용하려면 CDN 서비스와 연동해야 합니다. Certificate must be integrated with CDN service to be enabled. 
+이 작업을 진행하지 않거나 작업 내용을 유지하지 않으면 발급된 인증서가 만료될 수 있으므로 주의하시기 바랍니다. If this task is undone or maintained, issued certificate may expire. 
 
 1. **CNAME 레코드 설정**: 인증서 도메인의 DNS 서비스 제공 업체의 DNS 관리에서 다음의 CNAME 레코드를 추가합니다. 
     - Record Type:  **CNAME**
@@ -427,8 +428,8 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다. Cer
 > 3. When a CDN service integrated with certificate is suspended, the certificate cannot be renewed. Resume before a renewal start day or integrate it to another running CDN service.  
 > 4. When a CDN service integrated with certificate is deleted, the certificate cannot be renewed: integrate it to another running CDN service before deleting. 
 
-CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
-![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active.png)
+When certificate is fully integration with CDN, the certificate status shows 'Activated'. 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
+![Activated Status of Certificate인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active.png)
 
 ## Statistics
 
