@@ -174,7 +174,7 @@ CDN cache operations and expiration time can be set.
 > Default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds)=1 week.
 > Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
 
-### Referrer Header Access Management 
+### Manage Referrer Header Access  
 Content access management is set with the referrer request header. 
 ![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
@@ -209,13 +209,13 @@ The referrer request header includes the webpage address of previous links of th
 
 ### Modify CDN Service Setting 
 CDN service setting can be modified, except the name and region of service domain. 
-![Enable Modifying CDN Service](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
+![Enable CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
 
 1. Select a CDN service to modify from the list. 
 2. Click **Modify** from the **Setting** at the bottom of the page. 
 
 Then, items that are modifiable are activated like below.  
-![Check Modifying CDN Service서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
+![Check CDN Service Modification서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
 
 * Modify the setting.  
 * Click **OK** to complete with changes. 
@@ -235,7 +235,7 @@ CDN service can be suspended or resumed.
 2. Click **Suspend**. 
 ![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
 3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal. 
-![CDN Service-Suspend시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
+![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
 4. To resume suspended CDN service, select a CDN service to resume. 
 5. Click **Resume**.
 
@@ -281,69 +281,69 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 3. 캐시 재배포 타입을 선택합니다. Select a purge type. 
   - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다. Note that each CDN service domain may support different purge type and request format of cache.  
   - **[ServiceID].toastcdn.net** 서비스 도메인의 재배포 타입과 요청 양식 Purge type and request format of the **[ServiceID].toastcdn.net** domain
-    * Particular Files특정 파일: 재배포할 콘텐츠의 URL을 입력합니다. 요청한 URL만 캐시가 재배포되므로 도메인 별칭으로 여러 서비스 도메인 주소가 있다면 각 URL 주소로 요청해야 합니다.
-      * e.g.) Domain address for default service 기본 서비스 도메인 주소: http://[서비스ID].toastcdn.net/path/to/file1.jpg
+    * Particular Files특정 파일: Enter URL of content to purge. Since cache purge is applied for a requested URL only, purge must be requested to each URL address if there are many service domain addresses.   재배포할 콘텐츠의 URL을 입력합니다. 요청한 URL만 캐시가 재배포되므로 도메인 별칭으로 여러 서비스 도메인 주소가 있다면 각 URL 주소로 요청해야 합니다.
+      * e.g.) Domain address for default service 기본 서비스 도메인 주소: http://[ServiceID].toastcdn.net/path/to/file1.jpg
       * e.g.) Domain address for domain alias 도메인 별칭 도메인 주소: http://customer.domain.com/path/to/file1.jpg
     * All Files전체 파일: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server. 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다. 
-  - **[ServiceID].cdn.toastcloud.com** 서비스 도메인의 재배포 타입과 요청 양식
-    * 특정 파일: 재배포할 콘텐츠의 경로를 입력합니다.
+  - Purge type and request format of the **[ServiceID].cdn.toastcloud.com** domain 서비스 도메인의 재배포 타입과 요청 양식
+    * Particular Files특정 파일: Enter path of content to purge. 재배포할 콘텐츠의 경로를 입력합니다.
       * e.g.) /path/to/file1.jpg
-    * Wildcard 와일드 카드: 파일 이름과 경로 이름에 와일드 카드 문자를 이용할 수 있습니다. 와일드 카드는 **\*.cdn.toastcloud.com** 서비스만 제공됩니다.
-      * \*: 임의의 문자열
-      * ?: 1개의 문자
-      * \: 이스케이프(escape) 문자
-          * 예) /images/games/\*.jpg
+    * Wildcard 와일드 카드: Use wildcard characters for the name of file and path. Wildcard is supported only for 파일 이름과 경로 이름에 와일드 카드 문자를 이용할 수 있습니다. Wildcard is supported only by와일드 카드는 **\*.cdn.toastcloud.com** 서비스만 제공됩니다.
+      * \*: Random character string 임의의 문자열
+      * ?: 1 character 개의 문자
+      * \: Escape character 문자
+          * e.g) /images/games/\*.jpg
           * /\_/sports/\_.jpg
           * /images/sports/ac?e/\*.jpg
-    * 전체 파일: 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다. 
-4. 선택한 캐시 재배포 타입에 맞게 재배포할 파일을 지정합니다.
-5. **캐시 재배포** 버튼을 클릭해 재배포를 요청합니다.
+    * All Files전체 파일: Delete all cache files. Note that traffic inflow to origin server should not be excessive. 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다. 
+4. 선택한 캐시 재배포 타입에 맞게 재배포할 파일을 지정합니다. Specify a file to purge depending on the selected cache purge type. 
+5. Click **Purge Cache캐시 재배포** to request for a purge. 버튼을 클릭해 재배포를 요청합니다. 
 
-캐시 재배포는 사용량 제한이 있으므로 아래의 표를 참고하시고 사용량이 초과되지 않도록 유의하시기 바랍니다.
+Take caution that cache purge does not exceed the capacity limit, in reference of the table as below: 캐시 재배포는 사용량 제한이 있으므로 아래의 표를 참고하시고 사용량이 초과되지 않도록 유의하시기 바랍니다.
 
 |Category |[ServiceID].cdn.toastcloud.com|[ServiceID].toastcdn.net |
 |---|---|---|
-| 제한 단위 | 서비스 도메인별 | 프로젝트별(Appkey) |
-| 특정 파일 | 1시간당 요청 가능: 60회, 요청당 경로(path) 수 제한: 1,000개 | 1초당 요청 가능: 1회, 요청당 URL 수 제한: 200 URL |
-| 와일드 카드 | 1시간당 요청 가능: 60회, 요청당 경로(path) 수 제한: 10개 | 미지원 |
-| 전체 파일 타입 | 1시간당 요청 가능: 5회 | 5분당 요청 가능: 1회 |
+| Unit of Restriction제한 단위 | Per service domain | Per project (Appkey) |
+| Particular Files 특정 파일 | Requests per hour 1시간당 요청 가능: 60 times, Paths per request요청당 경로(path) 수 제한: 1,000개 | Requests per second 1초당 요청 가능: 1 time, URLs per request 요청당 URL 수 제한: 200 URLs |
+| Wildcard | Requests per hour 1시간당 요청 가능: 60 times, Paths per request요청당 경로(path) 수 제한: 10개 | Unsupported미지원 |
+| All File Types전체 파일 타입 | Requests per hour1시간당 요청 가능: 5 times | Requests per 5 minutes 5분당 요청 가능: 1 time |
 
-> **[Caution] 도메인 별칭을 여러 개 사용 중인 서비스ID].cdn.toastcloud.com 서비스의 캐시 재배포**
-> 도메인 별칭이 여러 개 등록된 CDN 서비스는 요청한 캐시 재배포 경로에 대해 각 도메인 별칭별로 작업이 진행됩니다. 
+> **[Caution] Cache purge of [Servie ID].cdn.toastcloud.com with Many Domain Aliases 도메인 별칭을 여러 개 사용 중인 서비스ID].cdn.toastcloud.com 서비스의 캐시 재배포**
+> If many domain aliases are registered, purge is carried out for each domain alias on requested path of cache purge. 도메인 별칭이 여러 개 등록된 CDN 서비스는 요청한 캐시 재배포 경로에 대해 각 도메인 별칭별로 작업이 진행됩니다. 
 > 
 > (Example)
-> `custom1.domain-alias.com` 과 `custom2.domain-alias.com` 이 도메인 별칭으로 설정된 CDN 서비스가 있다고 가정합니다.
-> 위 CDN 서비스에 대해 **특정 파일** 타입, `/images/photo.png`로 캐시 재배포를 요청하면 아래 2개의 경로로 캐시 재배포가 수행됩니다. 
+> Assume that there is a CDN service set with the following domain aliases: `custom1.domain-alias.com` and `custom2.domain-alias.com`. 이 도메인 별칭으로 설정된 CDN 서비스가 있다고 가정합니다.
+> If requested with 위 CDN 서비스에 대해 the **Particular File** type and `/images/photo.png` for the CDN service, cache purge is executed in the following two paths: 로 캐시 재배포를 요청하면 아래 2개의 경로로 캐시 재배포가 수행됩니다. 
 >
 > - custom1.domain-alias.com/images/photo.png
 > - custom2.domain-alias.com/images/photo.png 
 >
-> (등록된 도메인 별칭 수 X 요청한 캐시 재배포 경로 수)만큼 캐시 재배포 경로가 추가되므로 유의해 주세요. 
-> 만일, 전체 캐시 재배포 경로 수가 캐시 재배포 사용량 제한의 요청당 최대 캐시 재배포 경로 수를 초과하면 요청당 최대 캐시 재배포 경로 수만큼씩 나눠 요청됩니다. 
-> 나눠서 진행된 요청 수만큼 캐시 재배포 제한 사용량은 증가하므로 사용량 초과에 유의해주세요.
+> Note that the paths of cache purge are added as much as (Number of registered domain aliases X Number of requested paths of cache purge)만큼 캐시 재배포 경로가 추가되므로 유의해 주세요. 
+> If the total number of paths for cache purge exceeds the maximum allowed number of paths per request, requests are divided and made by the maximum allowed number of paths.   만일, 전체 캐시 재배포 경로 수가 캐시 재배포 사용량 제한의 요청당 최대 캐시 재배포 경로 수를 초과하면 요청당 최대 캐시 재배포 경로 수만큼씩 나눠 요청됩니다. 
+> Since cache purge capacity shall increase as many as the number of divided requests, keep note of capacity excess.  나눠서 진행된 요청 수만큼 캐시 재배포 제한 사용량은 증가하므로 사용량 초과에 유의해주세요.
 >
-> **[Caution] [ServiceID].toastcdn.net 서비스를 생성한 후 캐시 재배포 실패 오류**
-> CDN 서비스를 생성한 후 약 1시간 이내에는 캐시 재배포 요청에 실패할 수 있습니다. 이후에도 계속 실패하면  고객 센터로 문의해주시기 바랍니다.
+> **[Caution] Failed Cache Purge after [ServiceID].toastcdn.net is created  서비스를 생성한 후 캐시 재배포 실패 오류**
+> Cache purge request may fail within about an hour after CDN service is created. If failure continues afterwards, contact Customer Center.  서비스를 생성한 후 약 1시간 이내에는 캐시 재배포 요청에 실패할 수 있습니다. 이후에도 계속 실패하면  고객 센터로 문의해주시기 바랍니다.
 
 ## Managing Certificates
-소유한 도메인으로 콘텐츠를 보안 전송(HTTPS)하려면 CDN 서버에 소유한 도메인의 인증서를 배포해야 합니다. 인증서가 없으면 클라이언트(브라우저)와 CDN 에지 서버 간 보안 통신(HTTPS)을 할 수 없어 인증서 오류가 발생합니다.
-TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
+소유한 도메인으로 콘텐츠를 보안 전송(HTTPS)하려면 CDN 서버에 소유한 도메인의 인증서를 배포해야 합니다. 인증서가 없으면 클라이언트(브라우저)와 CDN 에지 서버 간 보안 통신(HTTPS)을 할 수 없어 인증서 오류가 발생합니다. To use secure transport (HTTPS) via your own domain, certificate of your own domain must be deployed to CDN server. Without a certificate, secured communication (HTTPS) is unavailable between client (browser) and CDN edge server, causing error of certificate. 
+TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다. Certificate management of TOAST CDN provides the following features: 
 
-- 단일 도메인 타입의 인증서 발급
-- 전 세계 거점의 CDN 서버에 인증서 배포(중국과 러시아 지역은 제외)
-- 인증서 만료 전 자동 갱신
+- 단일 도메인 타입의 인증서 발급 Issue single domain-type certificates 
+- 전 세계 거점의 CDN 서버에 인증서 배포(중국과 러시아 지역은 제외) Deploy certificates to CDN servers to global points (except China and Russia)
+- 인증서 만료 전 자동 갱신 Auto-renew certificates before expired 
 
 ### 신규 인증서 발급 Issue New Certificates
-**인증서 관리** 탭에서 인증서를 발급할 수 있습니다.
-![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create.png)
+**인증서 관리** 탭에서 인증서를 발급할 수 있습니다. Certificates can be issued from the **Certificate Management** tab. 
+![Issue New CDN Certificates 신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create.png)
 
-1. **인증서 관리** 탭의 **신규 인증서 발급** 버튼을 클릭합니다.
-2. 발급할 인증서의 도메인을 전체 도메인 주소(FQDN, fully qualified domain name)형식으로 입력합니다.
-3. 인증서 발급 안내 내용을 확인하고 **확인** 버튼을 클릭합니다.
-4. 신규 발급 인증서를 요청하면 **인증서 관리** 탭의 인증서 도메인이 표시됩니다. 인증서 상태가 **도메인 검증** 상태로 변경되면 이후 도메인 검증 작업을 진행하시기 바랍니다. 
+1. Go to **Certificate Management** and click 탭의 **Issue New Certificates 신규 인증서 발급** 버튼을 클릭합니다.
+2. Enter domain of certificate to get, in the format of full domain address 발급할 인증서의 도메인을 전체 도메인 주소(FQDN, fully qualified domain name)형식으로 입력합니다.
+3. Check the guide to issue certificates and click 인증서 발급 안내 내용을 확인하고 **OK** 버튼을 클릭합니다.
+4. When a new certificate is requested, certificate domain shows on the **Certificate Management** tab. When the certificate status is change to **Validate Domain**, domain can be validated.  신규 발급 인증서를 요청하면 **인증서 관리** 탭의 인증서 도메인이 표시됩니다. 인증서 상태가 **도메인 검증** 상태로 변경되면 이후 도메인 검증 작업을 진행하시기 바랍니다. 
 
-> **[Caution] Checkpoints before Getting Certificates인증서 발급 전 확인 사항**
-> 1. 소유한 도메인만 인증서를 발급할 수 있으므로 먼저 도메인을 구매하신 후 진행하시기 바랍니다. 
+> **[Caution] Checkpoints before Getting a Certificate인증서 발급 전 확인 사항**
+> 1. 소유한 도메인만 인증서를 발급할 수 있으므로 먼저 도메인을 구매하신 후 진행하시기 바랍니다. Certificates can be issued to owned domains only
 > 2. 다른 인증 기관(CA, certificate authority)에서 발급한 인증서는 이용할 수 없습니다. 
 > 3. 단일 도메인의 인증서 발급만 가능합니다. 와일드 카드, 멀티 도메인 등의 인증서는 지원하지 않습니다.
 > 4. 인증서 발급은 프로젝트당 5개로 제한됩니다. 한도 조정이 필요한 경우 TOAST 고객 센터로 문의하시기 바랍니다.
@@ -353,16 +353,16 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 신규 인증서 발급을 요청한 후 인증서 상태가 '도메인 검증'이 되면 도메인을 검증하시기 바랍니다.
 도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation.png)
+![Validate CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation.png)
 
 도메인 검증은 발급 요청한 인증서 도메인의 실제 소유자인지 확인하는 단계 입니다. 도메인 검증을 진행하지 않으면 인증서를 발급할 수 없습니다.
 도메인 소유자인지 확인하기 위해 도메인 검증 방식으로 도메인의 제어 권한을 확인합니다. 
 도메인 검증 방식에는 **DNS TXT 레코드 추가** 또는 **HTTP 페이지 추가** 방식이 있으며 **두 가지 방식 중 하나만 진행**하면 됩니다.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2.png)
+![Validate CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2.png)
 
 #### DNS TXT 레코드 추가 방식 Adding DNS TXT Records 
-도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다. 
+도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다. Check DNS control role of domain to validate domain.  
 
 1. 도메인의 DNS 서비스 제공 업체의 DNS 관리 페이지에서 TXT 레코드를 추가합니다. 
    DNS 설정 방법은 DNS 서비스 제공 업체에 따라 다를 수 있습니다. 관련 설정은 해당 서비스 업체로 문의하시기 바랍니다.
