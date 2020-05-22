@@ -1,64 +1,61 @@
-## Content Delivery > CDN > 콘솔 사용 가이드
+## Content Delivery > CDN > Console User Guide
 
-이 문서는 TOAST CDN 콘솔에서 CDN 서비스를 구성하고 이용하는 방법을 설명합니다.
+This document describes how CDN service is configured and applied on TOAST CDN console. 
 
-## CDN 서비스 생성
+## Creating CDN 
 
-**Contents Delivery > CDN**의 **CDN 서비스** 탭에서 **생성** 버튼을 클릭하면 **CDN 서비스 생성** 대화 상자가 나타납니다.
-CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(domain alias) 기능을 이용할 수 있습니다.
-생성을 요청한 후 서비스 배포가 완료될 때까지 최대 2시간이 걸립니다. 배포가 완료된 후 서비스를 이용할 수 있습니다.
+Go to **Content Delivery > CDN** and to **CDN Service** and click **Create**, and the **Creating CDN** window pops up.  
+CDN service domain is automatically created in the **[ServiceID].toastcdn.net** format. To use your own domain, enable **Domain Alias**. 
+It takes up to 2 hours to complete deployment after service is requested for creation. Service becomes available after it is completely deployed. 
 
-### 기본 정보 
-기본 정보를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
+### Basic Information 
+Set basic information. 
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
 
-- **서비스 지역**
-  GLOBAL 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
-  단, **중국과 러시아**는 서비스 지역에서 제외됩니다.
+- **Service Region**
+  GLOBAL service is provided via CDN edge servers located around the globe. 
+  Note, however, **China and Russia** are excluded from service regions. 
 
-- **설명**
-  CDN 서비스의 설명을 추가합니다.
+- **Description**
+  More description is added on CDN service.  
 
-- **도메인 별칭**
-  TOSAT CDN은 기본으로 **[서비스ID].toastcdn.net** 형식의 서비스 도메인 주소를 제공하고 있습니다.
-  기본 서비스 도메인 주소가 아닌 소유한 도메인으로 CDN 서비스를 이용하려면 **도메인 별칭**에서 설정하면 됩니다.
-  소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 **인증서 관리** 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
-  도메인 별칭 설정 후에는 도메인의 DNS 서비스 제공 업체에서 CNAME 레코드를 다음과 같이 등록해야 합니다. DNS 설정 관련 문의는 DNS 서비스 제공 업체에 하시기 바랍니다.
-    - 레코드 타입: **CNAME**
-    - 레코드 이름: **[도메인 별칭에 등록한 도메인]**
-    - 레코드값(Rdata): **[서비스ID].toastcdn.net**
-    - TTL: 임의의 값
+- **Domain Alias**
+  The default service domain address of TOAST CDN is provided in the **[ServiceID].toastcdn.net** format. 
+  To use CDN service with your own domain, enable **Domain Alias**. 
+  To use HTTPS protocol with your own domain, get a certificate issued from **Certificate Management** and set domain alias.
+  After domain alias is set, register CNAME record at DNS provider of domain, like follows. Please consult your DNS provider regarding DNS settings. 
+    - Record Type: **CNAME**
+    - Record Name: **[Registered domain for domain alias]**
+    - Record Value (Rdata): **[ServiceID].toastcdn.net**
+    - TTL: Randomly selected 
 
-- **콜백**
-  CDN 서비스 생성과 변경 작업(수정, 일시정지/재시작, 삭제)은 몇 시간이 걸립니다. 
-  작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하시기 바랍니다. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#_23)를 참고하시기 바랍니다.
-    1. **HTTP Method**와 **콜백 URL**을 입력합니다.
-    2. Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 전달받으려면 **콜백 URL**에 다음의 경로(path) 변수를 포함해 입력해 주세요. 
-         예: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
+- **Callback**
+ It takes hours to create and change CDN service (e.g. Modify, Suspend/Resume, and Delete)
+ After a task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#_23) to find information sent to callback. 
+    1. Enter **HTTP Method** and **Callback URL**.
+    2. To receive results on the change of CDN via query parameter, include the following path variable to **Callback URL**.  
+         e.g.: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
 
-| 경로(path) 변수 | 설명 | 예시 전달 값 |
+| Path Variables | Description | Delivered Value|
 | ------------- | --- | ------- |
-| {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급한 앱 키 |
-| {domain} | CDN 서비스 이름 | [서비스ID].cdn.toastcloud.com 또는 [서비스ID].toastcdn.net |
-| {status} | 현재 CDN 서비스 상태 | OPEN, SUSPEND, CLOSE, ERROR |
-| {isSuccessful} | 서비스 변경 작업 성공 여부(API v1.0은 지원하지 않습니다.) | "true" 또는 "false" |
+| {appKey} | Appkey of CDN Service | Appkey issued on console |
+| {domain} | Name of CDN Service | [Service ID].cdn.toastcloud.com or [ServiceID].toastcdn.net |
+| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR | 
+| {isSuccessful} | Whether service change is successful (API v1.0 is not supported.) | "true" or "false" |
 
-### 원본 서버
-CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
+### Origin Server
+Set server providing original files to be deployd to CDN. 
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
 
-- **원본 서버**
-  원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
-  운영 중인 원본 서버가 없다면, TOAST Compute 서비스의 인스턴스를 사용하거나 TOAST Storage 서비스의 Object Storage를 이용할 수 있습니다.  
-  CDN 서비스 도메인으로 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.  
-  이는 원본 서버에 TOAST CDN이 신뢰하는 인증서가 설치돼 있어야한다는 뜻입니다.  
-  신뢰하는 인증서는 다음 표를 참고하시기 바랍니다.  
-  만일, 원본 서버가 HTTPS 응답을 지원할 수 없다면 **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용하시기 바랍니다.  
-  단, **원본 요청 HTTP 프로토콜 다운그레이드**는 제약 사항이 있으므로 원본 서버가 HTTPS 프로토콜을 지원하는 것을 권장합니다.  
+- **Origin Server**
+  The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
+  If there is no operating origin server, use an instance of TOAST Compute or object storage of TOAST Storage. To support secured transfer (HTTPS) via CDN domain, the origin server must support HTTPS response. This means a certificate credited by TOAST CDN must be installed at the origin server. Refer to the following table for credible certificates. 
+  If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting. 
+  Nevertheless, since **Downgrading HTTP Protocols Requesting Originals** has constraints, it is recommended that the origin server support HTTPS protocol.   
 
-**[표 1] 신뢰하는 인증서 목록**
+**[Table 1] List of Credible Certificates**
 
-| Common name| Expire Date |SHA-1 Fingerprint |
+| Common Name| Expiry Date |SHA-1 Fingerprint |
 |---|---|---|
 |SecureTrust CA|1.Jan.30|8782c6c304353bcfd29692d2593e7d44d934ff11|
 |Entrust.net Certification Authority (2048)|24.Jul.29|503006091d97d4f5ae39f7cbe7927d7d652d3431|
@@ -117,14 +114,14 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 |GeoTrust Global CA|21.May.22|de28f4a4ffe5b92fa3c503d1a349a7f9962a8212|
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
-- **원본 서버 포트**  
-  원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
-  원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.  
-  원본 서버 포트는 제한된 포트만 설정할 수 있습니다. 설정 가능한 포트 번호는 다음 표를 참고하시기 바랍니다.  
+- **Origin Server Port**  
+  An origin server must be operated by a web-protocol support service. Service port numbers can be set for HTTP/HTTPS protocols under operations.  
+  Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.
+  Only limited number of ports are available as the original port. Refer to the following table for available port numbers. 
 
-**[표 2] 사용 가능한 원본 서버 포트 번호**
+**[Table 2] Available Origin Server Port Numbers**
 
-|포트 번호|
+|Port Number|
 |---|
 |72, 488, 1080, 1443, 7070|
 |8000-9001|
@@ -136,313 +133,313 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 |9901-9908|
 |45002|
 
-- **원본 경로**  
-  원본 파일의 경로 중 하위 경로를 설정합니다. 콘텐츠를 요청할 때 원본 경로를 생략하고 요청할 수 있습니다.
-
-> **[예시] 원본 경로를 /files/images로 설정한 경우** 
+- **Original Path**  
+  Set the lower paths of an original file. Content may be requested without the original path. 
+  
+> **[Example] When the original path is set with /files/images** 
 >
-> - 원본 파일 URL: http://your.origin.com/**files/images**/logo.png 
-> - CDN 서비스 URL: http://[서비스ID].toastcdn.net/logo.png
-> - CDN 서비스 URL에서 원본 경로(/files/images)를 생략하여 요청할 수 있습니다. 
+> - URL of Original File: http://your.origin.com/**files/images**/logo.png 
+> - URL of CDN Service: http://[ServiceID].toastcdn.net/logo.png
+> - Origin paths may be missing from URL of CDN service when it is requested. 
 
-- **원본 요청 HTTP 프로토콜 다운그레이드**  
-  CDN 에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클라이언트의 원본 요청(request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.  
-  즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않으면, CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜로 요청하기 때문에 원본 파일을 응답받을 수 없습니다.  
-  원본 서버에서 HTTP 프로토콜만 운영한다면, **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용해 CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜을 HTTP 프로토콜로 다운그레이드해서 요청할 수 있습니다.  
-  즉, 클라이언트에서 CDN 에지 서버 구간은 보안 통신(HTTPS)으로 통신하고, CDN 에지 서버에서 원본 서버 구간은 비보안 통신(HTTP)으로 통신하게 됩니다.  
-  원본 요청 HTTP 프로토콜을 다운그레이드할 때는 다음과 같은 제약 사항이 있습니다.  
-> **[주의] 원본 요청 HTTP 프로토콜 다운그레이드 제약 사항**
-> 1. 전체 사이트 주소는 프로토콜 다운그레이드를 할 수 없습니다. 예를 들어 원본 서버의 전체 사이트 주소인 **www.toast.com**는 다운그레이드할 수 없습니다.
-> 2. GET, HEAD 및 OPTIONS 메서드 외 메서드는 지원되지 않습니다. 
-> 3. CDN 서버에서 원본 서버로 다운그레이드를 요청할 때 다음의 헤더는 제외될 수 있습니다.
+- **Downgrading HTTP Protocols Requesting Originals**  
+  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.    
+  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, original files do not come as response.   
+  If the origin server operates HTTPS protocols only, enable the **Downgrading HTTP Protocols Requesting Originals** setting and make a request from CDN edge server to origin server by downgrading HTTPS to HTTP protocol.    
+  In short, the CDN edge server section of client is communicated via HTTPS, while the origin server section of CDN edge server is communicated via HTTP.   
+  Note the following constraints when downgrading HTTP protocols requesting originals:  
+  
+> **[Caution] Constraints for Downgrading HTTP Protocols Requesting Originals**
+> 1. Protocol downgrade is not applied to the entire website address. For instance, **www.toast.com**, which is the entire site address of the origin server, cannot be downgraded.   
+> 2. No other methods than GET, HEAD, or OPTIONS, are supported. 
+> 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
 - **Forward Host Header**
-  CDN 서버가 원본 서버에 원본 파일을 요청할 때 전달할 **Host** 헤더값을 설정합니다.  
-  원본 서버가 Name-based virtual host로 운영 중이라면 **요청 호스트 헤더** 설정이 필요할 수 있습니다. 원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하시기 바랍니다.
-  - **원본 호스트 이름**: 원본 서버의 호스트 이름을 Host 헤더로 설정합니다. 
-    - **요청 호스트 헤더**: 클라이언트 요청의 Host 헤더로 설정합니다.
+  Set **Host** header value to be sent along with a request of CDN server for original files to origin server. 
+  If the origin server is run as name-based virtual host, **Request Host Header** setting may be required. Select an appropriate value depending on the opearting type of an origin server.  
+  - **Original Host Name**: Set the host name of origin server as the host header.
+    - **Request Host Header**: Set as the host header of client request. 
 
-### 캐시
+### Cache
 
-CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다. 
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+CDN cache operations and expiration time can be set.  
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
-- **캐시 만료 설정**
-  원본 서버의 Cache Control 응답 헤더를 통해 캐시를 설정할 수 있습니다. 
-    - **원본 설정 사용**: 원본 서버의 응답에서 제공한 캐시 제어 헤더(Cache-Control, Expires)를 우선 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(Cache-Control, Expires)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐시됩니다.  **원본 설정 사용** 옵션이 기본값입니다.
-    - **사용자 설정 사용**: 캐시 만료 시간(초)에 지정한 시간 동안 캐시됩니다. 
+- **Setting Cache Expiration**
+  Cache can be configured from the response header of cache control at the origin server. 
+    - **Enable Original Setting**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Enable Original Setting** is default. 
+    - **Enable User-Configuration**: Cached during specified cache expiration time (seconds). 
 
-> **[참고] 캐시 만료 시간 기본값과 유효 범위**
-> 캐시 만료 시간 기본값은 0입니다. 기본값을 0으로 설정하면 캐시 만료 시간은 604,800(단위/초)=1주일입니다.
-> 캐시 만료 시간은 기본값인 0부터 2,147,483,647(단위/초)까지 입력할 수 있습니다.
+> **[Note] Default and Validity of Cache Expiration Time**
+> Default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds)=1 week.
+> Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
 
-### 리퍼러(referer) 헤더 접근 관리
-리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+### Manage Referrer Header Access  
+Content access management is set with the referrer request header. 
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
-리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
-정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
+The referrer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referrer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
 
-- **블랙리스트(blacklist) 타입**:
-    * 특정 리퍼러 요청 헤더만 접근을 제한할 때 적합합니다.
-    * 리퍼러 요청 헤더값이 설정한 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 제한됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 허용됩니다.
-- **화이트리스트(whitelist) 타입**:
-    * 특정 리퍼러 요청 헤더만 접근을 허용할 때 적합합니다.
-    * 리퍼러 요청 헤더값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
+- **Blacklist Type**:
+    * Appropriate to restrict the access of particular referrer request headers only. 
+    * Content access is restricted if a referrer request header matches regex setup. If not, content access is allowed. 
+- **Whitelist Type**:
+    * Appropriate to allow the access of particular referrer request headers only. 
+    * Content access is allowed if a referrer request header matches regex setup. If not, content access is not allowed. 
 
-> **[주의]**
-> 리퍼러 요청 헤더가 없는 경우 접근 제어는 동작하지 않습니다.
+> **[Caution]**
+> If referrer request header is not available, access control does not work. 
 >
-> **[예시]**
+> **[Example]**
 >
-> * 타입: 화이트리스트(whitelist)
-> * 정규 표현식: `^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
-> 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
+> * Typ: Whitelist
+> * Regex:`^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
+> Content access is allowed only when resources are requested from lower paths of a toast.com sub-domain. 
 >
-> **[참고] 정규 표현식의 이스케이프 문자**
-> 일부 문자는 정규 표현식에서 특수 문자로 사용됩니다. 
-> 점(`.`)을 예로 들자면, 정규 표현식에서 점(`.`)은 모든 문자와 일치함을 나타내는 특수 문자입니다. 
-> 특수 문자로의 의미가 아닌 일반 문자 그대로 해석해야 한다면 이스케이프 문자 백슬래시(`\`)를 특수 문자 앞에 추가하면 됩니다(예: `\.`).
-> 정규 표현식의 특수 문자에는 `^ . [ ] $ ( ) | * + ? { } \` 등이 있습니다.
-> 여러 개의 리퍼러를 제어할 때는 다음 줄에 연속해 입력합니다.
-> API를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
+> **[Note] Regex Escape Characters**
+> Some characters are used as special characters for regex. 
+> For instance, a period (`.`) indicates agreement with all characters for regex. 
+> To understand a special character as a general one, add backlash before it.(e.g.: `\.`).
+> Regex special characters include `^, ., [, ], $, (, ), |, *, +, ?, {, }, and \`.
+> To control many referrers, enter in consecutive lines. 
+> To set many referrers with APIs, delimit with \n tokens. 
 
 
-## 설정
+## Settings
 
-### CDN 서비스 설정 변경
-서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경할 수 있습니다. 
-![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
+### Modify CDN Service Setting 
+CDN service setting can be modified, except the name and region of service domain. 
+![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
 
-1. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
-2. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
+1. Select a CDN service to modify from the list. 
+2. Click **Modify** from the **Setting** at the bottom of the page. 
 
-다음과 같이 변경할 수 있는 항목이 활성화됩니다.
-![CDN서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
+Then, items that are modifiable are activated like below.  
+![Checking CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
 
-* 변경할 설정 내용을 수정합니다. 
-* **확인** 버튼을 클릭해 변경을 완료합니다.
-* 설명과 콜백 설정을 제외한 다른 설정을 변경하려면 전체 CDN 서버에 반영돼야 해서 시간이 오래 걸릴 수 있습니다. 
+* Modify the setting.  
+* Click **OK** to complete with changes. 
+* To edit other settings, except description and callack setting, it may take more time than usual since changes must be applied throughout the whole CDN server.  
 
-**수정 작업은 몇 십분 내 완료되며, 도메인 별칭 설정이 변경된 경우에는 몇 시간이 걸릴 수 있습니다.**
+**Modification takes dozens of minutes, but change of domain alias may take a few hours.**
 
-> **[참고] CDN 서비스 수정 중 배포 상태와 서비스 상태** 
-> 서비스 수정 작업이 진행 중이면 기존 CDN 서비스 설정으로 운영됩니다.
-> 만약 수정 작업에 실패하면 기존 설정 정보로 롤백되며, CDN 서비스 목록의 배포 상태가 빨간색 원으로 표시됩니다. 설정 정보에 오류가 있거나 내부적으로 오류가 발생했을 때 수정 작업에 실패합니다. 
+> **[Note] Deployment Status while Modifying CDN and Service Status** 
+> If service is under modification, CDN runs in the existing service setting.
+> If it fails to modify, it is rolled back to the existing setting information and the deployment status shows red circle on CDN list.  Modification fails if there is error in setting information, or internal error occurs.  
 
-### CDN 서비스 일시 정지와 재시작
-CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
-
-
-1. 일시 정지할 CDN 서비스의 선택합니다.
-2. **일시 정지** 버튼을 클릭합니다.
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다. 
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
-4. 일시 정지 상태의 CDN 서비스를 재시작하려면 재시작할 CDN 서비스를 선택합니다.
-5. **재시작** 버튼을 클릭합니다.
+### Suspend and Resume CDN
+CDN service can be suspended or resumed. 
 
 
+1. Select a CDN service to suspend. 
+2. Click **Suspend**. 
+![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal. 
+![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
+4. To resume suspended CDN service, select a CDN service to resume. 
+5. Click **Resume**.
 
 
-> **[참고] 일시 정지와 재시작 동작의 지연**
-> CDN 서비스 일시정지와 재시작은 CDN 서비스 도메인의 DNS 레코드를 변경하여 동작됩니다. 
-> 따라서 캐시 DNS 서버에서 TTL 동안 캐시되어 있거나 DNS 전파에 따라 일시정지/재시작이 완료 되어도 즉시 일시정지/재시작이 동작되지 않을 수 있습니다.
-
-> **[주의] 발급된 인증서가 연동된 CDN서비스의 일시정지**
-> 인증서가 연동된 CDN 서비스를 일시정지 하는 경우, 인증서 갱신이 불가합니다. 
-> **인증서 관리** > 인증서 목록의 **인증서 갱신 시작일** 이전에 CDN 서비스를 재시작하시기 바랍니다. 
-> 인증서 갱신 시작일로 부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 일시정지를 하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
 
 
-### CDN 서비스 삭제 
-CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 유의하시기 바랍니다. 
+> **[Note] Delays in Suspension and Resumption**
+> Suspension and resumption of CDN service operates by changing DNS records of CDN domain.  
+> Accordingly, even if it is cached during TTL at cache DNS server or suspension/resumption is completed, immediate suspension/resumption may not work depending on DNS transfer. 
 
-1. 삭제할 CDN 서비스를 선택합니다.
-2. **삭제** 버튼을 클릭합니다.
-![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
-
-
-> **[참고] CDN 서비스 삭제 소요 시간**
-> CDN 서비스 삭제 작업은 몇 시간(최대 2~3시간)이 걸릴 수 있습니다.
-
-> **[주의] 발급된 인증서가 연동된 CDN 서비스의 삭제**
-> 인증서가 연동된 CDN 서비스를 삭제하면, 인증서를 갱신할 수 없습니다. 
-> **인증서 관리**의 인증서 목록에서 **인증서 갱신 시작일** 이전에 서비스 중인 다른 CDN 서비스로 연동하시기 바랍니다.
-> 인증서 갱신 시작일로부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 삭제하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
+> **[Caution] Suspending CDN Service Integrated with Issued Certificate**
+> When a CDN service integrated with certificate is suspended, the certificate cannot be renewed. 
+> Please resume CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List. 
+> A certificate is allowed to be renewed for 5 days after start day of renewal, and a suspension during the period may cause the certificate to get expired. 
 
 
-## CDN 캐시 재배포(purge)
-CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원본 서버의 파일을 캐시합니다. 파일을 캐시하면 원본 파일이 변경되어도 캐시가 만료되기 전까지는 변경전 원본 파일을 유지합니다. 
-변경된 원본 파일로 콘텐츠가 즉시 업데이트되려면 **캐시 재배포**를 요청해야 합니다.
-캐시 재배포를 하면 요청한 콘텐츠의 오래된 캐시 데이터를 삭제하고 원본 서버에서 새 원본 파일을 다시 캐시합니다. 
+### Delete CDN
+CDN service can be deleted. Once deleted, however, a service cannot be recovered. 
 
-1. 변경하려는 서비스를 CDN 서비스 목록에서 선택합니다.
-2. **캐시 재배포** 탭을 클릭합니다.
-![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
+1. Select a CDN service to delete. 
+2. Click **Delete**. 
+![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service. 
 
-3. 캐시 재배포 타입을 선택합니다.
-  - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다. 
-  - **[서비스ID].toastcdn.net** 서비스 도메인의 재배포 타입과 요청 양식
-    * 특정 파일: 재배포할 콘텐츠의 URL을 입력합니다. 요청한 URL만 캐시가 재배포되므로 도메인 별칭으로 여러 서비스 도메인 주소가 있다면 각 URL 주소로 요청해야 합니다.
-      * 예) 기본 서비스 도메인 주소: http://[서비스ID].toastcdn.net/path/to/file1.jpg
-      * 예) 도메인 별칭 도메인 주소: http://customer.domain.com/path/to/file1.jpg
-    * 전체 파일: 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다. 
-  - **[서비스ID].cdn.toastcloud.com** 서비스 도메인의 재배포 타입과 요청 양식
-    * 특정 파일: 재배포할 콘텐츠의 경로를 입력합니다.
-      * 예) /path/to/file1.jpg
-    * 와일드 카드: 파일 이름과 경로 이름에 와일드 카드 문자를 이용할 수 있습니다. 와일드 카드는 **\*.cdn.toastcloud.com** 서비스만 제공됩니다.
-      * \*: 임의의 문자열
-      * ?: 1개의 문자
-      * \: 이스케이프(escape) 문자
-          * 예) /images/games/\*.jpg
+> **[Note] Required Time to Delete CDN**
+> It may take a few hours (up to 3) to delete CDN service. 
+
+> **[Caution] Deleting CDN Service Integrated with Issued Certificate**
+> When a CDN service integrated with certificate is deleted, the certificate cannot be renewed. 
+> Please integrate the certificate with another running CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List.
+> A certificate is allowed to be renewed for 5 days after start day of renewal, and deletion during the period may cause the certificate to get expired.
+
+
+## Purging CDN Cache  
+CDN cache server cahces origin server files during specified expiration time depending on the cache setting. When a file is cached, the original file before change shall be maintained until cache is expired, even if there is a change in the original file. 
+To immediately update content to changed original file, **Purge Cache** must be requested. 
+By purging cache, outdated cache data are deleted from requested content while a new original file is cached again at the origin server. 
+
+1.  Select a service to change from the list of CDN services. 
+2. Click **Purge Cache**. 
+![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
+
+3. Select a purge type. 
+  - Note that each CDN service domain may support different purge type and request format of cache.  
+  - Purge type and request format of the **[ServiceID].toastcdn.net** domain
+    * Particular Files: Enter URL of content to purge. Since cache purge is applied for a requested URL only, purge must be requested to each URL address if there are many service domain addresses.   
+      * e.g.) Domain address for default service: http://[ServiceID].toastcdn.net/path/to/file1.jpg
+      * e.g.) Domain address for domain alias: http://customer.domain.com/path/to/file1.jpg
+    * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server.
+  - Purge type and request format of the **[ServiceID].cdn.toastcloud.com** domain 
+    * Particular Files: Enter path of content to purge. 
+      * e.g.) /path/to/file1.jpg
+    * Wildcard: Use wildcard characters for the name of file and path. Wildcard is supported only for **\*.cdn.toastcloud.com** services. 
+      * \*: Random character string 
+      * ?: 1 character 
+      * \: Escape character 
+          * e.g) /images/games/\*.jpg
           * /\_/sports/\_.jpg
           * /images/sports/ac?e/\*.jpg
-    * 전체 파일: 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다. 
-4. 선택한 캐시 재배포 타입에 맞게 재배포할 파일을 지정합니다.
-5. **캐시 재배포** 버튼을 클릭해 재배포를 요청합니다.
+    * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server. 
+4. Specify a file to purge depending on the selected cache purge type. 
+5. Click **Purge Cache** to request for a purge.  
 
-캐시 재배포는 사용량 제한이 있으므로 아래의 표를 참고하시고 사용량이 초과되지 않도록 유의하시기 바랍니다.
+Take caution that cache purge does not exceed the capacity limit, in reference of the table as below: 
 
-|분류 |[서비스ID].cdn.toastcloud.com|[서비스ID].toastcdn.net |
+|Category |[ServiceID].cdn.toastcloud.com|[ServiceID].toastcdn.net |
 |---|---|---|
-| 제한 단위 | 서비스 도메인별 | 프로젝트별(Appkey) |
-| 특정 파일 | 1시간당 요청 가능: 60회, 요청당 경로(path) 수 제한: 1,000개 | 1초당 요청 가능: 1회, 요청당 URL 수 제한: 200 URL |
-| 와일드 카드 | 1시간당 요청 가능: 60회, 요청당 경로(path) 수 제한: 10개 | 미지원 |
-| 전체 파일 타입 | 1시간당 요청 가능: 5회 | 5분당 요청 가능: 1회 |
+| Unit of Restrictions | Per service domain | Per project (Appkey) |
+| Particular Files | Requests per hour: 60 times, Paths per request: 1,000 | Requests per second: 1 time, URLs per request: 200 URLs |
+| Wildcard | Requests per hour: 60 times, Paths per request: 10 | Unsupported |
+| All File Types | Requests per hour: 5 times | Requests per 5 minutes: 1 time |
 
-> **[주의] 도메인 별칭을 여러 개 사용 중인 서비스ID].cdn.toastcloud.com 서비스의 캐시 재배포**
-> 도메인 별칭이 여러 개 등록된 CDN 서비스는 요청한 캐시 재배포 경로에 대해 각 도메인 별칭별로 작업이 진행됩니다. 
+> **[Caution] Cache purge of [Servie ID].cdn.toastcloud.com with Many Domain Aliases**
+> If many domain aliases are registered, purge is carried out for each domain alias on requested paths of cache purge.  
 > 
-> (예시)
-> `custom1.domain-alias.com` 과 `custom2.domain-alias.com` 이 도메인 별칭으로 설정된 CDN 서비스가 있다고 가정합니다.
-> 위 CDN 서비스에 대해 **특정 파일** 타입, `/images/photo.png`로 캐시 재배포를 요청하면 아래 2개의 경로로 캐시 재배포가 수행됩니다. 
+> (Example)
+> Assume that there is a CDN service set with the following domain aliases: `custom1.domain-alias.com` and `custom2.domain-alias.com`. 
+> If requested with the **Particular File** type and `/images/photo.png` for the CDN service, cache purge is executed in the following two paths:  
 >
 > - custom1.domain-alias.com/images/photo.png
 > - custom2.domain-alias.com/images/photo.png 
 >
-> (등록된 도메인 별칭 수 X 요청한 캐시 재배포 경로 수)만큼 캐시 재배포 경로가 추가되므로 유의해 주세요. 
-> 만일, 전체 캐시 재배포 경로 수가 캐시 재배포 사용량 제한의 요청당 최대 캐시 재배포 경로 수를 초과하면 요청당 최대 캐시 재배포 경로 수만큼씩 나눠 요청됩니다. 
-> 나눠서 진행된 요청 수만큼 캐시 재배포 제한 사용량은 증가하므로 사용량 초과에 유의해주세요.
+> Note that paths of cache purge are added as much as (Number of registered domain aliases X Number of requested paths of cache purge). 
+> If the total number of paths for cache purge exceeds the maximum allowed number of paths per request, requests are divided and made by the maximum allowed number of paths.    
+> Since cache purge capacity shall increase as many as the number of divided requests, keep note of the capacity excess.  
 >
-> **[주의] [서비스ID].toastcdn.net 서비스를 생성한 후 캐시 재배포 실패 오류**
-> CDN 서비스를 생성한 후 약 1시간 이내에는 캐시 재배포 요청에 실패할 수 있습니다. 이후에도 계속 실패하면  고객 센터로 문의해주시기 바랍니다.
+> **[Caution] Failed Cache Purge after [ServiceID].toastcdn.net is created**
+> Cache purge request may fail within about an hour after CDN service is created. If failure continues afterwards, contact Customer Center.  
 
-## 인증서 관리 
-소유한 도메인으로 콘텐츠를 보안 전송(HTTPS)하려면 CDN 서버에 소유한 도메인의 인증서를 배포해야 합니다. 인증서가 없으면 클라이언트(브라우저)와 CDN 에지 서버 간 보안 통신(HTTPS)을 할 수 없어 인증서 오류가 발생합니다.
-TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
+## Managing Certificates
+To use secure tranfer (HTTPS) via your own domain, certificate of your own domain must be deployed to CDN server. Without a certificate, secured communication (HTTPS) is unavailable between client (browser) and CDN edge server, causing error of certificate. 
+Certificate management of TOAST CDN provides the following features: 
 
-- 단일 도메인 타입의 인증서 발급
-- 전 세계 거점의 CDN 서버에 인증서 배포(중국과 러시아 지역은 제외)
-- 인증서 만료 전 자동 갱신
+- Issue single domain-type certificates 
+- Deploy certificates to CDN servers at global points (except China and Russia)
+- Auto-renew certificates before expired 
 
-### 신규 인증서 발급 
-**인증서 관리** 탭에서 인증서를 발급할 수 있습니다.
-![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create.png)
+### Issue New Certificates
+Certificates can be issued from the **Certificate Management** tab. 
+![Getting New CDN Certificates](https://static.toastoven.net/prod_cdn/v2/console-certificate-create.png)
 
-1. **인증서 관리** 탭의 **신규 인증서 발급** 버튼을 클릭합니다.
-2. 발급할 인증서의 도메인을 전체 도메인 주소(FQDN, fully qualified domain name)형식으로 입력합니다.
-3. 인증서 발급 안내 내용을 확인하고 **확인** 버튼을 클릭합니다.
-4. 신규 발급 인증서를 요청하면 **인증서 관리** 탭의 인증서 도메인이 표시됩니다. 인증서 상태가 **도메인 검증** 상태로 변경되면 이후 도메인 검증 작업을 진행하시기 바랍니다. 
+1. Go to **Certificate Management** and click **Issue New Certificates**.
+2. Enter domain of certificate to get, in the format of full domain address(FQDN, fully qualified domain name).
+3. Check the guide to issue certificates and click **OK**.
+4. When a new certificate is requested, certificate domain shows on the **Certificate Management** tab. When the certificate status is changed to **Validate Domain**, domain can be validated.   
 
-> **[주의] 인증서 발급 전 확인 사항**
-> 1. 소유한 도메인만 인증서를 발급할 수 있으므로 먼저 도메인을 구매하신 후 진행하시기 바랍니다. 
-> 2. 다른 인증 기관(CA, certificate authority)에서 발급한 인증서는 이용할 수 없습니다. 
-> 3. 단일 도메인의 인증서 발급만 가능합니다. 와일드 카드, 멀티 도메인 등의 인증서는 지원하지 않습니다.
-> 4. 인증서 발급은 프로젝트당 5개로 제한됩니다. 한도 조정이 필요한 경우 TOAST 고객 센터로 문의하시기 바랍니다.
-> 5. 신규 인증서 발급 요청 후 도메인 검증 단계는 몇 십분(최대 1~2시간) 후 변경될 수 있습니다. 인증서 상태가 도메인 검증 상태로 변경되면 TOAST 프로젝트 멤버를 대상으로 이메일 발송됩니다. 만일 시스템 오류로 이메일이 발송되지 않는다면 콘솔에서 상태를 확인하시기 바랍니다. 
+> **[Caution] Checkpoints before Getting a Certificate**
+> 1. Purchase a domain first, if not owned, becuase certificates can be issued to owned domains only. 
+> 2. Certificates issued from other certificate authorities are not allowed. 
+> 3. Only single-domain certificates can be issued. Wildcard or multi-domain certificates are not supported. 
+> 4. Each project allows no more than 5 certificates. If you need more than that, contact TOAST Customer Center.  
+> 5. After certificate issuance is requested, the Validate Domain phase may be activated in a dozon of minutes (up to 2 hours). If your certificate changes status to Validate Domain, email shall be sent to TOAST project members. If email is not sent due to system error, check status on console.    
 
-### 도메인 검증 
-신규 인증서 발급을 요청한 후 인증서 상태가 '도메인 검증'이 되면 도메인을 검증하시기 바랍니다.
-도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다.
+### Validate Domain
+You're ready to validate domain, after a new certificate is requeted, when certificate status is changed to 'Validate Domain'. 
+You may select a domain on console or refer to domain validation guide via email sent to project members.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation.png)
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation.png)
 
-도메인 검증은 발급 요청한 인증서 도메인의 실제 소유자인지 확인하는 단계 입니다. 도메인 검증을 진행하지 않으면 인증서를 발급할 수 없습니다.
-도메인 소유자인지 확인하기 위해 도메인 검증 방식으로 도메인의 제어 권한을 확인합니다. 
-도메인 검증 방식에는 **DNS TXT 레코드 추가** 또는 **HTTP 페이지 추가** 방식이 있으며 **두 가지 방식 중 하나만 진행**하면 됩니다.
+Domain validation is required to see if the requester for certificate is the actual owner of its domain. Without this process, certificate cannot be issued.  
+As part of a domain validation method to check domain owner, domain control role must be validated.   
+Domain validation can be carried out by **Adding DNS TXT Recors** or **Adding HTTP Pages**, and you can **Choose Either of the Two Methods**.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2.png)
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2.png)
 
-#### DNS TXT 레코드 추가 방식 
-도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다. 
+#### Adding DNS TXT Records 
+Check DNS control role of domain to validate domain.  
 
-1. 도메인의 DNS 서비스 제공 업체의 DNS 관리 페이지에서 TXT 레코드를 추가합니다. 
-   DNS 설정 방법은 DNS 서비스 제공 업체에 따라 다를 수 있습니다. 관련 설정은 해당 서비스 업체로 문의하시기 바랍니다.
-  - 레코드 타입: **TXT**
-  - TTL: **60**. 60으로 설정할 수 없다면 되도록 작게 설정하시기 바랍니다.
-  - 레코드 이름: **_acme-challenge.[발급 요청한 인증서 도메인].**  콘솔 또는 발송된 이메일 가이드의 **레코드 이름**을 작성합니다.
-  - 레코드값: **임의의 문자열** (콘솔 또는 발송된 이메일 가이드의 **레코드값**을 작성합니다.)
+1. Add TXT record on the DNS management page of domain's DNS service provider. 
+   Each DNS service provider may provide different configuration method. Consult your service provider regarding DNS setting. 
+  - Record Type: **TXT**
+  - TTL: **60**. If 60 is unavailable, set the smallest possible number. 
+  - Record Name: **_acme-challenge.[Certificate Domain Requested of Issuance].** Fill in the **Record Name** of console or email guide as sent.   
+  - Record Value: **Random Character String** (fill in the **Record Value** of console or email guide as sent.)
 
-2. nslookup 명령어로 추가한 TXT 레코드가 질의되는지 확인합니다. DNS 전파 시간에 따라 질의되기까지 시간이 소요될 수 있습니다.
-    `nslookup -type=TXT _acme-challenge.[발급 요청한 인증서 도메인].`
-
-다음 화면은 TOAST DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns.png)
+2. See if TXT record, added for nslookup command, is well queried. It may take some time to query depending on the DNS transfer time. 
+    `nslookup -type=TXT _acme-challenge.[Certificate Domain Requested of Issuance].`
 
 
-#### HTTP 페이지 추가 방식 
-도메인이 연결된 웹 서버에 HTTP 페이지를 추가해 도메인을 검증합니다. 
-
-1. 웹 서버의 **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** 경로에 HTTP 페이지를 추가합니다. 
-2. HTTP 페이지의 본문에 콘솔 또는 발송된 이메일 가이드의 **페이지 콘텐츠(토큰) **값으로 설정합니다. 
-3. 웹 브라우저에서  **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** URL로 접속하면  **페이지 콘텐츠(토큰)** 값이 화면에 표시되는지 확인합니다. 
-
-> **[주의] 도메인 검증 주의 사항**
-> 1. 도메인 검증은 인증서 발급 요청일로부터 **5일 이내**에 진행해야 합니다. **기간 내 진행하지 않으면 인증서 발급은 자동으로 취소**됩니다.
-> 2. 도메인 검증 작업 완료 후 검증에 성공하면 몇 시간 내 인증서 발급 및 배포 작업이 진행됩니다. 하루 이상 진행되지 않으면 도메인 검증 작업 내용이 올바른지 확인합니다. 문제가 없는데도 진행되지 않으면 TOAST 고객 센터로 문의해 주시기 바랍니다.
-> 3. 도메인 검증 방식 중 HTTP 페이지 추가 방식은 HTTP 서버가 기본 포트 80 포트로 운영 중일 때만 가능합니다. 포트를 변경할 수 없다면 DNS TXT 레코드 추가 방식을 이용하시기 바랍니다.
-
-### 인증서 발급 및 배포
-도메인 검증을 통과하면 몇 시간 내 인증서 발급 및 배포 작업이 진행됩니다. 
-콘솔의 인증서 상태가  **인증서 발급 및 배포** 단계로 표시되며, TOAST 프로젝트 멤버 대상으로 알림 메일이 발송됩니다. 
-이 단계에서는 별도로 작업할 내용은 없습니다.
-
->  **[참고] 인증서 발급과 배포 단계의 작업 시간**
-> 인증서 발급 및 배포 작업은 최대 9시간 이상 걸릴 수 있습니다. 
-
-### CDN 서비스 연동 
-발급된 인증서를 이용하려면 CDN 서비스와 연동해야 합니다. 
-이 작업을 진행하지 않거나 작업 내용을 유지하지 않으면 발급된 인증서가 만료될 수 있으므로 주의하시기 바랍니다. 
-
-1. **CNAME 레코드 설정**: 인증서 도메인의 DNS 서비스 제공 업체의 DNS 관리에서 다음의 CNAME 레코드를 추가합니다. 
-    - 레코드 타입:  **CNAME**
-    - TTL: 임의의 값. 자주 변경해야 한다면 작게 설정하시기를 권장합니다. 레코드 변경 시 캐시 DNS 서버에 TTL 시간 동안 캐시될 수 있습니다.
-    - 레코드 이름:  **[인증서 도메인].** (예시: test.alias.com.com.)
-    - 레코드값:  **[연동할 CDN 서비스 도메인]** (예시: xxxxxxxx.toastcdn.net)
-다음 화면은 TOAST DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
-![CDN서비스연동-CNAME위임](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname.png)
-
-2. **도메인 별칭 설정**: 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
-    -  **CDN 서비스** 탭에서 연동할 CDN 서비스를 선택하고  **수정** 버튼을 클릭합니다. 도메인 별칭에 인증서 도메인을 추가한 후  **확인** 버튼을 클릭합니다.
-![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias.png)
+Following page shows a setting example for TOAST DNS+. Each DNS provider may provide different configuration method. 
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns.png)
 
 
->  **[주의] 인증서 만료 주의 사항**
-> TOAST CDN에서 제공하는 인증서는 인증서 만료 전 자동으로 인증서를 갱신합니다. 
-> 자동으로 인증서를 갱신하려면 반드시 사용 중인 인증서가 CDN 서비스와 연동돼 있어야 합니다. 
-> CDN 서비스와 연동돼 있지 않으면 인증서 갱신 기간에 갱신되지 않아 인증서가 만료될 수 있습니다.
-> 인증서 갱신은 **인증서 관리**의 목록에 표시된 인증서 갱신 시작일로부터 **5일 이내** 진행됩니다. 
-> 인증서가 만료되지 않도록 다음의 설정 사항을 항상 유지하시기 바랍니다.
+#### Adding HTTP Pages
+Add an HTTP page to a web server connected with domain to validate the domain. 
+
+1. Add an HTTP page to the path of **http://[Certificate Domain Requested of Issuance]/.well-known/acme-challenge/[random character string]** on the web server. 
+2. Set **Page Content (Token)** of console or email guide as sent for the main body of the HTTP page.  
+3. On a web browser, access the URL of **http://[Certificate Domain Requested of Issuance]/.well-known/acme-challenge/[random character string]**, and see if **Page Content (Token)** shows on the page.  
+
+> **[Caution] Cautions for Domain Validation**
+> 1. Domain must be validated **within 5 days** since when a certificate is requested of issuance. **Otherwise, getting a certificate shall be automatically revoked**.   
+> 2. When domain is successfully validated, certificate is to be issued and deployed within hours. Unless it proceeds more than a day, check if domain has been properly validated. If it still does not proceed, contact TOAST Customer Center.
+> 3. Adding HTTP Pages is available only when the HTTP server runs on 80 ports. If port change is unavailable, please take another option of Adding DNS TXT Records. 
+
+### Issue and Deploy Certificates
+Once domain is validated, a certificate shall be issued and deployed within hours.  
+Certificate status on console shows the phase of **Issue and Deploy Certificates**, and notification mail is sent to project members. 
+This phase requires no specific tasks. 
+
+>  **[Note] Time Required to Issue and Deploy Certificates**
+> It may take up to 9 hours to issue and deploy a certificate. 
+
+### Integrate with CDN Service
+A certificate must be integrated with CDN service to be enabled. 
+If this task is undone or not maintained, issued certificate may expire. 
+
+1. **CNAME Record Setting**: Add the following CNAME record to DNS management of DNS service provider of certificate domain. 
+    - Record Type:  **CNAME**
+    - TTL: Random. Small count is recommended if frequent changes are expected. When there is change in the record, it may be cached during TTL at the cache DNS server. 
+    - Record Name:  **[Certificate Domain].** (Example: test.alias.com.com.)
+    - Record Value:  **[CDN Service Domain to be Integrated]** (Example: xxxxxxxx.toastcdn.net)
+Following page shows a setting example for TOAST DNS+. Each DNS provider may provide different configuration method.
+![Integrating CDN Services-Assign CNAME](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname.png)
+
+2. **Domain Alias Setting**: Add domain alias setting for the CDN to use certificate. 
+    -  Select CDN to be integrated from **CDN Service** and click **Modify**. Add certificate domain to domain alias and click **OK**.  
+![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias.png)
+
+
+>  **[Caution] Caution for Certificate Expiration**
+> Certificates provided by TOAST CDN are automatically renewed before expired. 
+> For auto-renewal, user's certificate must be integrated with CDN service. 
+> Otherwise, certificates may not be renewed during specific period and get expired. 
+> A certificate shall be renewed within **5 days** after a renewal start day as indicated on the list of **Certificate Management**.   
+> To prevent certificates from expired, maintain the following settings at all times: 
 > 
-> 1. 인증서의 도메인은 CNAME 레코드로 연동할 CDN 서비스 도메인 주소로 위임해야 합니다. 
-> 2. 연동할 CDN 서비스의 도메인 별칭에 인증서 도메인이 설정되어 있어야 합니다.
-> 3. 인증서가 연동된 CDN 서비스를 일시 정지하면 인증서를 갱신할 수 없습니다. 인증서 갱신 시작일 이전에 재시작하거나 다른 운영 중인 CDN 서비스에 인증서를 연동하시기 바랍니다.
-> 4. 인증서가 연동된 CDN 서비스를 삭제하면 인증서를 갱신할 수 없습니다. 삭제하기 전에 운영 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
+> 1. Assign domain of a certificate to the domain address of CDN service which is to be integrated with CNAME record. 
+> 2. Set certificate domain for domain alias of CDN service to be integrated with. 
+> 3. When a CDN service integrated with certificate is suspended, the certificate cannot be renewed. Resume before a renewal start day or integrate it to another running CDN service.  
+> 4. When a CDN service integrated with certificate is deleted, the certificate cannot be renewed: integrate it to another running CDN service before deleting. 
 
-CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
-![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active.png)
+When certificate is fully integration with CDN, the certificate status shows 'Activated'. 
+![Activated Status of Certificate](https://static.toastoven.net/prod_cdn/v2/console-certificate-active.png)
 
-## 통계
+## Statistics
 
-네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 확인할 수 있습니다.
-7일 이내 통계 데이터는 정확하지 않으므로 참고용으로만 이용하시기 바랍니다. 정확한 통계 데이터는 7일 이후에 확인하시기 바랍니다. 
+Check statistics on the network transfer volume, HTTP status code, most downloaded content, and more.  
+Statistical data within 7 days are recommended only as reference, since they may not be precise: precise data are available after 7 days.   
 
-1. **Contents Delivery > CDN**의 **통계** 탭을 클릭합니다.
+1. Click **Statistics** from **Content Delivery > CDN**.
 ![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_201812.png)
-2. 통계를 확인하려면 CDN 서비스를 선택합니다.
-3. 검색 기간을 입력합니다.
-4. 검색 기간 내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.
-5. **검색** 버튼을 클릭합니다.
+2. Select a CDN service to check statistics. 
+3. Enter search period. 
+4. Data cycle within a search period is automatically selected depending on the period. 
+5. Click **Search**. 
