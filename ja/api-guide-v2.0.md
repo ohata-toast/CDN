@@ -2,10 +2,6 @@
 
 TOAST CDNで提供するPublic API v2.0について説明します。
 
-## API v2.0のサービスドメイン別サポート案内
-API v2.0は\*.toastcdn.netサービスドメインのみサポートします。
-\*.cdn.toastcloud.comサービスドメインは、v1.5以下のバージョンのAPIを使用してください。
-
 ## API共通情報
 
 ### ドメイン
