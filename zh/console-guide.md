@@ -39,7 +39,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 | 경로(path) 변수 | 설명 | 예시 전달 값 |
 | ------------- | --- | ------- |
 | {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급한 앱 키 |
-| {domain} | CDN 서비스 이름 | [서비스ID].cdn.toastcloud.com 또는 [서비스ID].toastcdn.net |
+| {domain} | CDN 서비스 이름 | [서비스ID].toastcdn.net |
 | {status} | 현재 CDN 서비스 상태 | OPEN, SUSPEND, CLOSE, ERROR |
 | {isSuccessful} | 서비스 변경 작업 성공 여부(API v1.0은 지원하지 않습니다.) | "true" 또는 "false" |
 
