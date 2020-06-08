@@ -10,7 +10,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 
 ### 기본 정보 
 기본 정보를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2.png)
 
 - **서비스 지역**
   GLOBAL 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
@@ -31,7 +31,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 
 ### 원본 서버
 CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2.png)
 
 - **원본 서버**
   원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
@@ -158,8 +158,8 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 
 ### 캐시
 
-CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다. 
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
 
 - **캐시 만료 설정**
   원본 서버의 Cache Control 응답 헤더를 통해 캐시를 설정할 수 있습니다. 
@@ -172,7 +172,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 
 ### 리퍼러(referer) 헤더 접근 관리
 리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
 
 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
@@ -205,8 +205,8 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 ## 설정
 
 ### CDN 서비스 설정 변경
-서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경할 수 있습니다. 
-![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
+서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경할 수 있습니다.
+![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3.png)
 
 1. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
 2. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
@@ -230,9 +230,9 @@ CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
 
 1. 일시 정지할 CDN 서비스의 선택합니다.
 2. **일시 정지** 버튼을 클릭합니다.
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다. 
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
+![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2.png)
+3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다.
+![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2.png)
 4. 일시 정지 상태의 CDN 서비스를 재시작하려면 재시작할 CDN 서비스를 선택합니다.
 5. **재시작** 버튼을 클릭합니다.
 
@@ -254,8 +254,8 @@ CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 �
 
 1. 삭제할 CDN 서비스를 선택합니다.
 2. **삭제** 버튼을 클릭합니다.
-![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
+![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2.png)
+3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다.
 
 
 > **[참고] CDN 서비스 삭제 소요 시간**
@@ -274,7 +274,7 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 
 1. 변경하려는 서비스를 CDN 서비스 목록에서 선택합니다.
 2. **캐시 재배포** 탭을 클릭합니다.
-![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
+![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2.png)
 
 3. 캐시 재배포 타입을 선택합니다.
   - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다.
@@ -384,7 +384,7 @@ TOAST CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
 2. **도메인 별칭 설정**: 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
     -  **CDN 서비스** 탭에서 연동할 CDN 서비스를 선택하고  **수정** 버튼을 클릭합니다. 도메인 별칭에 인증서 도메인을 추가한 후  **확인** 버튼을 클릭합니다.
-![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias.png)
+![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2.png)
 
 
 >  **[주의] 인증서 만료 주의 사항**
