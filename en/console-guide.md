@@ -39,8 +39,8 @@ Set basic information.
 | Path Variables | Description | Delivered Value|
 | ------------- | --- | ------- |
 | {appKey} | Appkey of CDN Service | Appkey issued on console |
-| {domain} | Name of CDN Service | [Service ID].cdn.toastcloud.com or [ServiceID].toastcdn.net |
-| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR | 
+| {domain} | Name of CDN Service | [ServiceID].toastcdn.net |
+| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR |
 | {isSuccessful} | Whether service change is successful (API v1.0 is not supported.) | "true" or "false" |
 
 ### Origin Server
@@ -281,48 +281,22 @@ By purging cache, outdated cache data are deleted from requested content while a
 
 3. Select a purge type. 
   - Note that each CDN service domain may support different purge type and request format of cache.  
-  - Purge type and request format of the **[ServiceID].toastcdn.net** domain
+  - Purge type and request format
     * Particular Files: Enter URL of content to purge. Since cache purge is applied for a requested URL only, purge must be requested to each URL address if there are many service domain addresses.   
       * e.g.) Domain address for default service: http://[ServiceID].toastcdn.net/path/to/file1.jpg
       * e.g.) Domain address for domain alias: http://customer.domain.com/path/to/file1.jpg
     * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server.
-  - Purge type and request format of the **[ServiceID].cdn.toastcloud.com** domain 
-    * Particular Files: Enter path of content to purge. 
-      * e.g.) /path/to/file1.jpg
-    * Wildcard: Use wildcard characters for the name of file and path. Wildcard is supported only for **\*.cdn.toastcloud.com** services. 
-      * \*: Random character string 
-      * ?: 1 character 
-      * \: Escape character 
-          * e.g) /images/games/\*.jpg
-          * /\_/sports/\_.jpg
-          * /images/sports/ac?e/\*.jpg
-    * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server. 
-4. Specify a file to purge depending on the selected cache purge type. 
+4. Specify a file to purge depending on the selected cache purge type.
 5. Click **Purge Cache** to request for a purge.  
 
-Take caution that cache purge does not exceed the capacity limit, in reference of the table as below: 
+Take caution that cache purge does not exceed the capacity limit, in reference of the table as below:
 
-|Category |[ServiceID].cdn.toastcloud.com|[ServiceID].toastcdn.net |
-|---|---|---|
-| Unit of Restrictions | Per service domain | Per project (Appkey) |
-| Particular Files | Requests per hour: 60 times, Paths per request: 1,000 | Requests per second: 1 time, URLs per request: 200 URLs |
-| Wildcard | Requests per hour: 60 times, Paths per request: 10 | Unsupported |
-| All File Types | Requests per hour: 5 times | Requests per 5 minutes: 1 time |
+|Category |[ServiceID].toastcdn.net |
+|---|---|
+| Unit of Restrictions | Per project (Appkey) |
+| Particular Files | Requests per second: 1 time, URLs per request: 200 URLs |
+| All File Types | Requests per 5 minutes: 1 time |
 
-> **[Caution] Cache purge of [Servie ID].cdn.toastcloud.com with Many Domain Aliases**
-> If many domain aliases are registered, purge is carried out for each domain alias on requested paths of cache purge.  
-> 
-> (Example)
-> Assume that there is a CDN service set with the following domain aliases: `custom1.domain-alias.com` and `custom2.domain-alias.com`. 
-> If requested with the **Particular File** type and `/images/photo.png` for the CDN service, cache purge is executed in the following two paths:  
->
-> - custom1.domain-alias.com/images/photo.png
-> - custom2.domain-alias.com/images/photo.png 
->
-> Note that paths of cache purge are added as much as (Number of registered domain aliases X Number of requested paths of cache purge). 
-> If the total number of paths for cache purge exceeds the maximum allowed number of paths per request, requests are divided and made by the maximum allowed number of paths.    
-> Since cache purge capacity shall increase as many as the number of divided requests, keep note of the capacity excess.  
->
 > **[Caution] Failed Cache Purge after [ServiceID].toastcdn.net is created**
 > Cache purge request may fail within about an hour after CDN service is created. If failure continues afterwards, contact Customer Center.  
 
