@@ -8,9 +8,9 @@ Go to **Content Delivery > CDN** and to **CDN Service** and click **Create**, an
 CDN service domain is automatically created in the **[ServiceID].toastcdn.net** format. To use your own domain, enable **Domain Alias**. 
 It takes up to 2 hours to complete deployment after service is requested for creation. Service becomes available after it is completely deployed. 
 
-### Basic Information 
-Set basic information. 
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
+### Basic Information
+Set basic information.
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2.png)
 
 - **Service Region**
   GLOBAL service is provided via CDN edge servers located around the globe. 
@@ -44,8 +44,8 @@ Set basic information.
 | {isSuccessful} | Whether service change is successful (API v1.0 is not supported.) | "true" or "false" |
 
 ### Origin Server
-Set server providing original files to be deployd to CDN. 
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
+Set server providing original files to be deployd to CDN.
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2.png)
 
 - **Origin Server**
   The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
@@ -164,7 +164,7 @@ Set server providing original files to be deployd to CDN.
 ### Cache
 
 CDN cache operations and expiration time can be set.  
-![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
 
 - **Setting Cache Expiration**
   Cache can be configured from the response header of cache control at the origin server. 
@@ -176,8 +176,8 @@ CDN cache operations and expiration time can be set.
 > Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
 
 ### Manage Referrer Header Access  
-Content access management is set with the referrer request header. 
-![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+Content access management is set with the referrer request header.
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
 
 The referrer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referrer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
 
@@ -208,9 +208,9 @@ The referrer request header includes the webpage address of previous links of th
 
 ## Settings
 
-### Modify CDN Service Setting 
-CDN service setting can be modified, except the name and region of service domain. 
-![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
+### Modify CDN Service Setting
+CDN service setting can be modified, except the name and region of service domain.
+![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3.png)
 
 1. Select a CDN service to modify from the list. 
 2. Click **Modify** from the **Setting** at the bottom of the page. 
@@ -232,12 +232,12 @@ Then, items that are modifiable are activated like below.
 CDN service can be suspended or resumed. 
 
 
-1. Select a CDN service to suspend. 
-2. Click **Suspend**. 
-![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
-3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal. 
-![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
-4. To resume suspended CDN service, select a CDN service to resume. 
+1. Select a CDN service to suspend.
+2. Click **Suspend**.
+![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2.png)
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal.
+![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2.png)
+4. To resume suspended CDN service, select a CDN service to resume.
 5. Click **Resume**.
 
 
@@ -256,10 +256,10 @@ CDN service can be suspended or resumed.
 ### Delete CDN
 CDN service can be deleted. Once deleted, however, a service cannot be recovered. 
 
-1. Select a CDN service to delete. 
-2. Click **Delete**. 
-![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
-3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service. 
+1. Select a CDN service to delete.
+2. Click **Delete**.
+![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2.png)
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service.
 
 > **[Note] Required Time to Delete CDN**
 > It may take a few hours (up to 3) to delete CDN service. 
@@ -275,9 +275,9 @@ CDN cache server cahces origin server files during specified expiration time dep
 To immediately update content to changed original file, **Purge Cache** must be requested. 
 By purging cache, outdated cache data are deleted from requested content while a new original file is cached again at the origin server. 
 
-1.  Select a service to change from the list of CDN services. 
-2. Click **Purge Cache**. 
-![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
+1.  Select a service to change from the list of CDN services.
+2. Click **Purge Cache**.
+![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2.png)
 
 3. Select a purge type. 
   - Note that each CDN service domain may support different purge type and request format of cache.  
@@ -388,7 +388,7 @@ Following page shows a setting example for TOAST DNS+. Each DNS provider may pro
 
 2. **Domain Alias Setting**: Add domain alias setting for the CDN to use certificate. 
     -  Select CDN to be integrated from **CDN Service** and click **Modify**. Add certificate domain to domain alias and click **OK**.  
-![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias.png)
+![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2.png)
 
 
 >  **[Caution] Caution for Certificate Expiration**
