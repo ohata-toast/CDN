@@ -2,6 +2,7 @@
 ## Content Delivery > CDN > Release Notes
 
 ### 2020.03.24.
+### 2020.06.23
 
 #### 機能改善/変更 
 * CDNサービス地域：GLOBALサービス地域のみ提供されます。
