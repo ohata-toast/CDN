@@ -1,7 +1,7 @@
 ## Content Delivery > CDN > Release Notes
 
 
-### 2020.06.23
+### 2020. 06. 23.
 
 #### 기능 개선/변경
 * [서비스ID].cdn.toastcloud.com 서비스 도메인의 지원이 종료되었습니다.
