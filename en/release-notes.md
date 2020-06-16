@@ -1,12 +1,5 @@
 ## Content Delivery > CDN > Release Notes
 
-
-### 2020. 06. 23.
-
-#### 기능 개선/변경
-* [서비스ID].cdn.toastcloud.com 서비스 도메인의 지원이 종료되었습니다.
-
-
 ### March 24, 2020
 
 #### Feature Updates  
@@ -15,7 +8,7 @@
 	* Please use the Global Service region that includes the Korea region.  
 * Change of New CDN Service Domain 
 	* When a new CDN service is created, [ServiceID].toastcdn.net is provided as service domain address
-	* Previous [ServiceID].cdn.toastcloud.com service domain cannot be issued anew; since [ServiceID].cdn.toastcloud.com is valid until 10:00:00 KST of May 26, 2020, it must be migrated to a new CDN service. 
+	* Previous [ServiceID].cdn.cloudtoast.com service domain cannot be issued anew; since [ServiceID].cdn.cloudtoast.com is valid until 10:00:00 KST of May 26, 2020, it must be migrated to a new CDN service. 
 	* Regarding migration method, see [Migration Guide](./migration/).
 * Support of HTTP/HTTPS Service Protocols 
 	* [Service ID].toastcdn.net, which is issued for a new service, supports HTTP/HTTPS by default. 

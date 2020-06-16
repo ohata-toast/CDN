@@ -10,7 +10,7 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
 
 ### 基本情報 
 基本情報を設定します。
-![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-default_ja_20200518.png)
+![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-create-default_ja_20200518.png)
 
 - **サービス地域**
   GLOBALサービス地域は、全世界の拠点にあるCDNエッジサーバーを通してCDNサービスを提供します。
@@ -39,13 +39,13 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
 | パス(path)変数 | 説明 | サンプル伝達値 |
 | ------------- | --- | ------- |
 | {appKey} | CDNサービスのアプリキー | コンソールで発行したアプリキー |
-| {domain} | CDNサービス名 | [サービスID].toastcdn.net |
+| {domain} | CDNサービス名 | [サービスID].cdn.toastcloud.comまたは[サービスID].toastcdn.net |
 | {status} | 現在のCDNサービスの状態 | OPEN、SUSPEND、CLOSE、ERROR |
 | {isSuccessful} | サービス変更作業が成功したか(API v1.0はサポートしません) | "true"または"false" |
 
 ### オリジンサーバー
 CDNサービスへ配布する原本ファイルを提供するサーバーを設定します。
-![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-origin_ja_20200518.png)
+![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-create-origin_ja_20200518.png)
 
 - **オリジンサーバー**
 オリジンサーバーはCDNサービスへ配布する原本ファイルを提供するサーバーです。オリジンサーバーはIPv4または完全修飾ドメイン名(FQDN、fully qualified domain name)形式で入力できます。IPアドレスは変更される可能性が高いため、ドメインで設定することを推奨します。 
@@ -166,7 +166,7 @@ CDNサービスへ配布する原本ファイルを提供するサーバーを�
 
 ### キャッシュ
 CDNキャッシュ動作設定とキャッシュ時間を設定できます。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_20200518.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-create-cache_ja_20200518.png)
 
 - **キャッシュ時間設定**
  オリジンサーバーのキャッシュ制御に関するレスポンスヘッダーを通してキャッシュを設定できます。 
@@ -179,7 +179,7 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 
 ### リファラー(Referer)ヘッダアクセス管理
 リファラーリクエストヘッダーにコンテンツのアクセス管理を設定します。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_20200518.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-create-cache_ja_20200518.png)
 
 リファラーリクエストヘッダーは、現在リクエストされたページリンクより前のウェブページアドレスを含みます。リファラーリクエストヘッダーにより、どの経路でリクエストが流入したかを把握できます。リファラーヘッダアクセス管理では、特定のリファラーリクエストヘッダーのみユーザーコンテンツにアクセスできるよう設定できます。
 正規表現形式で入力できます。複数入力する場合は改行して入力します。
@@ -212,14 +212,14 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 ## 設定
 
 ### CDNサービスの設定変更
-サービスドメイン名と地域以外のCDNサービス設定を変更できます。
-![CDNサービスの修正を有効化](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-modify1_ja_20200518.png)
+サービスドメイン名と地域以外のCDNサービス設定を変更できます。 
+![CDNサービスの修正を有効化](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-modify1_ja_20200518.png)
 
 1. 変更するCDNサービスをCDNサービスリストから選択します。
 2. 画面下、**設定**タブの**修正**ボタンをクリックします。
 
 次のように変更可能な項目が有効になります。
-![CDNサービスの修正を確認](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-modify2_ja_20200518.png)
+![CDNサービスの修正を確認](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-modify2_ja_20200518.png)
 
 * 変更する設定内容を修正します。 
 * **確認**ボタンをクリックして、変更を完了します。
@@ -237,9 +237,9 @@ CDNサービスを一時的に中断または、再開することができま�
 
 1. 一時停止するCDNサービスを選択します。
 2. **一時停止**ボタンをクリックします。
-![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-pause_ja_20200518.png)
+![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-pause_ja_20200518.png)
 3. 証明書の連携をしているCDNサービスには、証明書の無効警告案内が表示されます。証明書の無効を回避するには、証明書更新開始日の前にCDNサービスを再開する必要があります。
-![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-restart_ja_20200518.png)
+![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-restart_ja_20200518.png)
 4. 一時停止状態のCDNサービスを再開するには再開するCDNサービスを選択します。
 5. **再開**ボタンをクリックします。
 
@@ -261,7 +261,7 @@ CDNサービスを削除します。削除すると復旧できませんので�
 
 1. 削除するCDNサービスを選択します。
 2. **削除**ボタンをクリックします。
-![CDNサービス-削除](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-delete_ja_20200518.png)
+![CDNサービス-削除](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-delete_ja_20200518.png)
 3. 証明書が連携されているCDNサービスは、証明書無効警告案内が表示されます。証明書が無効になるのを回避するには、サービス中の他のCDNサービスに証明書を連携してください。
 
 
@@ -281,27 +281,52 @@ CDNキャッシュサーバーは、キャッシュ設定に従って、指定�
 
 1. 変更したいサービスをCDNサービスリストから選択します。
 2. **キャッシュ再配布**タブをクリックします。
-![CDNキャッシュ再配布](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-purge_ja_20200518.png)
+![CDNキャッシュ再配布](https://static.toastoven.net/prod_cdn/v2/ja/console-cdn-purge_ja_20200518.png)
 
 3. キャッシュ再配布タイプを選択します。
-  - CDNサービスドメインに応じてサポートされるキャッシュ再配布タイプとリクエスト様式が異なるため注意してください。
-  - ドメインの再配布タイプとリクエスト様式
+  - CDNサービスドメインに応じてサポートされるキャッシュ再配布タイプとリクエスト様式が異なるため注意してください。 
+  - **[サービスID].toastcdn.net**サービスドメインの再配布タイプとリクエスト様式
     * 特定ファイル：再配布するコンテンツのURLを入力します。リクエストしたURLのみキャッシュが再配布されるため、ドメインエイリアスに複数のサービスドメインアドレスがある場合、各URLにリクエストする必要があります。
       * 例)基本サービスドメインアドレス： http://[サービスID].toastcdn.net/path/to/file1.jpg
       * 例)ドメインエイリアスドメインアドレス： http://customer.domain.com/path/to/file1.jpg
     * 全体ファイル：キャッシュファイルをすべて削除します。オリジンサーバーに膨大なトラフィックが流入する場合もあるため注意してください。
+  - **[サービスID].cdn.toastcloud.com**サービスドメインの再配布タイプとリクエスト様式
+    * 特定ファイル：再配布するコンテンツのパスを入力します。
+      * 例) /path/to/file1.jpg
+    * ワイルドカード：ファイル名とパス名にワイルドカード文字を利用できます。ワイルドカードは**\*.cdn.toastcloud.com**サービスのみ提供されます。
+      * \*：任意の文字列
+      * ?：1個の文字
+      * \：エスケープ(escape)文字
+          * 例) /images/games/\*.jpg
+          * /\_/sports/\_.jpg
+          * /images/sports/ac?e/\*.jpg
+    * 全体ファイル：キャッシュファイルを全て削除します。オリジンサーバーに膨大なトラフィックの流入が発生することもあるため注意してください。
 4. 選択したキャッシュ再配布タイプに合わせて、再配布するファイルを指定します。
 5. **キャッシュ再配布**ボタンをクリックして、再配布をリクエストします。
 
 キャッシュ再配布は使用量制限があるため、下記の表を参照して使用量が超過しないように注意してください。
 
-|分類 |[サービスID].toastcdn.net |
-|---|---|
-| 制限単位 | プロジェクト別(AppKey) |
-| 特定ファイル | 1秒間に1回リクエスト可能、リクエスト毎のURL数制限：200 URL |
-| ワイルドカード | 未サポート |
-| 全体ファイルタイプ | 5分毎のリクエスト可能数：1回 |
+|分類 |[サービスID].cdn.toastcloud.com|[サービスID].toastcdn.net |
+|---|---|---|
+| 制限単位 | サービスドメイン別| プロジェクト別(AppKey) |
+| 特定ファイル | 1時間に60回リクエスト可能、リクエスト毎のパス(Path)数制限：1,000個 | 1秒間に1回リクエスト可能、リクエスト毎のURL数制限：200 URL | 
+| ワイルドカード |  1時間に60回リクエスト可能、リクエスト毎のパス(Path)数制限：10個 | 未サポート | 
+| 全体ファイルタイプ | 1時間に5回リクエスト可能 | 5分毎のリクエスト可能数：1回 | 
 
+> **[注意]ドメインエイリアスを複数使用中のサービスID].cdn.toastcloud.comサービスのキャッシュ再配布**
+> ドメインエイリアスが複数登録されたCDNサービスは、リクエストしたキャッシュ再配布パスに対して各ドメインエイリアスごとに作業が行われます。
+> 
+> (例)
+> `custom1.domain-alias.com`と`custom2.domain-alias.com`がドメインエイリアスに設定されたCDNサービスがあると仮定します。
+> 上記CDNサービスに対して**特定ファイル**タイプ、`/images/photo.png`にキャッシュ再配布をリクエストすると、下記2個のパスでキャッシュ再配布が実行されます。 
+>
+> - custom1.domain-alias.com/images/photo.png
+> - custom2.domain-alias.com/images/photo.png 
+>
+> (登録されたドメインエイリアス数×リクエストしたキャッシュ再配布パス数)分のキャッシュ再配布パスが追加されるため、注意してください。 
+> 全体キャッシュ再配布パス数がキャッシュ再配布使用量制限のリクエスト毎の最大キャッシュ再配布パス数を超過した場合は、リクエスト毎の最大キャッシュ再配布パス数分、分割されてリクエストが行われます。
+> 分割して進行したリクエストの数だけキャッシュ再配布使用量は増加するため、使用量の超過に注意してください。
+>
 > **[注意] [サービスID].toastcdn.comサービスを作成した後、キャッシュ再配布失敗エラー**
 > CDNサービスを作成した後、約1時間はキャッシュ再配布リクエストが失敗する場合があります。その後も継続して失敗する場合はサポートへお問い合わせください。
 
@@ -315,7 +340,7 @@ TOAST CDNの証明書管理は次のような機能を提供します。
 
 ### 新規証明書の発行 
 **証明書管理**タブで証明書を発行できます。
-![CDN新規証明書の発行](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-create_ja_20200518.png)
+![CDN新規証明書の発行](https://static.toastoven.net/prod_cdn/v2/ja/console-certificate-create_ja_20200518.png)
 
 1. **証明書管理**タブの**新規証明書発行**ボタンをクリックします。
 2. 発行する証明書のドメインを全体ドメインアドレス(FQDN、fully qualified domain name)形式で入力します。
@@ -333,13 +358,13 @@ TOAST CDNの証明書管理は次のような機能を提供します。
 新規証明書の発行をリクエストした後、証明書の状態が｢ドメイン検証｣になったら、ドメインの検証を行ってください。
 ドメインの検証方法は、コンソールでドメインを選択して確認するか、プロジェクトメンバーに転送されたドメイン検証ガイドメールの内容を参照してください。
 
-![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation_ja_20200518.png)
+![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja/console-certificate-domain-validation_ja_20200518.png)
 
 ドメイン検証は、発行をリクエストした証明書ドメインの実際の所有者であることを確認する段階です。ドメイン検証を行っていない場合、証明書の発行ができません。
 ドメインの所収者であることを確認するために、ドメイン検証方式を通してドメインの制御権限を確認します。 
 ドメイン検証方式には、**DNS TXTレコード追加**または**HTTPページ追加**方式があります。**2つの方式のうち1つを実施**してください。
 
-![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation2_ja_20200518.png)
+![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja/console-certificate-domain-validation2_ja_20200518.png)
 
 #### DNS TXTレコード追加方式 
 ドメインのDNS制御権限を確認してドメインを検証します。
@@ -355,7 +380,7 @@ TOAST CDNの証明書管理は次のような機能を提供します。
     `nslookup -type=TXT _acme-challenge.[発行リクエストした証明書ドメイン].`
 
 次の画面はTOAST DNS+ サービスで設定した例です。DNSサービス提供業者によって設定方法は異なる場合があります。
-![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation-dns_ja_20200518.png)
+![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja/console-certificate-domain-validation-dns_ja_20200518.png)
 
 
 #### HTTPページ追加方式 
@@ -388,11 +413,11 @@ TOAST CDNの証明書管理は次のような機能を提供します。
     - レコード名：**[証明書ドメイン].**(例：test.alias.com.com.)
     - レコード値：**[連携するCDNサービスドメイン]**(例：xxxxxxxx.toastcdn.net)
 次の画面はTOAST DNS+ サービスで設定した例です。DNSサービス提供業者によって設定方法は異なる場合があります。
-![CDNサービス連携-CNAME委任](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-service-cname_ja_20200518.png)
+![CDNサービス連携-CNAME委任](https://static.toastoven.net/prod_cdn/v2/ja/console-certificate-service-cname_ja_20200518.png)
 
 2. **ドメインエイリアス設定**：証明書を利用するCDNサービスにドメインエイリアス設定を追加します。
     -  **CDNサービス**タブで連携するCDNサービスを選択して**修正**ボタンをクリックします。ドメインエイリアスに証明書ドメインを追加して**確認** ボタンをクリックします。
-![CDNサービス連携-ドメインエイリアス](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-service-alias_ja_20200518.png)
+![CDNサービス連携-ドメインエイリアス](https://static.toastoven.net/prod_cdn/v2/ja/console-certificate-service-alias_ja_20200518.png)
 
 
 >  **[注意]証明書満了注意事項**
@@ -408,7 +433,7 @@ TOAST CDNの証明書管理は次のような機能を提供します。
 > 4. 証明書が連携されたCDNサービスを削除すると、証明書を更新できません。削除する前に、運用中の他のCDNサービスに証明書を連携してください。 
 
 CDNサービス連携作業が完了すると、証明書の状態が｢正常｣と表示されます。
-![CDN証明書正常状態](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-active_ja_20200518.png)
+![CDN証明書正常状態](https://static.toastoven.net/prod_cdn/v2/ja/console-certificate-active_ja_20200518.png)
 
 ## 統計
 
@@ -416,7 +441,7 @@ CDNサービス連携作業が完了すると、証明書の状態が｢正常�
 7日以内の統計データは正確ではないため、参考程度に利用してください。正確な統計データは7日後に確認してください。
 
 1. **Contents Delivery > CDN**の**統計**タブをクリックします。
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_ja1_20200518.png)
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_ja_20200518.png)
 2. 統計を確認するには、CDNサービスを選択します。
 3. 検索期間を入力します。
 4. 検索期間内のデータ周期は、選択した期間に応じて自動的に選択されます。

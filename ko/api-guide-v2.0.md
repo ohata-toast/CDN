@@ -2,6 +2,10 @@
 
 TOAST CDN에서 제공하는 Public API v2.0을 설명합니다.
 
+## API V2.0의 서비스 도메인별 지원 안내  
+API V2.0은 \*.toastcdn.net 서비스 도메인만 지원합니다.
+\*.cdn.toastcloud.com 서비스 도메인은 v1.5 버전 이하의 API를 사용하세요.
+
 ## API 공통 정보
 
 ### 도메인

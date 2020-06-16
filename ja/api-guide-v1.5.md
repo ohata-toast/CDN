@@ -143,6 +143,7 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 | distributions[0].callback.httpMethod   | String  | 必須     |        | GET/POST/PUT                | コールバックのHTTP Method                                           |
 | distributions[0].callback.url          | String  | 必須     |        | 最大1024文字             | コールバックURL                                                     |
 
+- forwardHostHeaderフィールドとuseOriginHttpProtocolDowngradeフィールドは*.toastcdn.netドメインを使用する場合は設定できます。*.cdn.toastcloud.comドメインは設定できません。
 - forwardHostHeaderのデフォルト値は、domainAliasを設定した場合はREQUEST_HOST_HEADERで、未設定の場合はORIGIN_HOSTNAMEです。
 
 #### レスポンス
@@ -317,7 +318,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 ```json
 {
-        "domain" : "sample.cdn.toastcdn.net",
+        "domain" : "sample.cdn.toastcloud.com",
         "useOriginHttpProtocolDowngrade": false,
         "forwardHostHeader": "ORIGIN_HOSTNAME",
         "useOrigin" : "N",
@@ -363,6 +364,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | callback.httpMethod   | String  | 必須     |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
 | callback.url          | String  | 必須     |        | 最大1024文字                                              | コールバックURL                                                     |
 
+- forwardHostHeaderフィールドとuseOriginHttpProtocolDowngradeフィールドは*.toastcdn.netドメインを使用する場合は設定できます。*.cdn.toastcloud.comドメインは設定できません。
 - forwardHostHeaderのデフォルト値は、domainAliasを設定した場合はREQUEST_HOST_HEADERで、未設定の場合はORIGIN_HOSTNAMEです。
 
 #### レスポンス
@@ -409,7 +411,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 ```json
 {
-        "domain" : "sample.toastcdn.net",
+        "domain" : "sample.cdn.toastcloud.com",
         "useOrigin" : "N",
         "maxAge": 86400,
         "referrerType" : "BLACKLIST",
@@ -455,6 +457,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 - originsフィールドを設定する時、origin、originPathフィールドは必須入力値です。portフィールド、httpPort、httpsPortフィールドのいずれか1つは必ず入力する必要があります。
 - callbackフィールドを設定する時、httpMethod、urlフィールドは必須入力値です。
+- forwardHostHeaderフィールドとuseOriginHttpProtocolDowngradeフィールドは*.toastcdn.netドメインを使用する場合は設定できます。*.cdn.toastcloud.comドメインは設定できません。
 
 #### レスポンス
 
@@ -499,7 +502,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```json
 {
     "domains" : [
-        "lhcsxuo0.toastcdn.net"
+        "lhcsxuo0.cdn.toastcloud.com"
     ]
 }
 ```
@@ -555,7 +558,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 ```json
 {
-	"domain": "sample.toastcdn.net",
+	"domain": "sample.cdn.toastcloud.com",
 	"purgeType": "ITEM",
 	"purgeList":"/img_01.png"
 }
@@ -567,7 +570,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | 名前 | タイプ | 必須か | デフォルト値 | 有効範囲        | 説明                                                    |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
 | domain    | String | 必須     |        | 最大255文字        | 再配布するドメイン(サービス)名                            |
-| purgeType | List   | 必須     |        | ITEM / ALL | 再配布タイプ("ITEM"、"ALL")                       |
+| purgeType | List   | 必須     |        | ITEM / WILDCARD / ALL | 再配布タイプ("ITEM"、"WILDCARD"、"ALL")                       |
 | purgeList | String | 任意     |        |                       | 再配布対象項目リスト(複数入力する時は\\nトークンで区分して入力してください。purgeTypeがALLの場合は入力しなくても構いません。) |
 
 #### レスポンス

@@ -142,6 +142,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].callback.httpMethod   | String  | Required |         | GET/POST/PUT                                 | HTTP method of callback                                      |
 | distributions[0].callback.url          | String  | Required |         | Up to 1024 characters                        | Callback URL                                                 |
 
+- The forwardHostHeader field and the useOriginHttpProtocolDowngrade field can be set when the *.toastcdn.net domain is enabled, but the  *.cdn.toastcloud.com domain cannot be enabled. 
 
 
 #### Response
@@ -316,7 +317,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 ```json
 {
-        "domain" : "sample.toastcdn.net",
+        "domain" : "sample.cdn.toastcloud.com",
         "useOriginHttpProtocolDowngrade": false,
         "forwardHostHeader": "ORIGIN_HOSTNAME",
         "useOrigin" : "N",
@@ -360,6 +361,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
 | callback.httpMethod   | String  | Required |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
 | callback.url          | String  | Required |         | Up to 1024 characters                                        | Callback URL                                                 |
+
+- The forwardHostHeader field and the useOriginHttpProtocolDowngrade field can be set when the *.toastcdn.net domain is enabled, but the  *.cdn.toastcloud.com domain cannot be enabled.
 
 #### Response
 
@@ -405,7 +408,7 @@ Apply partial modification API to change a part of the service setting.
 
 ```json
 {
-        "domain" : "sample.toastcdn.net",
+        "domain" : "sample.cdn.toastcloud.com",
         "useOrigin" : "N",
         "maxAge": 86400,
         "referrerType" : "BLACKLIST",
@@ -449,9 +452,9 @@ Apply partial modification API to change a part of the service setting.
 | callback.httpMethod   | String  | Optional |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
 | callback.url          | String  | Optional |         | Up to 1024 characters                                        | Callback URL                                                 |
 
-- To set the origins field, origin and originPath fields are required, and either port, httpPort, or httpsPort field must be included.
-- To set the callback field, httpMethod and url fields are required.
-
+- To set the origins field, origin and originPath fields are required, and either port, httpPort, or httpsPort field must be included. 
+- To set the callback field, httpMethod and url fields are required. 
+- The forwardHostHeader field and the useOriginHttpProtocolDowngrade field can be set when the *.toastcdn.net domain is enabled, but the  *.cdn.toastcloud.com domain cannot be enabled
 #### Response
 
 
@@ -495,7 +498,7 @@ Apply partial modification API to change a part of the service setting.
 ```json
 {
     "domains" : [
-        "lhcsxuo0.toastcdn.net"
+        "lhcsxuo0.cdn.toastcloud.com"
     ]
 }
 ```
@@ -551,7 +554,7 @@ Apply partial modification API to change a part of the service setting.
 
 ```json
 {
-	"domain": "sample.toastcdn.net",
+	"domain": "sample.cdn.toastcloud.com",
 	"purgeType": "ITEM",
 	"purgeList":"/img_01.png"
 }
