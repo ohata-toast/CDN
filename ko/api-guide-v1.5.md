@@ -143,8 +143,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                | 콜백의 HTTP 메서드                                           |
 | distributions[0].callback.url          | String  | 필수      |        | 최대 1024자                 | 콜백 URL            |
 
-- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
-- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다. 
+- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다.
 
 
 #### 응답
@@ -317,7 +316,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 ```json
 {
-        "domain" : "sample.cdn.toastcloud.com",
+        "domain" : "sample.toastcdn.net",
         "useOriginHttpProtocolDowngrade": false,
         "forwardHostHeader": "ORIGIN_HOSTNAME",
         "useOrigin" : "N",
@@ -363,8 +362,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP Method                                           |
 | callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                   |
 
-- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
-- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다. 
+- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다.
 
 #### 응답
 
@@ -410,7 +408,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 ```json
 {
-        "domain" : "sample.cdn.toastcloud.com",
+        "domain" : "sample.toastcdn.net",
         "useOrigin" : "N",
         "maxAge": 86400,
         "referrerType" : "BLACKLIST",
@@ -456,7 +454,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 - origins 필드를 설정할 때 origin, originPath 필드는 필수 입력값이며, port 필드나 httpPort, httpsPort 필드 중 하나는 필수로 입력해야 합니다.
 - callback 필드를 설정할 때 httpMethod, url 필드는 필수 입력값입니다.
-- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
 
 #### 응답
 
@@ -501,7 +498,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```json
 {
     "domains" : [
-        "lhcsxuo0.cdn.toastcloud.com"
+        "lhcsxuo0.toastcdn.net"
     ]
 }
 ```
@@ -557,7 +554,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 ```json
 {
-	"domain": "sample.cdn.toastcloud.com",
+	"domain": "sample.toastcdn.net",
 	"purgeType": "ITEM",
 	"purgeList":"/img_01.png"
 }
@@ -569,10 +566,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
 | domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스) 이름                                 |
-| purgeType | List   | 필수      |        | ITEM / WILDCARD / ALL | 재배포 타입("ITEM", "WILDCARD", "ALL")                       |
+| purgeType | List   | 필수      |        | ITEM / ALL | 재배포 타입("ITEM", "ALL")                       |
 | purgeList | String | 선택      |        |                       | 재배포 대상 항목 목록(여러 개를 입력할 때는 \\n 토큰으로 구분해 입력해 주세요, purgeType이 ALL이면 입력하지 않아도 됩니다.) |
 
-- WILDCARD 재배포 타입은 *.cdn.toastcloud.com 도메인만 가능합니다.
 
 #### 응답
 
