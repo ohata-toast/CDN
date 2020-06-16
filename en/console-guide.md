@@ -8,9 +8,9 @@ Go to **Content Delivery > CDN** and to **CDN Service** and click **Create**, an
 CDN service domain is automatically created in the **[ServiceID].toastcdn.net** format. To use your own domain, enable **Domain Alias**. 
 It takes up to 2 hours to complete deployment after service is requested for creation. Service becomes available after it is completely deployed. 
 
-### Basic Information 
-Set basic information. 
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
+### Basic Information
+Set basic information.
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2.png)
 
 - **Service Region**
   GLOBAL service is provided via CDN edge servers located around the globe. 
@@ -39,13 +39,13 @@ Set basic information.
 | Path Variables | Description | Delivered Value|
 | ------------- | --- | ------- |
 | {appKey} | Appkey of CDN Service | Appkey issued on console |
-| {domain} | Name of CDN Service | [Service ID].cdn.toastcloud.com or [ServiceID].toastcdn.net |
-| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR | 
+| {domain} | Name of CDN Service | [ServiceID].toastcdn.net |
+| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR |
 | {isSuccessful} | Whether service change is successful (API v1.0 is not supported.) | "true" or "false" |
 
 ### Origin Server
-Set server providing original files to be deployd to CDN. 
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
+Set server providing original files to be deployd to CDN.
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2.png)
 
 - **Origin Server**
   The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
@@ -164,7 +164,7 @@ Set server providing original files to be deployd to CDN.
 ### Cache
 
 CDN cache operations and expiration time can be set.  
-![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
 
 - **Setting Cache Expiration**
   Cache can be configured from the response header of cache control at the origin server. 
@@ -176,8 +176,8 @@ CDN cache operations and expiration time can be set.
 > Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
 
 ### Manage Referrer Header Access  
-Content access management is set with the referrer request header. 
-![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
+Content access management is set with the referrer request header.
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
 
 The referrer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referrer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
 
@@ -208,9 +208,9 @@ The referrer request header includes the webpage address of previous links of th
 
 ## Settings
 
-### Modify CDN Service Setting 
-CDN service setting can be modified, except the name and region of service domain. 
-![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
+### Modify CDN Service Setting
+CDN service setting can be modified, except the name and region of service domain.
+![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3.png)
 
 1. Select a CDN service to modify from the list. 
 2. Click **Modify** from the **Setting** at the bottom of the page. 
@@ -232,12 +232,12 @@ Then, items that are modifiable are activated like below.
 CDN service can be suspended or resumed. 
 
 
-1. Select a CDN service to suspend. 
-2. Click **Suspend**. 
-![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause.png)
-3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal. 
-![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart.png)
-4. To resume suspended CDN service, select a CDN service to resume. 
+1. Select a CDN service to suspend.
+2. Click **Suspend**.
+![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2.png)
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal.
+![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2.png)
+4. To resume suspended CDN service, select a CDN service to resume.
 5. Click **Resume**.
 
 
@@ -256,10 +256,10 @@ CDN service can be suspended or resumed.
 ### Delete CDN
 CDN service can be deleted. Once deleted, however, a service cannot be recovered. 
 
-1. Select a CDN service to delete. 
-2. Click **Delete**. 
-![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete.png)
-3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service. 
+1. Select a CDN service to delete.
+2. Click **Delete**.
+![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2.png)
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service.
 
 > **[Note] Required Time to Delete CDN**
 > It may take a few hours (up to 3) to delete CDN service. 
@@ -275,54 +275,28 @@ CDN cache server cahces origin server files during specified expiration time dep
 To immediately update content to changed original file, **Purge Cache** must be requested. 
 By purging cache, outdated cache data are deleted from requested content while a new original file is cached again at the origin server. 
 
-1.  Select a service to change from the list of CDN services. 
-2. Click **Purge Cache**. 
-![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
+1.  Select a service to change from the list of CDN services.
+2. Click **Purge Cache**.
+![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2.png)
 
 3. Select a purge type. 
   - Note that each CDN service domain may support different purge type and request format of cache.  
-  - Purge type and request format of the **[ServiceID].toastcdn.net** domain
+  - Purge type and request format
     * Particular Files: Enter URL of content to purge. Since cache purge is applied for a requested URL only, purge must be requested to each URL address if there are many service domain addresses.   
       * e.g.) Domain address for default service: http://[ServiceID].toastcdn.net/path/to/file1.jpg
       * e.g.) Domain address for domain alias: http://customer.domain.com/path/to/file1.jpg
     * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server.
-  - Purge type and request format of the **[ServiceID].cdn.toastcloud.com** domain 
-    * Particular Files: Enter path of content to purge. 
-      * e.g.) /path/to/file1.jpg
-    * Wildcard: Use wildcard characters for the name of file and path. Wildcard is supported only for **\*.cdn.toastcloud.com** services. 
-      * \*: Random character string 
-      * ?: 1 character 
-      * \: Escape character 
-          * e.g) /images/games/\*.jpg
-          * /\_/sports/\_.jpg
-          * /images/sports/ac?e/\*.jpg
-    * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server. 
-4. Specify a file to purge depending on the selected cache purge type. 
+4. Specify a file to purge depending on the selected cache purge type.
 5. Click **Purge Cache** to request for a purge.  
 
-Take caution that cache purge does not exceed the capacity limit, in reference of the table as below: 
+Take caution that cache purge does not exceed the capacity limit, in reference of the table as below:
 
-|Category |[ServiceID].cdn.toastcloud.com|[ServiceID].toastcdn.net |
-|---|---|---|
-| Unit of Restrictions | Per service domain | Per project (Appkey) |
-| Particular Files | Requests per hour: 60 times, Paths per request: 1,000 | Requests per second: 1 time, URLs per request: 200 URLs |
-| Wildcard | Requests per hour: 60 times, Paths per request: 10 | Unsupported |
-| All File Types | Requests per hour: 5 times | Requests per 5 minutes: 1 time |
+|Category |[ServiceID].toastcdn.net |
+|---|---|
+| Unit of Restrictions | Per project (Appkey) |
+| Particular Files | Requests per second: 1 time, URLs per request: 200 URLs |
+| All File Types | Requests per 5 minutes: 1 time |
 
-> **[Caution] Cache purge of [Servie ID].cdn.toastcloud.com with Many Domain Aliases**
-> If many domain aliases are registered, purge is carried out for each domain alias on requested paths of cache purge.  
-> 
-> (Example)
-> Assume that there is a CDN service set with the following domain aliases: `custom1.domain-alias.com` and `custom2.domain-alias.com`. 
-> If requested with the **Particular File** type and `/images/photo.png` for the CDN service, cache purge is executed in the following two paths:  
->
-> - custom1.domain-alias.com/images/photo.png
-> - custom2.domain-alias.com/images/photo.png 
->
-> Note that paths of cache purge are added as much as (Number of registered domain aliases X Number of requested paths of cache purge). 
-> If the total number of paths for cache purge exceeds the maximum allowed number of paths per request, requests are divided and made by the maximum allowed number of paths.    
-> Since cache purge capacity shall increase as many as the number of divided requests, keep note of the capacity excess.  
->
 > **[Caution] Failed Cache Purge after [ServiceID].toastcdn.net is created**
 > Cache purge request may fail within about an hour after CDN service is created. If failure continues afterwards, contact Customer Center.  
 
@@ -414,7 +388,7 @@ Following page shows a setting example for TOAST DNS+. Each DNS provider may pro
 
 2. **Domain Alias Setting**: Add domain alias setting for the CDN to use certificate. 
     -  Select CDN to be integrated from **CDN Service** and click **Modify**. Add certificate domain to domain alias and click **OK**.  
-![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias.png)
+![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2.png)
 
 
 >  **[Caution] Caution for Certificate Expiration**

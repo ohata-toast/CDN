@@ -2,9 +2,6 @@
 
 This document describes Public API v2.0 of TOAST CDN. 
 
-## API V2.0 Support for Each Service Domain   
-API V2.0 supports \*.toastcdn.net domain only.  
-To use the \*.cdn.toastcloud.com domain, use v1.5 or lowr version of API. 
 
 ## Common API Information 
 
