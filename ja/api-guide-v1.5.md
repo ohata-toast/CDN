@@ -103,6 +103,7 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 			"description" : "sample-cdn",
 			"maxAge": 86400,
 			"referrers" : "cloud.toast.com",
+            "isAllowWhenEmptyReferrer" : true,
 			"origins" : [
 				{
 					"origin" : "static.origin.com",
@@ -133,6 +134,7 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 | distributions[0].domainAlias           | String  | 任意     |        | 最大255文字              | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンで区分して入力してください。) |
 | distributions[0].maxAge                | Integer | 任意     | 0      | 0～2,147,483,647             | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。             |
 | distributions[0].referrers             | String  | 任意     |        | '\n'トークンを含め、最大1024文字 | リファラー(複数入力時\nトークンで区分して入力してください。)    |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 필수      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
 | distributions[0].origins               | List    | 必須     |        |                             | 原本サーバーオブジェクトリスト                                 |
 | distributions[0].origins[0].origin     | String  | 必須     |        | 最大255文字              | 原本サーバー(domainまたはIP)                                     |
 | distributions[0].origins[0].port       | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
@@ -324,6 +326,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
         "maxAge": 86400,
         "referrerType" : "BLACKLIST",
         "referrers" : "test.com",
+        "isAllowWhenEmptyReferrer" : true,
         "origins" : [
             {
                 "origin" : "static.resource.com",
@@ -353,6 +356,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | domainAlias           | String  | 任意     |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンで区分して入力してください。) |
 | maxAge                | Integer | 任意     | 0      | 0 ～ 2,147,483,647                                            | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。              |
 | referrers             | String  | 任意     |        | '\n'トークンを含めて最大1024文字                              | リファラー(複数入力時\\nトークンで区分して入力してください。 )  |
+| isAllowWhenEmptyReferrer | Boolean | 필수      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
 | origins               | List    | 必須     |        |                                                              | 原本サーバー                                               |
 | origins[0].origin     | String  | 必須     |        | 最大255文字                                               | 原本サーバー(domainまたはIP)                                      |
 | origins[0].port       | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
@@ -443,6 +447,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | domainAlias           | String  | 任意     |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメイン使用、複数入力時\nトークンに分離して入力してください。) |
 | maxAge                | Integer | 任意     | 0      | 0～2,147,483,647                                              | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。           |
 | referrers             | String  | 任意     |        | '\n'トークンを含めて最大1024文字                              | リファラー(複数入力時\\nトークンに分離して入力してください。 )  |
+| isAllowWhenEmptyReferrer | Boolean | 필수      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
 | origins               | List    | 任意     |        |                                                              | 原本サーバー                                               |
 | origins[0].origin     | String  | 任意     |        | 最大255文字                                               | 原本サーバー(domainまたはIP)                                     |
 | origins[0].port       | Integer | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|

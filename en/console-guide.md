@@ -188,9 +188,11 @@ The referrer request header includes the webpage address of previous links of th
     * Appropriate to allow the access of particular referrer request headers only. 
     * Content access is allowed if a referrer request header matches regex setup. If not, content access is not allowed. 
 
-> **[Caution]**
-> If referrer request header is not available, access control does not work. 
->
+- **리퍼러 헤더가 없는 경우 접근 허용**
+  리퍼러(referer) 요청 헤더가 없는 경우 콘텐츠 접근 허용 여부를 선택합니다.
+  - **허용**: 리퍼러 요청 헤더가 없는 경우 콘텐츠 접근을 허용하며 리퍼러 접근 제어가 동작하지 않습니다.
+  - **거부**: 리퍼러 요청 헤더가 없는 경우 콘텐츠 접근을 거부하고 등록된 리퍼러에 대해서만 접근을 허용합니다.
+
 > **[Example]**
 >
 > * Typ: Whitelist
