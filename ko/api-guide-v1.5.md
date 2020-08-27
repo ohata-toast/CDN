@@ -103,6 +103,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 			"description" : "sample-cdn",
 			"maxAge": 86400,
 			"referrers" : "cloud.toast.com",
+            "isAllowWhenEmptyReferrer" : true,
 			"origins" : [
 				{
 					"origin" : "static.origin.com",
@@ -324,6 +325,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
         "maxAge": 86400,
         "referrerType" : "BLACKLIST",
         "referrers" : "test.com",
+        "isAllowWhenEmptyReferrer" : true,
         "origins" : [
             {
                 "origin" : "static.resource.com",
