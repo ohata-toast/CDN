@@ -103,6 +103,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
       "defaultMaxAge": 86400,
       "referrerType" : "BLACKLIST",      
       "referrers" : ["cloud.toast.com"],
+      "isAllowWhenEmptyReferrer" : true, 
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -130,6 +131,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].useOriginCacheControl | Boolean | 필수      |        | true/false                  | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정)   |
 | distributions[0].referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST         | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 선택      |        |                           | 정규 표현식 형태의 리퍼러 헤더 목록   |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 필수      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
 | distributions[0].description           | String  | 선택      |        | 최대 255자                  | 설명                                                         |
 | distributions[0].domainAlias           | List    | 선택      |        |                           | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용) |
 | distributions[0].defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647             | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.             |
@@ -172,6 +174,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
             "referrers": [
                 "cloud.toast.com"
             ],
+            "isAllowWhenEmptyReferrer": true,
             "useOriginCacheControl": true,
             "origins": [
                 {
@@ -210,6 +213,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                  |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
 | distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
@@ -270,6 +274,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
     "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
     "referrers" :  ["test.com"],    
+    "isAllowWhenEmptyReferrer": true,
     "useOriginCacheControl" :  false,
     "origins" : [
         {
@@ -304,6 +309,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | distributions[0].defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
 | distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
@@ -341,6 +347,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
       "defaultMaxAge": 86400,
       "referrerType" : "BLACKLIST",
       "referrers" : ["test.com"],
+      "isAllowWhenEmptyReferrer": true,
       "origins" : [
           {
               "origin" : "static.resource.com",
@@ -370,6 +377,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | useOriginCacheControl | Boolean | 필수      |        | true/false                                                        | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정)      |
 | referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST                                          | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | referrers             | List    | 선택      |        |                                                              | 정규 표현식 형태의 리퍼러 헤더 목록 |
+| isAllowWhenEmptyReferrer | Boolean | 필수      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
 | domainAlias           | List    | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 혹은 회사가 소유한 도메인 사용) |
 | defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647                                            | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.              |
@@ -601,7 +609,8 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
       "defaultMaxAge" : 86400,
       "status" :  "OPENING",
       "referrerType" :  "BLACKLIST",
-      "referrers" :  ["test.com"],    
+      "referrers" :  ["test.com"],   
+      "isAllowWhenEmptyReferrer" : true, 
       "useOriginCacheControl" :  false,
       "createTime" : 1498613094692,
       "deleteTime": 1498613094692,
@@ -639,6 +648,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
 | distribution.referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distribution.referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
+| distributions.isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
 | distribution.useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
 | distribution.createTime            | DateTime | 생성 일시                                         |
 | distribution.deleteTime            | DateTime | 삭제 일시                                         |
