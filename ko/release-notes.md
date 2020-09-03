@@ -1,11 +1,14 @@
 ## Content Delivery > CDN > 릴리스 노트
 
+<<<<<<< HEAD
 ### 2020. 09. 03.
 
 #### 기능 개선/변경
 * 리퍼러(referer)헤더 접근 관리: 리퍼러(referer)요청 헤더가 없는 경우 콘텐츠 접근 허용 여부를 선택할 수 있는 설정이 추가되었습니다.
 
 
+=======
+>>>>>>> parent of 3efc17e... Merge branch 'alpha' into beta
 ### 2020. 06. 23.
 
 #### 기능 개선/변경

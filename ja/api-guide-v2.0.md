@@ -103,7 +103,6 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
       "defaultMaxAge": 86400,
       "referrerType" : "BLACKLIST",      
       "referrers" : ["cloud.toast.com"],
-      "isAllowWhenEmptyReferrer" : true, 
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -131,7 +130,6 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].useOriginCacheControl | Boolean | 必須  |        | true/false                  | キャッシュ満了設定(true：オリジンサーバー設定を使用、false：ユーザー設定)   |
 | distributions[0].referrerType          | String  | 必須   |        | BLACKLIST/WHITELIST         | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 任意  |        |                           | 正規表現形式のリファラーヘッダリスト |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | 必須      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
 | distributions[0].description           | String  | 任意   |        | 最大255文字            | 説明                                                  |
 | distributions[0].domainAlias           | List    | 任意  |        |                           | ドメインエイリアスリスト(個人または会社が所有しているドメインを使用) |
 | distributions[0].defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647             | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。             |
@@ -173,7 +171,6 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
             "referrers": [
                 "cloud.toast.com"
             ],
-            "isAllowWhenEmptyReferrer": true,
             "useOriginCacheControl": true,
             "origins": [
                 {
@@ -212,7 +209,6 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].defaultMaxAge         | Integer  | キャッシュ満了時間(秒)                                           |
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 正規表現形式のリファラーヘッダリスト                              |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false) |
 | distributions[0].useOriginCacheControl | Boolean  | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザー設定) |
 | distributions[0].origins               | List    | オリジンサーバーオブジェクトリスト                               |
 | distributions[0].origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                      |
@@ -273,7 +269,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
     "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
     "referrers" :  ["test.com"],    
-    "isAllowWhenEmptyReferrer": true,
     "useOriginCacheControl" :  false,
     "origins" : [
         {
@@ -308,7 +303,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | distributions[0].defaultMaxAge         | Integer  | キャッシュ満了時間(秒)                                           |
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 正規表現形式のリファラーヘッダリスト                             |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false) |
 | distributions[0].useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザー設定) |
 | distributions[0].origins               | List    | オリジンサーバーオブジェクトリスト                               |
 | distributions[0].origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                      |
@@ -346,7 +340,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
       "defaultMaxAge": 86400,
       "referrerType" : "BLACKLIST",
       "referrers" : ["test.com"],
-      "isAllowWhenEmptyReferrer": true,
       "origins" : [
           {
               "origin" : "static.resource.com",
@@ -376,7 +369,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | useOriginCacheControl | Boolean | 必須  |        | true/false                                                        | キャッシュ満了設定(true：オリジンサーバー設定を使用、false：ユーザー設定)      |
 | referrerType          | String  | 必須   |        | BLACKLIST/WHITELIST                                          | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | referrers             | List    | 任意  |        |                                                              | 正規表現形式のリファラーヘッダリスト |
-| isAllowWhenEmptyReferrer | Boolean | 必須      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
 | description           | String  | 任意   |        | 最大255文字                                             | 説明                                                  |
 | domainAlias           | List    | 任意  |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメインを使用) |
 | defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647                                            | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。              |
@@ -608,7 +600,6 @@ CDNサービスにコールバック機能が設定されている場合、作�
       "status" :  "OPENING",
       "referrerType" :  "BLACKLIST",
       "referrers" :  ["test.com"],    
-      "isAllowWhenEmptyReferrer" : true,
       "useOriginCacheControl" :  false,
       "createTime" : 1498613094692,
       "deleteTime": 1498613094692,
@@ -646,7 +637,6 @@ CDNサービスにコールバック機能が設定されている場合、作�
 | distribution.defaultMaxAge         | Integer  | キャッシュ満了時間(秒)                                           |
 | distribution.referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distribution.referrers             | List    | 正規表現形式のリファラーヘッダリスト                             |
-| distributions.isAllowWhenEmptyReferrer | Boolean | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false) |
 | distribution.useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザーを設定) |
 | distribution.createTime            | DateTime | 作成日時                                     |
 | distribution.deleteTime            | DateTime | 削除日時                                     |
