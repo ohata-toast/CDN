@@ -211,47 +211,70 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 > API를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
 
 ### Auth Token 인증 접근 관리
-최종 콘텐츠 사용자가 콘텐츠 요청시 유효한 토큰인지 검증 후 콘텐츠에 접근할 수 있도록 설정합니다.  
-유효하지 않은 토큰으로 콘텐츠를 요청한 경우, 최종 콘텐츠 사용자는 콘텐츠를 다운로드 할 수 없으며, 403 Forbidden 응답이 전송됩니다.  
+Auth Token 인증 접근 관리는 콘텐츠 요청에 인증 토큰을 추가하여 CDN 에지 서버에서 검증된 토큰만 콘텐츠 접근을 허용하는 보안 기능입니다.
+일회성 콘텐츠 접근 허용 또는 제한된 사용자만 콘텐츠를 접근 할 수 있도록 제어할 수 있습니다.
+토큰이 없거나 유효하지 않은 토큰으로 콘텐츠를 요청한 경우, 403 Forbidden 응답이 전송되며 콘텐츠에 접근할 수 없습니다.
+
+Auth Token 인증 접근을 CDN 서비스에 적용하려면 다음의 단계에 따라 작업이 필요합니다.
+
+> **[주의]** 
+>
+> Auth Token 인증 접근 관리는 TOAST CDN을 이용해 서비스 중인 애플리케이션에서도 다음의 구현이 필요합니다.
+> 1. 콘텐츠 접근에 필요한 토큰을 생성 해야 합니다.
+> 2. 클라이언트(최종 콘텐츠 소비자)가 생성된 토큰을 포함하여 콘텐츠를 요청할 수 있도록 해야합니다.
+> 이 작업을 하지 않고 Auth Token 인증 접근 관리를 설정할 경우, 토큰 검증 실패로 인해 콘텐츠 요청이 실패될 수 있으므로 주의하시기 바랍니다.
+
+
+#### 1. TOAST CDN 콘솔 > Auth Token 인증 접근 관리 설정
+
+1. CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관리를 설정합니다.
 
 ![CDN서비스생성-Auth Token 인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token.png)
 
 - **토큰 인증 사용 여부**
-  - **사용**: 토큰을 검증한 후 콘텐츠에 접근할 수 있도록 합니다.
-  - **미사용**: 콘텐츠 접근 시 토큰을 검증하지 않습니다.
+  - **사용**: Auth Token 인증 접근 관리 기능을 활성화하여 토큰 검증한 후 콘텐츠에 접근할 수 있도록 합니다.
+  - **미사용**: Auth Token 인증 접근 관리 기능을 비활성화 합니다.
 - **토큰 위치**
   콘텐츠 요청 시 토큰을 전달할 위치를 선택합니다.  
-    - **쿠키(Cookie)**: 표준 쿠키로 토큰을 전달합니다. 쿠키 사용을 지원하지 않는 장치 및 브라우저는 토큰 인증이 정상적으로 동작하지 않을 수 있습니다.  
-    - **요청 헤더(Request header)**: 요청 헤더로 토큰을 전달합니다.  
-    - **쿼리 문자열(Query string)**: 쿼리 문자열로 토큰을 전달합니다.  
+    - **쿠키(Cookie)**: 표준 쿠키로 토큰을 전달합니다. 쿠키 사용을 지원하지 않는 장치 및 브라우저는 토큰 인증이 정상적으로 동작하지 않을 수 있으므로 주의하시기 바랍니다.  
+    - **요청 헤더(Request header)**: 요청 헤더에 토큰을 전달합니다.  
+    - **쿼리 문자열(Query string)**: 쿼리 문자열에 토큰을 전달합니다.  
 - **토큰 이름**
-  - 토큰 값을 전달할 토큰의 이름입니다. `token` 이름으로 고정된 값이 제공됩니다.
+    - 토큰 값을 전달할 토큰의 이름입니다. `token` 으로 고정된 값이며 콘솔 설정에서 변경이 불가합니다.
 - **토큰 암호화 키**
-  토큰 생성에 필요한 암호화 키 입니다. CDN 서비스 생성 또는 수정 후 암호화 키는 자동으로 생성됩니다.  
-  암호화 키는 외부로 노출되지 않도록 주의하시기 바랍니다.  
-- **토큰 인증 대상 설정**
-  콘텐츠 접근 시 토큰을 인증할 파일 대상을 설정합니다. 지정된 요청 URL 경로 또는 파일 확장자만 토큰 검증을 하려면 요청 URL 경로, 확장자를 입력해주세요. 입력하지 않은 경우 모든 파일에 대해 토큰을 검증합니다.  
-    - **인증 대상 설정**: 설정된 경로와 파일 확장자의 파일만 토큰을 검증합니다.  
-    - **인증 예외 대상 설정**: 설정된 경로와 파일 확장자를 제외한 파일에 대해 토큰을 검증합니다.  
-    - **요청 URL 경로**: 요청 URL 경로와 비교합니다. 경로는 '/'로 시작해야 합니다.(예시: /toast/*)
-      요청 URL 경로는 아스키(ascii) 코드 문자만 입력가능합니다.
-      쿼리 문자열은 포함하지 않습니다.  
-      와일드카드 문자(여러 문자열: *, 단일 문자: ?)를 사용할 수 있습니다.  
-      여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근제어가 동작합니다.  
-      파일 확장자와 함께 입력한 경우 파일 확장자 조건이 일치한 경우 토큰 접근제어가 동작합니다.  
-    - **파일 확장자**: 파일 확장자와 비교합니다. '.'을 포함하지 않은 파일 확장자를 입력합니다. (예시: pdf, png)  
-      여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근제어가 동작합니다.  
-      요청 경로 URL과 함께 입력한 경우 요청 경로 URL 조건이 일치한 경우 토큰 접근제어가 동작합니다.  
+    - 토큰 생성에 필요한 암호화 키 입니다. CDN 서비스 생성 또는 수정 후 암호화 키는 자동으로 생성됩니다.  
+    - 암호화 키는 외부로 노출되지 않도록 주의하시기 바랍니다.  
+- **토큰 인증 대상 설정**  
+    콘텐츠 접근 시 토큰을 인증할 파일 대상을 설정합니다.
+    토큰 인증 대상 파일인 경우에만 토큰을 검증하며, 인증 대상 파일이 아닌 경우에는 토큰 검증을 수행하지 않으므로 토큰 없이 콘텐츠 접근이 가능합니다.
+    지정된 요청 URL 경로 또는 파일 확장자만 토큰 검증을 하려면 요청 URL 경로와 확장자를 입력해주세요. 입력하지 않은 경우 모든 파일에 대해 토큰을 검증합니다.  
+    - **인증 대상 설정**: 요청 URL 경로와 파일 확장자의 파일만 토큰을 검증합니다.
+    - **인증 예외 대상 설정**: 설정된 요청 URL 경로와 파일 확장자를 제외한 파일에 대해 토큰을 검증합니다.  
+    - **요청 URL 경로**: 콘텐츠 URL이 요청 URL 경로와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
+        - 경로는 '/'로 시작해야 하며 와일드카드 문자(여러 문자열: *, 단일 문자: ?)를 사용할 수 있습니다. (예시: `/toast/*`)
+        - 경로는 쿼리 문자열은 포함하지 않습니다.
+        - 경로는 아스키(ascii) 코드 문자만 입력가능합니다.
+        - 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근제어가 동작합니다.  
+        - 파일 확장자와 함께 입력한 경우 요청 URL 경로 또는 파일 확장자 조건이 일치한 경우 토큰 접근제어가 동작합니다.  
+    - **파일 확장자**: 콘텐츠 URL이 파일 확장자와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
+        - '.'을 포함하지 않은 파일 확장자를 입력합니다. (예시: pdf, png)  
+        - 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근제어가 동작합니다.  
+        - 요청 경로 URL과 함께 입력한 경우 파일 확장자 또는 요청 경로 URL 조건이 일치한 경우 토큰 접근제어가 동작합니다.  
 
--  **토큰 생성 가이드**
-  최종 콘텐츠 사용자는 토큰과 함께 콘텐츠를 요청해야 콘텐츠 접근이 가능하므로, 토큰을 생성하여 최종 콘텐츠 사용자에게 발급 해줘야 합니다.
-  토큰 생성 방법은 다음의 가이드 코드 참고하시기 바랍니다.
+> **[주의] 요청 URL 경로와 파일 확장자**
+> 요청 URL 경로와 파일 확장자 모두 설정한 경우, 두 조건 중 하나만 일치해도 토큰 접근 제어가 동작합니다.
+> [예시] 요청 URL 경로 `/toast/*`, 파일 확장자 `png` 가 설정된 경우: /toast 하위의 모든 파일 또는 파일 확장자가 png인 콘텐츠에 대해 토큰을 검증합니다.
+
+
+#### 2. 토큰 생성 
+콘텐츠 접근에 필요한 토큰을 생성해야 합니다.
+토큰 생성은 TOAST CDN을 이용해 서비스 중인 애플리케이션에서 구현되어야 합니다.
+토큰 생성 방법은 다음의 가이드 코드를 참고하여 토큰을 생성합니다.
 
   <details>
   <summary>Java 가이드 코드</summary>
-  이 가이드 코드 아래와 같은 제약 사항이 있습니다.
-  - jdk7+ 이상 
-  - org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다. 
+  이 가이드 코드 아래와 같은 제약 사항이 있습니다.  
+  jdk7+ 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다. 
   
   ```java
   import org.apache.commons.lang3.StringUtils;
@@ -293,7 +316,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
           System.out.println("멀티 와일드카드 토큰: token=" + authToken.generateWildcardPathToken(multipleWildcardPath));
 
           System.out.println(" ----------------- ");
-          System.out.println(" 세션 식별자별 토큰 발급 ");
+          System.out.println(" 세션 식별자를 포함한 토큰 발급 ");
           System.out.println(" ----------------- ");
 
           AuthToken authTokenWithSession = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS, "example-sessionId");
@@ -472,11 +495,16 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 
   ```
    - AuthToken 클래스의 멤버 변수 설명
-    - key: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.
-    - sessionId: 임의의 세션 ID별로 토큰을 생성합니다. 세션 ID는 [출력 가능한 ascii 코드](https://ko.wikipedia.org/w/index.php?title=ASCII&action=edit&section=3#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다. 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.
-    - durationSeconds: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다. 토큰 유효 시간을 너무 작게 설정하면 최종 콘텐츠 사용자가 콘텐츠 요청 전 토큰이 만료될 수 있으니 유의하시기 바랍니다.
+      - key: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.
+      - sessionId: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.
+         - 세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.
+         - 세션 ID는 [출력 가능한 ascii 코드](https://ko.wikipedia.org/w/index.php?title=ASCII&action=edit&section=3#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다. 
+         - 세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.
+      - durationSeconds: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.
+        - 토큰 유효 시간을 너무 작게 설정한 경우, CDN 에지 서버에서 토큰 검증 전 토큰이 만료될 수 있습니다. 따라서 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.
+        - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.
 
-  - AuthToken 클래스의 공개 메서드(Public method)
+  - AuthToken 클래스의 공개 메서드(Public Method)
     - public String generateURLToken(String path)
       - 단일 경로에 대한 토큰을 생성합니다.
       - [예시] path: authToken.generateURLToken("/auth/contents/example.png")
@@ -485,29 +513,34 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
     
     - public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)
       - 와일드카드 경로와 매핑되는 경로에 대한 토큰을 생성합니다. 경로의 패턴이 일치하는 경우 와일드 카드 토큰하나로 여러 콘텐츠 URL의 토큰 인증이 가능합니다.
-      - [예시] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*")
-      - [예시] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/example?/*")
+      - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
+      - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
+      - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
       - [주의] 경로 또는 세션 ID는 URL인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다. (예시: `/toast/인증/파일.png` => `/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png`)
       - [주의] `!`, `~` 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록합니다.
-  
+  - 생성된 토큰은 `exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}` 형식으로 생성됩니다.
+    - [예시] 생성된 토큰: `exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91`
+
   </details>
 
-- **토큰 인증 방식 콘텐츠 요청 예시**
-    - **토큰 위치: 쿠키**
+#### 3. 생성된 토큰을 콘텐츠 요청에 포함
+클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청시 콘솔에서 설정한 토큰 위치에 생성된 토큰 값을 포함하여 요청하도록 합니다.
+
+  - **토큰 위치: 쿠키**
     ```
-    curl --cookie "token={token}" \
+    curl --cookie "token={생성된 토큰 값}" \
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
-    - **토큰 위치: 요청 헤더**
-      ```
-      curl -H "token: {token}" \
-      -X GET http://xxx.toastcdn.net/auth/contents/example.png
-      ```
-    - **토큰 위치: 쿼리 문자열**
-      ```
-      curl -d "token={token}" \
-      -X GET http://xxx.toastcdn.net/auth/contents/example.png
-      ```
+  - **토큰 위치: 요청 헤더**
+    ```
+    curl -H "token: {생성된 토큰 값}" \
+    -X GET http://xxx.toastcdn.net/auth/contents/example.png
+    ```
+  - **토큰 위치: 쿼리 문자열**
+    ```
+    curl -d "token={생성된 토큰 값}" \
+    -X GET http://xxx.toastcdn.net/auth/contents/example.png
+    ```
 
 ## 설정
 
