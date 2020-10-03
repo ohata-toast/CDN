@@ -3,7 +3,7 @@
 ### October 6, 2020
 
 #### Feature Updates 
-* 토큰 인증 방식의 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > Auth Token 접근 관리](./console-guide/#cdn_4)를 참고하시기 바랍니다.
+* Access management by token authentication has been added. For more details, visit [Console Guide > Auth Token Access Management](./console-guide/#cdn_4).
 * Access Management for Referrer Header: Added the setting to enable or disable content access, when there is no referrer request header. 
 
 ### June 23, 2020
