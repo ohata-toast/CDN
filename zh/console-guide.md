@@ -304,258 +304,257 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
 토큰 생성은 TOAST CDN을 이용해 서비스 중인 애플리케이션에서 구현되어야 합니다.
 토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다.
 
-  <details>
-  <summary>Java 샘플 코드</summary>
-  이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
-  JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다. 
+<details>
+<summary>Java 샘플 코드</summary>
+이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
+JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
   
-  ```java
+```java
+import org.apache.commons.lang3.StringUtils;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-  import org.apache.commons.lang3.StringUtils;
-  import javax.crypto.Mac;
-  import javax.crypto.spec.SecretKeySpec;
-  import javax.xml.bind.DatatypeConverter;
-  import java.io.UnsupportedEncodingException;
-  import java.math.BigInteger;
-  import java.net.URLEncoder;
-  import java.security.InvalidKeyException;
-  import java.security.NoSuchAlgorithmException;
-  import java.util.Calendar;
-  import java.util.TimeZone;
-  import java.util.regex.Matcher;
-  import java.util.regex.Pattern;
+public class ToastAuthTokenAccessControlExample {
 
-  public class ToastAuthTokenAccessControlExample {
-
-      // TOAST 콘솔에서 확인한 인증 토큰 암호화 키
-      private static final String AUTH_TOKEN_ENCRYPT_KEY = "{TOAST CDN 서비스의 토큰 암호화 키}";
-      // 토큰 유효 시간(seconds)
-      private static final Long TOKEN_DURATION_SECONDS = 3600L;
-
-
-      public static void main(String[] args) throws AuthTokenException {
-
-          String path = "/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
-          String singleWildcardPath = "/toast/%EC%9D%B8%EC%A6%9D/*";
-          String[] multipleWildcardPath = {"/toast/%EC%9D%B8%EC%A6%9D*", "/toast/auth/*"};
-
-          System.out.println(" ----------------- ");
-          System.out.println(" 기본 토큰 발급 ");
-          System.out.println(" ----------------- ");
-
-          AuthToken authToken = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS);
-
-          System.out.println("단일 URL 토큰: token=" + authToken.generateURLToken(path));
-          System.out.println("와일드카드 토큰: token=" + authToken.generateWildcardPathToken(singleWildcardPath));
-          System.out.println("멀티 와일드카드 토큰: token=" + authToken.generateWildcardPathToken(multipleWildcardPath));
-
-          System.out.println(" ----------------- ");
-          System.out.println(" 세션 식별자를 포함한 토큰 발급 ");
-          System.out.println(" ----------------- ");
-
-          AuthToken authTokenWithSession = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS, "example-sessionId");
-          System.out.println("단일 URL 토큰: token=" + authTokenWithSession.generateURLToken(path));
-          System.out.println("와일드카드 토큰: token=" + authTokenWithSession.generateWildcardPathToken(singleWildcardPath));
-          System.out.println("복수 와일드카드 토큰: token=" + authTokenWithSession.generateWildcardPathToken(multipleWildcardPath));
-
-      }
+    // TOAST 콘솔에서 확인한 인증 토큰 암호화 키
+    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{TOAST CDN 서비스의 토큰 암호화 키}";
+    // 토큰 유효 시간(seconds)
+    private static final Long TOKEN_DURATION_SECONDS = 3600L;
 
 
-      public static class AuthToken {
+    public static void main(String[] args) throws AuthTokenException {
 
-          /** 토큰 암호화 알고리즘(SHA256 고정) **/
-          private static final String HMAC_SHA_256 = "HmacSHA256";
+        String path = "/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
+        String singleWildcardPath = "/toast/%EC%9D%B8%EC%A6%9D/*";
+        String[] multipleWildcardPath = {"/toast/%EC%9D%B8%EC%A6%9D*", "/toast/auth/*"};
 
-          /** 토큰 암호화 키 (TOAST CDN 콘솔 > Auth Token 인증 접근 관리 > 암호화 키) **/
-          private String key;
+        System.out.println(" ----------------- ");
+        System.out.println(" 기본 토큰 발급 ");
+        System.out.println(" ----------------- ");
 
-          /**  세션 식별자 */
-          private String sessionId;
+        AuthToken authToken = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS);
 
-          /** 토큰의 유효 시간(단위: 초) */
-          private Long durationSeconds;
+        System.out.println("단일 URL 토큰: token=" + authToken.generateURLToken(path));
+        System.out.println("와일드카드 토큰: token=" + authToken.generateWildcardPathToken(singleWildcardPath));
+        System.out.println("멀티 와일드카드 토큰: token=" + authToken.generateWildcardPathToken(multipleWildcardPath));
 
-          /** 토큰 생성 전 url encode 적용 여부 */
-          private Boolean escapeEarly;
+        System.out.println(" ----------------- ");
+        System.out.println(" 세션 식별자를 포함한 토큰 발급 ");
+        System.out.println(" ----------------- ");
 
-          /** 토큰 Body 필드의 구분자 */
-          private final String fieldDelimiter = "~";
+        AuthToken authTokenWithSession = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS, "example-sessionId");
+        System.out.println("단일 URL 토큰: token=" + authTokenWithSession.generateURLToken(path));
+        System.out.println("와일드카드 토큰: token=" + authTokenWithSession.generateWildcardPathToken(singleWildcardPath));
+        System.out.println("복수 와일드카드 토큰: token=" + authTokenWithSession.generateWildcardPathToken(multipleWildcardPath));
 
-          /** wildcardPath 구분자 */
-          private final String aclDelimiter = "!";
-
-
-          public AuthToken(String key, Long durationSeconds) {
-              this.key = key;
-              this.sessionId = null;
-              this.durationSeconds = durationSeconds;
-              this.escapeEarly = true;
-
-          }
+    }
 
 
-          public AuthToken(String key, Long durationSeconds, String sessionId) {
-              this.key = key;
-              this.sessionId = sessionId;
-              this.durationSeconds = durationSeconds;
-              this.escapeEarly = true;
-          }
+    public static class AuthToken {
+
+        /** 토큰 암호화 알고리즘(SHA256 고정) **/
+        private static final String HMAC_SHA_256 = "HmacSHA256";
+
+        /** 토큰 암호화 키 (TOAST CDN 콘솔 > Auth Token 인증 접근 관리 > 암호화 키) **/
+        private String key;
+
+        /**  세션 식별자 */
+        private String sessionId;
+
+        /** 토큰의 유효 시간(단위: 초) */
+        private Long durationSeconds;
+
+        /** 토큰 생성 전 url encode 적용 여부 */
+        private Boolean escapeEarly;
+
+        /** 토큰 Body 필드의 구분자 */
+        private final String fieldDelimiter = "~";
+
+        /** wildcardPath 구분자 */
+        private final String aclDelimiter = "!";
 
 
-          /**
-          * 단일 URL에 대한 토큰을 생성합니다.
-          * @param path : contents url (example: /auth/contents/example.png)
-          * @return created token
-          * @throws AuthTokenException
-          */
-          public String generateURLToken(String path) throws AuthTokenException {
-              return generateToken(createExpireTime(), this.sessionId, path, null);
+        public AuthToken(String key, Long durationSeconds) {
+            this.key = key;
+            this.sessionId = null;
+            this.durationSeconds = durationSeconds;
+            this.escapeEarly = true;
 
-          }
+        }
 
 
-          /**
-          * 와일드카드 경로에 대한 토큰을 생성합니다.
-          * @param wildcardPath : "/auth/contents/*"
-          * @return 생성된 토큰값
-          * @throws AuthTokenException
-          */
-          public String generateWildcardPathToken(String wildcardPath) throws AuthTokenException {
-              return generateWildcardPathToken(new String[] {wildcardPath});
-          }
-
-          /**
-          * 복수 개의 와일드카드 경로에 대한 토큰을 생성합니다.
-          * @param wildcardPaths (example: ["/auth/contents/*", "/auth/*/images/*"])
-          * @return 생성된 토큰값
-          * @throws AuthTokenException
-          */
-          public String generateWildcardPathToken(String... wildcardPaths) throws AuthTokenException {
-              return generateToken(createExpireTime(), this.sessionId, null, wildcardPaths);
-
-          }
+        public AuthToken(String key, Long durationSeconds, String sessionId) {
+            this.key = key;
+            this.sessionId = sessionId;
+            this.durationSeconds = durationSeconds;
+            this.escapeEarly = true;
+        }
 
 
-          private String createExpireTime() {
-              Long nowSeconds = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTimeInMillis() / 1000L;
-              Long exp = nowSeconds + this.durationSeconds;
-              return exp.toString();
-          }
+        /**
+        * 단일 URL에 대한 토큰을 생성합니다.
+        * @param path : contents url (example: /auth/contents/example.png)
+        * @return created token
+        * @throws AuthTokenException
+        */
+        public String generateURLToken(String path) throws AuthTokenException {
+            return generateToken(createExpireTime(), this.sessionId, path, null);
+
+        }
 
 
-          private String generateToken(String exp, String sessionId, String path, String[] wildcardPaths) throws AuthTokenException {
+        /**
+        * 와일드카드 경로에 대한 토큰을 생성합니다.
+        * @param wildcardPath : "/auth/contents/*"
+        * @return 생성된 토큰값
+        * @throws AuthTokenException
+        */
+        public String generateWildcardPathToken(String wildcardPath) throws AuthTokenException {
+            return generateWildcardPathToken(new String[] {wildcardPath});
+        }
 
-              try {
+        /**
+        * 복수 개의 와일드카드 경로에 대한 토큰을 생성합니다.
+        * @param wildcardPaths (example: ["/auth/contents/*", "/auth/*/images/*"])
+        * @return 생성된 토큰값
+        * @throws AuthTokenException
+        */
+        public String generateWildcardPathToken(String... wildcardPaths) throws AuthTokenException {
+            return generateToken(createExpireTime(), this.sessionId, null, wildcardPaths);
 
-                  StringBuilder token = new StringBuilder();
-                  token.append("exp=")
-                      .append(exp)
-                      .append(this.fieldDelimiter);
-
-                  if (wildcardPaths != null && wildcardPaths.length > 0) {
-                      token.append("acl=")
-                          .append(escapeEarly(StringUtils.join(wildcardPaths, this.aclDelimiter)))
-                          .append(this.fieldDelimiter);
-                  }
-
-                  if (sessionId != null && sessionId.length() > 0) {
-                      token.append("id=")
-                          .append(escapeEarly(sessionId))
-                          .append(this.fieldDelimiter);
-                  }
-
-                  StringBuilder hashSource = new StringBuilder(token);
-                  if (path != null && path.length() > 0) {
-                      hashSource.append("url=")
-                                .append(escapeEarly(path))
-                                .append(this.fieldDelimiter);
-
-                  }
-
-                  // remove last fieldDelimiter char
-                  hashSource.deleteCharAt(hashSource.length() - 1);
-
-                  Mac hmac = Mac.getInstance(HMAC_SHA_256);
-                  byte[] keyBytes = DatatypeConverter.parseHexBinary(this.key);
-                  SecretKeySpec secretKey = new SecretKeySpec(keyBytes, HMAC_SHA_256);
-                  hmac.init(secretKey);
-
-                  byte[] hmacBytes = hmac.doFinal(hashSource.toString().getBytes());
-                  return token.toString() + "hmac=" + String.format("%0" + (2 * hmac.getMacLength()) + "x", new BigInteger(1, hmacBytes));
-
-              } catch (NoSuchAlgorithmException e) {
-                  throw new AuthTokenException(e.getMessage());
-              } catch (InvalidKeyException e) {
-                  throw new AuthTokenException(e.getMessage());
-              }
-
-          }
+        }
 
 
-          private String escapeEarly(final String text) throws AuthTokenException {
-              if (this.escapeEarly == true) {
-                  try {
-                      StringBuilder newText = new StringBuilder(URLEncoder.encode(text, "UTF-8"));
-                      Pattern pattern = Pattern.compile("%..");
-                      Matcher matcher = pattern.matcher(newText);
-                      String tmpText;
-                      while (matcher.find()) {
-                          tmpText = newText.substring(matcher.start(), matcher.end()).toLowerCase();
-                          newText.replace(matcher.start(), matcher.end(), tmpText);
-                      }
-                      return newText.toString();
-                  } catch (UnsupportedEncodingException e) {
-                      return text;
-                  } catch (Exception e) {
-                      throw new AuthTokenException(e.getMessage());
-                  }
-              } else {
-                  return text;
-              }
-          }
-
-      }
-
-      public static class AuthTokenException extends Exception {
-          private static final long serialVersionUID = 1L;
+        private String createExpireTime() {
+            Long nowSeconds = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTimeInMillis() / 1000L;
+            Long exp = nowSeconds + this.durationSeconds;
+            return exp.toString();
+        }
 
 
-          public AuthTokenException(String msg) {
-              super(msg);
-          }
-      }
+        private String generateToken(String exp, String sessionId, String path, String[] wildcardPaths) throws AuthTokenException {
 
-  }
-  ```
+            try {
 
-   - AuthToken 클래스의 멤버 변수 설명
-      - key: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.
-      - sessionId: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.
-         - 세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.
-         - 세션 ID는 [출력 가능 아스키 문자표](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다.
-         - 세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.
-      - durationSeconds: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.
-        - 토큰 유효 시간을 너무 작게 설정하면 CDN 에지 서버에서 토큰 검증하기 전에 토큰이 만료될 수 있으니 유의하시기 바랍니다. 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.
-        - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.
+                StringBuilder token = new StringBuilder();
+                token.append("exp=")
+                    .append(exp)
+                    .append(this.fieldDelimiter);
 
-  - AuthToken 클래스의 공개 메서드(Public Method)
-    - public String generateURLToken(String path)
+                if (wildcardPaths != null && wildcardPaths.length > 0) {
+                    token.append("acl=")
+                        .append(escapeEarly(StringUtils.join(wildcardPaths, this.aclDelimiter)))
+                        .append(this.fieldDelimiter);
+                }
+
+                if (sessionId != null && sessionId.length() > 0) {
+                    token.append("id=")
+                        .append(escapeEarly(sessionId))
+                        .append(this.fieldDelimiter);
+                }
+
+                StringBuilder hashSource = new StringBuilder(token);
+                if (path != null && path.length() > 0) {
+                    hashSource.append("url=")
+                              .append(escapeEarly(path))
+                              .append(this.fieldDelimiter);
+
+                }
+
+                // remove last fieldDelimiter char
+                hashSource.deleteCharAt(hashSource.length() - 1);
+
+                Mac hmac = Mac.getInstance(HMAC_SHA_256);
+                byte[] keyBytes = DatatypeConverter.parseHexBinary(this.key);
+                SecretKeySpec secretKey = new SecretKeySpec(keyBytes, HMAC_SHA_256);
+                hmac.init(secretKey);
+
+                byte[] hmacBytes = hmac.doFinal(hashSource.toString().getBytes());
+                return token.toString() + "hmac=" + String.format("%0" + (2 * hmac.getMacLength()) + "x", new BigInteger(1, hmacBytes));
+
+            } catch (NoSuchAlgorithmException e) {
+                throw new AuthTokenException(e.getMessage());
+            } catch (InvalidKeyException e) {
+                throw new AuthTokenException(e.getMessage());
+            }
+
+        }
+
+
+        private String escapeEarly(final String text) throws AuthTokenException {
+            if (this.escapeEarly == true) {
+                try {
+                    StringBuilder newText = new StringBuilder(URLEncoder.encode(text, "UTF-8"));
+                    Pattern pattern = Pattern.compile("%..");
+                    Matcher matcher = pattern.matcher(newText);
+                    String tmpText;
+                    while (matcher.find()) {
+                        tmpText = newText.substring(matcher.start(), matcher.end()).toLowerCase();
+                        newText.replace(matcher.start(), matcher.end(), tmpText);
+                    }
+                    return newText.toString();
+                } catch (UnsupportedEncodingException e) {
+                    return text;
+                } catch (Exception e) {
+                    throw new AuthTokenException(e.getMessage());
+                }
+            } else {
+                return text;
+            }
+        }
+
+    }
+
+    public static class AuthTokenException extends Exception {
+        private static final long serialVersionUID = 1L;
+
+
+        public AuthTokenException(String msg) {
+            super(msg);
+        }
+    }
+
+}
+```
+
+  - AuthToken 클래스의 멤버 변수 설명
+    - key: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.
+    - sessionId: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.
+        - 세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.
+        - 세션 ID는 [출력 가능 아스키 문자표](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다.
+        - 세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.
+    - durationSeconds: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.
+      - 토큰 유효 시간을 너무 작게 설정하면 CDN 에지 서버에서 토큰 검증하기 전에 토큰이 만료될 수 있으니 유의하시기 바랍니다. 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.
+      - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.
+
+- AuthToken 클래스의 공개 메서드(Public Method)
+  - public String generateURLToken(String path)
       - 단일 경로에 대한 토큰을 생성합니다.
-      - [예시] path: authToken.generateURLToken("/auth/contents/example.png")
-      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
-      - [주의] `!`, `~` 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
-    
-    - public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)
-      - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
-      - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
-      - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
-      - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
-      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
+          - [예시] path: authToken.generateURLToken("/auth/contents/example.png")
+          - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
       - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
-  - 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
-    - [예시] 생성된 토큰: **`**exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+  
+  - public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)
+      - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
+          - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
+          - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
+          - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
+       - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
+        - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
+- 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
+      - [예시] 생성된 토큰: **`**exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
-  </details>
+</details>
 
 #### 3. 생성된 토큰을 콘텐츠 요청에 포함
 클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청시 콘솔에서 설정한 토큰 위치에 생성된 토큰값을 포함하여 요청하도록 합니다.
