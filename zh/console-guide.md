@@ -210,40 +210,6 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 > 여러 개의 리퍼러를 제어할 때는 다음 줄에 연속해 입력합니다.
 > API를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
 
-### 리퍼러(referer) 헤더 접근 관리
-리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
-
-리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
-정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
-
-- **접근 제어 방식**
-  - **블랙리스트(blacklist) 타입**:
-      * 특정 리퍼러 요청 헤더만 접근을 제한할 때 적합합니다.
-      * 리퍼러 요청 헤더값이 설정한 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 제한됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 허용됩니다.
-  - **화이트리스트(whitelist) 타입**:
-      * 특정 리퍼러 요청 헤더만 접근을 허용할 때 적합합니다.
-      * 리퍼러 요청 헤더값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
-
-- **리퍼러 헤더가 없는 경우 접근 허용**
-  리퍼러(referer) 요청 헤더가 없는 경우 콘텐츠 접근 허용 여부를 선택합니다.
-    - **허용**: 리퍼러 요청 헤더가 없는 경우 콘텐츠 접근을 허용하며 리퍼러 접근 제어가 동작하지 않습니다.
-    - **거부**: 리퍼러 요청 헤더가 없는 경우 콘텐츠 접근을 거부하고 등록된 리퍼러에 대해서만 접근을 허용합니다.
-  
-> **[예시]**
->
-> * 타입: 화이트리스트(whitelist)
-> * 정규 표현식: `^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
-> 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
->
-> **[참고] 정규 표현식의 이스케이프 문자**
-> 일부 문자는 정규 표현식에서 특수 문자로 사용됩니다. 
-> 점(`.`)을 예로 들자면, 정규 표현식에서 점(`.`)은 모든 문자와 일치함을 나타내는 특수 문자입니다.
-> 특수 문자로의 의미가 아닌 일반 문자 그대로 해석해야 한다면 이스케이프 문자 백슬래시(`\`)를 특수 문자 앞에 추가하면 됩니다(예: `\.`).
-> 정규 표현식의 특수 문자에는 `^ . [ ] $ ( ) | * + ? { } \` 등이 있습니다.
-> 여러 개의 리퍼러를 제어할 때는 다음 줄에 연속해 입력합니다.
-> API를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
-
 ### Auth Token 인증 접근 관리
 Auth Token 인증 접근 관리는 콘텐츠 요청에 인증 토큰을 추가하여 CDN 에지 서버에서 검증된 토큰만 콘텐츠 접근을 허용하는 보안 기능입니다.
 일회성으로 콘텐츠 접근 허용하거나 제한된 사용자만 콘텐츠를 접근 할 수 있도록 제어할 수 있습니다.
@@ -278,9 +244,9 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
     - 토큰 생성에 필요한 암호화키 입니다. CDN 서비스를 생성 또는 수정하면 암호화 키는 자동으로 생성됩니다.
     - 암호화키는 외부로 노출되지 않도록 주의하시기 바랍니다.  
 - **토큰 인증 대상 설정**  
-    콘텐츠 접근 시 토큰을 인증할 파일 대상을 설정합니다.
-    토큰 인증 대상 파일인 경우에만 토큰을 검증하며, 인증 대상 파일이 아닌 경우에는 토큰 검증을 수행하지 않으므로 토큰 없이 콘텐츠 접근이 가능합니다.
-    지정된 요청 URL 경로 또는 파일 확장자만 토큰 검증을 하려면 요청 URL 경로와 확장자를 입력해주세요. 입력하지 않은 경우 모든 파일에 대해 토큰을 검증합니다.  
+  콘텐츠 접근 시 토큰을 인증할 파일 대상을 설정합니다.  
+  토큰 인증 대상 파일인 경우에만 토큰을 검증하며, 인증 대상 파일이 아닌 경우에는 토큰 검증을 수행하지 않으므로 토큰 없이 콘텐츠 접근이 가능합니다.  
+  지정된 요청 URL 경로 또는 파일 확장자만 토큰 검증을 하려면 요청 URL 경로와 확장자를 입력해주세요. 입력하지 않은 경우 모든 파일에 대해 토큰을 검증합니다.  
     - **인증 대상 설정**: 설정된 요청 URL 경로와 파일 확장자의 파일만 토큰을 검증합니다.
     - **인증 예외 대상 설정**: 설정된 요청 URL 경로와 파일 확장자를 제외한 파일의 토큰을 검증합니다.
     - **요청 URL 경로**: 콘텐츠 URL이 요청 URL 경로와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
@@ -298,17 +264,13 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
 > 요청 URL 경로와 파일 확장자 모두 설정한 경우, 두 조건 중 하나만 일치해도 토큰 접근 제어가 동작합니다.
 > [예시] 요청 URL 경로 **/toast/***, 파일 확장자 **png** 가 설정된 경우: /toast 하위의 모든 파일 또는 파일 확장자가 png인 콘텐츠에 대해 토큰을 검증합니다.
 
-
 #### 2. 토큰 생성 
 최종 콘텐츠 사용자가 콘텐츠에 접근하려면 토큰과 함께 콘텐츠를 요청해야 합니다. 따라서, 토큰을 생성해 최종 콘텐츠 사용자에게 발급해야 합니다.
 토큰 생성은 TOAST CDN을 이용해 서비스 중인 애플리케이션에서 구현되어야 합니다.
 토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다.
 
 <details>
-<summary>Java 샘플 코드</summary>
-이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
-JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
-  
+<summary>Java 샘플 코드</summary> 
 ```java
 import org.apache.commons.lang3.StringUtils;
 import javax.crypto.Mac;
@@ -527,34 +489,36 @@ public class ToastAuthTokenAccessControlExample {
 }
 ```
 
-  - AuthToken 클래스의 멤버 변수 설명
-    - key: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.
-    - sessionId: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.
-        - 세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.
-        - 세션 ID는 [출력 가능 아스키 문자표](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다.
-        - 세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.
-    - durationSeconds: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.
-      - 토큰 유효 시간을 너무 작게 설정하면 CDN 에지 서버에서 토큰 검증하기 전에 토큰이 만료될 수 있으니 유의하시기 바랍니다. 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.
-      - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.
+</details>
 
-- AuthToken 클래스의 공개 메서드(Public Method)
-  - public String generateURLToken(String path)
-      - 단일 경로에 대한 토큰을 생성합니다.
-          - [예시] path: authToken.generateURLToken("/auth/contents/example.png")
-          - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
-      - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
-  
-  - public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)
+- 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
+- JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
+
+
+- **AuthToken 클래스의 멤버 변수 설명**
+  - **key**: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.  
+  - **sessionId**: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.  
+      - 세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.  
+      - 세션 ID는 [출력 가능 아스키 문자표](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다.  
+      - 세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.  
+  - **durationSeconds**: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.  
+      - 토큰 유효 시간을 너무 작게 설정하면 CDN 에지 서버에서 토큰 검증하기 전에 토큰이 만료될 수 있으니 유의하시기 바랍니다. 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.  
+      - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.  
+- **AuthToken 클래스의 공개 메서드(Public Method)**
+  - **public String generateURLToken(String path)**
+      - 단일 경로에 대한 토큰을 생성합니다.  
+      - [예시] path: authToken.generateURLToken("/auth/contents/example.png")  
+      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
+      - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.  
+  - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
       - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
           - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
           - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
           - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
-       - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
-        - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
-- 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
-      - [예시] 생성된 토큰: **`**exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
-
-</details>
+          - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
+          - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
+      - 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
+          - [예시] 생성된 토큰: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
 #### 3. 생성된 토큰을 콘텐츠 요청에 포함
 클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청시 콘솔에서 설정한 토큰 위치에 생성된 토큰값을 포함하여 요청하도록 합니다.
@@ -574,6 +538,7 @@ public class ToastAuthTokenAccessControlExample {
     curl -d "token={생성된 토큰값}" \
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
+
 
 ## 설정
 
