@@ -264,11 +264,7 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
 토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다.
 
 <details>
-<summary>Java 샘플 코드</summary>
-
-- 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
-- JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
-  
+<summary>Java 샘플 코드</summary> 
 ```java
 import org.apache.commons.lang3.StringUtils;
 import javax.crypto.Mac;
@@ -486,32 +482,35 @@ public class ToastAuthTokenAccessControlExample {
 
 }
 ```
-**AuthToken 클래스의 멤버 변수 설명**
-- **key**: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.  
-- **sessionId**: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.  
-    - 세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.  
-    - 세션 ID는 [출력 가능 아스키 문자표](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다.  
-    - 세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.  
-- **durationSeconds**: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.  
-    - 토큰 유효 시간을 너무 작게 설정하면 CDN 에지 서버에서 토큰 검증하기 전에 토큰이 만료될 수 있으니 유의하시기 바랍니다. 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.  
-    - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.  
-**AuthToken 클래스의 공개 메서드(Public Method)**
-- **public String generateURLToken(String path)**
-    - 단일 경로에 대한 토큰을 생성합니다.  
-    - [예시] path: authToken.generateURLToken("/auth/contents/example.png")  
-    - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
-    - [주의] `!`, `~` 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.  
-- **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
-    - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
-    - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
-    - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
-    - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
-    - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
-    - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
-    - 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
-        - [예시] 생성된 토큰: **`**exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
 </details>
+
+- 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
+- JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
+- **AuthToken 클래스의 멤버 변수 설명**
+  - **key**: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.  
+  - **sessionId**: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.  
+      - 세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.  
+      - 세션 ID는 [출력 가능 아스키 문자표](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다.  
+      - 세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.  
+  - **durationSeconds**: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.  
+      - 토큰 유효 시간을 너무 작게 설정하면 CDN 에지 서버에서 토큰 검증하기 전에 토큰이 만료될 수 있으니 유의하시기 바랍니다. 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.  
+      - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.  
+- **AuthToken 클래스의 공개 메서드(Public Method)**
+  - **public String generateURLToken(String path)**
+      - 단일 경로에 대한 토큰을 생성합니다.  
+      - [예시] path: authToken.generateURLToken("/auth/contents/example.png")  
+      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
+      - [주의] `!`, `~` 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.  
+  - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
+      - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
+      - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
+      - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
+      - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
+      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
+      - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
+      - 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
+          - [예시] 생성된 토큰: **`**exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
 #### 3. 생성된 토큰을 콘텐츠 요청에 포함
 클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청시 콘솔에서 설정한 토큰 위치에 생성된 토큰값을 포함하여 요청하도록 합니다.
