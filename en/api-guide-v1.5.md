@@ -133,7 +133,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].domainAlias           | String  | Optional |         | Up to 255 characters                         | Domain alias (Use personal or company-owned domains; delimit by \n tokens.) |
 | distributions[0].maxAge                | Integer | Optional | 0       | 0~2,147,483,647                              | Cache expiration time (second); default 0 refers to 604,800 seconds. |
 | distributions[0].referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens | Referrers (Delimit by \n tokens.)                            |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | 필수      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             |             |
 | distributions[0].origins               | List    | Required |         |                                              | List of origin server objects                                |
 | distributions[0].origins[0].origin     | String  | Required |         | Up to 255 characters                         | Origin server (domain or IP)                                 |
 | distributions[0].origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
