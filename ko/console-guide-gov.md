@@ -487,6 +487,8 @@ public class ToastAuthTokenAccessControlExample {
 
 - 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
 - JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
+
+
 - **AuthToken 클래스의 멤버 변수 설명**
   - **key**: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.  
   - **sessionId**: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.  
@@ -501,16 +503,16 @@ public class ToastAuthTokenAccessControlExample {
       - 단일 경로에 대한 토큰을 생성합니다.  
       - [예시] path: authToken.generateURLToken("/auth/contents/example.png")  
       - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
-      - [주의] `!`, `~` 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.  
+      - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.  
   - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
       - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
-      - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
-      - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
-      - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
-      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
-      - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
+          - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
+          - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
+          - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
+          - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
+          - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
       - 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
-          - [예시] 생성된 토큰: **`**exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+          - [예시] 생성된 토큰: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
 #### 3. 생성된 토큰을 콘텐츠 요청에 포함
 클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청시 콘솔에서 설정한 토큰 위치에 생성된 토큰값을 포함하여 요청하도록 합니다.
