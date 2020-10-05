@@ -43,6 +43,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 | {status} | 현재 CDN 서비스 상태 | OPEN, SUSPEND, CLOSE, ERROR |
 | {isSuccessful} | 서비스 변경 작업 성공 여부(API v1.0은 지원하지 않습니다.) | "true" 또는 "false" |
 
+
 ### 원본 서버
 CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
 ![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2.png)
@@ -279,7 +280,7 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
 토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다.
 
 <details>
-<summary>Java 샘플 코드</summary> 
+<summary>Java 샘플 코드</summary>
 
 ```java
 import org.apache.commons.lang3.StringUtils;
