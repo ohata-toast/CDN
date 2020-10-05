@@ -188,6 +188,11 @@ The referrer request header includes the webpage address of previous links of th
     * Appropriate to allow the access of particular referrer request headers only. 
     * Content access is allowed if a referrer request header matches regex setup. If not, content access is not allowed. 
 
+- **Content Access if Referer Header is Unavailable**
+  Allow Access if Referer Header is UnavailableSelect whether to allow access to content if referer request header is not available.
+    - **Allow**: If referer request header is not available, content access is allowed and the control of referer access does not operate.
+    - **Reject**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.  
+
 > **[Example]**
 >
 > * Typ: Whitelist
