@@ -210,8 +210,6 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 > 複数のリファラーを制御する時は、次の行に連続して入力します。
 > APIで複数のリファラーを設定する時は\nトークンで区切って入力します。
 
-<<<<<<< HEAD
-=======
 ### リファラー(referer)ヘッダアクセス管理
 リファラーリクエストヘッダでコンテンツのアクセス管理を設定します。
 ![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
@@ -573,7 +571,6 @@ public class ToastAuthTokenAccessControlExample {
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
 
->>>>>>> alpha
 ## 設定
 
 ### CDNサービスの設定変更
