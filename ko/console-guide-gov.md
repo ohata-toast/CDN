@@ -265,7 +265,8 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
 토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다.
 
 <details>
-<summary>Java 샘플 코드</summary> 
+<summary>Java 샘플 코드</summary>
+
 ```java
 import org.apache.commons.lang3.StringUtils;
 import javax.crypto.Mac;
