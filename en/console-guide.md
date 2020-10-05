@@ -191,7 +191,7 @@ The referrer request header includes the webpage address of previous links of th
 - **Content Access if Referer Header is Unavailable**
   Allow Access if Referer Header is UnavailableSelect whether to allow access to content if referer request header is not available.
     - **Allow**: If referer request header is not available, content access is allowed and the control of referer access does not operate.
-    - **Deny**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.  
+    - **Reject**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.  
 
 > **[Example]**
 >
