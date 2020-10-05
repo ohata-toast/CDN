@@ -131,11 +131,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].useOriginCacheControl | Boolean | Required      |        | true/false                  | Cache expiration setting (true: Original setting, false: User-configured)   |
 | distributions[0].referrerType          | String  | Required      |        | BLACKLIST/WHITELIST         | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | Optional      |        |                           | List of regex referrer headers   |
-<<<<<<< HEAD
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             |            |
-=======
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
->>>>>>> alpha
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
 | distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (Use personal or company-owned domain) |
 | distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds); default is 0 with 604,800 seconds.             |
