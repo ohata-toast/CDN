@@ -264,8 +264,9 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
 토큰 생성은 TOAST CDN을 이용해 서비스 중인 애플리케이션에서 구현되어야 합니다.
 토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다.
 
-<details>
-<summary>Java 샘플 코드</summary>
+##### Java 샘플 코드
+- 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
+- JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
 
 ```java
 import org.apache.commons.lang3.StringUtils;
@@ -484,13 +485,6 @@ public class ToastAuthTokenAccessControlExample {
 
 }
 ```
-
-</details>
-
-- 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
-- JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
-
-
 - **AuthToken 클래스의 멤버 변수 설명**
   - **key**: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.  
   - **sessionId**: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.  
