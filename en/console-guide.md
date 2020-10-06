@@ -191,7 +191,7 @@ The referrer request header includes the webpage address of previous links of th
 - **Content Access if Referer Header is Unavailable**
   Allow Access if Referer Header is UnavailableSelect whether to allow access to content if referer request header is not available.
     - **Allow**: If referer request header is not available, content access is allowed and the control of referer access does not operate.
-    - **Reject**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.  
+    - **Deny**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.  
 
 > **[Example]**
 >
@@ -207,69 +207,67 @@ The referrer request header includes the webpage address of previous links of th
 > To control many referrers, enter in consecutive lines. 
 > To set many referrers with APIs, delimit with \n tokens. 
 
-### Auth Token 인증 접근 관리
-Auth Token 인증 접근 관리는 콘텐츠 요청에 인증 토큰을 추가하여 CDN 에지 서버에서 검증된 토큰만 콘텐츠 접근을 허용하는 보안 기능입니다.
-일회성으로 콘텐츠 접근 허용하거나 제한된 사용자만 콘텐츠를 접근 할 수 있도록 제어할 수 있습니다.
-토큰이 없거나 유효하지 않은 토큰으로 콘텐츠를 요청한 경우, 403 Forbidden 응답이 전송되며 콘텐츠에 접근할 수 없습니다.
+### Auth Token 인증 접근 관리 Access Management for Auth Token Authentication 
+Auth Token 인증 접근 관리는 콘텐츠 요청에 인증 토큰을 추가하여 CDN 에지 서버에서 검증된 토큰만 콘텐츠 접근을 허용하는 보안 기능입니다. The access management for Auth Token authentication is a security feature that allows only verified tokens to access content from CDN edge server, by adding authenticataion token to a content request.   
+You may control by allowing one-time access to content or only restricted users to access content.  일회성으로 콘텐츠 접근 허용하거나 제한된 사용자만 콘텐츠를 접근 할 수 있도록 제어할 수 있습니다.
+토큰이 없거나 유효하지 않은 토큰으로 콘텐츠를 요청한 경우, 403 Forbidden 응답이 전송되며 콘텐츠에 접근할 수 없습니다. If content is requested with an invalid token, 403 Forbidden is sent as response and access to content is forbidden. 
 
-Auth Token 인증 접근을 CDN 서비스에 적용하려면 다음의 단계에 따라 작업이 필요합니다.
+Auth Token 인증 접근을 CDN 서비스에 적용하려면 다음의 단계에 따라 작업이 필요합니다. To apply the access of Auth Token Authentication to CDN, following process is required.  
 
-> **[주의]** 
+> **[Caution]** 
 >
-> Auth Token 인증 접근 관리는 TOAST CDN을 이용해 서비스 중인 애플리케이션에서도 다음의 구현이 필요합니다.
-> 1. 콘텐츠 접근에 필요한 토큰을 생성해야 합니다.
-> 2. 클라이언트(최종 콘텐츠 소비자)가 생성된 토큰을 포함하여 콘텐츠를 요청할 수 있도록 해야합니다.
-> 이 작업을 하지 않고 Auth Token 인증 접근 관리를 설정할 경우, 토큰 검증 실패로 인해 콘텐츠 요청이 실패될 수 있으므로 주의하시기 바랍니다.
+> Access management for Auth Token authentication requires the following implementation, even on applications using TOAST CDN.  인증 접근 관리는 TOAST CDN을 이용해 서비스 중인 애플리케이션에서도 다음의 구현이 필요합니다.
+> 1. 콘텐츠 접근에 필요한 토큰을 생성해야 합니다. Create a token required to access content. 
+> 2. 클라이언트(최종 콘텐츠 소비자)가 생성된 토큰을 포함하여 콘텐츠를 요청할 수 있도록 해야합니다. Request content including created token 
+> If access management is configured without this process, content request may fail due to failed token authentication. 이 작업을 하지 않고 Auth Token 인증 접근 관리를 설정할 경우, 토큰 검증 실패로 인해 콘텐츠 요청이 실패될 수 있으므로 주의하시기 바랍니다.
 
 
-#### 1. TOAST CDN 콘솔 > Auth Token 인증 접근 관리 설정
+#### 1. TOAST CDN Console 콘솔 > Setting for Access Management of Auth Token Authentication 인증 접근 관리 설정
 
-CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관리를 설정합니다.
+On CDN console, set access management for Auth Token authentication, in reference of the following.   콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관리를 설정합니다.
 
-![CDN서비스생성-Auth Token 인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token.png)
+![Create CDN Service서비스생성-Access Management for Auth Token Authentication  인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token.png)
 
-- **토큰 인증 사용 여부**
-    - **사용**: Auth Token 인증 접근 관리 기능을 활성화하여 토큰 검증한 후 콘텐츠에 접근할 수 있도록 합니다.
-    - **미사용**: Auth Token 인증 접근 관리 기능을 비활성화 합니다.
-- **토큰 위치**: 콘텐츠 요청 시 토큰을 전달할 위치를 선택합니다.  
-    - **쿠키(Cookie)**: 표준 쿠키로 토큰을 전달합니다. 쿠키 사용을 지원하지 않는 장치 및 브라우저는 토큰 인증이 정상적으로 동작하지 않을 수 있으므로 주의하시기 바랍니다.  
-    - **요청 헤더(Request header)**: 요청 헤더에 토큰을 전달합니다.  
-    - **쿼리 문자열(Query string)**: 쿼리 문자열에 토큰을 전달합니다.  
-- **토큰 이름**
-    - 토큰값을 전달할 토큰의 이름입니다. **token** 으로 고정된 값이며 콘솔 설정에서 변경이 불가합니다.
-- **토큰 암호화 키**
-    - 토큰 생성에 필요한 암호화키 입니다. CDN 서비스를 생성 또는 수정하면 암호화 키는 자동으로 생성됩니다.
-    - 암호화키는 외부로 노출되지 않도록 주의하시기 바랍니다.  
-- **토큰 인증 대상 설정**  
-  콘텐츠 접근 시 토큰을 인증할 파일 대상을 설정합니다.  
-  토큰 인증 대상 파일인 경우에만 토큰을 검증하며, 인증 대상 파일이 아닌 경우에는 토큰 검증을 수행하지 않으므로 토큰 없이 콘텐츠 접근이 가능합니다.  
-  지정된 요청 URL 경로 또는 파일 확장자만 토큰 검증을 하려면 요청 URL 경로와 확장자를 입력해주세요. 입력하지 않은 경우 모든 파일에 대해 토큰을 검증합니다.  
-    - **인증 대상 설정**: 설정된 요청 URL 경로와 파일 확장자의 파일만 토큰을 검증합니다.
-    - **인증 예외 대상 설정**: 설정된 요청 URL 경로와 파일 확장자를 제외한 파일의 토큰을 검증합니다.
-    - **요청 URL 경로**: 콘텐츠 URL이 요청 URL 경로와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
-        - 요청 URL 경로는 '/'로 시작해야 하며 와일드카드 문자(여러 문자열: \*, 단일 문자: ?)를 사용할 수 있습니다(예: /toast/\*).
-        - 요청 URL 경로는 쿼리 문자열은 포함하지 않습니다.
-        - 요청 URL 경로는 아스키(ascii) 코드 문자만 입력 가능합니다.
-        - 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
-        - 파일 확장자와 함께 입력한 경우에는 파일 확장자 조건이 일치해도 토큰 접근 제어가 동작합니다.
-    - **파일 확장자**: 콘텐츠 URL이 파일 확장자와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
-        - '.'을 포함하지 않은 파일 확장자를 입력합니다(예: pdf, png).
-        - 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
+- **Enabling Token Authentication 토큰 인증 사용 여부**
+    - **Enable 사용**: Activate access management for Auth Token authentication and verify token so as to allow access to content.   Auth Token 인증 접근 관리 기능을 활성화하여 토큰 검증한 후 콘텐츠에 접근할 수 있도록 합니다.
+    - **Disable미사용**: Auth Token 인증 접근 관리 기능을 비활성화 합니다. Deactivate access management for Auth Token authentication. 
+- **Token Location토큰 위치**: 콘텐츠 요청 시 토큰을 전달할 위치를 선택합니다.  Select a location to deliver token at the request of content. 
+    - **쿠키(Cookie)**: Deliver token with standard cookie. 표준 쿠키로 토큰을 전달합니다. 쿠키 사용을 지원하지 않는 장치 및 브라우저는 토큰 인증이 정상적으로 동작하지 않을 수 있으므로 주의하시기 바랍니다.  
+    - **요청 헤더(Request header)**: 요청 헤더에 토큰을 전달합니다.  Deliver token to the request header. 
+    - **쿼리 문자열(Query string)**: 쿼리 문자열에 토큰을 전달합니다.  Deliver token to the query string. 
+- **Token Name토큰 이름**
+    - Name of token to deliver token value. It is fixed as **token** which cannot be changed from console setting. 토큰값을 전달할 토큰의 이름입니다. **token** 으로 고정된 값이며 콘솔 설정에서 변경이 불가합니다.
+- **Token Encryption Key토큰 암호화 키**
+    - Encryption key required to create a token. By creating or modifying CDN, an encryption key is automatically created.  토큰 생성에 필요한 암호화키 입니다. CDN 서비스를 생성 또는 수정하면 암호화 키는 자동으로 생성됩니다.
+    - 암호화키는 외부로 노출되지 않도록 주의하시기 바랍니다. Please take caution of not disclosing encypryption keys. 
+- **Target Setting for Token Authentication 토큰 인증 대상 설정**  
+  Set a file target for token authentication when accessing content. 콘텐츠 접근 시 토큰을 인증할 파일 대상을 설정합니다.  
+  Verify token only for files to have their tokens authenticated; for other files, token is not verified, allowing content access without a token.  토큰 인증 대상 파일인 경우에만 토큰을 검증하며, 인증 대상 파일이 아닌 경우에는 토큰 검증을 수행하지 않으므로 토큰 없이 콘텐츠 접근이 가능합니다.  
+  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.  지정된 요청 URL 경로 또는 파일 확장자만 토큰 검증을 하려면 요청 URL 경로와 확장자를 입력해주세요. 입력하지 않은 경우 모든 파일에 대해 토큰을 검증합니다.  
+    - **Set Authentication Target인증 대상 설정**: Verify tokens only for the files of request URL paths and extension. 설정된 요청 URL 경로와 파일 확장자의 파일만 토큰을 검증합니다.
+    - **Set Exception from Authentication 인증 예외 대상 설정**: Verify tokens for files excluding request URL path and file extension. 설정된 요청 URL 경로와 파일 확장자를 제외한 파일의 토큰을 검증합니다.
+    - **Path of Request URL 요청 URL 경로**: If a content URL is consistent with a requested URL path, set it for token authentication or exception. 콘텐츠 URL이 요청 URL 경로와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
+        - The path of a request URL must start with 요청 URL 경로는 '/' and wildcard characters (Many strings: \*, Single string: ?) are available (e.g.: /toast/\*). 로 시작해야 하며 와일드카드 문자(여러 문자열: \*, 단일 문자: ?)를 사용할 수 있습니다(예: /toast/\*).
+        - The request URL path does not include a query string. 요청 URL 경로는 쿼리 문자열은 포함하지 않습니다.
+        - Only ascii code characters are available for a request URL path. 요청 URL 경로는 아스키(ascii) 코드 문자만 입력 가능합니다.
+        - To enter many, change lines; with many inputs, only one match enables token access control. 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
+        - When it is entered along with file extension, a matching file extension condition enables token access control.  파일 확장자와 함께 입력한 경우에는 파일 확장자 조건이 일치해도 토큰 접근 제어가 동작합니다.
+    - **File Extension일 확장자**: If a content URL is same as file extension, it is set for or against token authentication.  콘텐츠 URL이 파일 확장자와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
+        - Enter file extension excluding '.' (e.g: pdf, png). 을 포함하지 않은 파일 확장자를 입력합니다(예: pdf, png).
+        - To enter many, change lines. 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
         - 요청 경로 URL과 함께 입력한 경우에는 요청 경로 URL 조건이 일치해도 토큰 접근 제어가 동작합니다.
 
-> **[주의] 요청 URL 경로와 파일 확장자**
-> 요청 URL 경로와 파일 확장자 모두 설정한 경우, 두 조건 중 하나만 일치해도 토큰 접근 제어가 동작합니다.
+> **[Caution] Path of Request URL and File Extension 요청 URL 경로와 파일 확장자**
+> When request URL path and file extension are all set, only one match of the two conditions allows to 요청 URL 경로와 파일 확장자 모두 설정한 경우, 두 조건 중 하나만 일치해도 토큰 접근 제어가 동작합니다.
 > [예시] 요청 URL 경로 **/toast/\***, 파일 확장자 **png** 가 설정된 경우: /toast 하위의 모든 파일 또는 파일 확장자가 png인 콘텐츠에 대해 토큰을 검증합니다.
 
-#### 2. 토큰 생성 
+#### 2. Create Token 토큰 생성 
 최종 콘텐츠 사용자가 콘텐츠에 접근하려면 토큰과 함께 콘텐츠를 요청해야 합니다. 따라서, 토큰을 생성해 최종 콘텐츠 사용자에게 발급해야 합니다.
 토큰 생성은 TOAST CDN을 이용해 서비스 중인 애플리케이션에서 구현되어야 합니다.
 토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다.
 
-##### Java 샘플 코드
-- 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
-- JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
-
+<details>
+<summary>Java Sample Code샘플 코드</summary> 
 ```java
 import org.apache.commons.lang3.StringUtils;
 import javax.crypto.Mac;
@@ -487,6 +485,13 @@ public class ToastAuthTokenAccessControlExample {
 
 }
 ```
+
+</details>
+
+- 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
+- JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
+
+
 - **AuthToken 클래스의 멤버 변수 설명**
   - **key**: TOAST CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.  
   - **sessionId**: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.  
