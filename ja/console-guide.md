@@ -8,7 +8,7 @@
 CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自動作成されます。所有しているドメインをサービスドメインで利用するには、**ドメインエイリアス**(Domain Alias)機能を利用できます。
 作成をリクエストした後、サービスの配布が完了するまで最大2時間かかります。配布が完了した後、サービスを利用できます。
 
-### 基本情報 
+### 基本情報
 基本情報を設定します。
 ![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-default_ja_20200518.png)
 
@@ -34,7 +34,7 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
  作業が完了した後、設定したコールバックURLに変更状態とCDN設定情報を受け取るにはコールバックを設定してください。コールバックで伝達される情報は[APIガイド文書](./api-guide-v2.0/#_23)を参照してください。
     1. **HTTP Method**と**コールバックURL**を入力します。
     2. Query ParameterにCDNサービス変更作業の結果を受け取るには、**コールバックURL**に次のパス(path)変数を含めて入力してください。 
-         例：http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
+        例：http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
 
 | パス(path)変数 | 説明 | サンプル伝達値 |
 | ------------- | --- | ------- |
@@ -147,7 +147,7 @@ CDNサービスへ配布する原本ファイルを提供するサーバーを�
 
 - **オリジンリクエストHTTPプロトコルのダウングレード**  
   CDNエッジ(edge)サーバーは、オリジンサーバーに原本ファイルをリクエストする時、クライアントのオリジンリクエスト(request)のサービスプロトコル(HTTP/HTTPS)でリクエストします。  
- すなわち、クライアントからHTTPSでリクエストし、 オリジンサーバーがHTTPSレスポンスをサポートしていない場合、 CDNエッジサーバーからオリジンサーバーにリクエストする時、HTTPSプロトコルでリクエストするため、原本ファイルを受け取れません。
+ すなわち、クライアントからHTTPSでリクエストし、オリジンサーバーがHTTPSレスポンスをサポートしていない場合、 CDNエッジサーバーからオリジンサーバーにリクエストする時、HTTPSプロトコルでリクエストするため、原本ファイルを受け取れません。
 オリジンサーバーがHTTPプロトコルのみサポートしている場合、**オリジンサーバーHTTPプロトコルダウングレード**設定を使用してCDNエッジサーバーからオリジンサーバーにリクエストする時、HTTPSプロトコルをHTTPプロトコルへダウングレードしてリクエストできます。
   つまり、クライアントからCDNエッジサーバー間は暗号化通信(HTTPS)で通信し、CDNエッジサーバーからオリジンサーバー間は非暗号化通信(HTTP)で通信します。
  原本リクエストHTTPプロトコルをダウングレードする時は、次のような制約があります。
@@ -191,9 +191,11 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
     * 特定のリファラーリクエストヘッダーのみアクセスを許可する時に適しています。
     * リファラーリクエストヘッダーの値が正規表現式にマッチする文字列の場合、コンテンツへのアクセスが許可されます。マッチしない文字列の場合、コンテンツへのアクセスが制限されます。
 
-> [注意]
-> リファラーリクエストヘッダーがない場合、アクセス制御は動作しません。
->
+- **リファラーヘッダがない場合、アクセス許可**
+ リファラー(referer)リクエストヘッダがない場合に、コンテンツアクセスを許可するかどうかを選択します。
+    - **許可**：リファラーリクエストヘッダがない場合、コンテンツアクセスを許可し、リファラーアクセス制御が動作しません。
+    - **拒否**：リファラーリクエストヘッダがない場合、コンテンツアクセスが拒否され、登録されたリファラーについてのみアクセスを許可します。
+
 > [例]
 >
 > * タイプ：ホワイトリスト(Whitelist)
@@ -208,6 +210,366 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 > 複数のリファラーを制御する時は、次の行に連続して入力します。
 > APIで複数のリファラーを設定する時は\nトークンで区切って入力します。
 
+### リファラー(referer)ヘッダアクセス管理
+リファラーリクエストヘッダでコンテンツのアクセス管理を設定します。
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
+
+リファラーリクエストヘッダは、現在リクエストしたページの前のWebページアドレスを含んでいます。リファラーリクエストヘッダで、どの経路でリクエストが流入したかを把握できます。リファラーヘッダアクセス管理は特定リファラーリクエストヘッダのみユーザーコンテンツにアクセスできるように設定できます。
+正規表現式で入力できます。複数入力する場合は改行を入れます。
+
+- **アクセス制御方式**
+  - **ブラックリスト(blacklist)タイプ**：
+      * 特定リファラーリクエストヘッダのみアクセスを制限する時に適しています。
+      * リファラーリクエストヘッダ値が設定した正規表現式にマッチする文字列の場合、コンテンツアクセスが制限されます。マッチしない文字列の場合、コンテンツアクセスが許可されます。
+  - **ホワイトリスト(whitelist)タイプ**：
+      * 特定リファラーリクエストヘッダのみアクセスを許可する時に適しています。
+      * リファラーリクエストヘッダ値が正規表現式にマッチする文字列の場合、コンテンツアクセスが許可されます。マッチしない文字列の場合、コンテンツアクセスが制限されます。
+
+- **リファラーヘッダがない場合、アクセス許可**
+ リファラー(referer)リクエストヘッダがない場合にコンテンツアクセスを許可するかどうかを選択します。
+    - **許可**：リファラーリクエストヘッダがない場合、コンテンツアクセスを許可し、リファラーアクセス制御が動作しません。
+    - **拒否**：リファラーリクエストヘッダがない場合、コンテンツアクセスを拒否し、登録されたリファラーに対してのみアクセスを許可します。
+  
+> **[例]**
+>
+> * タイプ：ホワイトリスト(Whitelist)
+> * 正規表現：`^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
+> 任意のtoast.comサブドメインの下層パスからリソースを要求した場合にのみ、コンテンツアクセスを許可します。
+>
+> **[参考]正規表現式のエスケープ文字**
+> 一部の文字は、正規表現で特殊文字として扱われます。
+> 例えばドット(`.`)は、正規表現式ですべての文字にマッチすることを表す特殊文字です。
+> 特殊文字としての意味ではなく、通常の文字として解釈する必要がある場合は、エスケープ文字バックスラッシュ(`\`)を特殊文字の前に追加してください。(例： `\.`)
+> 正規表現の特殊文字には`^ . [ ] $ ( ) | * + ? { } \`などがあります。
+> 複数のリファラーを制御する時は、次の行に連続して入力します。
+> APIで複数のリファラーを設定する時は\nトークンで区切って入力します。
+
+### Auth Token認証アクセス管理
+Auth Token認証アクセス管理は、コンテンツの要求に認証トークンを追加してCDNエッジサーバーで検証されたトークンのみコンテンツアクセスを許可するセキュリティ機能です。
+1度だけコンテンツアクセスを許可したり、制限されたユーザーのみコンテンツにアクセスできるように制御できます。
+トークンなかったり、無効なトークンでコンテンツを要求した場合、403 Forbiddenレスポンスが返り、コンテンツにアクセスできません。
+
+Auth Token認証アクセスをCDNサービスに適用するには、次の段階に従って作業する必要があります。
+
+> **[注意]** 
+>
+> Auth Token認証アクセス管理はTOAST CDNを利用してサービス中のアプリケーションでも次の実装を行う必要があります。
+> 1. コンテンツアクセスに必要なトークンを作成する必要があります。
+> 2. クライアント(最終コンテンツ消費者)が、作成されたトークンを含めてコンテンツを要求できるようにする必要があります。
+> この作業を行わずにAuth Token認証アクセス管理を設定した場合、トークン検証失敗によりコンテンツの要求が失敗する場合があるため注意してください。
+
+#### 1. TOAST CDNコンソール > Auth Token認証アクセス管理設定
+
+1. CDNコンソールで、次の内容を参考にしてAuth Token認証アクセス管理を設定します。
+
+![CDNサービス作成-Auth Token認証アクセス管理](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token.png)
+
+- **トークン認証を使用するかどうか**
+    - **使用**：Auth Token認証アクセス管理機能を有効化してトークン検証した後、コンテンツにアクセスできるようにします。
+    - **未使用**：Auth Token認証アクセス管理機能を無効化します。
+- **トークン位置**
+ コンテンツ要求時、トークンを伝達する位置を選択します。
+    - **Cookie(Cookie)**：標準Cookieでトークンを伝達します。Cookieの使用をサポートしないデバイスおよびブラウザはトークン認証が正常に動作しない場合があるため注意してください。
+    - **リクエストヘッダ(Request header)**：リクエストヘッダにトークンを伝達します。  
+    - **クエリー文字列(Query string)**：クエリー文字列にトークンを伝達します。  
+- **トークン名**
+    - トークン値を伝達するトークンの名前です。**token**で固定された値で、コンソール設定から変更できません。
+- **トークン暗号化キー**
+    - トークン作成に必要な暗号化キーです。CDNサービスを作成または修正すると、暗号化キーは自動的に作成されます。
+    - 暗号化キーは外部に表示されないように注意してください。 
+- **トークン認証対象設定**  
+    コンテンツアクセス時、トークンを認証するファイル対象を設定します。
+    トークン認証対象ファイルの場合にのみトークンを検証し、認証対象ファイルではない場合はトークン検証を行わないため、トークンなしでコンテンツアクセスが可能です。
+    指定されたリクエストURLパスまたはファイル拡張子のみトークン検証を行うには、リクエストURLパスと拡張子を入力してください。未入力の場合、すべてのファイルに対してトークンを検証します。
+    - **認証対象設定**：設定されたリクエストURLパスとファイル拡張子のファイルのみ、トークンを検証します。
+    - **認証例外対象設定**：設定されたリクエストURLパスとファイル拡張子以外のファイルのトークンを検証します。
+    - **リクエストURLパス**：コンテンツURLがリクエストURLパスと一致しない場合、トークン認証対象または例外対象に設定します。
+        - リクエストURLパスは'/'で始まる必要があり、ワイルドカード文字(複数の文字列：*、単一の文字：?)を使用できます(例： /toast/\*)。
+        - リクエストURLパスはクエリー文字列は含みません。
+        - リクエストURLパスはアスキー(ascii)コード文字のみ入力可能です。
+        - 複数入力するには次の行に入力してください。複数入力した場合、1つだけ一致してもトークンアクセス制御が動作します。 
+        - ファイル拡張子も入力した場合は、ファイル拡張子条件が一致してもトークンアクセス制御が動作します。
+    - **ファイル拡張子**：コンテンツURLがファイル拡張子と一致する場合、トークン認証対象または例外対象に設定します。
+        - '.'を含まないファイル拡張子を入力します(例：pdf、png)。
+        - 複数入力するには、次の行に入力してください。複数入力した場合、1つだけ一致してもトークンアクセス制御が動作します。 
+        - リクエストパスURLも入力した場合は、リクエストパスURL条件が一致してもトークンアクセス制御が動作します。
+
+> **[注意]リクエストURLパスとファイル拡張子**
+> リクエストURLパスとファイル拡張子の両方を設定した場合、2つの条件のうち1つだけ一致してもトークンアクセス制御が動作します。
+> [例]リクエストURLパス  **/toast/\***,、ファイル拡張子**png****が設定された場合： /toast下位のすべてのファイルまたはファイル拡張子がpngのコンテンツに対してトークンを検証します。
+
+
+#### 2. トークン作成
+最終コンテンツユーザーがコンテンツにアクセスするには、トークンと一緒にコンテンツを要求する必要があります。したがって、トークンを作成して最終コンテンツユーザーに発行する必要があります。
+トークン作成はTOAST CDNを利用してサービス中のアプリケーションで実装する必要があります。
+トークンの作成方法は、次のサンプルコードを参考にしてください。
+
+##### Javaサンプルコード
+- このサンプルコードは、下記のような制約事項があります。
+- JDK 7以上、org.projectlombok:lombok、org.apache.commons:commons-lang3ライブラリと依存性があります。
+  
+```java
+import org.apache.commons.lang3.StringUtils;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ToastAuthTokenAccessControlExample {
+
+    // TOASTコンソールで確認した認証トークン暗号化キー
+    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{TOAST CDNサービスのトークン暗号化キー}";
+    // トークン有効時間(seconds)
+    private static final Long TOKEN_DURATION_SECONDS = 3600L;
+
+
+    public static void main(String[] args) throws AuthTokenException {
+
+        String path = "/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
+        String singleWildcardPath = "/toast/%EC%9D%B8%EC%A6%9D/*";
+        String[] multipleWildcardPath = {"/toast/%EC%9D%B8%EC%A6%9D*", "/toast/auth/*"};
+
+        System.out.println(" ----------------- ");
+        System.out.println("基本トークン発行");
+        System.out.println(" ----------------- ");
+
+        AuthToken authToken = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS);
+
+        System.out.println("単一URLトークン：token=" + authToken.generateURLToken(path));
+        System.out.println("ワイルドカードトークン：token=" + authToken.generateWildcardPathToken(singleWildcardPath));
+        System.out.println("マルチワイルドカードトークン：token=" + authToken.generateWildcardPathToken(multipleWildcardPath));
+
+        System.out.println(" ----------------- ");
+        System.out.println("セッション識別子を含むトークン発行");
+        System.out.println(" ----------------- ");
+
+        AuthToken authTokenWithSession = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS, "example-sessionId");
+        System.out.println("単一URLトークン： token=" + authTokenWithSession.generateURLToken(path));
+        System.out.println("ワイルドカードトークン：token=" + authTokenWithSession.generateWildcardPathToken(singleWildcardPath));
+        System.out.println("複数ワイルドカードトークン：token=" + authTokenWithSession.generateWildcardPathToken(multipleWildcardPath));
+
+    }
+
+
+    public static class AuthToken {
+
+        /** トークン暗号化アルゴリズム(SHA256固定) **/
+        private static final String HMAC_SHA_256 = "HmacSHA256";
+
+        /**トークン暗号化キー(TOAST CDNコンソール > Auth Token認証アクセス管理 > 暗号化キー) **/
+        private String key;
+
+        /** セッション識別子 */
+        private String sessionId;
+
+        /**トークンの有効時間(単位：秒) */
+        private Long durationSeconds;
+
+        /**トークン作成前、url encodeを適用するかどうか */
+        private Boolean escapeEarly;
+
+        /** トークンBodyフィールドのセパレータ */
+        private final String fieldDelimiter = "~";
+
+        /** wildcardPathセパレータ */
+        private final String aclDelimiter = "!";
+
+
+        public AuthToken(String key, Long durationSeconds) {
+            this.key = key;
+            this.sessionId = null;
+            this.durationSeconds = durationSeconds;
+            this.escapeEarly = true;
+
+        }
+
+
+        public AuthToken(String key, Long durationSeconds, String sessionId) {
+            this.key = key;
+            this.sessionId = sessionId;
+            this.durationSeconds = durationSeconds;
+            this.escapeEarly = true;
+        }
+
+
+        /**
+        * 単一URLに対するトークンを作成します。
+        * @param path : contents url (example: /auth/contents/example.png)
+        * @return created token
+        * @throws AuthTokenException
+        */
+        public String generateURLToken(String path) throws AuthTokenException {
+            return generateToken(createExpireTime(), this.sessionId, path, null);
+
+        }
+
+
+        /**
+        * ワイルドカードパスに対するトークンを作成します。
+        * @param wildcardPath : "/auth/contents/*"
+        * @return 作成されたトークン値
+        * @throws AuthTokenException
+        */
+        public String generateWildcardPathToken(String wildcardPath) throws AuthTokenException {
+            return generateWildcardPathToken(new String[] {wildcardPath});
+        }
+
+        /**
+        * 複数のワイルドカードパスに対するトークンを作成します。
+        * @param wildcardPaths (example: ["/auth/contents/*", "/auth/*/images/*"])
+        * @return作成されたトークン値
+        * @throws AuthTokenException
+        */
+        public String generateWildcardPathToken(String... wildcardPaths) throws AuthTokenException {
+            return generateToken(createExpireTime(), this.sessionId, null, wildcardPaths);
+
+        }
+
+
+        private String createExpireTime() {
+            Long nowSeconds = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTimeInMillis() / 1000L;
+            Long exp = nowSeconds + this.durationSeconds;
+            return exp.toString();
+        }
+
+
+        private String generateToken(String exp, String sessionId, String path, String[] wildcardPaths) throws AuthTokenException {
+
+            try {
+
+                StringBuilder token = new StringBuilder();
+                token.append("exp=")
+                    .append(exp)
+                    .append(this.fieldDelimiter);
+
+                if (wildcardPaths != null && wildcardPaths.length > 0) {
+                    token.append("acl=")
+                        .append(escapeEarly(StringUtils.join(wildcardPaths, this.aclDelimiter)))
+                        .append(this.fieldDelimiter);
+                }
+
+                if (sessionId != null && sessionId.length() > 0) {
+                    token.append("id=")
+                        .append(escapeEarly(sessionId))
+                        .append(this.fieldDelimiter);
+                }
+
+                StringBuilder hashSource = new StringBuilder(token);
+                if (path != null && path.length() > 0) {
+                    hashSource.append("url=")
+                            .append(escapeEarly(path))
+                            .append(this.fieldDelimiter);
+
+                }
+
+                // remove last fieldDelimiter char
+                hashSource.deleteCharAt(hashSource.length() - 1);
+
+                Mac hmac = Mac.getInstance(HMAC_SHA_256);
+                byte[] keyBytes = DatatypeConverter.parseHexBinary(this.key);
+                SecretKeySpec secretKey = new SecretKeySpec(keyBytes, HMAC_SHA_256);
+                hmac.init(secretKey);
+
+                byte[] hmacBytes = hmac.doFinal(hashSource.toString().getBytes());
+                return token.toString() + "hmac=" + String.format("%0" + (2 * hmac.getMacLength()) + "x", new BigInteger(1, hmacBytes));
+
+            } catch (NoSuchAlgorithmException e) {
+                throw new AuthTokenException(e.getMessage());
+            } catch (InvalidKeyException e) {
+                throw new AuthTokenException(e.getMessage());
+            }
+
+        }
+
+
+        private String escapeEarly(final String text) throws AuthTokenException {
+            if (this.escapeEarly == true) {
+                try {
+                    StringBuilder newText = new StringBuilder(URLEncoder.encode(text, "UTF-8"));
+                    Pattern pattern = Pattern.compile("%..");
+                    Matcher matcher = pattern.matcher(newText);
+                    String tmpText;
+                    while (matcher.find()) {
+                        tmpText = newText.substring(matcher.start(), matcher.end()).toLowerCase();
+                        newText.replace(matcher.start(), matcher.end(), tmpText);
+                    }
+                    return newText.toString();
+                } catch (UnsupportedEncodingException e) {
+                    return text;
+                } catch (Exception e) {
+                    throw new AuthTokenException(e.getMessage());
+                }
+            } else {
+                return text;
+            }
+        }
+
+    }
+
+    public static class AuthTokenException extends Exception {
+        private static final long serialVersionUID = 1L;
+
+
+        public AuthTokenException(String msg) {
+            super(msg);
+        }
+    }
+
+}
+```
+- AuthTokenクラスのメンバー変数説明
+    - **key**：TOAST CDNコンソールに表示されたAuth Token認証制御管理 > トークン暗号化キーを入力します。
+    - **sessionId**：単一アクセスリクエストに対する固有識別子を含めてトークンを作成するにはsessionIdを入力します。
+        - セッションIDごとに有効なトークンを作成して一回性トークンを作成したり、さまざまな事例に活用できます。
+        - セッションIDは[出力可能アスキー文字表](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)で構成する必要があります。
+        - セッションIDの長さは36バイトを超えてはいけません。
+    - **durationSeconds**：作成されたトークンが有効な時間(秒)、有効時間が過ぎたトークンはトークン認証に失敗します。
+        - トークン有効時間をあまりにも短く設定すると、CDNエッジサーバーでトークンを検証する前にトークンが有効期限切れになる場合があるため、注意してください。期待するトークン有効時間より10秒以上長く設定することを推奨します。
+        - トークン作成サーバーの時間同期化設定NTP (Network Time Protocol、NTP)が有効かを必ず検証してください。同期化されていない時間情報によりトークン有効時間検証が失敗する場合があります。
+
+- **AuthTokenクラスの公開メソッド(Public Method)**
+    - **public String generateURLToken(String path)**
+        - 単一パスに対するトークンを作成します。
+        - [例] path: authToken.generateURLToken("/auth/contents/example.png")
+        - [注意]パスまたはセッションIDはURLエンコード文字列に変更した後、トークンを作成してください(例：**/toast/認証/ファイル.png** → **/toast/%E8%AA%8D%E8%A8%BC/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.png**)。
+        - [注意] **!**, **~**文字は予約された文字のため、パスまたはセッションIDに含めないでください。
+
+    - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
+        - ワイルドカードパスとマッピングされるパスのトークンを作成します。パスのパターンが一致する場合、ワイルドカードトークン1つで複数のコンテンツURLのトークンを認証できます。
+            - [例1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents下位のすべてのファイルに対してトークンを発行します。
+            - [例2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contentsパスのpngファイルに対するトークンを発行します。
+            - [例3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contentsパスのexampleと単一文字が結合したpngファイルに対するトークンを発行します。
+            - [注意]パスまたはセッションIDはURLエンコード文字列に変更した後にトークンを作成してください(例：**/toast/認証/ファイル.png** → **/toast/%E8%AA%8D%E8%A8%BC/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.png**)。
+            - [注意] **!**, **~**文字は予約された文字のため、パスまたはセッションIDに含めないでください。
+        - 作成されたトークンは**exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**形式で作成されます。
+            - [例]作成されたトークン: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+
+#### 3. 作成されたトークンをコンテンツリクエストに含める
+クライアント(最終コンテンツ消費者)がコンテンツリクエスト時、コンソールで設定したトークン位置に作成されたトークン値を含めてリクエストするようにします。
+
+  - **トークン位置：Cookie**
+    ```
+    curl --cookie "token={作成されたトークン値}" \
+    -X GET http://xxx.toastcdn.net/auth/contents/example.png
+    ```
+  - **トークン位置：リクエストヘッダ**
+    ```
+    curl -H "token: {作成されたトークン値}" \
+    -X GET http://xxx.toastcdn.net/auth/contents/example.png
+    ```
+  - **トークン位置：クエリー文字列**
+    ```
+    curl -d "token={作成されたトークン値}" \
+    -X GET http://xxx.toastcdn.net/auth/contents/example.png
+    ```
 
 ## 設定
 
@@ -256,7 +618,7 @@ CDNサービスを一時的に中断または、再開することができま�
 > 証明書更新開始日から5日間は、証明書更新期間のため、この期間に一時停止を行うと証明書が無効になる場合もあるため、注意してください。
 
 
-### CDNサービスの削除 
+### CDNサービスの削除
 CDNサービスを削除します。削除すると復旧できませんので注意してください。 
 
 1. 削除するCDNサービスを選択します。
@@ -305,7 +667,7 @@ CDNキャッシュサーバーは、キャッシュ設定に従って、指定�
 > **[注意] [サービスID].toastcdn.comサービスを作成した後、キャッシュ再配布失敗エラー**
 > CDNサービスを作成した後、約1時間はキャッシュ再配布リクエストが失敗する場合があります。その後も継続して失敗する場合はサポートへお問い合わせください。
 
-## 証明書の管理 
+## 証明書の管理
 所有しているドメインでコンテンツをHTTPSで転送するには、所有しているドメインの証明書をCDNサーバーに配布する必要があります。証明書がない場合、クライアント(ブラウザ)とCDNエッジサーバー間の暗号化通信(HTTPS)を行うことができず、証明書エラーが発生します。
 TOAST CDNの証明書管理は次のような機能を提供します。
 
@@ -313,7 +675,7 @@ TOAST CDNの証明書管理は次のような機能を提供します。
 - 全世界の拠点のCDNサーバーに証明書を配布(中国とロシアは除外)
 - 証明書満了前の自動更新
 
-### 新規証明書の発行 
+### 新規証明書の発行
 **証明書管理**タブで証明書を発行できます。
 ![CDN新規証明書の発行](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-create_ja_20200518.png)
 
@@ -325,11 +687,11 @@ TOAST CDNの証明書管理は次のような機能を提供します。
 > **[注意]証明書発行前の確認事項**
 > 1. 所有しているドメインのみ証明書の発行が可能なため、先にドメインを購入してから進行してください。 
 > 2. 他の認証機関(CA、certificate authority)で発行した証明書は利用できません。 
-> 3. 単一ドメインの証明書発行のみ行えます。ワイルドカード、マルチドメインなどの 証明書はサポートしません。
+> 3. 単一ドメインの証明書発行のみ行えます。ワイルドカード、マルチドメインなどの証明書はサポートしません。
 > 4. 証明書の発行は1つのプロジェクトにつき5個に制限されます。限度の調整が必要な場合はTOASTサポートへお問い合わせください。
 > 5. 新規証明書の発行をリクエストした後、ドメイン検証段階は数十分(最大1～2時間)後に変更される場合があります。証明書の状態がドメイン検証状態に変更されたらTOASTプロジェクトメンバーを対象にメールが送信されます。もしシステムエラーによりメールが送信されない場合、コンソールで状態を確認してください。 
 
-### ドメイン検証 
+### ドメイン検証
 新規証明書の発行をリクエストした後、証明書の状態が｢ドメイン検証｣になったら、ドメインの検証を行ってください。
 ドメインの検証方法は、コンソールでドメインを選択して確認するか、プロジェクトメンバーに転送されたドメイン検証ガイドメールの内容を参照してください。
 
@@ -341,7 +703,7 @@ TOAST CDNの証明書管理は次のような機能を提供します。
 
 ![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation2_ja_20200518.png)
 
-#### DNS TXTレコード追加方式 
+#### DNS TXTレコード追加方式
 ドメインのDNS制御権限を確認してドメインを検証します。
 
 1. ドメインのDNSサービス提供業者のDNS管理ページでTXTレコードを追加します。
@@ -358,7 +720,7 @@ TOAST CDNの証明書管理は次のような機能を提供します。
 ![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation-dns_ja_20200518.png)
 
 
-#### HTTPページ追加方式 
+#### HTTPページ追加方式
 ドメインが接続されたWebサーバーにHTTPページを追加してドメインを検証します。
 
 1. Webサーバーの**http://[発行リクエストした証明書ドメイン]/.well-known/acme-challenge/[任意の文字列]**パスにHTTPページを追加します。 

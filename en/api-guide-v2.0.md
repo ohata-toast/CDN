@@ -130,6 +130,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].useOriginCacheControl | Boolean | Required      |        | true/false                  | Cache expiration setting (true: Original setting, false: User-configured)   |
 | distributions[0].referrerType          | String  | Required      |        | BLACKLIST/WHITELIST         | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | Optional      |        |                           | List of regex referrer headers   |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
 | distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (Use personal or company-owned domain) |
 | distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds); default is 0 with 604,800 seconds.             |
@@ -209,6 +210,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].defaultMaxAge         | Integer | Cache expiration time (seconds)                                           |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                   |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | True/False for Content Access if Referer Header is Unavailable |
 | distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Enable origin server setting, false: User-configured setting) |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
@@ -303,6 +305,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                          |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                 |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | True/False for Content Access if Referer Header is Unavailable |
 | distributions[0].useOriginCacheControl | Boolean | Whether to enable origin server setting or not (true: Enable origin server setting, false: User-configured) |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
@@ -369,6 +372,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | useOriginCacheControl | Boolean | Required      |        | true/false                              | Cache expiration setting (true: Enable origin server setting, false: User-configured)      |
 | referrerType          | String  | Required      |        | BLACKLIST/WHITELIST                     | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | referrers             | List    | Optional    |        |                                           | List of regex referrer headers |
+| isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
 | description           | String  | Optional    |        | Up to 255 characters                      | Description                                                         |
 | domainAlias           | List    | Optional    |        | Up to 255 characters                      | Domain alias (Use personal or company-owned domain) |
 | defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647                         | Cache expiration time (seconds), Default is 0 with 604,800 seconds.              |
@@ -638,6 +642,7 @@ When a callback is called, the request body includes CDN service setting informa
 | distribution.defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
 | distribution.referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distribution.referrers             | List    | List of regex referrer headers                                 |
+| distributions.isAllowWhenEmptyReferrer | Boolean | True/False for Content Access if Referer Header is Unavailable |
 | distribution.useOriginCacheControl | Boolean | Whether to enable origin server setting (true: Enable origin server setting, false: User-configured) |
 | distribution.createTime            | DateTime | Date and time of creation                                         |
 | distribution.deleteTime            | DateTime | Date and time of deletion                                         |

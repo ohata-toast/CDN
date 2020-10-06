@@ -1,10 +1,15 @@
 ## Content Delivery > CDN > Release Notes
 
+### October 6, 2020
 
-### 2020. 06. 23.
+#### Feature Updates 
+* Access management by token authentication has been added. 
+* Access Management for Referrer Header: Added the setting to enable or disable content access, when there is no referrer request header. 
 
-#### 기능 개선/변경
-* [서비스ID].cdn.toastcloud.com 서비스 도메인의 지원이 종료되었습니다.
+### June 23, 2020
+
+#### Feature Updates 
+* Support for the following service domain has been closed:[ServiceID].cdn.toastcloud.com 
 
 
 ### March 24, 2020

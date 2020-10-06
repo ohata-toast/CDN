@@ -130,6 +130,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].useOriginCacheControl | Boolean | 必須  |        | true/false                  | キャッシュ満了設定(true：オリジンサーバー設定を使用、false：ユーザー設定)   |
 | distributions[0].referrerType          | String  | 必須   |        | BLACKLIST/WHITELIST         | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 任意  |        |                           | 正規表現形式のリファラーヘッダリスト |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 任意      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
 | distributions[0].description           | String  | 任意   |        | 最大255文字            | 説明                                                  |
 | distributions[0].domainAlias           | List    | 任意  |        |                           | ドメインエイリアスリスト(個人または会社が所有しているドメインを使用) |
 | distributions[0].defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647             | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。             |
@@ -369,6 +370,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | useOriginCacheControl | Boolean | 必須  |        | true/false                                                        | キャッシュ満了設定(true：オリジンサーバー設定を使用、false：ユーザー設定)      |
 | referrerType          | String  | 必須   |        | BLACKLIST/WHITELIST                                          | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | referrers             | List    | 任意  |        |                                                              | 正規表現形式のリファラーヘッダリスト |
+| isAllowWhenEmptyReferrer | Boolean | 任意      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
 | description           | String  | 任意   |        | 最大255文字                                             | 説明                                                  |
 | domainAlias           | List    | 任意  |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメインを使用) |
 | defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647                                            | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。              |
