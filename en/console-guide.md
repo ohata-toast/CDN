@@ -175,18 +175,18 @@ CDN cache operations and expiration time can be set.
 > Default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds)=1 week.
 > Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
 
-### Manage Referrer Header Access  
-Content access management is set with the referrer request header.
+### Access Management for Referer Header   
+Content access management is set with the referer request header.
 ![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
 
-The referrer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referrer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
+The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
 
 - **Blacklist Type**:
-    * Appropriate to restrict the access of particular referrer request headers only. 
-    * Content access is restricted if a referrer request header matches regex setup. If not, content access is allowed. 
+    * Appropriate to restrict the access of particular referer request headers only. 
+    * Content access is restricted if a referer request header matches regex setup. If not, content access is allowed. 
 - **Whitelist Type**:
-    * Appropriate to allow the access of particular referrer request headers only. 
-    * Content access is allowed if a referrer request header matches regex setup. If not, content access is not allowed. 
+    * Appropriate to allow the access of particular referer request headers only. 
+    * Content access is allowed if a referer request header matches regex setup. If not, content access is not allowed. 
 
 - **Content Access if Referer Header is Unavailable**
   Allow Access if Referer Header is UnavailableSelect whether to allow access to content if referer request header is not available.
@@ -207,64 +207,64 @@ The referrer request header includes the webpage address of previous links of th
 > To control many referrers, enter in consecutive lines. 
 > To set many referrers with APIs, delimit with \n tokens. 
 
-### Auth Token 인증 접근 관리 Access Management for Auth Token Authentication 
-Auth Token 인증 접근 관리는 콘텐츠 요청에 인증 토큰을 추가하여 CDN 에지 서버에서 검증된 토큰만 콘텐츠 접근을 허용하는 보안 기능입니다. The access management for Auth Token authentication is a security feature that allows only verified tokens to access content from CDN edge server, by adding authenticataion token to a content request.   
-You may control by allowing one-time access to content or only restricted users to access content.  일회성으로 콘텐츠 접근 허용하거나 제한된 사용자만 콘텐츠를 접근 할 수 있도록 제어할 수 있습니다.
-토큰이 없거나 유효하지 않은 토큰으로 콘텐츠를 요청한 경우, 403 Forbidden 응답이 전송되며 콘텐츠에 접근할 수 없습니다. If content is requested with an invalid token, 403 Forbidden is sent as response and access to content is forbidden. 
+### Access Management for Auth Token Authentication 
+The access management for Auth Token authentication is a security feature that allows only verified tokens to access content from CDN edge server, by adding authenticataion token to a content request.   
+You may control by allowing one-time access to content or only restricted users to access content.  
+If content is requested with an invalid token, 403 Forbidden is sent as response and access to content is forbidden. 
 
-Auth Token 인증 접근을 CDN 서비스에 적용하려면 다음의 단계에 따라 작업이 필요합니다. To apply the access of Auth Token Authentication to CDN, following process is required.  
+To apply the access of Auth Token Authentication to CDN, following process is required.  
 
 > **[Caution]** 
 >
-> Access management for Auth Token authentication requires the following implementation, even on applications using TOAST CDN.  인증 접근 관리는 TOAST CDN을 이용해 서비스 중인 애플리케이션에서도 다음의 구현이 필요합니다.
-> 1. 콘텐츠 접근에 필요한 토큰을 생성해야 합니다. Create a token required to access content. 
-> 2. 클라이언트(최종 콘텐츠 소비자)가 생성된 토큰을 포함하여 콘텐츠를 요청할 수 있도록 해야합니다. Client (final content consumer) must request content including created token.  
-> If access management is configured without this process, content request may fail due to failed token authentication. 이 작업을 하지 않고 Auth Token 인증 접근 관리를 설정할 경우, 토큰 검증 실패로 인해 콘텐츠 요청이 실패될 수 있으므로 주의하시기 바랍니다.
+> Access management for Auth Token authentication requires the following implementation, even on applications using TOAST CDN.  
+> 1. Create a token required to access content. 
+> 2. Client (final content consumer) must request content including created token.  
+> If access management is configured without this process, content request may fail due to failed token authentication. 
 
 
-#### 1. TOAST CDN Console 콘솔 > Setting for Access Management of Auth Token Authentication 인증 접근 관리 설정
+#### 1. TOAST CDN Console > Setting for Access Management for Auth Token Authentication 
 
-On CDN console, set access management for Auth Token authentication, in reference of the following.   콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관리를 설정합니다.
+On CDN console, set access management for Auth Token authentication, in reference of the following.   
 
-![Create CDN Service서비스생성-Access Management for Auth Token Authentication  인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token.png)
+![Create CDN Service-Access Management for Auth Token Authentication](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token.png)
 
-- **Enabling Token Authentication 토큰 인증 사용 여부**
-    - **Enable 사용**: Activate access management for Auth Token authentication and verify token so as to allow access to content.   Auth Token 인증 접근 관리 기능을 활성화하여 토큰 검증한 후 콘텐츠에 접근할 수 있도록 합니다.
-    - **Disable미사용**: Auth Token 인증 접근 관리 기능을 비활성화 합니다. Deactivate access management for Auth Token authentication. 
-- **Token Location토큰 위치**: 콘텐츠 요청 시 토큰을 전달할 위치를 선택합니다.  Select a location to deliver token when content is requested.  
-    - **쿠키(Cookie)**: Deliver token with a standard cookie. Note that devices or browsers that do not support cookies may not run properly.  표준 쿠키로 토큰을 전달합니다. 쿠키 사용을 지원하지 않는 장치 및 브라우저는 토큰 인증이 정상적으로 동작하지 않을 수 있으므로 주의하시기 바랍니다.  
-    - **요청 헤더(Request header)**: 요청 헤더에 토큰을 전달합니다.  Deliver token to the request header. 
-    - **쿼리 문자열(Query string)**: 쿼리 문자열에 토큰을 전달합니다.  Deliver token to the query string. 
-- **Token Name토큰 이름**
-    - Name of token to deliver token value. It is fixed as **token** which cannot be changed from console setting. 토큰값을 전달할 토큰의 이름입니다. **token** 으로 고정된 값이며 콘솔 설정에서 변경이 불가합니다.
-- **Token Encryption Key토큰 암호화 키**
-    - Encryption key required to create a token. By creating or modifying CDN, an encryption key is automatically created.  토큰 생성에 필요한 암호화키 입니다. CDN 서비스를 생성 또는 수정하면 암호화 키는 자동으로 생성됩니다.
-    - 암호화키는 외부로 노출되지 않도록 주의하시기 바랍니다. Please take caution of not disclosing the encypryption key. 
-- **Target Setting for Token Authentication 토큰 인증 대상 설정**  
-  Set a file target for token authentication when accessing content. 콘텐츠 접근 시 토큰을 인증할 파일 대상을 설정합니다.  
-  Verify token only for files with their tokens to be authenticated; for other files, token is not verified, allowing content access without a token.  토큰 인증 대상 파일인 경우에만 토큰을 검증하며, 인증 대상 파일이 아닌 경우에는 토큰 검증을 수행하지 않으므로 토큰 없이 콘텐츠 접근이 가능합니다.  
-  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.  지정된 요청 URL 경로 또는 파일 확장자만 토큰 검증을 하려면 요청 URL 경로와 확장자를 입력해주세요. 입력하지 않은 경우 모든 파일에 대해 토큰을 검증합니다.  
-    - **Set Authentication Target인증 대상 설정**: Verify tokens only for the files of configured request URL path and file extension. 설정된 요청 URL 경로와 파일 확장자의 파일만 토큰을 검증합니다.
-    - **Set Exception from Authentication 인증 예외 대상 설정**: Verify tokens for files excluding request URL path and file extension. 설정된 요청 URL 경로와 파일 확장자를 제외한 파일의 토큰을 검증합니다.
-    - **Path of Request URL 요청 URL 경로**: If content URL has same path as that of request URL, set it for or against token authentication. 콘텐츠 URL이 요청 URL 경로와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
-        - The path of a request URL must start with 요청 URL 경로는 '/' and wildcard characters (Many strings: \*, Single string: ?) are available (e.g.: /toast/\*). 로 시작해야 하며 와일드카드 문자(여러 문자열: \*, 단일 문자: ?)를 사용할 수 있습니다(예: /toast/\*).
-        - The request URL path does not include a query string. 요청 URL 경로는 쿼리 문자열은 포함하지 않습니다.
-        - Only ascii code characters are available for a request URL path. 요청 URL 경로는 아스키(ascii) 코드 문자만 입력 가능합니다.
-        - To enter many, change lines; with many inputs, only a single match enables token access control. 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
-        - When it is entered along with file extension, a matching condition of file extension enables token access control.  파일 확장자와 함께 입력한 경우에는 파일 확장자 조건이 일치해도 토큰 접근 제어가 동작합니다.
-    - **File Extension일 확장자**: If content URL is same as file extension, it is set for or against token authentication.  콘텐츠 URL이 파일 확장자와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
-        - Enter file extension excluding '.' (e.g: pdf, png). 을 포함하지 않은 파일 확장자를 입력합니다(예: pdf, png).
-        - To enter many, change lines; with many inputs, only a single match enables token access control. 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
-        - When it is entered along with requet path URL, a matching condition of requet path URL enables token access control. 요청 경로 URL과 함께 입력한 경우에는 요청 경로 URL 조건이 일치해도 토큰 접근 제어가 동작합니다.
+- **Enabling Token Authentication**
+    - **Enable**: Activate access management for Auth Token authentication and verify token so as to allow access to content.  
+    - **Disable**: Deactivate access management for Auth Token authentication. 
+- **Token Location**: Select a location to deliver token when content is requested.  
+    - **Cookie**: Deliver token with a standard cookie. Note that devices or browsers that do not support cookies may not run properly.   
+    - **Request Header**: Deliver token to the request header. 
+    - **Query String**: Deliver token to the query string. 
+- **Token Name**
+    - Name of token to deliver token value. It is fixed as **token** which cannot be changed from console setting. 
+- **Token Encryption Key**
+    - Encryption key required to create a token. By creating or modifying CDN, an encryption key is automatically created.  
+    - Please take caution of not disclosing the encypryption key. 
+- **Target Setting for Token Authentication**  
+  Set a target of file for token authentication when accessing content.   
+  Verify token only for files with their tokens to be authenticated; for other files, token is not verified, allowing content access without a token.  
+  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.    
+    - **Set Authentication Target**: Verify tokens only for the files of configured request URL path and file extension. 
+    - **Set Exception from Authentication**: Verify tokens for files excluding request URL path and file extension. 
+    - **Path of Request URL**: If content URL has same path as that of request URL, set it for or against token authentication. 
+        - The path of a request URL must start with '/' and wildcard characters (Many strings: \*, Single string: ?) are available (e.g.: /toast/\*). 
+        - The request URL path does not include a query string. 
+        - Only ascii code characters are available for a request URL path. 
+        - To enter many, change lines; with many inputs, only a single match enables token access control.   
+        - When it is entered along with file extension, a matching condition of file extension enables token access control.  
+    - **File Extension**: If content URL is same as file extension, it is set for or against token authentication.  
+        - Enter file extension excluding '.' (e.g: pdf, png). 
+        - To enter many, change lines; with many inputs, only a single match enables token access control. 
+        - When it is entered along with requet path URL, a matching condition of requet path URL enables token access control. 
 
-> **[Caution] Path of Request URL and File Extension 요청 URL 경로와 파일 확장자**
-> When request URL path and file extension are all set, only one match of the two conditions enables token access control.  to 요청 URL 경로와 파일 확장자 모두 설정한 경우, 두 조건 중 하나만 일치해도 토큰 접근 제어가 동작합니다.
-> [Example] When the setting for request URL path is **/toast/\***, with **png** as file extension가 설정된 경우: Verify token for all files under /toast or content with png as file extension.  하위의 모든 파일 또는 파일 확장자가 png인 콘텐츠에 대해 토큰을 검증합니다.
+> **[Caution] Path of Request URL and File Extension**
+> When request URL path and file extension are all set, only one match of the two conditions enables token access control.  
+> [Example] When the setting for request URL path is **/toast/\***, with **png** as file extension: Verify token for all files under /toast or content with png as file extension.  
 
-#### 2. Create Token 토큰 생성 
-To allow the final content user to access content, content must be requested along with a token. Therefore, a token must be created to get issued to the final content user. 최종 콘텐츠 사용자가 콘텐츠에 접근하려면 토큰과 함께 콘텐츠를 요청해야 합니다. 따라서, 토큰을 생성해 최종 콘텐츠 사용자에게 발급해야 합니다.
-토큰 생성은 TOAST CDN을 이용해 서비스 중인 애플리케이션에서 구현되어야 합니다. Token creation must be implemented on an application using TOAST CDN. 
-토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다. To create a token, refer to the following sample code: 
+#### 2. Create Token  
+To allow the final content user to access content, content must be requested along with a token. Therefore, a token must be created to get issued to the final content user. 
+Token creation must be implemented on an application using TOAST CDN. 
+To create a token, refer to the following sample code: 
 
 <details>
 <summary>Java Sample Code</summary> 
@@ -488,51 +488,51 @@ public class ToastAuthTokenAccessControlExample {
 
 </details>
 
-- This sample code has the following restrictions.  샘플 코드는 아래와 같은 제약 사항이 있습니다.  
-- JDK 7 or higher, with dependency on the org.projectlombok:lombok, or org.apache.commons:commons-lang3 library 라이브러리와 의존성이 있습니다.  
+- This sample code has the following restrictions.    
+- JDK 7 or higher, with dependency on the org.projectlombok:lombok, or org.apache.commons:commons-lang3 library.  
 
 
-- **Description of Member Variables of AuthToken Class 클래스의 멤버 변수 설명**
+- **Description of Member Variables of AuthToken Class**
   - **key**: Go to TOAST CDN console, Access Management for Auth Token Authentication > and enter Token Encryption Key.  
   - **sessionId**: To create a token including origin identifier for the request of a single access, enter sessionId.  
-      - With a valid token created for each session ID, you may create one-time tokens or apply it to many purposes.   세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.  
-      - Session ID must be configured with [List of Available Ascii Characters 출력 가능 아스키 문자표](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다.  
-      - Session ID cannot be larger than 36 bytes for the length of character string.   세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.  
-  - **durationSeconds**: Valid time (seconds) for created token; authentication for invalid tokens shall fail.   생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.  
-      - 토큰 유효 시간을 너무 작게 설정하면 CDN 에지 서버에서 토큰 검증하기 전에 토큰이 만료될 수 있으니 유의하시기 바랍니다. 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.  
-      - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.  
-- **AuthToken 클래스의 공개 메서드(Public Method)**
+      - With a valid token created for each session ID, you may create one-time tokens or apply it to many purposes.     
+      - Session ID must be configured with [List of Available Ascii Characters](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.).  
+      - Session ID cannot be larger than 36 bytes for the length of character string.    
+  - **durationSeconds**: Valid time (seconds) for created token; authentication for invalid tokens shall fail.   
+      - If valid token time is set too short, token may be expired even before verified on the CDN edge server. It is recommended to set longer than 10 seconds than expected valid time.
+      - Make sure to validate NTP (Network Time Protocol) synchronization on the token creation server; if time is not synchronized, it may fail to validate token time.  
+- **Public Method of AuthToken Class**
   - **public String generateURLToken(String path)**
-      - 단일 경로에 대한 토큰을 생성합니다.  
-      - [예시] path: authToken.generateURLToken("/auth/contents/example.png")  
-      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
-      - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.  
+      - Create token for a single path.   
+      - [Example] path: authToken.generateURLToken("/auth/contents/example.png")  
+      - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/toast/authentication/file.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
+      - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID. 
   - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
-      - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
-          - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
-          - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
-          - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
-          - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
-          - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
-      - 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
-          - [예시] 생성된 토큰: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+      - Create token of the path mapped with the wildcard path. If their patterns of path match, it only takes a single wildcard token to authenticate tokens of URLs of many contents.  
+          - [Example1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*"): Issue token for all files under /auth/contents. 
+          - [Example2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png"): Issue token for the png file on the auth/contents path. 
+          - [Example3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png"): Issue token for the png file that combines example on the /auth/contents path and single characters.
+          - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/toast/authentication/file.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%).
+          - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID. 
+      - Created token is created in the format of **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**.
+          - [Example] Created token: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
-#### 3. 생성된 토큰을 콘텐츠 요청에 포함
-클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청시 콘솔에서 설정한 토큰 위치에 생성된 토큰값을 포함하여 요청하도록 합니다.
+#### 3. Include created token to the request of content 
+Client (final content consumer) must request content including the token value which is created from the location as configured on the console. 
 
-  - **토큰 위치: 쿠키**
+  - **Location of Token: Cookie**
     ```
-    curl --cookie "token={생성된 토큰값}" \
+    curl --cookie "token={Created token value}" \
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
-  - **토큰 위치: 요청 헤더**
+  - **Location of Token: Request header**
     ```
-    curl -H "token: {생성된 토큰값}" \
+    curl -H "token: {Created token value}" \
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
-  - **토큰 위치: 쿼리 문자열**
+  - **Location of Token: Query string**
     ```
-    curl -d "token={생성된 토큰값}" \
+    curl -d "token={Created token value}" \
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
 
