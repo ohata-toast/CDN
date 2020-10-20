@@ -501,14 +501,14 @@ public class ToastAuthTokenAccessControlExample {
   - **public String generateURLToken(String path)**
       - Create token for a single path.   
       - [Example] path: authToken.generateURLToken("/auth/contents/example.png")  
-      - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/toast/authentication/file.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
+      - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
       - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID. 
   - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
       - Create token of the path mapped with the wildcard path. If their patterns of path match, it only takes a single wildcard token to authenticate tokens of URLs of many contents.  
           - [Example1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*"): Issue token for all files under /auth/contents. 
           - [Example2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png"): Issue token for the png file on the auth/contents path. 
           - [Example3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png"): Issue token for the png file that combines example on the /auth/contents path and single characters.
-          - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/toast/authentication/file.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%).
+          - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%)**.
           - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID. 
       - Created token is created in the format of **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**.
           - [Example] Created token: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**

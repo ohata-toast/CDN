@@ -225,8 +225,7 @@ Auth Token認証アクセスをCDNサービスに適用するには、次の段�
 > この作業を行わずにAuth Token認証アクセス管理を設定した場合、トークン検証失敗によりコンテンツの要求が失敗する場合があるため注意してください。
 
 #### 1. TOAST CDNコンソール > Auth Token認証アクセス管理設定
-
-1. CDNコンソールで、次の内容を参考にしてAuth Token認証アクセス管理を設定します。
+CDNコンソールで、次の内容を参考にしてAuth Token認証アクセス管理を設定します。
 
 ![CDNサービス作成-Auth Token認証アクセス管理](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-auth-token_ja_20201006.png)
 
