@@ -166,7 +166,7 @@ CDNサービスへ配布する原本ファイルを提供するサーバーを�
 
 ### キャッシュ
 CDNキャッシュ動作設定とキャッシュ時間を設定できます。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_20200518.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_20201006.png)
 
 - **キャッシュ時間設定**
  オリジンサーバーのキャッシュ制御に関するレスポンスヘッダーを通してキャッシュを設定できます。 
@@ -179,7 +179,7 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 
 ### リファラー(referer)ヘッダアクセス管理
 リファラーリクエストヘッダーにコンテンツのアクセス管理を設定します。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_20200518.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_20201006.png)
 
 リファラーリクエストヘッダーは、現在リクエストされたページリンクより前のウェブページアドレスを含みます。リファラーリクエストヘッダーにより、どの経路でリクエストが流入したかを把握できます。リファラーヘッダアクセス管理では、特定のリファラーリクエストヘッダーのみユーザーコンテンツにアクセスできるよう設定できます。
 正規表現形式で入力できます。複数入力する場合は改行して入力します。
@@ -228,7 +228,7 @@ Auth Token認証アクセスをCDNサービスに適用するには、次の段�
 
 1. CDNコンソールで、次の内容を参考にしてAuth Token認証アクセス管理を設定します。
 
-![CDNサービス作成-Auth Token認証アクセス管理](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token.png)
+![CDNサービス作成-Auth Token認証アクセス管理](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-auth-token_ja_20201006.png)
 
 - **トークン認証を使用するかどうか**
     - **使用**：Auth Token認証アクセス管理機能を有効化してトークン検証した後、コンテンツにアクセスできるようにします。
@@ -491,7 +491,7 @@ public class ToastAuthTokenAccessControlExample {
 
 }
 ```
-- AuthTokenクラスのメンバー変数説明
+- **AuthTokenクラスのメンバー変数説明**
     - **key**：TOAST CDNコンソールに表示されたAuth Token認証制御管理 > トークン暗号化キーを入力します。
     - **sessionId**：単一アクセスリクエストに対する固有識別子を含めてトークンを作成するにはsessionIdを入力します。
         - セッションIDごとに有効なトークンを作成して一回性トークンを作成したり、さまざまな事例に活用できます。
