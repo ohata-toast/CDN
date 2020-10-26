@@ -175,23 +175,23 @@ CDN cache operations and expiration time can be set.
 > Default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds)=1 week.
 > Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
 
-### Manage Referrer Header Access  
-Content access management is set with the referrer request header.
+### Access Management for Referer Header   
+Content access management is set with the referer request header.
 ![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
 
-The referrer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referrer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
+The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
 
 - **Blacklist Type**:
-    * Appropriate to restrict the access of particular referrer request headers only. 
-    * Content access is restricted if a referrer request header matches regex setup. If not, content access is allowed. 
+    * Appropriate to restrict the access of particular referer request headers only. 
+    * Content access is restricted if a referer request header matches regex setup. If not, content access is allowed. 
 - **Whitelist Type**:
-    * Appropriate to allow the access of particular referrer request headers only. 
-    * Content access is allowed if a referrer request header matches regex setup. If not, content access is not allowed. 
+    * Appropriate to allow the access of particular referer request headers only. 
+    * Content access is allowed if a referer request header matches regex setup. If not, content access is not allowed. 
 
 - **Content Access if Referer Header is Unavailable**
   Allow Access if Referer Header is UnavailableSelect whether to allow access to content if referer request header is not available.
     - **Allow**: If referer request header is not available, content access is allowed and the control of referer access does not operate.
-    - **Reject**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.  
+    - **Deny**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.  
 
 > **[Example]**
 >
@@ -207,6 +207,330 @@ The referrer request header includes the webpage address of previous links of th
 > To control many referrers, enter in consecutive lines. 
 > To set many referrers with APIs, delimit with \n tokens. 
 
+### Access Management for Auth Token Authentication 
+The access management for Auth Token authentication is a security feature that allows only verified tokens to access content from CDN edge server, by adding authenticataion token to a content request.   
+You may control by allowing one-time access to content or only restricted users to access content.  
+If content is requested with an invalid token, 403 Forbidden is sent as response and access to content is forbidden. 
+
+To apply the access of Auth Token Authentication to CDN, following process is required.  
+
+> **[Caution]** 
+>
+> Access management for Auth Token authentication requires the following implementation, even on applications using TOAST CDN.  
+> 1. Create a token required to access content. 
+> 2. Client (final content consumer) must request content including created token.  
+> If access management is configured without this process, content request may fail due to failed token authentication. 
+
+
+#### 1. TOAST CDN Console > Setting for Access Management for Auth Token Authentication 
+
+On CDN console, set access management for Auth Token authentication, in reference of the following.   
+
+![Create CDN Service-Access Management for Auth Token Authentication](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token.png)
+
+- **Enabling Token Authentication**
+    - **Enable**: Activate access management for Auth Token authentication and verify token so as to allow access to content.  
+    - **Disable**: Deactivate access management for Auth Token authentication. 
+- **Token Location**: Select a location to deliver token when content is requested.  
+    - **Cookie**: Deliver token with a standard cookie. Note that devices or browsers that do not support cookies may not run properly.   
+    - **Request Header**: Deliver token to the request header. 
+    - **Query String**: Deliver token to the query string. 
+- **Token Name**
+    - Name of token to deliver token value. It is fixed as **token** which cannot be changed from console setting. 
+- **Token Encryption Key**
+    - Encryption key required to create a token. By creating or modifying CDN, an encryption key is automatically created.  
+    - Please take caution of not disclosing the encypryption key. 
+- **Target Setting for Token Authentication**  
+  Set a target of file for token authentication when accessing content.   
+  Verify token only for files with their tokens to be authenticated; for other files, token is not verified, allowing content access without a token.  
+  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.    
+    - **Set Authentication Target**: Verify tokens only for the files of configured request URL path and file extension. 
+    - **Set Exception from Authentication**: Verify tokens for files excluding request URL path and file extension. 
+    - **Path of Request URL**: If content URL has same path as that of request URL, set it for or against token authentication. 
+        - The path of a request URL must start with '/' and wildcard characters (Many strings: \*, Single string: ?) are available (e.g.: /toast/\*). 
+        - The request URL path does not include a query string. 
+        - Only ascii code characters are available for a request URL path. 
+        - To enter many, change lines; with many inputs, only a single match enables token access control.   
+        - When it is entered along with file extension, a matching condition of file extension enables token access control.  
+    - **File Extension**: If content URL is same as file extension, it is set for or against token authentication.  
+        - Enter file extension excluding '.' (e.g: pdf, png). 
+        - To enter many, change lines; with many inputs, only a single match enables token access control. 
+        - When it is entered along with requet path URL, a matching condition of requet path URL enables token access control. 
+
+> **[Caution] Path of Request URL and File Extension**
+> When request URL path and file extension are all set, only one match of the two conditions enables token access control.  
+> [Example] When the setting for request URL path is **/toast/\***, with **png** as file extension: Verify token for all files under /toast or content with png as file extension.  
+
+#### 2. Create Token  
+To allow the final content user to access content, content must be requested along with a token. Therefore, a token must be created to get issued to the final content user. 
+Token creation must be implemented on an application using TOAST CDN. 
+To create a token, refer to the following sample code: 
+
+##### Java Sample Code
+- This sample code has the following restrictions.
+- JDK 7 or higher, with dependency on the org.projectlombok:lombok, or org.apache.commons:commons-lang3 library.  
+
+```java
+import org.apache.commons.lang3.StringUtils;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ToastAuthTokenAccessControlExample {
+
+    // Token encryption key for authentication verified on TOAST console 
+    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{Token encryption key of TOAST CDN}";
+    // Valid token time (seconds)
+    private static final Long TOKEN_DURATION_SECONDS = 3600L;
+
+
+    public static void main(String[] args) throws AuthTokenException {
+
+        String path = "/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
+        String singleWildcardPath = "/toast/%EC%9D%B8%EC%A6%9D/*";
+        String[] multipleWildcardPath = {"/toast/%EC%9D%B8%EC%A6%9D*", "/toast/auth/*"};
+
+        System.out.println(" ----------------- ");
+        System.out.println(" Issue Default Token ");
+        System.out.println(" ----------------- ");
+
+        AuthToken authToken = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS);
+
+        System.out.println("Single URL Token: token=" + authToken.generateURLToken(path));
+        System.out.println("Wildcard Token: token=" + authToken.generateWildcardPathToken(singleWildcardPath));
+        System.out.println("Multiple Wildcard Token: token=" + authToken.generateWildcardPathToken(multipleWildcardPath));
+
+        System.out.println(" ----------------- ");
+        System.out.println("Issue token including session identifier ");
+        System.out.println(" ----------------- ");
+
+        AuthToken authTokenWithSession = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS, "example-sessionId");
+        System.out.println("Single URL Token: token=" + authTokenWithSession.generateURLToken(path));
+        System.out.println("Wildcard Token: token=" + authTokenWithSession.generateWildcardPathToken(singleWildcardPath));
+        System.out.println("Multiple Wildcard Token: token=" + authTokenWithSession.generateWildcardPathToken(multipleWildcardPath));
+
+    }
+
+
+    public static class AuthToken {
+
+        /** Token Encryption Algorithm (fixed with SHA256) **/
+        private static final String HMAC_SHA_256 = "HmacSHA256";
+
+        /** Token Encryption Key (TOAST CDN Console > Access management for Auth Token authentication  > Encryption key) **/
+        private String key;
+
+        /**  Session Identifier */
+        private String sessionId;
+
+        /** Token Valid Time (Unit: Second) */
+        private Long durationSeconds;
+
+        /** Enable url encode application before token is created */
+        private Boolean escapeEarly;
+
+        /** Delimiter of Body Field of Token */
+        private final String fieldDelimiter = "~";
+
+        /** wildcardPath Delimiter */
+        private final String aclDelimiter = "!";
+
+
+        public AuthToken(String key, Long durationSeconds) {
+            this.key = key;
+            this.sessionId = null;
+            this.durationSeconds = durationSeconds;
+            this.escapeEarly = true;
+
+        }
+
+
+        public AuthToken(String key, Long durationSeconds, String sessionId) {
+            this.key = key;
+            this.sessionId = sessionId;
+            this.durationSeconds = durationSeconds;
+            this.escapeEarly = true;
+        }
+
+
+        /**
+        * Create a token for a single URL. 
+        * @param path : contents url (example: /auth/contents/example.png)
+        * @return created token
+        * @throws AuthTokenException
+        */
+        public String generateURLToken(String path) throws AuthTokenException {
+            return generateToken(createExpireTime(), this.sessionId, path, null);
+
+        }
+
+
+        /**
+        * Create token for wildcard path. 
+        * @param wildcardPath : "/auth/contents/*"
+        * @return Created token value 
+        * @throws AuthTokenException
+        */
+        public String generateWildcardPathToken(String wildcardPath) throws AuthTokenException {
+            return generateWildcardPathToken(new String[] {wildcardPath});
+        }
+
+        /**
+        * Create token for multiple wildcard paths.
+        * @param wildcardPaths (example: ["/auth/contents/*", "/auth/*/images/*"])
+        * @return Created token value
+        * @throws AuthTokenException
+        */
+        public String generateWildcardPathToken(String... wildcardPaths) throws AuthTokenException {
+            return generateToken(createExpireTime(), this.sessionId, null, wildcardPaths);
+
+        }
+
+
+        private String createExpireTime() {
+            Long nowSeconds = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTimeInMillis() / 1000L;
+            Long exp = nowSeconds + this.durationSeconds;
+            return exp.toString();
+        }
+
+
+        private String generateToken(String exp, String sessionId, String path, String[] wildcardPaths) throws AuthTokenException {
+
+            try {
+
+                StringBuilder token = new StringBuilder();
+                token.append("exp=")
+                    .append(exp)
+                    .append(this.fieldDelimiter);
+
+                if (wildcardPaths != null && wildcardPaths.length > 0) {
+                    token.append("acl=")
+                        .append(escapeEarly(StringUtils.join(wildcardPaths, this.aclDelimiter)))
+                        .append(this.fieldDelimiter);
+                }
+
+                if (sessionId != null && sessionId.length() > 0) {
+                    token.append("id=")
+                        .append(escapeEarly(sessionId))
+                        .append(this.fieldDelimiter);
+                }
+
+                StringBuilder hashSource = new StringBuilder(token);
+                if (path != null && path.length() > 0) {
+                    hashSource.append("url=")
+                              .append(escapeEarly(path))
+                              .append(this.fieldDelimiter);
+
+                }
+
+                // remove last fieldDelimiter char
+                hashSource.deleteCharAt(hashSource.length() - 1);
+
+                Mac hmac = Mac.getInstance(HMAC_SHA_256);
+                byte[] keyBytes = DatatypeConverter.parseHexBinary(this.key);
+                SecretKeySpec secretKey = new SecretKeySpec(keyBytes, HMAC_SHA_256);
+                hmac.init(secretKey);
+
+                byte[] hmacBytes = hmac.doFinal(hashSource.toString().getBytes());
+                return token.toString() + "hmac=" + String.format("%0" + (2 * hmac.getMacLength()) + "x", new BigInteger(1, hmacBytes));
+
+            } catch (NoSuchAlgorithmException e) {
+                throw new AuthTokenException(e.getMessage());
+            } catch (InvalidKeyException e) {
+                throw new AuthTokenException(e.getMessage());
+            }
+
+        }
+
+
+        private String escapeEarly(final String text) throws AuthTokenException {
+            if (this.escapeEarly == true) {
+                try {
+                    StringBuilder newText = new StringBuilder(URLEncoder.encode(text, "UTF-8"));
+                    Pattern pattern = Pattern.compile("%..");
+                    Matcher matcher = pattern.matcher(newText);
+                    String tmpText;
+                    while (matcher.find()) {
+                        tmpText = newText.substring(matcher.start(), matcher.end()).toLowerCase();
+                        newText.replace(matcher.start(), matcher.end(), tmpText);
+                    }
+                    return newText.toString();
+                } catch (UnsupportedEncodingException e) {
+                    return text;
+                } catch (Exception e) {
+                    throw new AuthTokenException(e.getMessage());
+                }
+            } else {
+                return text;
+            }
+        }
+
+    }
+
+    public static class AuthTokenException extends Exception {
+        private static final long serialVersionUID = 1L;
+
+
+        public AuthTokenException(String msg) {
+            super(msg);
+        }
+    }
+
+}
+```
+
+- **Description of Member Variables of AuthToken Class**
+  - **key**: Go to TOAST CDN console, Access Management for Auth Token Authentication > and enter Token Encryption Key.  
+  - **sessionId**: To create a token including origin identifier for the request of a single access, enter sessionId.  
+      - With a valid token created for each session ID, you may create one-time tokens or apply it to many purposes.     
+      - Session ID must be configured with [List of Available Ascii Characters](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.).  
+      - Session ID cannot be larger than 36 bytes for the length of character string.    
+  - **durationSeconds**: Valid time (seconds) for created token; authentication for invalid tokens shall fail.   
+      - If valid token time is set too short, token may be expired even before verified on the CDN edge server. It is recommended to set longer than 10 seconds than expected valid time.
+      - Make sure to validate NTP (Network Time Protocol) synchronization on the token creation server; if time is not synchronized, it may fail to validate token time.  
+- **Public Method of AuthToken Class**
+  - **public String generateURLToken(String path)**
+      - Create token for a single path.   
+      - [Example] path: authToken.generateURLToken("/auth/contents/example.png")  
+      - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
+      - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID. 
+  - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
+      - Create token of the path mapped with the wildcard path. If their patterns of path match, it only takes a single wildcard token to authenticate tokens of URLs of many contents.  
+          - [Example1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*"): Issue token for all files under /auth/contents. 
+          - [Example2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png"): Issue token for the png file on the auth/contents path. 
+          - [Example3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png"): Issue token for the png file that combines example on the /auth/contents path and single characters.
+          - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%)**.
+          - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID. 
+      - Created token is created in the format of **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**.
+          - [Example] Created token: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+
+#### 3. Include created token to the request of content 
+Client (final content consumer) must request content including the token value which is created from the location as configured on the console. 
+
+  - **Location of Token: Cookie**
+    ```
+    curl --cookie "token={Created token value}" \
+    -X GET http://xxx.toastcdn.net/auth/contents/example.png
+    ```
+  - **Location of Token: Request header**
+    ```
+    curl -H "token: {Created token value}" \
+    -X GET http://xxx.toastcdn.net/auth/contents/example.png
+    ```
+  - **Location of Token: Query string**
+    ```
+    curl -d "token={Created token value}" \
+    -X GET http://xxx.toastcdn.net/auth/contents/example.png
+    ```
 
 ## Settings
 
