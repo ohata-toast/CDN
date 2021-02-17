@@ -1,6 +1,6 @@
 ## Content Delivery > CDN > API v2.0 Guide 
 
-This document describes Public API v2.0 of TOAST CDN. 
+This document describes Public API v2.0 of NHN Cloud CDN. 
 
 
 ## Common API Information 
