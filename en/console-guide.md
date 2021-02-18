@@ -1,6 +1,6 @@
 ## Content Delivery > CDN > Console User Guide
 
-This document describes how CDN service is configured and applied on TOAST CDN console. 
+This document describes how CDN service is configured and applied on NHN Cloud CDN console. 
 
 ## Creating CDN 
 
@@ -20,7 +20,7 @@ Set basic information.
   More description is added on CDN service.  
 
 - **Domain Alias**
-  The default service domain address of TOAST CDN is provided in the **[ServiceID].toastcdn.net** format. 
+  The default service domain address of NHN Cloud CDN is provided in the **[ServiceID].toastcdn.net** format. 
   To use CDN service with your own domain, enable **Domain Alias**. 
   To use HTTPS protocol with your own domain, get a certificate issued from **Certificate Management** and set domain alias.
   After domain alias is set, register CNAME record at DNS provider of domain, like follows. Please consult your DNS provider regarding DNS settings. 
@@ -49,7 +49,7 @@ Set server providing original files to be deployd to CDN.
 
 - **Origin Server**
   The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
-  If there is no operating origin server, use an instance of TOAST Compute or object storage of TOAST Storage. To support secured transfer (HTTPS) via CDN domain, the origin server must support HTTPS response. This means a certificate credited by TOAST CDN must be installed at the origin server. Refer to the following table for credible certificates. 
+  If there is no operating origin server, use an instance of NHN Cloud Compute or object storage of NHN Cloud Storage. To support secured transfer (HTTPS) via CDN domain, the origin server must support HTTPS response. This means a certificate credited by NHN Cloud CDN must be installed at the origin server. Refer to the following table for credible certificates. 
   If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting. 
   Nevertheless, since **Downgrading HTTP Protocols Requesting Originals** has constraints, it is recommended that the origin server support HTTPS protocol.   
 
@@ -216,13 +216,13 @@ To apply the access of Auth Token Authentication to CDN, following process is re
 
 > **[Caution]** 
 >
-> Access management for Auth Token authentication requires the following implementation, even on applications using TOAST CDN.  
+> Access management for Auth Token authentication requires the following implementation, even on applications using NHN Cloud CDN.  
 > 1. Create a token required to access content. 
 > 2. Client (final content consumer) must request content including created token.  
 > If access management is configured without this process, content request may fail due to failed token authentication. 
 
 
-#### 1. TOAST CDN Console > Setting for Access Management for Auth Token Authentication 
+#### 1. NHN Cloud CDN Console > Setting for Access Management for Auth Token Authentication 
 
 On CDN console, set access management for Auth Token authentication, in reference of the following.   
 
@@ -263,7 +263,7 @@ On CDN console, set access management for Auth Token authentication, in referenc
 
 #### 2. Create Token  
 To allow the final content user to access content, content must be requested along with a token. Therefore, a token must be created to get issued to the final content user. 
-Token creation must be implemented on an application using TOAST CDN. 
+Token creation must be implemented on an application using NHN Cloud CDN. 
 To create a token, refer to the following sample code: 
 
 ##### Java Sample Code
@@ -489,7 +489,7 @@ public class ToastAuthTokenAccessControlExample {
 ```
 
 - **Description of Member Variables of AuthToken Class**
-  - **key**: Go to TOAST CDN console, Access Management for Auth Token Authentication > and enter Token Encryption Key.  
+  - **key**: Go to NHN Cloud CDN console, Access Management for Auth Token Authentication > and enter Token Encryption Key.  
   - **sessionId**: To create a token including origin identifier for the request of a single access, enter sessionId.  
       - With a valid token created for each session ID, you may create one-time tokens or apply it to many purposes.     
       - Session ID must be configured with [List of Available Ascii Characters](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.).  
@@ -628,7 +628,7 @@ Take caution that cache purge does not exceed the capacity limit, in reference o
 
 ## Managing Certificates
 To use secure tranfer (HTTPS) via your own domain, certificate of your own domain must be deployed to CDN server. Without a certificate, secured communication (HTTPS) is unavailable between client (browser) and CDN edge server, causing error of certificate. 
-Certificate management of TOAST CDN provides the following features: 
+Certificate management of NHN Cloud CDN provides the following features: 
 
 - Issue single domain-type certificates 
 - Deploy certificates to CDN servers at global points (except China and Russia)
@@ -647,8 +647,8 @@ Certificates can be issued from the **Certificate Management** tab.
 > 1. Purchase a domain first, if not owned, becuase certificates can be issued to owned domains only. 
 > 2. Certificates issued from other certificate authorities are not allowed. 
 > 3. Only single-domain certificates can be issued. Wildcard or multi-domain certificates are not supported. 
-> 4. Each project allows no more than 5 certificates. If you need more than that, contact TOAST Customer Center.  
-> 5. After certificate issuance is requested, the Validate Domain phase may be activated in a dozon of minutes (up to 2 hours). If your certificate changes status to Validate Domain, email shall be sent to TOAST project members. If email is not sent due to system error, check status on console.    
+> 4. Each project allows no more than 5 certificates. If you need more than that, contact NHN Cloud Customer Center.  
+> 5. After certificate issuance is requested, the Validate Domain phase may be activated in a dozon of minutes (up to 2 hours). If your certificate changes status to Validate Domain, email shall be sent to NHN Cloud project members. If email is not sent due to system error, check status on console.    
 
 ### Validate Domain
 You're ready to validate domain, after a new certificate is requeted, when certificate status is changed to 'Validate Domain'. 
@@ -676,7 +676,7 @@ Check DNS control role of domain to validate domain.
     `nslookup -type=TXT _acme-challenge.[Certificate Domain Requested of Issuance].`
 
 
-Following page shows a setting example for TOAST DNS+. Each DNS provider may provide different configuration method. 
+Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method. 
 ![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns.png)
 
 
@@ -689,7 +689,7 @@ Add an HTTP page to a web server connected with domain to validate the domain.
 
 > **[Caution] Cautions for Domain Validation**
 > 1. Domain must be validated **within 5 days** since when a certificate is requested of issuance. **Otherwise, getting a certificate shall be automatically revoked**.   
-> 2. When domain is successfully validated, certificate is to be issued and deployed within hours. Unless it proceeds more than a day, check if domain has been properly validated. If it still does not proceed, contact TOAST Customer Center.
+> 2. When domain is successfully validated, certificate is to be issued and deployed within hours. Unless it proceeds more than a day, check if domain has been properly validated. If it still does not proceed, contact NHN Cloud Customer Center.
 > 3. Adding HTTP Pages is available only when the HTTP server runs on 80 ports. If port change is unavailable, please take another option of Adding DNS TXT Records. 
 
 ### Issue and Deploy Certificates
@@ -709,7 +709,7 @@ If this task is undone or not maintained, issued certificate may expire.
     - TTL: Random. Small count is recommended if frequent changes are expected. When there is change in the record, it may be cached during TTL at the cache DNS server. 
     - Record Name:  **[Certificate Domain].** (Example: test.alias.com.com.)
     - Record Value:  **[CDN Service Domain to be Integrated]** (Example: xxxxxxxx.toastcdn.net)
-Following page shows a setting example for TOAST DNS+. Each DNS provider may provide different configuration method.
+Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method.
 ![Integrating CDN Services-Assign CNAME](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname.png)
 
 2. **Domain Alias Setting**: Add domain alias setting for the CDN to use certificate. 
@@ -718,7 +718,7 @@ Following page shows a setting example for TOAST DNS+. Each DNS provider may pro
 
 
 >  **[Caution] Caution for Certificate Expiration**
-> Certificates provided by TOAST CDN are automatically renewed before expired. 
+> Certificates provided by NHN Cloud CDN are automatically renewed before expired. 
 > For auto-renewal, user's certificate must be integrated with CDN service. 
 > Otherwise, certificates may not be renewed during specific period and get expired. 
 > A certificate shall be renewed within **5 days** after a renewal start day as indicated on the list of **Certificate Management**.   
