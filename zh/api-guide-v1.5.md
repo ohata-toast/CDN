@@ -1,6 +1,6 @@
 ## Content Delivery > CDN > API v1.5 Guide
 
-This document describes Public API v1.5 provided by TOAST CDN. 
+This document describes Public API v1.5 provided by NHN Cloud CDN. 
 
 ## Common API Information  
 
