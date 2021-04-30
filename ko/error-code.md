@@ -33,8 +33,8 @@
 | 10028 | The Root Path Control 'controlType' is not set. Please enter type 'DENY' or 'REDIRECT' | controlType은 필수 입력값 입니다. 'DENY' 또는 'REDIRECT'를 입력해주세요. |
 | 10029 | The Root Path Control 'redirectPath' is not set. | controlType이 'REDIRECT'일 경우, redirectPath는 필수 입력값 입니다. |
 | 10030 | 'redirectPath' must starts with a slash('/). | redirectPath는 '/'부터 입력해주세요. |
-| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | controlType이 'REDIRECT'일 경우, redirectStatusCode는 필수 입력값 입니다. 301 또는 302 또는 303 또는 307로 입력해주세요. |
-| 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | redirectStatusCode 입력값이 올바르지 않습니다. 301 또는 302 또는 303 또는 307로 입력해주세요.  |
+| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | controlType이 'REDIRECT'일 경우, redirectStatusCode는 필수 입력값 입니다. 301, 302, 303, 307 중에 입력해주세요. |
+| 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | redirectStatusCode 입력값이 올바르지 않습니다. 301, 302, 303, 307 중에 입력해주세요.  |
 | 20001 | Failed to authenticate with AppKey. | AppKey가 유효하지 않습니다. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey가 유효하지 않습니다. |
 | 30000 | Failed to process request. Please try again later. | 요청 처리에 실패했습니다. |
