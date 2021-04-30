@@ -161,6 +161,22 @@ Set server providing original files to be deployd to CDN.
   - **Original Host Name**: Set the host name of origin server as the host header.
     - **Request Host Header**: Set as the host header of client request. 
 
+### 루트 경로 접근 관리
+CDN 서비스의 루트 경로에 대한 접근 제어를 설정할 수 있습니다.
+[화면캡쳐]
+
+- **루트 경로 접근 설정**
+  - **사용**: 루트 경로 접근 관리 기능을 활성화하여 루트 경로에 대한 요청을 차단하거나, 다른 페이지로 리다이렉트하도록 설정합니다.
+  - **미사용**: 루트 경로 접근 관리 기능을 비활성화 합니다.
+- **접근 제어 방식**
+  - **Deny**: 루트 경로에 대한 요청에 Http Response Code 403을 응답합니다.
+  - **Redirect**: 루트 경로에 대한 요청을 사용자가 지정한 경로로 리다이렉트 합니다.
+- **Redirect 경로**
+  루트 경로에 대한 요청을 리다이렉트할 경로를 입력합니다. Redirect 경로는 '/'로 시작해야 하고, CDN 서비스의 하위에 존재하는 경로여야 합니다.
+- **Redirect Http Response Code**
+  - 루트 경로에 대한 요청을 리다이렉트하고 전달할 Http Response Code를 설정합니다. 
+  - Redirect Http Response Code는 301, 302, 303, 307 중에서 선택할 수 있습니다.
+  
 ### Cache
 
 CDN cache operations and expiration time can be set.  

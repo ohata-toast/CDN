@@ -1,5 +1,10 @@
 ## Content Delivery > CDN > Release Notes
 
+### 2021. 05. 25.
+
+#### 기능 개선/변경
+* 루트 경로 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > 루트 경로 접근 관리](./console-guide/#_3)를 참고하시기 바랍니다.
+
 ### October 6, 2020
 
 #### Feature Updates 
