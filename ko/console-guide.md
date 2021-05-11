@@ -153,7 +153,7 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
   즉, 클라이언트에서 CDN 에지 서버 구간은 보안 통신(HTTPS)으로 통신하고, CDN 에지 서버에서 원본 서버 구간은 비보안 통신(HTTP)으로 통신하게 됩니다.  
   원본 요청 HTTP 프로토콜을 다운그레이드할 때는 다음과 같은 제약 사항이 있습니다.  
 > **[주의] 원본 요청 HTTP 프로토콜 다운그레이드 제약 사항**
-> 1. 전체 사이트 주소는 프로토콜 다운그레이드를 할 수 없습니다. 예를 들어 원본 서버의 전체 사이트 주소인 **www.toast.com**는 다운그레이드할 수 없습니다.
+> 1. 전체 사이트 주소는 프로토콜 다운그레이드를 할 수 없습니다. 예를 들어 원본 서버의 전체 사이트 주소인 **www.nhn.com**는 다운그레이드할 수 없습니다.
 > 2. GET, HEAD 및 OPTIONS 메서드 외 메서드는 지원되지 않습니다. 
 > 3. CDN 서버에서 원본 서버로 다운그레이드를 요청할 때 다음의 헤더는 제외될 수 있습니다.
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
@@ -208,8 +208,8 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 > **[예시]**
 >
 > * 타입: 화이트리스트(whitelist)
-> * 정규 표현식: `^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
-> 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
+> * 정규 표현식: `^https://[a-zA-Z0-9._-]*\.nhn\.com/.*`
+> 임의의 nhn.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
 >
 > **[참고] 정규 표현식의 이스케이프 문자**
 > 일부 문자는 정규 표현식에서 특수 문자로 사용됩니다. 
@@ -260,7 +260,7 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
     - **인증 대상 설정**: 설정된 요청 URL 경로와 파일 확장자의 파일만 토큰을 검증합니다.
     - **인증 예외 대상 설정**: 설정된 요청 URL 경로와 파일 확장자를 제외한 파일의 토큰을 검증합니다.
     - **요청 URL 경로**: 콘텐츠 URL이 요청 URL 경로와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
-        - 요청 URL 경로는 '/'로 시작해야 하며 와일드카드 문자(여러 문자열: \*, 단일 문자: ?)를 사용할 수 있습니다(예: /toast/\*).
+        - 요청 URL 경로는 '/'로 시작해야 하며 와일드카드 문자(여러 문자열: \*, 단일 문자: ?)를 사용할 수 있습니다(예: /nhn/\*).
         - 요청 URL 경로는 쿼리 문자열은 포함하지 않습니다.
         - 요청 URL 경로는 아스키(ascii) 코드 문자만 입력 가능합니다.
         - 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
@@ -272,7 +272,7 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
 
 > **[주의] 요청 URL 경로와 파일 확장자**
 > 요청 URL 경로와 파일 확장자 모두 설정한 경우, 두 조건 중 하나만 일치해도 토큰 접근 제어가 동작합니다.
-> [예시] 요청 URL 경로 **/toast/\***, 파일 확장자 **png** 가 설정된 경우: /toast 하위의 모든 파일 또는 파일 확장자가 png인 콘텐츠에 대해 토큰을 검증합니다.
+> [예시] 요청 URL 경로 **/nhn/\***, 파일 확장자 **png** 가 설정된 경우: /nhn 하위의 모든 파일 또는 파일 확장자가 png인 콘텐츠에 대해 토큰을 검증합니다.
 
 #### 2. 토큰 생성 
 최종 콘텐츠 사용자가 콘텐츠에 접근하려면 토큰과 함께 콘텐츠를 요청해야 합니다. 따라서, 토큰을 생성해 최종 콘텐츠 사용자에게 발급해야 합니다.
@@ -298,19 +298,19 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ToastAuthTokenAccessControlExample {
+public class NhnCloudAuthTokenAccessControlExample {
 
-    // TOAST 콘솔에서 확인한 인증 토큰 암호화 키
-    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{TOAST CDN 서비스의 토큰 암호화 키}";
+    // NHN Cloud 콘솔에서 확인한 인증 토큰 암호화 키
+    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{NHN Cloud CDN 서비스의 토큰 암호화 키}";
     // 토큰 유효 시간(seconds)
     private static final Long TOKEN_DURATION_SECONDS = 3600L;
 
 
     public static void main(String[] args) throws AuthTokenException {
 
-        String path = "/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
-        String singleWildcardPath = "/toast/%EC%9D%B8%EC%A6%9D/*";
-        String[] multipleWildcardPath = {"/toast/%EC%9D%B8%EC%A6%9D*", "/toast/auth/*"};
+        String path = "/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
+        String singleWildcardPath = "/nhn/%EC%9D%B8%EC%A6%9D/*";
+        String[] multipleWildcardPath = {"/nhn/%EC%9D%B8%EC%A6%9D*", "/nhn/auth/*"};
 
         System.out.println(" ----------------- ");
         System.out.println(" 기본 토큰 발급 ");
@@ -339,7 +339,7 @@ public class ToastAuthTokenAccessControlExample {
         /** 토큰 암호화 알고리즘(SHA256 고정) **/
         private static final String HMAC_SHA_256 = "HmacSHA256";
 
-        /** 토큰 암호화 키 (TOAST CDN 콘솔 > Auth Token 인증 접근 관리 > 암호화 키) **/
+        /** 토큰 암호화 키 (NHN Cloud CDN 콘솔 > Auth Token 인증 접근 관리 > 암호화 키) **/
         private String key;
 
         /**  세션 식별자 */
@@ -513,17 +513,17 @@ public class ToastAuthTokenAccessControlExample {
   - **public String generateURLToken(String path)**
       - 단일 경로에 대한 토큰을 생성합니다.  
       - [예시] path: authToken.generateURLToken("/auth/contents/example.png")  
-      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
+      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
       - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.  
   - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
       - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
           - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
           - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
           - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
-          - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
+          - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
           - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
       - 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
-          - [예시] 생성된 토큰: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+          - [예시] 생성된 토큰: **exp=1600331503~acl=%2fnhn%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
 #### 3. 생성된 토큰을 콘텐츠 요청에 포함
 클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청시 콘솔에서 설정한 토큰 위치에 생성된 토큰값을 포함하여 요청하도록 합니다.

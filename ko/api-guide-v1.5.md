@@ -102,7 +102,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 			"referrerType" : "BLACKLIST",
 			"description" : "sample-cdn",
 			"maxAge": 86400,
-			"referrers" : "cloud.toast.com",
+			"referrers" : "cloud.nhn.com",
             "isAllowWhenEmptyReferrer" : true,
 			"origins" : [
 				{
@@ -173,7 +173,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
             "maxAge" :  100,
             "origins" : [
                 {
-                    "origin" :  "static.toastoven.net",
+                    "origin" :  "static.resource.com",
                     "port" :  80
                 }
             ],
@@ -263,7 +263,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
     "referrers" :  "test.com",
     "origins" : [
         {
-            "origin" :  "static.toastoven.net",
+            "origin" :  "static.resource.com",
             "port" :  80
         }
     ],
@@ -716,7 +716,7 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
       "deleteTime": "DateTime",
       "origins":[
          {
-            "origin": "static.toastoven.net",
+            "origin": "static.resource.com",
             "originPath": "/path",
             "port": "80"
          }

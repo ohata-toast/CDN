@@ -101,7 +101,7 @@ Below shows the status codes of CDN service, which are available at the query of
 			"referrerType" : "BLACKLIST",
 			"description" : "sample-cdn",
 			"maxAge": 86400,
-			"referrers" : "cloud.toast.com",
+			"referrers" : "cloud.nhn.com",
             "isAllowWhenEmptyReferrer" : true,
 			"origins" : [
 				{
@@ -171,7 +171,7 @@ Below shows the status codes of CDN service, which are available at the query of
             "maxAge" :  100,
             "origins" : [
                 {
-                    "origin" :  "static.toastoven.net",
+                    "origin" :  "cloud.nhn.com",
                     "port" :  80
                 }
             ],
@@ -262,7 +262,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
     "referrers" :  "test.com",
     "origins" : [
         {
-            "origin" :  "static.toastoven.net",
+            "origin" :  "static.resource.com",
             "port" :  80
         }
     ],
@@ -712,7 +712,7 @@ With callback enabled for CDN service, when tasks are completed, such as Create/
       "deleteTime": "DateTime",
       "origins":[
          {
-            "origin": "static.toastoven.net",
+            "origin": "static.resource.com",
             "originPath": "/path",
             "port": "80"
          }

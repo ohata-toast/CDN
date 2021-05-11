@@ -150,7 +150,7 @@ Set server providing original files to be deployd to CDN.
   Note the following constraints when downgrading HTTP protocols requesting originals:  
   
 > **[Caution] Constraints for Downgrading HTTP Protocols Requesting Originals**
-> 1. Protocol downgrade is not applied to the entire website address. For instance, **www.toast.com**, which is the entire site address of the origin server, cannot be downgraded.   
+> 1. Protocol downgrade is not applied to the entire website address. For instance, **www.nhn.com**, which is the entire site address of the origin server, cannot be downgraded.   
 > 2. No other methods than GET, HEAD, or OPTIONS, are supported. 
 > 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
@@ -196,8 +196,8 @@ The referer request header includes the webpage address of previous links of the
 > **[Example]**
 >
 > * Typ: Whitelist
-> * Regex:`^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
-> Content access is allowed only when resources are requested from lower paths of a toast.com sub-domain. 
+> * Regex:`^https://[a-zA-Z0-9._-]*\.nhn\.com/.*`
+> Content access is allowed only when resources are requested from lower paths of a nhn.com sub-domain. 
 >
 > **[Note] Regex Escape Characters**
 > Some characters are used as special characters for regex. 
@@ -247,7 +247,7 @@ On CDN console, set access management for Auth Token authentication, in referenc
     - **Set Authentication Target**: Verify tokens only for the files of configured request URL path and file extension. 
     - **Set Exception from Authentication**: Verify tokens for files excluding request URL path and file extension. 
     - **Path of Request URL**: If content URL has same path as that of request URL, set it for or against token authentication. 
-        - The path of a request URL must start with '/' and wildcard characters (Many strings: \*, Single string: ?) are available (e.g.: /toast/\*). 
+        - The path of a request URL must start with '/' and wildcard characters (Many strings: \*, Single string: ?) are available (e.g.: /nhn/\*). 
         - The request URL path does not include a query string. 
         - Only ascii code characters are available for a request URL path. 
         - To enter many, change lines; with many inputs, only a single match enables token access control.   
@@ -259,7 +259,7 @@ On CDN console, set access management for Auth Token authentication, in referenc
 
 > **[Caution] Path of Request URL and File Extension**
 > When request URL path and file extension are all set, only one match of the two conditions enables token access control.  
-> [Example] When the setting for request URL path is **/toast/\***, with **png** as file extension: Verify token for all files under /toast or content with png as file extension.  
+> [Example] When the setting for request URL path is **/nhn/\***, with **png** as file extension: Verify token for all files under /nhn or content with png as file extension.  
 
 #### 2. Create Token  
 To allow the final content user to access content, content must be requested along with a token. Therefore, a token must be created to get issued to the final content user. 
@@ -285,19 +285,19 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ToastAuthTokenAccessControlExample {
+public class NhnCloudAuthTokenAccessControlExample {
 
-    // Token encryption key for authentication verified on TOAST console 
-    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{Token encryption key of TOAST CDN}";
+    // Token encryption key for authentication verified on NHN Cloud console 
+    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{Token encryption key of NHN Cloud CDN}";
     // Valid token time (seconds)
     private static final Long TOKEN_DURATION_SECONDS = 3600L;
 
 
     public static void main(String[] args) throws AuthTokenException {
 
-        String path = "/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
-        String singleWildcardPath = "/toast/%EC%9D%B8%EC%A6%9D/*";
-        String[] multipleWildcardPath = {"/toast/%EC%9D%B8%EC%A6%9D*", "/toast/auth/*"};
+        String path = "/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
+        String singleWildcardPath = "/nhn/%EC%9D%B8%EC%A6%9D/*";
+        String[] multipleWildcardPath = {"/nhn/%EC%9D%B8%EC%A6%9D*", "/nhn/auth/*"};
 
         System.out.println(" ----------------- ");
         System.out.println(" Issue Default Token ");
@@ -326,7 +326,7 @@ public class ToastAuthTokenAccessControlExample {
         /** Token Encryption Algorithm (fixed with SHA256) **/
         private static final String HMAC_SHA_256 = "HmacSHA256";
 
-        /** Token Encryption Key (TOAST CDN Console > Access management for Auth Token authentication  > Encryption key) **/
+        /** Token Encryption Key (NHN Cloud CDN Console > Access management for Auth Token authentication  > Encryption key) **/
         private String key;
 
         /**  Session Identifier */
@@ -501,17 +501,17 @@ public class ToastAuthTokenAccessControlExample {
   - **public String generateURLToken(String path)**
       - Create token for a single path.   
       - [Example] path: authToken.generateURLToken("/auth/contents/example.png")  
-      - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
+      - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
       - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID. 
   - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
       - Create token of the path mapped with the wildcard path. If their patterns of path match, it only takes a single wildcard token to authenticate tokens of URLs of many contents.  
           - [Example1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*"): Issue token for all files under /auth/contents. 
           - [Example2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png"): Issue token for the png file on the auth/contents path. 
           - [Example3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png"): Issue token for the png file that combines example on the /auth/contents path and single characters.
-          - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%)**.
+          - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%)**.
           - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID. 
       - Created token is created in the format of **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**.
-          - [Example] Created token: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+          - [Example] Created token: **exp=1600331503~acl=%2fnhn%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
 #### 3. Include created token to the request of content 
 Client (final content consumer) must request content including the token value which is created from the location as configured on the console. 

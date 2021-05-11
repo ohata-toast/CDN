@@ -152,7 +152,7 @@ CDNサービスへ配布する原本ファイルを提供するサーバーを�
   つまり、クライアントからCDNエッジサーバー間は暗号化通信(HTTPS)で通信し、CDNエッジサーバーからオリジンサーバー間は非暗号化通信(HTTP)で通信します。
  原本リクエストHTTPプロトコルをダウングレードする時は、次のような制約があります。
 > **[注意]オリジンリクエストHTTPプロトコルのダウングレードの制約事項**
-> 1. サイトアドレス全体はプロトコルのダウングレードができません。例えばオリジンサーバーのサイトアドレス全体**www.toast.com**はダウングレードできません。
+> 1. サイトアドレス全体はプロトコルのダウングレードができません。例えばオリジンサーバーのサイトアドレス全体**www.nhn.com**はダウングレードできません。
 > 2. GET、HEADおよびOPTIONSメソッド以外のメソッドはサポートされません。 
 > 3. CDNサーバーからオリジンサーバーにダウングレードをリクエストする時、次のヘッダーは除外される場合があります。
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
@@ -199,8 +199,8 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 > [例]
 >
 > * タイプ：ホワイトリスト(Whitelist)
-> * 正規表現：`^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
-> 任意のtoast.comサブドメインの下層パスからリソースをリクエストした場合にのみ、コンテンツアクセスを許可します。
+> * 正規表現：`^https://[a-zA-Z0-9._-]*\.nhn\.com/.*`
+> 任意のnhn.comサブドメインの下層パスからリソースをリクエストした場合にのみ、コンテンツアクセスを許可します。
 >
 > **[参考]正規表現式のエスケープ文字**
 > 一部の文字は、正規表現で特殊文字として扱われます。
@@ -249,7 +249,7 @@ CDNコンソールで、次の内容を参考にしてAuth Token認証アクセ�
     - **認証対象設定**：設定されたリクエストURLパスとファイル拡張子のファイルのみ、トークンを検証します。
     - **認証例外対象設定**：設定されたリクエストURLパスとファイル拡張子以外のファイルのトークンを検証します。
     - **リクエストURLパス**：コンテンツURLがリクエストURLパスと一致しない場合、トークン認証対象または例外対象に設定します。
-        - リクエストURLパスは'/'で始まる必要があり、ワイルドカード文字(複数の文字列：*、単一の文字：?)を使用できます(例： /toast/\*)。
+        - リクエストURLパスは'/'で始まる必要があり、ワイルドカード文字(複数の文字列：*、単一の文字：?)を使用できます(例： /nhn/\*)。
         - リクエストURLパスはクエリー文字列は含みません。
         - リクエストURLパスはアスキー(ascii)コード文字のみ入力可能です。
         - 複数入力するには次の行に入力してください。複数入力した場合、1つだけ一致してもトークンアクセス制御が動作します。 
@@ -261,7 +261,7 @@ CDNコンソールで、次の内容を参考にしてAuth Token認証アクセ�
 
 > **[注意]リクエストURLパスとファイル拡張子**
 > リクエストURLパスとファイル拡張子の両方を設定した場合、2つの条件のうち1つだけ一致してもトークンアクセス制御が動作します。
-> [例]リクエストURLパス  **/toast/\***,、ファイル拡張子**png****が設定された場合： /toast下位のすべてのファイルまたはファイル拡張子がpngのコンテンツに対してトークンを検証します。
+> [例]リクエストURLパス  **/nhn/\***,、ファイル拡張子**png****が設定された場合： /nhn下位のすべてのファイルまたはファイル拡張子がpngのコンテンツに対してトークンを検証します。
 
 
 #### 2. トークン作成
@@ -288,19 +288,19 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ToastAuthTokenAccessControlExample {
+public class NhnCloudAuthTokenAccessControlExample {
 
-    // TOASTコンソールで確認した認証トークン暗号化キー
-    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{TOAST CDNサービスのトークン暗号化キー}";
+    // NHN Cloudコンソールで確認した認証トークン暗号化キー
+    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{NHN Cloud CDNサービスのトークン暗号化キー}";
     // トークン有効時間(seconds)
     private static final Long TOKEN_DURATION_SECONDS = 3600L;
 
 
     public static void main(String[] args) throws AuthTokenException {
 
-        String path = "/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
-        String singleWildcardPath = "/toast/%EC%9D%B8%EC%A6%9D/*";
-        String[] multipleWildcardPath = {"/toast/%EC%9D%B8%EC%A6%9D*", "/toast/auth/*"};
+        String path = "/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
+        String singleWildcardPath = "/nhn/%EC%9D%B8%EC%A6%9D/*";
+        String[] multipleWildcardPath = {"/nhn/%EC%9D%B8%EC%A6%9D*", "/nhn/auth/*"};
 
         System.out.println(" ----------------- ");
         System.out.println("基本トークン発行");
@@ -329,7 +329,7 @@ public class ToastAuthTokenAccessControlExample {
         /** トークン暗号化アルゴリズム(SHA256固定) **/
         private static final String HMAC_SHA_256 = "HmacSHA256";
 
-        /**トークン暗号化キー(TOAST CDNコンソール > Auth Token認証アクセス管理 > 暗号化キー) **/
+        /**トークン暗号化キー(NHN Cloud CDNコンソール > Auth Token認証アクセス管理 > 暗号化キー) **/
         private String key;
 
         /** セッション識別子 */
@@ -504,7 +504,7 @@ public class ToastAuthTokenAccessControlExample {
     - **public String generateURLToken(String path)**
         - 単一パスに対するトークンを作成します。
         - [例] path: authToken.generateURLToken("/auth/contents/example.png")
-        - [注意]パスまたはセッションIDはURLエンコード文字列に変更した後、トークンを作成してください(例：**/toast/認証/ファイル.png** → **/toast/%E8%AA%8D%E8%A8%BC/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.png**)。
+        - [注意]パスまたはセッションIDはURLエンコード文字列に変更した後、トークンを作成してください(例：**/nhn/認証/ファイル.png** → **/nhn/%E8%AA%8D%E8%A8%BC/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.png**)。
         - [注意] **!**, **~**文字は予約された文字のため、パスまたはセッションIDに含めないでください。
 
     - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
@@ -512,10 +512,10 @@ public class ToastAuthTokenAccessControlExample {
             - [例1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents下位のすべてのファイルに対してトークンを発行します。
             - [例2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contentsパスのpngファイルに対するトークンを発行します。
             - [例3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contentsパスのexampleと単一文字が結合したpngファイルに対するトークンを発行します。
-            - [注意]パスまたはセッションIDはURLエンコード文字列に変更した後にトークンを作成してください(例：**/toast/認証/ファイル.png** → **/toast/%E8%AA%8D%E8%A8%BC/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.png**)。
+            - [注意]パスまたはセッションIDはURLエンコード文字列に変更した後にトークンを作成してください(例：**/nhn/認証/ファイル.png** → **/nhn/%E8%AA%8D%E8%A8%BC/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.png**)。
             - [注意] **!**, **~**文字は予約された文字のため、パスまたはセッションIDに含めないでください。
         - 作成されたトークンは**exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**形式で作成されます。
-            - [例]作成されたトークン: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+            - [例]作成されたトークン: **exp=1600331503~acl=%2fnhn%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
 #### 3. 作成されたトークンをコンテンツリクエストに含める
 クライアント(最終コンテンツ消費者)がコンテンツリクエスト時、コンソールで設定したトークン位置に作成されたトークン値を含めてリクエストするようにします。
