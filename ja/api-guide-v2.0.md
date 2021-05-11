@@ -102,7 +102,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
       "useOriginCacheControl" : false,      
       "defaultMaxAge": 86400,
       "referrerType" : "BLACKLIST",      
-      "referrers" : ["cloud.toast.com"],
+      "referrers" : ["cloud.nhn.com"],
       "isAllowWhenEmptyReferrer" : true, 
       "origins" : [
         {
@@ -171,7 +171,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
             "defaultMaxAge": 0,
             "referrerType": "BLACKLIST",
             "referrers": [
-                "cloud.toast.com"
+                "cloud.nhn.com"
             ],
             "isAllowWhenEmptyReferrer": true,
             "useOriginCacheControl": true,
@@ -277,7 +277,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
     "useOriginCacheControl" :  false,
     "origins" : [
         {
-            "origin" :  "static.toastoven.net",
+            "origin" :  "static.resource.com",
             "httpPort" :  80,
             "httpsPort" : 443
         }
@@ -614,7 +614,7 @@ CDNサービスにコールバック機能が設定されている場合、作�
       "deleteTime": 1498613094692,
       "origins" : [
           {
-              "origin" :  "static.toastoven.net",
+              "origin" :  "static.resource.com",
               "httpPort" :  80,
               "httpsPort" : 443
           }

@@ -38,7 +38,7 @@
 * 캐시 재배포(purge)
 	* 고속 캐시 재배포 지원 : 캐시 재배포를 요청한 후 몇 초 이내 캐시 재배포가 완료됩니다. 고속 캐시 재배포를 이용해 변경된 콘텐츠를 바로 반영해 콘텐츠의 신뢰성을 높일 수 있습니다.
 	* 특정 파일 타입의 캐시 재배포 요청 방식 변경: 캐시 재배포를 할 파일의 전체 URL 주소를 입력하도록 변경되었습니다.
-		* 예) 기존: /images/toast.png -> 변경: http://[서비스ID].toastcdn.net/images/toast.png
+		* 예) 기존: /images/img.png -> 변경: http://[서비스ID].toastcdn.net/images/img.png
 	* 와일드카드 타입 캐시 재배포 기능 종료
 	* 사용량 제한 정책 변경
 		* 상세한 내용은 [사용자 콘솔 가이드 > CDN 캐시 재배포](./console-guide/#cdn-purge)를 참고합니다.
