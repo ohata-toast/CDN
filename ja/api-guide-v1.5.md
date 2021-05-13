@@ -111,12 +111,6 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 					"originPath" : "/resources"
 				}
 			],
-            "rootPathAccessControl" : {
-                "enable": true,
-                "controlType": "REDIRECT",
-                "redirectPath": "/default.png",
-                "redirectStatusCode": 302
-            },            
             "callback": {
                 "httpMethod": "GET",
                 "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -147,11 +141,6 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 | distributions[0].origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
 | distributions[0].origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | distributions[0].origins[0].originPath | String  | 任意     |        | 最大8192文字             | 原本サーバーの下層パス(/を含むパスで入力してください。)        |
-| distributions[0].rootPathAccessControl  | Object  | 선택      |        |                             | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| distributions[0].rootPathAccessControl.enable | Boolean | 필수      | true      | true/false             | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| distributions[0].rootPathAccessControl.controlType  | String  | 선택      |        | DENY, REDIRECT    | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distributions[0].rootPathAccessControl.redirectPath | String | 선택      |       |       |   controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
-| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | 선택      |       | 301, 302, 303, 307             |  controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드          |
 | distributions[0].callback              | Object  | 任意     |        |                             | CDN作成処理結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |
 | distributions[0].callback.httpMethod   | String  | 必須     |        | GET/POST/PUT                | コールバックのHTTP Method                                           |
 | distributions[0].callback.url          | String  | 必須     |        | 最大1024文字             | コールバックURL                                                     |
@@ -187,12 +176,6 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
                     "port" :  80
                 }
             ],
-            "rootPathAccessControl" : {
-                "enable": true,
-                "controlType": "REDIRECT",
-                "redirectPath": "/default.png",
-                "redirectStatusCode": 302
-            },
             "callback": {
                 "httpMethod": "GET",
                 "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -226,11 +209,6 @@ APIを使用するには、アプリキー(Appkey)とセキュリティーキー
 | distributions[0].origins[0].origin     | String  | 原本サーバー(domainまたはIP)                                      |
 | distributions[0].origins[0].originPath | String  | 原本サーバーの下層パス                                     |
 | distributions[0].origins[0].port       | Integer | 原本サーバーポート                                          |
-| distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
-| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드         |
 | distributions[0].callback              | Object  | サービス作成処理結果の通知を受けるコールバック                   |
 | distributions[0].callback.httpMethod   | String  | コールバックのHTTP Method                                           |
 | distributions[0].callback.url          | String  | コールバックURL                                                     |
@@ -289,12 +267,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
             "port" :  80
         }
     ],
-    "rootPathAccessControl" : {
-        "enable": true,
-        "controlType": "REDIRECT",
-        "redirectPath": "/default.png",
-        "redirectStatusCode": 302
-    }, 
     "callback": {
         "httpMethod": "GET",
         "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -326,11 +298,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | distributions[0].origins[0].origin     | String  | 原本サーバー(domainまたはIP)                                      |
 | distributions[0].origins[0].originPath | String  | 原本サーバーの下層パス                                     |
 | distributions[0].origins[0].port       | Integer | 原本サーバーポート                                          |
-| distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
-| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드          |
 | distributions[0].callback              | Object  | サービス配布処理結果の通知を受けるコールバック                   |
 | distributions[0].callback.httpMethod   | String  | コールバックのHTTP Method                                           |
 | distributions[0].callback.url          | String  | コールバックURL                                                     |
@@ -367,12 +334,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
                 "originPath" : "/latest/resources"
             }
         ],
-        "rootPathAccessControl" : {
-            "enable": true,
-            "controlType": "REDIRECT",
-            "redirectPath": "/default.png",
-            "redirectStatusCode": 302
-        },
         "callback": {
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -402,11 +363,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
 | origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | origins[0].originPath | String  | 任意     |        | 最大8192文字                                              | 原本サーバーの下層パス                                     |
-| rootPathAccessControl  | Object  | 선택 |  |  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| rootPathAccessControl.enable | Boolean | 필수 | false | true/false | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| rootPathAccessControl.controlType  | String  | 선택 |  | DENY, REDIRECT | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| rootPathAccessControl.redirectPath | String | 선택 |  | | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
-| rootPathAccessControl.redirectStatusCode | Integer | 선택 | | 301, 302, 303, 307 |controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드         |
 | callback              | Object  | 任意     |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
 | callback.httpMethod   | String  | 必須     |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
 | callback.url          | String  | 必須     |        | 最大1024文字                                              | コールバックURL                                                     |
@@ -469,12 +425,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
                 "originPath" : "/latest/resources"
             }
         ],
-        "rootPathAccessControl" : {
-            "enable": true,
-            "controlType": "REDIRECT",
-            "redirectPath": "/default.png",
-            "redirectStatusCode": 302
-        },
         "callback": {
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -504,11 +454,6 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
 | origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | origins[0].originPath | String  | 任意     |        | 最大8192文字                                              | 原本サーバー下層パス                                     |
-| rootPathAccessControl  | Object  | 선택 |  |  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| rootPathAccessControl.enable | Boolean | 필수 | false | true/false | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| rootPathAccessControl.controlType  | String  | 선택 |  | DENY, REDIRECT | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| rootPathAccessControl.redirectPath | String | 선택 |  | | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
-| rootPathAccessControl.redirectStatusCode | Integer | 선택 | | 301, 302, 303, 307 |controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드          |
 | callback              | Object  | 任意     |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
 | callback.httpMethod   | String  | 任意     |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
 | callback.url          | String  | 任意     |        | 最大1024文字                                              | コールバックURL                                                     |
@@ -776,12 +721,6 @@ CDNサービスにコールバック機能が設定されている場合、作�
             "port": "80"
          }
       ],
-      "rootPathAccessControl" : {
-          "enable": true,
-          "controlType": "REDIRECT",
-          "redirectPath": "/default.png",
-          "redirectStatusCode": 302
-      },
       "callback":{
          "httpMethod": "GET",
          "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -815,11 +754,6 @@ CDNサービスにコールバック機能が設定されている場合、作�
 | distribution.origins[0].origin     | String  | オリジンサーバー(domainまたはIP)                                      |
 | distribution.origins[0].originPath | String  | オリジンサーバー下層パス                                      |
 | distribution.origins[0].port       | Integer | オリジンサーバーポート                                           |
-| distribution.rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| distribution.rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| distribution.rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distribution.rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
-| distribution.rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드          |
 | distribution.callback              | Object  | サービス配布処理結果を受け取るコールバック                    |
 | distribution.callback.httpMethod   | String  | コールバックのHTTP Method                                           |
 | distribution.callback.url          | String  | コールバックURL                                                     |
