@@ -10,7 +10,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 
 ### 기본 정보 
 기본 정보를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_20210525.png)
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202105.png)
 
 - **서비스 지역**
   GLOBAL 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
@@ -46,7 +46,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 
 ### 원본 서버
 CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_20210525.png)
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202105.png)
 
 - **원본 서버**
   원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
@@ -174,7 +174,7 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 ### 캐시
 
 CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_20210525.png)
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202105.png)
 
 - **캐시 만료 설정**
   원본 서버의 Cache Control 응답 헤더를 통해 캐시를 설정할 수 있습니다. 
@@ -187,7 +187,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 
 ### 리퍼러(referer) 헤더 접근 관리
 리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_20210525.png)
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202105.png)
 
 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
@@ -239,7 +239,7 @@ Auth Token 인증 접근을 CDN 서비스에 적용하려면 다음의 단계에
 
 CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관리를 설정합니다.
 
-![CDN서비스생성-Auth Token 인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token_20210525.png)
+![CDN서비스생성-Auth Token 인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token_202105.png)
 
 - **토큰 인증 사용 여부**
     - **사용**: Auth Token 인증 접근 관리 기능을 활성화하여 토큰 검증한 후 콘텐츠에 접근할 수 있도록 합니다.
@@ -548,13 +548,13 @@ public class NhnCloudAuthTokenAccessControlExample {
 
 ### CDN 서비스 설정 변경
 서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경할 수 있습니다.
-![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_20210525.png)
+![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202105.png)
 
 1. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
 2. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
 
 다음과 같이 변경할 수 있는 항목이 활성화됩니다.
-![CDN서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2_20210525.png)
+![CDN서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2_202105.png)
 
 * 변경할 설정 내용을 수정합니다. 
 * **확인** 버튼을 클릭해 변경을 완료합니다.
@@ -572,9 +572,9 @@ CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
 
 1. 일시 정지할 CDN 서비스의 선택합니다.
 2. **일시 정지** 버튼을 클릭합니다.
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2_20210525.png)
+![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2_202105.png)
 3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다.
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2_20210525.png)
+![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2_202105.png)
 4. 일시 정지 상태의 CDN 서비스를 재시작하려면 재시작할 CDN 서비스를 선택합니다.
 5. **재시작** 버튼을 클릭합니다.
 
@@ -596,7 +596,7 @@ CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 �
 
 1. 삭제할 CDN 서비스를 선택합니다.
 2. **삭제** 버튼을 클릭합니다.
-![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2_20210525.png)
+![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2_202105.png)
 3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다.
 
 
@@ -616,7 +616,7 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 
 1. 변경하려는 서비스를 CDN 서비스 목록에서 선택합니다.
 2. **캐시 재배포** 탭을 클릭합니다.
-![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_20210525.png)
+![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_202105.png)
 
 3. 캐시 재배포 타입을 선택합니다.
   - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다.
@@ -649,7 +649,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
 ### 신규 인증서 발급 
 **인증서 관리** 탭에서 인증서를 발급할 수 있습니다.
-![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create_20210525.png)
+![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create_202105.png)
 
 1. **인증서 관리** 탭의 **신규 인증서 발급** 버튼을 클릭합니다.
 2. 발급할 인증서의 도메인을 전체 도메인 주소(FQDN, fully qualified domain name)형식으로 입력합니다.
@@ -667,13 +667,13 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 신규 인증서 발급을 요청한 후 인증서 상태가 '도메인 검증'이 되면 도메인을 검증하시기 바랍니다.
 도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation_20210525.png)
+![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation_202105.png)
 
 도메인 검증은 발급 요청한 인증서 도메인의 실제 소유자인지 확인하는 단계 입니다. 도메인 검증을 진행하지 않으면 인증서를 발급할 수 없습니다.
 도메인 소유자인지 확인하기 위해 도메인 검증 방식으로 도메인의 제어 권한을 확인합니다. 
 도메인 검증 방식에는 **DNS TXT 레코드 추가** 또는 **HTTP 페이지 추가** 방식이 있으며 **두 가지 방식 중 하나만 진행**하면 됩니다.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2_20210525.png)
+![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2_202105.png)
 
 #### DNS TXT 레코드 추가 방식 
 도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다. 
@@ -689,7 +689,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
     `nslookup -type=TXT _acme-challenge.[발급 요청한 인증서 도메인].`
 
 다음 화면은 NHN Cloud DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns_20210525.png)
+![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns_202105.png)
 
 
 #### HTTP 페이지 추가 방식 
@@ -722,11 +722,11 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
     - 레코드 이름:  **[인증서 도메인].** (예시: test.alias.com.com.)
     - 레코드값:  **[연동할 CDN 서비스 도메인]** (예: xxxxxxxx.toastcdn.net)
 다음 화면은 NHN Cloud DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
-![CDN서비스연동-CNAME위임](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname_20210525.png)
+![CDN서비스연동-CNAME위임](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname_202105.png)
 
 2. **도메인 별칭 설정**: 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
     -  **CDN 서비스** 탭에서 연동할 CDN 서비스를 선택하고  **수정** 버튼을 클릭합니다. 도메인 별칭에 인증서 도메인을 추가한 후  **확인** 버튼을 클릭합니다.
-![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2_20210525.png)
+![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2_202105.png)
 
 
 >  **[주의] 인증서 만료 주의 사항**
@@ -742,7 +742,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 > 4. 인증서가 연동된 CDN 서비스를 삭제하면 인증서를 갱신할 수 없습니다. 삭제하기 전에 운영 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
 
 CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
-![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active_20210525.png)
+![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active_202105.png)
 
 ## 통계
 
@@ -750,7 +750,7 @@ CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 �
 7일 이내 통계 데이터는 정확하지 않으므로 참고용으로만 이용하시기 바랍니다. 정확한 통계 데이터는 7일 이후에 확인하시기 바랍니다. 
 
 1. **Contents Delivery > CDN**의 **통계** 탭을 클릭합니다.
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_20210525.png)
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_202105.png)
 2. 통계를 확인하려면 CDN 서비스를 선택합니다.
 3. 검색 기간을 입력합니다.
 4. 검색 기간 내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.
