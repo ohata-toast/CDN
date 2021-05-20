@@ -10,7 +10,7 @@ It takes up to 2 hours to complete deployment after service is requested for cre
 
 ### Basic Information
 Set basic information.
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2.png)
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202105.png)
 
 - **Service Region**
   GLOBAL service is provided via CDN edge servers located around the globe. 
@@ -45,7 +45,7 @@ Set basic information.
 
 ### Origin Server
 Set server providing original files to be deployd to CDN.
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2.png)
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202105.png)
 
 - **Origin Server**
   The origin server provides original files to be deployd for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
@@ -164,7 +164,7 @@ Set server providing original files to be deployd to CDN.
 ### Cache
 
 CDN cache operations and expiration time can be set.  
-![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2.png)
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202105.png)
 
 - **Setting Cache Expiration**
   Cache can be configured from the response header of cache control at the origin server. 
