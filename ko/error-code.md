@@ -24,16 +24,16 @@
 | 10017 | Invalid Purge Type. Please enter purge type 'ITEM' or 'ALL' | 재배포(purge) 타입이 올바르지 않습니다. 타입은 'ITEM' 또는 'ALL'로 입력해 주세요. |
 | 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | 원본 서버의 포트가 올바르지 않습니다. 0~65,536 사이의 숫자로 입력해주세요. |
 | 10019 | Up to three domain aliases can be registered. | 최대 3개의 도메인 별칭까지 등록이 가능합니다. |
-| 10020 | The requested domain alias has duplicated values. | 이미 등록되어있는 도메인 별칭으로, 신규로 등록이 불가합니다. |
-| 10021 | Already deleted distribution. | 이미 삭제된 CDN 서비스 입니다. |
+| 10020 | The requested domain alias has duplicated values. | 이미 등록된 도메인 별칭으로, 신규로 등록이 불가합니다. |
+| 10021 | Already deleted distribution. | 이미 삭제된 CDN 서비스입니다. |
 | 10023 | The port field cannot be set with either httpPort or httpsPort. | port와 httpPort, httpsPort는 동시에 입력할 수 없습니다. port를 입력하거나 혹은 httpPort와 httpsPort를 입력해주세요.  |
 | 10024 | The origin server port is not set. | origin server port는 필수 입력값입니다. port 혹은 httpPort 혹은 httpsPort 항목에 원본 서버 포트를 입력해주세요. |
 | 10025 | Invalid origin port. The httpPort equals httpsPort. | httpPort와 httpsPort 입력값을 다르게 입력해주세요. |
 | 10027 | The description's maximum length is limited to 255 characters. | CDN 서비스의 설명은 최대 255자까지 입력 가능합니다. |
-| 10028 | The Root Path Control 'controlType' is not set. Please enter type 'DENY' or 'REDIRECT' | controlType은 필수 입력값 입니다. 'DENY' 또는 'REDIRECT'를 입력해주세요. |
-| 10029 | The Root Path Control 'redirectPath' is not set. | controlType이 'REDIRECT'일 경우, redirectPath는 필수 입력값 입니다. |
+| 10028 | The Root Path Control 'controlType' is not set. Please enter type 'DENY' or 'REDIRECT' | controlType은 필수 입력값입니다. 'DENY' 또는 'REDIRECT'를 입력해주세요. |
+| 10029 | The Root Path Control 'redirectPath' is not set. | controlType이 'REDIRECT'일 경우, redirectPath는 필수 입력값입니다. |
 | 10030 | 'redirectPath' must starts with a slash('/). | redirectPath는 '/'부터 입력해주세요. |
-| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | controlType이 'REDIRECT'일 경우, redirectStatusCode는 필수 입력값 입니다. 301, 302, 303, 307 중에 입력해주세요. |
+| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | controlType이 'REDIRECT'일 경우, redirectStatusCode는 필수 입력값입니다. 301, 302, 303, 307 중에 입력해주세요. |
 | 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | redirectStatusCode 입력값이 올바르지 않습니다. 301, 302, 303, 307 중에 입력해주세요.  |
 | 20001 | Failed to authenticate with AppKey. | AppKey가 유효하지 않습니다. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey가 유효하지 않습니다. |
