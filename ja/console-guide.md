@@ -165,7 +165,7 @@ CDNサービスへ配布する原本ファイルを提供するサーバーを�
 
 ### 루트 경로 접근 관리
 CDN 서비스의 루트 경로에 대한 접근 제어를 설정할 수 있습니다.
-![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path.png)
+![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_ja_202105.png)
 
 - **루트 경로 접근 설정**
   - **사용**: 루트 경로 접근 관리 기능을 활성화하여 루트 경로에 대한 요청을 차단하거나, 다른 페이지로 리다이렉트하도록 설정합니다.
