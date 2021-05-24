@@ -1,4 +1,4 @@
-﻿
+
 ## Content Delivery > CDN > エラーコード
 
 | errorCode | errorMessage | 説明 |
@@ -24,18 +24,18 @@
 | 10016 | Please enter origin. | 原本サーバー設定がないか、正しくありません。 |
 | 10017 | Invalid Purge Type. Please enter purge type 'ITEM' or 'ALL' | 再配布(Purge)タイプが正しくありません。タイプは'ITEM'または'ALL'を入力してください。 |
 | 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | 原本サーバーのポートが正しくありません。0～65,536の数字を入力してください。 |
-| 10019 | Up to three domain aliases can be registered. | 최대 3개의 도메인 별칭까지 등록이 가능합니다. |
-| 10020 | The requested domain alias has duplicated values. | 이미 등록되어있는 도메인 별칭으로, 신규로 등록이 불가합니다. |
-| 10021 | Already deleted distribution. | 이미 삭제된 CDN 서비스 입니다. |
-| 10023 | The port field cannot be set with either httpPort or httpsPort. | port와 httpPort, httpsPort는 동시에 입력할 수 없습니다. port를 입력하거나 혹은 httpPort와 httpsPort를 입력해주세요.  |
-| 10024 | The origin server port is not set. | origin server port는 필수 입력값입니다. port 혹은 httpPort 혹은 httpsPort 항목에 원본 서버 포트를 입력해주세요. |
-| 10025 | Invalid origin port. The httpPort equals httpsPort. | httpPort와 httpsPort 입력값을 다르게 입력해주세요. |
-| 10027 | The description's maximum length is limited to 255 characters. | CDN 서비스의 설명은 최대 255자까지 입력 가능합니다. |
-| 10028 | The Root Path Control 'controlType' is not set. Please enter type 'DENY' or 'REDIRECT' | controlType은 필수 입력값 입니다. 'DENY' 또는 'REDIRECT'를 입력해주세요. |
-| 10029 | The Root Path Control 'redirectPath' is not set. | controlType이 'REDIRECT'일 경우, redirectPath는 필수 입력값 입니다. |
-| 10030 | 'redirectPath' must starts with a slash('/). | redirectPath는 '/'부터 입력해주세요. |
-| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | controlType이 'REDIRECT'일 경우, redirectStatusCode는 필수 입력값 입니다. 301, 302, 303, 307 중에 입력해주세요. |
-| 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | redirectStatusCode 입력값이 올바르지 않습니다. 301, 302, 303, 307 중에 입력해주세요.  |
+| 10019 | Up to three domain aliases can be registered. | 最大3個のドメインエイリアスまで登録できます。 |
+| 10020 | The requested domain alias has duplicated values. | すでに登録されているドメインエイリアスのため登録できません。 |
+| 10021 | Already deleted distribution. | 削除されているCDNサービスです。 |
+| 10023 | The port field cannot be set with either httpPort or httpsPort. | portとhttpPort、httpsPortは同時に入力できません。portを入力sるか、httpPortとhttpsPortを入力してください。  |
+| 10024 | The origin server port is not set. | origin server portは必須入力値です。PortまたはhttpPort、httpsPort項目にオリジンサーバーポートを入力してください。 |
+| 10025 | Invalid origin port. The httpPort equals httpsPort. | httpPortとhttpsPortは別の値を入力してください。 |
+| 10027 | The description's maximum length is limited to 255 characters. | CDNサービスの説明は最大255文字まで入力できます。 |
+| 10028 | The Root Path Control 'controlType' is not set. Please enter type 'DENY' or 'REDIRECT' | controlTypeは必須入力値です。 'DENY'または'REDIRECT'を入力してください。 |
+| 10029 | The Root Path Control 'redirectPath' is not set. | controlTypeが'REDIRECT'の場合、redirectPathは必須入力値です。 |
+| 10030 | 'redirectPath' must starts with a slash('/). | redirectPathは'/'から入力してください。 |
+| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | controlTypeが'REDIRECT'の場合、redirectStatusCodeは必須入力値です。301、302、303、307のいずれかを入力してください。 |
+| 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | redirectStatusCodeの入力値が正しくありません。301、302、303、307のいずれかを入力してください。  |
 | 20001 | Failed to authenticate with AppKey. | AppKeyが有効ではありません。 |
 | 20002 | Failed to authenticate with the secret key. | SecretKeyが有効ではありません。 |
 | 30000 | Failed to process request. Please try again later. | 要求された処理に失敗しました。 |
