@@ -1,5 +1,10 @@
 ## Content Delivery > CDN > Release Notes
 
+### 2021. 05. 25.
+
+#### Feature Updates
+* The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#_3).
+
 ### October 6, 2020
 
 #### Feature Updates 
@@ -38,7 +43,7 @@
 * Cache Purging 
 	* High-speed Cache Purging: Cache is completely purged within seconds after it is requested. With high-speed cache purging, changed content can be applied to raise its credibility.  
 	* Changed Request Method for Cache Purging of Specific File Type: It has been updated to enter the entire URL address of a file to purge a cache. 
-		* e.g.) Previously: /images/toast.png -> Now: http://[ServiceID].toastcdn.net/images/toast.png
+		* e.g.) Previously: /images/img.png -> Now: http://[ServiceID].toastcdn.net/images/img.png
 	* Closed the wildcard-type cache purging service 
 	* Changed usage restriction policy 
 		* For more details, see [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).

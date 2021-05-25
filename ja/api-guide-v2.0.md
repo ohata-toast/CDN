@@ -102,7 +102,8 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
       "useOriginCacheControl" : false,      
       "defaultMaxAge": 86400,
       "referrerType" : "BLACKLIST",      
-      "referrers" : ["cloud.toast.com"],
+      "referrers" : ["cloud.nhn.com"],
+      "isAllowWhenEmptyReferrer" : true, 
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -111,6 +112,12 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
           "httpsPort": 443
         }
       ],
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },      
       "callback": {
           "httpMethod": "GET",
           "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -139,6 +146,11 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].origins[0].originPath | String  | 任意   |        | 最大8192文字           | オリジンサーバーの下層パス(/を含むパスで入力してください。)        |
 | distributions[0].origins[0].httpPort   | Integer  | 任意     |        | [コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
 | distributions[0].origins[0].httpsPort  | Integer  | 任意     |        | [コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| distributions[0].rootPathAccessControl  | Object  | 任意     |        |                             | CDNサービスのルートパスに対するアクセス制御設定 | 
+| distributions[0].rootPathAccessControl.enable | Boolean | 必須     | true      | true/false             | ルートパスのアクセス制御使用(true)/未使用(false)          |
+| distributions[0].rootPathAccessControl.controlType  | String  | 任意     |        | DENY, REDIRECT    | enableがtrueの場合は必須入力。ルートパスへのアクセス制御方式("DENY"：アクセス拒否、"REDIRECT"：指定したパスへリダイレクトリダイレクト) | 
+| distributions[0].rootPathAccessControl.redirectPath | String | 任意     |       |       |   controlTypeが"REDIRECT"の場合は必須入力。ルートパスへのリクエストをリダイレクトするパス(/を含めたパスで入力してください。)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | 任意     |       | 301, 302, 303, 307             |  controlTypeが"REDIRECT"の場合は必須入力。 リダイレクトする時に伝達されるHTTPレスポンスコード         |
 | distributions[0].callback              | Object  | 任意   |        |                             | CDN作成処理結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |
 | distributions[0].callback.httpMethod   | String  | 必須   |        | GET/POST/PUT                | コールバックのHTTPメソッド                                           |
 | distributions[0].callback.url          | String  | 必須  |        | 最大1024文字             | コールバックURL                                                     |
@@ -170,7 +182,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
             "defaultMaxAge": 0,
             "referrerType": "BLACKLIST",
             "referrers": [
-                "cloud.toast.com"
+                "cloud.nhn.com"
             ],
             "useOriginCacheControl": true,
             "origins": [
@@ -183,6 +195,12 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
             ],
             "forwardHostHeader": "ORIGIN_HOSTNAME",
             "useOriginHttpProtocolDowngrade": false,
+            "rootPathAccessControl" : {
+                "enable": true,
+                "controlType": "REDIRECT",
+                "redirectPath": "/default.png",
+                "redirectStatusCode": 302
+            },            
             "callback": {
                 "httpMethod": "GET",
                 "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -218,6 +236,11 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].origins[0].httpsPort  | Integer | オリジンサーバーHTTPSプロトコルポート                                           |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
 | distributions[0].forwardHostHeader     | String  | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時、伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
+| distributions[0].rootPathAccessControl  | Object  | CDNサービスのルートパスに対するアクセス制御設定 | 
+| distributions[0].rootPathAccessControl.enable | Boolean | ルートパスに対するアクセス制御使用(true)/未使用(false)          |
+| distributions[0].rootPathAccessControl.controlType  | String  | enableがtrueの場合は必須入力。ルートパスに対するアクセス制御方式("DENY"：アクセス拒否、"REDIRECT"：指定したパスにリダイレクト) | 
+| distributions[0].rootPathAccessControl.redirectPath | String | controlTypeが"REDIRECT"の場合は必須入力。ルートパスに対するリクエストをリダイレクトするパス(/を含めたパスで 入力してください。)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlTypeが"REDIRECT"の場合は必須入力。 リダイレクトする時に伝達されるHTTPレスポンスコード         |
 | distributions[0].callback              | Object  | サービス作成処理結果の通知を受けるコールバック                 |
 | distributions[0].callback.httpMethod   | String  | コールバックのHTTPメソッド                                           |
 | distributions[0].callback.url          | String  | コールバックURL                                                     |
@@ -273,13 +296,20 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
     "useOriginCacheControl" :  false,
     "origins" : [
         {
-            "origin" :  "static.toastoven.net",
+            "origin" :  "static.resource.com",
             "httpPort" :  80,
             "httpsPort" : 443
         }
     ],
     "forwardHostHeader": "ORIGIN_HOSTNAME",
-    "useOriginHttpProtocolDowngrade": false,    
+    "useOriginHttpProtocolDowngrade": false,
+    "useOriginHttpProtocolDowngrade": false,   
+    "rootPathAccessControl" : {
+        "enable": true,
+        "controlType": "REDIRECT",
+        "redirectPath": "/default.png",
+        "redirectStatusCode": 302
+    },     
     "callback": {
         "httpMethod": "GET",
         "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -313,6 +343,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | distributions[0].forwardHostHeader     | String  | サービス配布処理結果を受け取るコールバック                    |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
 | distributions[0].forwardHostHeader     | String  | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時、伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
+| distributions[0].rootPathAccessControl  | Object  | CDNサービスのルートパスに対するアクセス制御設定 | 
+| distributions[0].rootPathAccessControl.enable | Boolean | ルートパスに対するアクセス制御使用(true)/未使用(false)          |
+| distributions[0].rootPathAccessControl.controlType  | String  | enableがtrueの場合は必須入力。ルートパスに対するアクセス制御方式("DENY"：アクセス拒否、"REDIRECT"：指定したパスにリダイレクト) | 
+| distributions[0].rootPathAccessControl.redirectPath | String | controlTypeが"REDIRECT"の場合は必須入力。ルートパスに対するリクエストをリダイレクトするパス(/を含めたパスで 入力してください。)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlTypeが"REDIRECT"の場合は必須入力。 リダイレクトする時に伝達されるHTTPレスポンスコード         |
 | distributions[0].callback              | Object  | サービス配布処理結果の通知を受けるコールバック                 |
 | distributions[0].callback.httpMethod   | String  | コールバックのHTTPメソッド                                           |
 | distributions[0].callback.url          | String  | コールバックURL                                                     |
@@ -351,6 +386,12 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
       ],
       "useOriginHttpProtocolDowngrade": false,
       "forwardHostHeader": "ORIGIN_HOSTNAME",
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },      
       "callback": {
           "httpMethod": "GET",
           "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -381,6 +422,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | origins[0].httpsPort  | Integer  | 任意     |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | useOriginHttpProtocolDowngrade | Boolean  | 必須 | true/false       |          | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
 | forwardHostHeader     | String  | 必須  |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時、伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
+| rootPathAccessControl  | Object  | 任意 |  |  | CDNサービスのルートパスに対するアクセス制御設定 | 
+| rootPathAccessControl.enable | Boolean | 必須 | false | true/false | ルートパスに対するアクセス制御使用(true)/未使用(false)          |
+| rootPathAccessControl.controlType  | String  | 任意 |  | DENY, REDIRECT | enableがtrueの場合は必須入力。ルートパスに対するアクセス制御方式("DENY"：アクセス拒否、"REDIRECT"：指定したパスにリダイレクト) | 
+| rootPathAccessControl.redirectPath | String | 任意 |  | | controlTypeが"REDIRECT"の場合は必須入力。ルートパスに対するリクエストをリダイレクトするパス(/を含めたパスで 入力してください。)        |
+| rootPathAccessControl.redirectStatusCode | Integer | 任意 | | 301, 302, 303, 307 |controlTypeが"REDIRECT"の場合は必須入力。 リダイレクトする時に伝達されるHTTPレスポンスコード         |
 | callback              | Object  | 任意   |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
 | callback.httpMethod   | String  | 必須   |        | GET/POST/PUT                                                 | コールバックのHTTPメソッド                                           |
 | callback.url          | String  | 必須  |        | 最大1024文字                                              | コールバックURL                                                     |
@@ -607,13 +653,19 @@ CDNサービスにコールバック機能が設定されている場合、作�
       "deleteTime": 1498613094692,
       "origins" : [
           {
-              "origin" :  "static.toastoven.net",
+              "origin" :  "static.resource.com",
               "httpPort" :  80,
               "httpsPort" : 443
           }
       ],
       "forwardHostHeader": "ORIGIN_HOSTNAME",
       "useOriginHttpProtocolDowngrade": false,    
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },      
       "callback": {
           "httpMethod": "GET",
           "url": "http"
@@ -650,6 +702,11 @@ CDNサービスにコールバック機能が設定されている場合、作�
 | distribution.forwardHostHeader     | String  | サービス配布処理結果を受け取るコールバック                    |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
 | distribution.forwardHostHeader     | String  | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時に伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
+| distribution.rootPathAccessControl  | Object  | CDNサービスのルートパスに対するアクセス制御設定 | 
+| distribution.rootPathAccessControl.enable | Boolean | ルートパスに対するアクセス制御使用(true)/未使用(false)          |
+| distribution.rootPathAccessControl.controlType  | String  | enableがtrueの場合は必須入力。ルートパスに対するアクセス制御方式("DENY"：アクセス拒否、"REDIRECT"：指定したパスにリダイレクト) | 
+| distribution.rootPathAccessControl.redirectPath | String | controlTypeが"REDIRECT"の場合は必須入力。ルートパスに対するリクエストをリダイレクトするパス(/を含めたパスで 入力してください。)        |
+| distribution.rootPathAccessControl.redirectStatusCode | Integer | controlTypeが"REDIRECT"の場合は必須入力。 リダイレクトする時に伝達されるHTTPレスポンスコード        |
 | distribution.callback              | Object  | サービス配布処理結果を受け取るコールバック                    |
 | distribution.callback.httpMethod   | String  | コールバックのHTTPメソッド                                           |
 | distribution.callback.url          | String  | コールバックURL                                                     |

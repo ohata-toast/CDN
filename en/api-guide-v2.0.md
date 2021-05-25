@@ -102,7 +102,8 @@ Below shows the status codes of CDN service, which are available at the query of
       "useOriginCacheControl" : false,      
       "defaultMaxAge": 86400,
       "referrerType" : "BLACKLIST",      
-      "referrers" : ["cloud.toast.com"],
+      "referrers" : ["cloud.nhn.com"],
+      "isAllowWhenEmptyReferrer" : true, 
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -111,6 +112,12 @@ Below shows the status codes of CDN service, which are available at the query of
           "httpsPort": 443
         }
       ],
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },
       "callback": {
           "httpMethod": "GET",
           "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -139,6 +146,11 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].origins[0].originPath | String  | Optional      |        | Up to 8192 characters                 | Lower paths of origin server (path must include /.)        |
 | distributions[0].origins[0].httpPort   | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Number' of [Console User Guide > Origin Server](./console-guide/#_2) | HTTP protocol port of origin server(must enter either origins[0].httpPort or origins[0].httpsPort.)  |
 | distributions[0].origins[0].httpsPort  | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Number' of[Console User Guide > Origin Server](./console-guide/#_2) | HTTPS protocol port of origin server (must enter either origins[0].httpPort or origins[0].httpsPort.) |
+| distributions[0].rootPathAccessControl  | Object  | Optional      |        |                             | Setting the access control for the CDN service root path | 
+| distributions[0].rootPathAccessControl.enable | Boolean | Required      | true      | true/false             | Whether the access control for the root path is abled (true)/disabled (false)           |
+| distributions[0].rootPathAccessControl.controlType  | String  | Optional      |        | DENY, REDIRECT    | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path)) | 
+| distributions[0].rootPathAccessControl.redirectPath | String | Optional      |       |       |   If the controlType is “REDIRECT,” entry is required.( Please enter the path) including the redirection path for requesting root path.        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | Optional      |       | 301, 302, 303, 307             |  If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting           |
 | distributions[0].callback              | Object  | Optional      |        |                             | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
 | distributions[0].callback.httpMethod   | String  | Required      |        | GET/POST/PUT                | HTTP method of callback                                           |
 | distributions[0].callback.url          | String  | Required      |        | Up to 1024 characters                 | Callback URL                                                     |
@@ -170,7 +182,7 @@ Below shows the status codes of CDN service, which are available at the query of
             "defaultMaxAge": 0,
             "referrerType": "BLACKLIST",
             "referrers": [
-                "cloud.toast.com"
+                "cloud.nhn.com"
             ],
             "useOriginCacheControl": true,
             "origins": [
@@ -183,6 +195,12 @@ Below shows the status codes of CDN service, which are available at the query of
             ],
             "forwardHostHeader": "ORIGIN_HOSTNAME",
             "useOriginHttpProtocolDowngrade": false,
+            "rootPathAccessControl" : {
+                "enable": true,
+                "controlType": "REDIRECT",
+                "redirectPath": "/default.png",
+                "redirectStatusCode": 302
+            },
             "callback": {
                 "httpMethod": "GET",
                 "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -219,6 +237,11 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                              |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean |Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP  |
 | distributions[0].forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
+| distributions[0].rootPathAccessControl  | Object  | Setting the access control for the CDN service root path | 
+| distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is abled (true)/disabled (false)          |
+| distributions[0].rootPathAccessControl.controlType  | String  | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path) | 
+| distributions[0].rootPathAccessControl.redirectPath | String | If the controlType is "REDIRECT,” entry is required. (Please enter the path ) including the redirection path for requesting root path.        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting          |
 | distributions[0].callback              | Object  | Callback to receive service creation result                 |
 | distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
 | distributions[0].callback.url          | String  | Callbak URL                                                     |
@@ -274,13 +297,19 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
     "useOriginCacheControl" :  false,
     "origins" : [
         {
-            "origin" :  "static.toastoven.net",
+            "origin" :  "static.resource.com",
             "httpPort" :  80,
             "httpsPort" : 443
         }
     ],
     "forwardHostHeader": "ORIGIN_HOSTNAME",
     "useOriginHttpProtocolDowngrade": false,    
+    "rootPathAccessControl" : {
+        "enable": true,
+        "controlType": "REDIRECT",
+        "redirectPath": "/default.png",
+        "redirectStatusCode": 302
+    }, 
     "callback": {
         "httpMethod": "GET",
         "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -315,6 +344,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | distributions[0].forwardHostHeader     | String  | Callback to receive service deployment result                         |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | distributions[0].forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
+| distributions[0].rootPathAccessControl  | Object  | Setting the access control for the CDN service root path | 
+| distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is abled (true)/disabled (false)           |
+| distributions[0].rootPathAccessControl.controlType  | String  | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path) | 
+| distributions[0].rootPathAccessControl.redirectPath | String |  If the controlType is "REDIRECT,” entry is required. (Please enter the path) including the redirection path for requesting root path.        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirectin          |
 | distributions[0].callback              | Object  | Callback to receive service deployment result                         |
 | distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
 | distributions[0].callback.url          | String  | Callback URL                                                     |
@@ -353,6 +387,12 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
       ],
       "useOriginHttpProtocolDowngrade": false,
       "forwardHostHeader": "ORIGIN_HOSTNAME",
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },
       "callback": {
           "httpMethod": "GET",
           "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -384,6 +424,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | forwardHostHeader     | String  | Required      | When domain alias setting is enabled: REQUEST_HOST_HEADER, When domain alias setting is not enabled: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
 | useOrigin             | String  | Required      |        | Y/N                                                          | Cache expiration setting (Y: Enable original setting, "N":User-configured)      |
+| rootPathAccessControl  | Object  | Optional |  |  | Setting the access control for the CDN service root path | 
+| rootPathAccessControl.enable | Boolean | Required | false | true/false | Whether the access control for the root path is abled (true)/disabled (false)          |
+| rootPathAccessControl.controlType  | String  | Optional |  | DENY, REDIRECT | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path) | 
+| rootPathAccessControl.redirectPath | String | Optional |  | | If the controlType is "REDIRECT,” entry is required. (Please enter the path) including the redirection path for requesting root path.        |
+| rootPathAccessControl.redirectStatusCode | Integer | Optional | | 301, 302, 303, 307 |If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting          |
 | callback              | Object  | Optional      |        | Callback URL to receive CDN service deployment result (Callback setting is optional.) |                                                              |
 | callback.httpMethod   | String  | Required      |        | GET/POST/PUT                                                 | HTTP method of callback                                           |
 | callback.url          | String  | Required      |        | Up to 1024 characters                                       | Callback URL                                                     |
@@ -610,13 +655,19 @@ When a callback is called, the request body includes CDN service setting informa
       "deleteTime": 1498613094692,
       "origins" : [
           {
-              "origin" :  "static.toastoven.net",
+              "origin" :  "static.resource.com",
               "httpPort" :  80,
               "httpsPort" : 443
           }
       ],
       "forwardHostHeader": "ORIGIN_HOSTNAME",
-      "useOriginHttpProtocolDowngrade": false,    
+      "useOriginHttpProtocolDowngrade": false, 
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },
       "callback": {
           "httpMethod": "GET",
           "url": "http"
@@ -654,6 +705,11 @@ When a callback is called, the request body includes CDN service setting informa
 | distribution.forwardHostHeader     | String  | Callback to receive service deployment results                        |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | distribution.forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
+| distribution.rootPathAccessControl  | Object  | Setting the access control for the CDN service root path | 
+| distribution.rootPathAccessControl.enable | Boolean | Whether the access control for the root path is abled (true)/disabled (false)          |
+| distribution.rootPathAccessControl.controlType  | String  | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path) | 
+| distribution.rootPathAccessControl.redirectPath | String | If the controlType is "REDIRECT,” entry is required. (Please enter the path) including the redirection path for requesting root path.        |
+| distribution.rootPathAccessControl.redirectStatusCode | Integer | If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting         |
 | distribution.callback              | Object  | Callback to receive service deployment result                        |
 | distribution.callback.httpMethod   | String  | HTTP method of callback                                           |
 | distribution.callback.url          | String  | Callback URL                                                     |

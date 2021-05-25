@@ -23,6 +23,18 @@
 | 10016 | Please enter origin. | Origin server setting is not available or invalid. |
 | 10017 | Invalid Purge Type. Please enter purge type 'ITEM' or 'ALL' | The purge type is not valid: enter 'ITEM' or 'ALL'. |
 | 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | The origin server port is not valid: enter a number between 0 and 64, or 536. |
+| 10019 | Up to three domain aliases can be registered. | Up to three domain aliases can be registered. |
+| 10020 | The requested domain alias has duplicated values. | This is a domain alias that has already been registered, and new registration is not available. |
+| 10021 | Already deleted distribution. | This is CDN service that has already been deleted. |
+| 10023 | The port field cannot be set with either httpPort or httpsPort. | Port, httpPort and httpsPort cannot be entered at the same time. Please enter port, or enter httpPort and httpsPort.  |
+| 10024 | The origin server port is not set. | origin server port is the required input value. Please enter the source server port in the port or httpPort or httpsPort. |
+| 10025 | Invalid origin port. The httpPort equals httpsPort. | Please enter a different input value for httpPort and httpsPort. |
+| 10027 | The description's maximum length is limited to 255 characters. | Maximum of 255 characters can be entered for CDN service description. |
+| 10028 | The Root Path Control 'controlType' is not set. Please enter type 'DENY' or 'REDIRECT' | controlType is a required input value. Please enter either "DENY" or "REDIRECT." |
+| 10029 | The Root Path Control 'redirectPath' is not set. | If the controlType is "REDIRECT," the redirectPath is a required input value. |
+| 10030 | 'redirectPath' must starts with a slash('/). |  redirectPath must be entered starting with a "/." |
+| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 |  If the controlType is "REDIRECT," redirectStatusCode is a required input value. Please enter one of 301, 302, 303, or 307. |
+| 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 |  The input value of redirectStatusCode is not correct. Please enter one of 301, 302, 303 or 307.  |
 | 20001 | Failed to authenticate with AppKey. | Appkey is not valid. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey is not valid. |
 | 30000 | Failed to process request. Please try again later. | Failed to process request. |
