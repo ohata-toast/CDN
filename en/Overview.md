@@ -8,10 +8,10 @@ In addition, content is delivered to end users through dedicated lines, not via 
 
 ## Main Features
 
-- User access can be controlled with cache configuration.
+- User access can be controlled with cache configuration.  
   Referrer information helps to manage access to user content. Regular expression format is available, and many referrers can be controlled all at once.
 - Cache expiration time can be configured.
-- Purge Cache
+- Purge Cache  
   When the original content is changed, cache is updated with new content after specified cache expiration time. However, with 'Purge Cache', existing cache can be fast replaced by a newer one.
 - Global Network <br/>
 Speedy service is available via the world's cache server networks.

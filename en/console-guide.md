@@ -33,7 +33,7 @@ Set basic information.
     - TTL: Randomly selected
 
 - **Callback**
- It takes hours to create and change CDN service (e.g. Modify, Suspend/Resume, and Delete)
+ It takes hours to create and change CDN service. (e.g. Modify, Suspend/Resume, and Delete).
  After a task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#_23) to find information sent to callback.
     1. Enter **HTTP Method** and **Callback URL**.
     2. To receive results on the change of CDN via query parameter, include the following path variable to **Callback URL**.
@@ -50,13 +50,13 @@ Set basic information.
 Set server providing original files to be deployed to CDN.
 ![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202105.png)
 
-- **Origin Server**
-  The origin server provides original files to be deployed for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.
-  If there is no operating origin server, use an instance of NHN Cloud Compute or object storage of NHN Cloud Storage.
-  To support secured transfer (HTTPS) via CDN domain, the origin server must support HTTPS response.
-  This means a certificate credited by NHN Cloud CDN must be installed at the origin server. Refer to the following table for credible certificates.
-  If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting.
-  Nevertheless, since **Downgrading HTTP Protocols Requesting Originals** has constraints, it is recommended that the origin server support HTTPS protocol.
+- **Origin Server**  
+  The origin server provides original files to be deployed for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
+  If there is no operating origin server, use an instance of NHN Cloud Compute or object storage of NHN Cloud Storage.  
+  To support secured transfer (HTTPS) via CDN domain, the origin server must support HTTPS response.  
+  This means a certificate credited by NHN Cloud CDN must be installed at the origin server. Refer to the following table for credible certificates.  
+  If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting.  
+  Nevertheless, since **Downgrading HTTP Protocols Requesting Originals** has constraints, it is recommended that the origin server support HTTPS protocol.  
 
 **[Table 1] List of Credible Certificates**
 
@@ -119,10 +119,10 @@ Set server providing original files to be deployed to CDN.
 |GeoTrust Global CA|21.May.22|de28f4a4ffe5b92fa3c503d1a349a7f9962a8212|
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
-- **Origin Server Port**
-  An origin server must be operated by a web-protocol support service. Service port numbers can be set for HTTP/HTTPS protocols under operations.
-  Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.
-  Only limited number of ports are available as the original port. Refer to the following table for available port numbers.
+- **Origin Server Port**  
+  An origin server must be operated by a web-protocol support service. Service port numbers can be set for HTTP/HTTPS protocols under operations.  
+  Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.  
+  Only limited number of ports are available as the original port. Refer to the following table for available port numbers.  
 
 **[Table 2] Available Origin Server Port Numbers**
 
@@ -138,7 +138,7 @@ Set server providing original files to be deployed to CDN.
 |9901-9908|
 |45002|
 
-- **Original Path**
+- **Original Path**  
   Set the lower paths of an original file. Content may be requested without the original path.
 
 > **[Example] When the original path is set with /files/images**
@@ -147,12 +147,12 @@ Set server providing original files to be deployed to CDN.
 > - URL of CDN Service: http://[ServiceID].toastcdn.net/logo.png
 > - Origin paths may be missing from URL of CDN service when it is requested.
 
-- **Downgrading HTTP Protocols Requesting Originals**
-  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.
-  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, original files do not come as response.
-  If the origin server operates HTTPS protocols only, enable the **Downgrading HTTP Protocols Requesting Originals** setting and make a request from CDN edge server to origin server by downgrading HTTPS to HTTP protocol.
-  In short, the CDN edge server section of client is communicated via HTTPS, while the origin server section of CDN edge server is communicated via HTTP.
-  Note the following constraints when downgrading HTTP protocols requesting originals:
+- **Downgrading HTTP Protocols Requesting Originals**  
+  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.  
+  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, original files do not come as response.  
+  If the origin server operates HTTPS protocols only, enable the **Downgrading HTTP Protocols Requesting Originals** setting and make a request from CDN edge server to origin server by downgrading HTTPS to HTTP protocol.  
+  In short, the CDN edge server section of client is communicated via HTTPS, while the origin server section of CDN edge server is communicated via HTTP.  
+  Note the following constraints when downgrading HTTP protocols requesting originals:  
 
 > **[Caution] Constraints for Downgrading HTTP Protocols Requesting Originals**
 > 1. Protocol downgrade is not applied to the entire website address. For instance, **www.nhn.com**, which is the entire site address of the origin server, cannot be downgraded.
@@ -160,11 +160,11 @@ Set server providing original files to be deployed to CDN.
 > 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
-- **Forward Host Header**
-  Set **Host** header value to be sent along with a request of CDN server for original files to origin server.
-  If the origin server is run as name-based virtual host, **Request Host Header** setting may be required. Select an appropriate value depending on the operating type of an origin server.
-  - **Original Host Name**: Set the host name of origin server as the host header.
-  - **Request Host Header**: Set as the host header of client request.
+- **Forward Host Header**  
+  Set **Host** header value to be sent along with a request of CDN server for original files to origin server.  
+  If the origin server is run as name-based virtual host, **Request Host Header** setting may be required. Select an appropriate value depending on the operating type of an origin server.  
+    - **Original Host Name**: Set the host name of origin server as the host header.
+    - **Request Host Header**: Set as the host header of client request.
 
 > **[Caution] Validation of host header and origin server certificate when using secure transport (HTTPS)**
 > When a client requests content over secure transport (HTTPS), the CDN server checks whether the origin server's certificate is valid.
@@ -267,10 +267,10 @@ On CDN console, set access management for Auth Token authentication, in referenc
 - **Token Encryption Key**
     - Encryption key required to create a token. By creating or modifying CDN, an encryption key is automatically created.
     - Please take caution of not disclosing the encryption key.
-- **Target Setting for Token Authentication**
-  Set a target of file for token authentication when accessing content.
-  Verify token only for files with their tokens to be authenticated; for other files, token is not verified, allowing content access without a token.
-  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.
+- **Target Setting for Token Authentication**  
+  Set a target of file for token authentication when accessing content.  
+  Verify token only for files with their tokens to be authenticated; for other files, token is not verified, allowing content access without a token.  
+  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.  
     - **Set Authentication Target**: Verify tokens only for the files of configured request URL path and file extension.
     - **Set Exception from Authentication**: Verify tokens for files excluding request URL path and file extension.
     - **Path of Request URL**: If content URL has same path as that of request URL, set it for or against token authentication.
@@ -516,29 +516,29 @@ public class NhnCloudAuthTokenAccessControlExample {
 ```
 
 - **Description of Member Variables of AuthToken Class**
-  - **key**: Go to NHN Cloud CDN console, Access Management for Auth Token Authentication > and enter Token Encryption Key.
-  - **sessionId**: To create a token including origin identifier for the request of a single access, enter sessionId.
-      - With a valid token created for each session ID, you may create one-time tokens or apply it to many purposes.
-      - Session ID must be configured with [List of Available Ascii Characters](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.).
-      - Session ID cannot be larger than 36 bytes for the length of character string.
-  - **durationSeconds**: Valid time (seconds) for created token; authentication for invalid tokens shall fail.
-      - If valid token time is set too short, token may be expired even before verified on the CDN edge server. It is recommended to set longer than 10 seconds than expected valid time.
-      - Make sure to validate NTP (Network Time Protocol) synchronization on the token creation server; if time is not synchronized, it may fail to validate token time.
+    - **key**: Go to NHN Cloud CDN console, Access Management for Auth Token Authentication > and enter Token Encryption Key.
+    - **sessionId**: To create a token including origin identifier for the request of a single access, enter sessionId.
+        - With a valid token created for each session ID, you may create one-time tokens or apply it to many purposes.
+        - Session ID must be configured with [List of Available Ascii Characters](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.).
+        - Session ID cannot be larger than 36 bytes for the length of character string.
+    - **durationSeconds**: Valid time (seconds) for created token; authentication for invalid tokens shall fail.
+        - If valid token time is set too short, token may be expired even before verified on the CDN edge server. It is recommended to set longer than 10 seconds than expected valid time.
+        - Make sure to validate NTP (Network Time Protocol) synchronization on the token creation server; if time is not synchronized, it may fail to validate token time.
 - **Public Method of AuthToken Class**
-  - **public String generateURLToken(String path)**
-      - Create token for a single path.
-      - [Example] path: authToken.generateURLToken("/auth/contents/example.png")
-      - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
-      - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID.
+    - **public String generateURLToken(String path)**
+        - Create token for a single path.
+        - [Example] path: authToken.generateURLToken("/auth/contents/example.png")
+        - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
+        - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID.
   - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
-      - Create token of the path mapped with the wildcard path. If their patterns of path match, it only takes a single wildcard token to authenticate tokens of URLs of many contents.
-          - [Example1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*"): Issue token for all files under /auth/contents.
-          - [Example2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png"): Issue token for the png file on the auth/contents path.
-          - [Example3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png"): Issue token for the png file that combines example on the /auth/contents path and single characters.
-          - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%)**.
-          - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID.
-      - Created token is created in the format of **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**.
-          - [Example] Created token: **exp=1600331503~acl=%2fnhn%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
+        - Create token of the path mapped with the wildcard path. If their patterns of path match, it only takes a single wildcard token to authenticate tokens of URLs of many contents.
+            - [Example1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*"): Issue token for all files under /auth/contents.
+            - [Example2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png"): Issue token for the png file on the auth/contents path.
+            - [Example3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png"): Issue token for the png file that combines example on the /auth/contents path and single characters.
+            - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%)**.
+            - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID.
+        - Created token is created in the format of **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**.
+            - [Example] Created token: **exp=1600331503~acl=%2fnhn%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
 #### 3. Include created token to the request of content
 Client (final content consumer) must request content including the token value which is created from the location as configured on the console.
@@ -633,12 +633,12 @@ By purging cache, outdated cache data are deleted from requested content while a
 ![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_202105.png)
 
 3. Select a purge type.
-  - Note that each CDN service domain may support different purge type and request format of cache.
-  - Purge type and request format
-    * Particular Files: Enter URL of content to purge. Since cache purge is applied for a requested URL only, purge must be requested to each URL address if there are many service domain addresses.
-      * e.g.) Domain address for default service: http://[ServiceID].toastcdn.net/path/to/file1.jpg
-      * e.g.) Domain address for domain alias: http://customer.domain.com/path/to/file1.jpg
-    * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server.
+    - Note that each CDN service domain may support different purge type and request format of cache.
+    - Purge type and request format
+        * Particular Files: Enter URL of content to purge. Since cache purge is applied for a requested URL only, purge must be requested to each URL address if there are many service domain addresses.
+            * e.g.) Domain address for default service: http://[ServiceID].toastcdn.net/path/to/file1.jpg
+            * e.g.) Domain address for domain alias: http://customer.domain.com/path/to/file1.jpg
+        * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server.
 4. Specify a file to purge depending on the selected cache purge type.
 5. Click **Purge Cache** to request for a purge.
 
