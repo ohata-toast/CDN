@@ -48,7 +48,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
 ![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202105.png)
 
-- **원본 서버**
+- **원본 서버**  
   원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
   운영 중인 원본 서버가 없다면, NHN Cloud Compute 서비스의 인스턴스를 사용하거나 NHN Cloud Storage 서비스의 Object Storage를 이용할 수 있습니다.  
   CDN 서비스 도메인으로 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.  
