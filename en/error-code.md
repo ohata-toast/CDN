@@ -11,15 +11,15 @@
 | 10003 | Callback url format is not valid. | Callback url format is not valid. |
 | 10004 | Exist a creating service. Please retry after it is finished. | Cannot execute requested task. Try again after previous request is completed. |
 | 10006 | Not found resource | Resource is not found as requested, or the request is invalid. |
-| 10007 | Alreay exists domain alias. | Domain Alias is already registered in another CDN service domain. |
+| 10007 | Already exists domain alias. | Domain Alias is already registered in another CDN service domain. |
 | 10008 | Origin path must starts with a slash('/). | Start with '/' to enter origin path. |
 | 10009 | Origin path must not end with a slash('/). | '/' is not allowed as the last character of the origin path. |
-| 10010 | Origin domain is requried. | Origin server is required. |
+| 10010 | Origin domain is required. | Origin server is required. |
 | 10011 | Please enter origin domain without scheme. | Origin server cannot have scheme information, such as http://. |
 | 10012 | Please enter the origin domain in public IP or domain format. | The origin server format is not valid: enter in domain or IP. |
 | 10013 | Domain alias is invalid. | The Domain Alias format is not valid. |
 | 10014 | Referrers is invalid. Enter referrers regular expression. | The referrer format is not valid: check if it is valid regular expression. |
-| 10015 | Please enter use orgin 'Y' or 'N'. | Enter 'Y' or 'N'  regarding whether to use origins for cache expiration setting. |
+| 10015 | Please enter use origin 'Y' or 'N'. | Enter 'Y' or 'N'  regarding whether to use origins for cache expiration setting. |
 | 10016 | Please enter origin. | Origin server setting is not available or invalid. |
 | 10017 | Invalid Purge Type. Please enter purge type 'ITEM' or 'ALL' | The purge type is not valid: enter 'ITEM' or 'ALL'. |
 | 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | The origin server port is not valid: enter a number between 0 and 64, or 536. |

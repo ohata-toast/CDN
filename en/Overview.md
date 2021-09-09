@@ -1,14 +1,14 @@
 ## Content Delivery > CDN > Overview
 
-The CDN Service helps to save original content, which is to be deployed, in the origin data server, so as the content can be deployed throughout the world's cache servers. End users can fast receive files from their nearest cache servers.  
+The CDN Service helps to save original content, which is to be deployed, in the origin data server, so as the content can be deployed throughout the world's cache servers. End users can fast receive files from their nearest cache servers.
 
-Since most traffic can be processed in the cache server with CDN service, potential service failure owing to traffic hikes in the origin server could be prevented, to raise the server availability.  
+Since most traffic can be processed in the cache server with CDN service, potential service failure owing to traffic hikes in the origin server could be prevented, to raise the server availability.
 
-In addition, content is delivered to end users through dedicated lines, not via common Internet network, so that you can expect higher service quality, which leads into higher credibility on service.  
+In addition, content is delivered to end users through dedicated lines, not via common Internet network, so that you can expect higher service quality, which leads into higher credibility on service.
 
 ## Main Features
 
-- User access can be controlled with cache configuration.   
+- User access can be controlled with cache configuration.
   Referrer information helps to manage access to user content. Regular expression format is available, and many referrers can be controlled all at once.
 - Cache expiration time can be configured.
 - Purge Cache
