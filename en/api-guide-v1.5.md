@@ -1,8 +1,8 @@
 ## Content Delivery > CDN > API v1.5 Guide
 
-This document describes Public API v1.5 provided by NHN Cloud CDN. 
+This document describes Public API v1.5 provided by NHN Cloud CDN.
 
-## Common API Information  
+## Common API Information
 
 ### Domain
 
@@ -12,7 +12,7 @@ This document describes Public API v1.5 provided by NHN Cloud CDN.
 
 ### Prerequisites
 
-Requires Appkey and SecretKey API, which are available in **URL & Appkey** on top right of the console.  
+Requires Appkey and SecretKey API, which are available in **URL & Appkey** on top right of the console.
 
 ### Common Request Information
 
@@ -22,7 +22,7 @@ Requires Appkey and SecretKey API, which are available in **URL & Appkey** on to
 | ------------- | ----------------------------- |
 | Authorization | SecretKey issued on a console |
 
-#### Path Parameter  
+#### Path Parameter
 
 In all APIs, the appKey must be specified in the path parameter.
 * e.g.) /v1.5/appKeys/**{appKey}**/distributions
@@ -59,7 +59,7 @@ Respond with **200 OK** to all API requests. For more details, see the header at
 
 #### CDN Status Codes
 
-Below shows the status codes of CDN service, which are available at the query of service.  
+Below shows the status codes of CDN service, which are available at the query of service.
 
 | Value      | Description                           |
 | ---------- | ------------------------------------- |
@@ -76,7 +76,7 @@ Below shows the status codes of CDN service, which are available at the query of
 
 ## Service API
 
-### Create  
+### Create
 
 #### Request
 
@@ -337,7 +337,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
         },
-        "description" : "change contents"   
+        "description" : "change contents"
 }
 ```
 
@@ -425,7 +425,7 @@ Apply partial modification API to change a part of the service setting.
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
         },
-        "description" : "change contents"       
+        "description" : "change contents"
 }
 ```
 
@@ -597,9 +597,9 @@ Apply partial modification API to change a part of the service setting.
 | header.resultMessage | String  | Result message          |
 | purgeSeq             | Integer | Purge requesting number |
 
-- Cache redeployment may fail within about an hour after CDN service is newly created. If it still fails afterwards, contact Customer Center. 
+- Cache redeployment may fail within about an hour after CDN service is newly created. If it still fails afterwards, contact Customer Center.
 - Purge API has usage restriction policy. For more details, go to [Console User Guide > CDN Cache Redeployment](./console-guide/#cdn_3) and check 'Cache Redeployment Usage Restriction'.
-- ITEM and WILDCARD types are restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response. 
+- ITEM and WILDCARD types are restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response.
 
 ### Get Cache Purges
 
@@ -687,7 +687,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
 | purges[0].path          | String  | Requested purge items |
 
 ## Callback Response
-With callback enabled for CDN service, when tasks are completed, such as Create/Modify/Suspend/Resume/Delete, response values are delivered to callback URL as below.   
+With callback enabled for CDN service, when tasks are completed, such as Create/Modify/Suspend/Resume/Delete, response values are delivered to callback URL as below.
 
 [Response Body]
 ``` json
@@ -739,7 +739,7 @@ With callback enabled for CDN service, when tasks are completed, such as Create/
 | distribution.domainAlias           | String  | Owned domain                                                  |
 | distribution.region                | String  | Service region ("GLOBAL": Global service)             |
 | distribution.description           | String  | Description                                                         |
-| distribution.status                | String  | CDN status code ([Table] See CDN Statud Code)                                 |
+| distribution.status                | String  | CDN status code ([Table] See CDN Status Code)                                 |
 | distribution.createTime            | String  | Date and time of creation                                                    |
 | distribution.deleteTime            | String  | Date and time of deletion                                                    |
 | distribution.useOrigin             | String  | Whether to use origin server setting ("Y": Enable origin server setting, "N": User-configured) |
