@@ -772,6 +772,13 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
 ![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active_202105.png)
 
+>  **[참고] 발급된 인증서 오류 발생 시 조치사항**
+> NHN Cloud CDN에서 제공하는 인증서의 Root 인증서 중 하나인 IdenTrust DST Root CA x3가 2021년 9월 30일 만료되어, 일부 오래된 단말 또는 구형 브라우저에서 문제가 발생할 수 있습니다.
+> 클라이언트에서 ERR_CERT_DATE_INVALID 오류로 문제가 발생하는 경우, 아래의 내용을 참고하여 OS 설정 변경 후 업데이트 또는 Root 인증서 수동 설치 등의 조치가 필요합니다.
+> 1. ISRG x1 인증서 다운로드 링크: [다운로드 링크](https://letsencrypt.org/certs/isrgrootx1.pem)
+> 2. Windows OS 설정 변경 참고 가이드: [링크](https://cert.crosscert.com/윈도우windows-운영체제-pc에서-루트인증서-설치방법/)
+> 3. 크롬 브라우저 참고 가이드: [링크](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for-VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
+
 ## 통계
 
 네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 확인할 수 있습니다.
