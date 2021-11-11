@@ -13,7 +13,8 @@ This document describes Public API v2.0 of NHN Cloud CDN.
 
 ### Prerequisites
 
-Requires Appkey and Secretkey API, which are available in **URL & Appkey** on top right of the console.
+To use the API, you need Appkey and SecretKey.
+The Appkey and SecurityKey can be found in the **URL & Appkey** menu in the upper right corner of the console.
 
 ### Common Request Information
 
@@ -21,22 +22,22 @@ Requires Appkey and Secretkey API, which are available in **URL & Appkey** on to
 
 | Name            | Description                        |
 | ------------- | ------------------------- |
-| Authorization | SecretKey issued on a console |
+| Authorization | SecretKey issued from the console |
 
 #### Path Parameter
 
 In all APIs, the appKey must be specified in the path parameter.
-* e.g.) /v2.0/appKeys/**{appKey}**/distributions
+* Example: /v2.0/appKeys/**{appKey}**/distributions
 
 | Name     | Description                    |
 | ------ | --------------------- |
-| appKey | Appkey issued on console |
+| appKey | Appkey issued from the console |
 
 ### Common Response Information
 
 #### Header
 
-Respond with **200 OK** to all API requests. For more details, see the header at the response body as below
+The API responds with **200 OK** to all API requests. For more details, see the header at the response body as below:
 
 ```json
 {
@@ -60,7 +61,7 @@ Respond with **200 OK** to all API requests. For more details, see the header at
 
 #### CDN Status Codes
 
-Below shows the status codes of CDN service, which are available at the query of service.
+The following shows the status codes of CDN service, which are available at the query of service.
 
 | Value         | Description                     |
 | ---------- | ------------------------ |
@@ -77,7 +78,7 @@ Below shows the status codes of CDN service, which are available at the query of
 
 ## Service API
 
-### Create
+### Create a Service
 
 #### Request
 
@@ -101,7 +102,8 @@ Below shows the status codes of CDN service, which are available at the query of
       "description" : "sample-cdn",
       "useOriginCacheControl" : false,
       "defaultMaxAge": 86400,
-      "referrerType" : "BLACKLIST",
+      "cacheKeyQueryParam": "INCLUDE_ALL",
+      "referrerType" : "BLACKLIST",     
       "referrers" : ["cloud.nhn.com"],
       "isAllowWhenEmptyReferrer" : true,
       "origins" : [
@@ -141,6 +143,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
 | distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (Use personal or company-owned domain) |
 | distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds); default is 0 with 604,800 seconds.             |
+| distributions[0].cacheKeyQueryParam    | String  | Optional      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].origins               | List    | Required      |        |                             | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Required      |        | Up to 255 characters                  | Origin server (domain or IP)                                     |
 | distributions[0].origins[0].originPath | String  | Optional      |        | Up to 8192 characters                 | Lower paths of origin server (path must include /.)        |
@@ -155,6 +158,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].callback.httpMethod   | String  | Required      |        | GET/POST/PUT                | HTTP method of callback                                           |
 | distributions[0].callback.url          | String  | Required      |        | Up to 1024 characters                 | Callback URL                                                     |
 
+- The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
 
 
@@ -180,6 +184,7 @@ Below shows the status codes of CDN service, which are available at the query of
             "description": "sample-cdn",
             "status": "OPENING",
             "defaultMaxAge": 0,
+            "cacheKeyQueryParam": "INCLUDE_ALL",
             "referrerType": "BLACKLIST",
             "referrers": [
                 "cloud.nhn.com"
@@ -226,9 +231,9 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].description           | String  | Description                                                     |
 | distributions[0].status                | String  | CDN status code (see [Table] CDN Status Code)                                 |
 | distributions[0].defaultMaxAge         | Integer | Cache expiration time (seconds)                                           |
+| distributions[0].cacheKeyQueryParam    | String  |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                   |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | True/False for Content Access if Referer Header is Unavailable |
 | distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Enable origin server setting, false: User-configured setting) |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
@@ -244,11 +249,11 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].rootPathAccessControl.redirectStatusCode | Integer | If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting          |
 | distributions[0].callback              | Object  | Callback to receive service creation result                 |
 | distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
-| distributions[0].callback.url          | String  | Callbak URL                                                     |
+| distributions[0].callback.url          | String  | Callback URL                                                     |
 
 
 
-### Get
+### Query a Service
 
 #### Request
 
@@ -264,7 +269,7 @@ Below shows the status codes of CDN service, which are available at the query of
 
 | Name   | Type   | Required | Valid Range     | Description                         |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
-| domain | String | Optional      | Up to 255 characters    | Domain to get (service name)   |
+| domain | String | Optional      | Up to 255 characters    | Domain to query (service name)   |
 | status | String | Optional      | CDN status code | CDN Status Code (see [Table] CDN Status Code) |
 
 [Example]
@@ -291,10 +296,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "region" :  "GLOBAL",
     "status" : "OPEN",
     "defaultMaxAge" : 86400,
+    "cacheKeyQueryParam": "INCLUDE_ALL",
     "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
-    "referrers" :  ["test.com"],
-    "isAllowWhenEmptyReferrer": true,
+    "referrers" :  ["test.com"],    
     "useOriginCacheControl" :  false,
     "origins" : [
         {
@@ -333,9 +338,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].region                | String  | Service region ("GLOBAL": Global service)             |
 | distributions[0].status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
 | distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                          |
+| distributions[0].cacheKeyQueryParam    | String  |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                 |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | True/False for Content Access if Referer Header is Unavailable |
 | distributions[0].useOriginCacheControl | Boolean | Whether to enable origin server setting or not (true: Enable origin server setting, false: User-configured) |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
@@ -355,7 +360,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].callback.url          | String  | Callback URL                                                     |
 
 
-### Modify
+### Modify a Service
 
 #### Request
 
@@ -376,6 +381,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
       "domain" : "sample.toastcdn.net",
       "useOriginCacheControl" : false,
       "defaultMaxAge": 86400,
+      "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",
       "referrers" : ["test.com"],
       "origins" : [
@@ -417,6 +423,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | description           | String  | Optional    |        | Up to 255 characters                      | Description                                                         |
 | domainAlias           | List    | Optional    |        | Up to 255 characters                      | Domain alias (Use personal or company-owned domain) |
 | defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647                         | Cache expiration time (seconds), Default is 0 with 604,800 seconds.              |
+| cacheKeyQueryParam    | String  | Optional      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                               |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | origins               | List    | Required      |        |                                         | Origin server                                                   |
 | origins[0].origin     | String  | Required     |        | Up to 255 characters                     | Origin server (domain or IP)                                      |
 | origins[0].originPath | String  | Optional      |        | UP to 8192 characters                   | Lower paths of origin server                                          |
@@ -434,7 +441,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | callback.httpMethod   | String  | Required      |        | GET/POST/PUT                                                 | HTTP method of callback                                           |
 | callback.url          | String  | Required      |        | Up to 1024 characters                                       | Callback URL                                                     |
 
-- Default of forwardHostHeader is REQUEST_HOST_HEADER, if domainAlias is enabled; or REQUEST_HOST_HEADER, if not enabled.
+- The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
 #### Response
 
@@ -461,7 +468,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | header.resultCode    | Integer | Result code  |
 | header.resultMessage | String  | Result message |
 
-### Delete
+### Delete a Service
 
 #### Request
 
@@ -488,9 +495,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 | Name      | Type     | Required | Default  | Valid Range | Description                    |
 | ------- | ------ | ----- | ---- | ----- | --------------------- |
-| domains | String | Required    |      |       | Domains to delete; many domains allowed  |
+| domains | String | Required    |      |       | Domains to delete; multiple domains allowed  |
 
-**\* With the input of many domains, all corresponding services are closed.**
+**\* When multiple domains are provided as input, all corresponding services are closed.**
 
 #### Response
 
@@ -626,11 +633,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 - Request for cache redeployment may fail within an hour after CDN service is newly created. If failure continues, contact Customer Center.
 - Capacity restriction policy exists for Purge APIs. For more details, see Restriction of Cache Redeployment Capacity of [Console User Guide > CDN Cache Redeployment](./console-guide/#cdn_4)].
 
-### Get Purge Cache
-- Purge of cache via API v2.0 shall be executed in high speed, allowing a request to be completed within seconds; hence, get cache redeployment status API shall not be provided.
+### Query Purge Cache
+- In case of purging cache through API v2.0, high-speed cache purge is performed and completed within a few seconds after request, so an API to query cache purge status is not provided separately.
 
 ## Callback Response
-If CDN service has a callback function, configured callback URL is called, once a request to Create, Modify, Suspend, Resume, Delete, or Change is completed.
+If the callback function is set on the CDN service, the configured callback URL is called when creation, modification, pause, resume, and deletion changes are completed.
 When a callback is called, the request body includes CDN service setting information as follows:
 
 [Response Body]
@@ -648,10 +655,10 @@ When a callback is called, the request body includes CDN service setting informa
       "region" :  "GLOBAL",
       "status" : "OPEN",
       "defaultMaxAge" : 86400,
+      "cacheKeyQueryParam": "INCLUDE_ALL",
       "status" :  "OPENING",
       "referrerType" :  "BLACKLIST",
-      "referrers" :  ["test.com"],
-      "isAllowWhenEmptyReferrer" : true,
+      "referrers" :  ["test.com"],    
       "useOriginCacheControl" :  false,
       "createTime" : 1498613094692,
       "deleteTime": 1498613094692,
@@ -693,9 +700,9 @@ When a callback is called, the request body includes CDN service setting informa
 | distribution.region                | String  | Service region ("GLOBAL": Global service)             |
 | distribution.status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
 | distribution.defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
+| distribution.cacheKeyQueryParam    | String  |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distribution.referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distribution.referrers             | List    | List of regex referrer headers                                 |
-| distributions.isAllowWhenEmptyReferrer | Boolean | True/False for Content Access if Referer Header is Unavailable |
 | distribution.useOriginCacheControl | Boolean | Whether to enable origin server setting (true: Enable origin server setting, false: User-configured) |
 | distribution.createTime            | DateTime | Date and time of creation                                         |
 | distribution.deleteTime            | DateTime | Date and time of deletion                                         |
@@ -704,7 +711,6 @@ When a callback is called, the request body includes CDN service setting informa
 | distribution.origins[0].originPath | String  | Lower paths of origin server                                          |
 | distribution.origins[0].httpPort   | Integer | HTTP protocol port of origin server                                       |
 | distribution.origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                      |
-| distribution.forwardHostHeader     | String  | Callback to receive service deployment results                        |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | distribution.forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
 | distribution.rootPathAccessControl  | Object  | Setting the access control for the CDN service root path |
