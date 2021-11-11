@@ -188,6 +188,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
             "referrers": [
                 "cloud.nhn.com"
             ],
+            "isAllowWhenEmptyReferrer" : true,
             "useOriginCacheControl": true,
             "origins": [
                 {
@@ -233,6 +234,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                  |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
 | distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
@@ -340,6 +342,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
 | distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
