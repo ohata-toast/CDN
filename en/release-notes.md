@@ -1,5 +1,10 @@
 ## Content Delivery > CDN > Release Notes
 
+### November 23, 2021
+
+#### Feature Updates
+* Added a feature to set whether to include a query string in cache key. For more information, refer to [Console Guide > Cache](./console-guide/#_4).
+
 ### July 27, 2021
 
 #### Feature Updates

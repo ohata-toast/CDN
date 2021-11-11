@@ -191,29 +191,38 @@ You can set the access control for the root path of the CDN service.
 ### Cache
 
 CDN cache operations and expiration time can be set.
-![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202105.png)
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202111.png)
 
-- **Setting Cache Expiration**
+- **Configuration of Cache Expiration**
   Cache can be configured from the response header of cache control at the origin server.
-    - **Enable Original Setting**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Enable Original Setting** is default.
-    - **Enable User-Configuration**: Cached during specified cache expiration time (seconds).
+    - **Use Original Configuration**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Use Original Configuration** is default.
+    - **Use User Configuration**: Cached during specified cache expiration time (seconds).
 
-> **[Note] Default and Validity of Cache Expiration Time**
-> Default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds)=1 week.
-> Cache expiration time is available from 0 as default to 2,147,483,647(seconds).
+- **Cache Expiration Time (seconds)**
+  To specify a cache expiration time, click the **Use User Configuration** button and change the cache expiration time in **Cache Expiration Time (seconds)**.
+
+- **Set Inclusion of Query String in Cache Key**
+  You can set whether to include the request query string in the cache key generated based on the URL.
+    - Include All: Include the entire query string included in the request in the cache key. Because the cache key contains the request query string, a new cache key is generated whenever the query string is changed for the same content request. Select if you want to cache the content newly by changing the request query string. The **Include All** option is the default.
+    - Exclude All: Generates a cache key using only the URL, excluding all query strings included in the request. If the request query string needs to be changed constantly, you must set this option for caching to work.
+> **[Note] Default value and valid range of cache expiration time**
+> The default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds) = 1 week.
+> Cache expiration time is available from 0 (default) to 2,147,483,647 (seconds).
 
 ### Access Management for Referer Header
 Content access management is set with the referer request header.
-![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202105.png)
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202111.png)
 
-The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content. Enter in regex, and break the lines to enter many.
+The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content.
+Enter in regex, and break the lines to enter many.
 
-- **Blacklist Type**:
-    * Appropriate to restrict the access of particular referer request headers only.
-    * Content access is restricted if a referer request header matches regex setup. If not, content access is allowed.
-- **Whitelist Type**:
-    * Appropriate to allow the access of particular referer request headers only.
-    * Content access is allowed if a referer request header matches regex setup. If not, content access is not allowed.
+- **Access control types**
+    - **Blacklist type**:
+        * Suitable for restricting the access of particular referer request headers only.
+        * Content access is restricted if a referer request header matches regex setup. If not, content access is allowed.
+    - **Whitelist type**:
+        * Suitable for allowing the access of particular referer request headers only.
+        * Content access is allowed if a referer request header matches regex setup. If not, content access is not allowed.
 
 - **Content Access if Referer Header is Unavailable**
   Allow Access if Referer Header is UnavailableSelect whether to allow access to content if referer request header is not available.
@@ -743,8 +752,11 @@ Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may
     -  Select CDN to be integrated from **CDN Service** and click **Modify**. Add certificate domain to domain alias and click **OK**.
 ![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2_202105.png)
 
+> **[Note] CNAME record propagation time**
+> When setting the CNAME record, DNS propagation can take time depending on various factors. Therefore, the certificate issuance status may be displayed as [Waiting for CDN service integration] for a certain period of time even after performing the service integration process correctly.
+> If the [Waiting for CDN service integration] status persists for more than 24 hours even though the settings are correct, please contact the NHN Cloud Customer Center.
 
->  **[Caution] Caution for Certificate Expiration**
+>  **[Caution] Caution for certificate expiration**
 > Certificates provided by NHN Cloud CDN are automatically renewed before expired.
 > For auto-renewal, user's certificate must be integrated with CDN service.
 > Otherwise, certificates may not be renewed during specific period and get expired.
@@ -758,6 +770,13 @@ Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may
 
 When certificate is fully integration with CDN, the certificate status shows 'Activated'.
 ![Activated Status of Certificate](https://static.toastoven.net/prod_cdn/v2/console-certificate-active_202105.png)
+
+> **[Note] Measures required when an error occurs in the issued certificate**
+> IdenTrust DST Root CA x3, one of the root certificates among the certificates provided by NHN Cloud CDN, expired on September 30, 2021, and users of some older devices or browsers may experience problems.
+> If an issue occurs due to an ERR_CERT_DATE_INVALID error on the client, refer to the following and take measures such as updating after changing the OS settings or manually installing the root certificate.
+> 1. ISRG x1 certificate download link: [Download link](https://letsencrypt.org/certs/isrgrootx1.pem)
+> 2. Windows OS settings change reference guide: [Link](https://cert.crosscert.com/windows-windows-operating system-pc-root certificate-installation method/)
+> 3. Chrome browser reference guide: [Link](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for- VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
 
 ## Statistics
 
