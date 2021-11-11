@@ -139,7 +139,7 @@ The following shows the status codes of CDN service, which are available at the 
 | distributions[0].useOriginCacheControl | Boolean | Required      |        | true/false                  | Cache expiration setting (true: Original setting, false: User-configured)   |
 | distributions[0].referrerType          | String  | Required      |        | BLACKLIST/WHITELIST         | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | Optional      |        |                           | List of regex referrer headers   |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header             |
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
 | distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (Use personal or company-owned domain) |
 | distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds); default is 0 with 604,800 seconds.             |
@@ -189,6 +189,7 @@ The following shows the status codes of CDN service, which are available at the 
             "referrers": [
                 "cloud.nhn.com"
             ],
+            "isAllowWhenEmptyReferrer" : true,
             "useOriginCacheControl": true,
             "origins": [
                 {
@@ -234,6 +235,7 @@ The following shows the status codes of CDN service, which are available at the 
 | distributions[0].cacheKeyQueryParam    | String  |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                   |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | Whether to allow (true) or deny (false) access to content when there is no referer header |
 | distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Enable origin server setting, false: User-configured setting) |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
@@ -341,6 +343,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].cacheKeyQueryParam    | String  |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                 |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | Whether to allow (true) or deny (false) access to content when there is no referer header |
 | distributions[0].useOriginCacheControl | Boolean | Whether to enable origin server setting or not (true: Enable origin server setting, false: User-configured) |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
@@ -419,7 +422,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | useOriginCacheControl | Boolean | Required      |        | true/false                              | Cache expiration setting (true: Enable origin server setting, false: User-configured)      |
 | referrerType          | String  | Required      |        | BLACKLIST/WHITELIST                     | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | referrers             | List    | Optional    |        |                                           | List of regex referrer headers |
-| isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
+| isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header             |
 | description           | String  | Optional    |        | Up to 255 characters                      | Description                                                         |
 | domainAlias           | List    | Optional    |        | Up to 255 characters                      | Domain alias (Use personal or company-owned domain) |
 | defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647                         | Cache expiration time (seconds), Default is 0 with 604,800 seconds.              |
