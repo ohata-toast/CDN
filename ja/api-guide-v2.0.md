@@ -101,6 +101,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
       "description" : "sample-cdn",
       "useOriginCacheControl" : false,      
       "defaultMaxAge": 86400,
+      "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",      
       "referrers" : ["cloud.nhn.com"],
       "isAllowWhenEmptyReferrer" : true, 
@@ -141,6 +142,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].description           | String  | 任意   |        | 最大255文字            | 説明                                                  |
 | distributions[0].domainAlias           | List    | 任意  |        |                           | ドメインエイリアスリスト(個人または会社が所有しているドメインを使用) |
 | distributions[0].defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647             | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。             |
+| distributions[0].cacheKeyQueryParam    | String  | 任意    | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL | キャッシュキーにリクエストクエリ文字列を含めるかの設定("INCLUDE_ALL"：全て含める、"EXCLUDE_ALL"：全て含めない) |
 | distributions[0].origins               | List    | 必須   |        |                             | オリジンサーバーオブジェクトリスト                               |
 | distributions[0].origins[0].origin     | String  | 必須   |        | 最大255文字            | オリジンサーバー(ドメインまたはIP)                                     |
 | distributions[0].origins[0].originPath | String  | 任意   |        | 最大8192文字           | オリジンサーバーの下層パス(/を含むパスで入力してください。)        |
@@ -180,10 +182,12 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
             "description": "sample-cdn",
             "status": "OPENING",
             "defaultMaxAge": 0,
+            "cacheKeyQueryParam": "INCLUDE_ALL",
             "referrerType": "BLACKLIST",
             "referrers": [
                 "cloud.nhn.com"
             ],
+            "isAllowWhenEmptyReferrer" : true,
             "useOriginCacheControl": true,
             "origins": [
                 {
@@ -226,8 +230,10 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].description           | String  | 説明                                                  |
 | distributions[0].status                | String  | CDN状態コード([表] CDN状態コード参照)                                 |
 | distributions[0].defaultMaxAge         | Integer  | キャッシュ満了時間(秒)                                           |
+| distributions[0].cacheKeyQueryParam    | String  | キャッシュキーにリクエストクエリ文字列を含めるかの設定("INCLUDE_ALL"：全て含める、"EXCLUDE_ALL"：全て含めない) |
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 正規表現形式のリファラーヘッダリスト                              |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | リファラーヘッダがない場合のコンテンツアクセス許可(true)/拒否(false) |
 | distributions[0].useOriginCacheControl | Boolean  | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザー設定) |
 | distributions[0].origins               | List    | オリジンサーバーオブジェクトリスト                               |
 | distributions[0].origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                      |
@@ -290,6 +296,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "region" :  "GLOBAL",
     "status" : "OPEN",
     "defaultMaxAge" : 86400,
+    "cacheKeyQueryParam": "INCLUDE_ALL",
     "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
     "referrers" :  ["test.com"],    
@@ -332,8 +339,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].region                | String  | サービス地域("GLOBAL"：グローバル)             |
 | distributions[0].status                | String  | CDN状態コード([表] CDN状態コード参照)                                 |
 | distributions[0].defaultMaxAge         | Integer  | キャッシュ満了時間(秒)                                           |
+| distributions[0].cacheKeyQueryParam    | String  | キャッシュキーにリクエストクエリ文字列を含めるかの設定("INCLUDE_ALL"：全て含める、"EXCLUDE_ALL"：全て含めない) |
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 正規表現形式のリファラーヘッダリスト                             |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | リファラーヘッダがない場合のコンテンツアクセス許可(true)/拒否(false) |
 | distributions[0].useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザー設定) |
 | distributions[0].origins               | List    | オリジンサーバーオブジェクトリスト                               |
 | distributions[0].origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                      |
@@ -374,6 +383,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
       "domain" : "sample.toastcdn.net",
       "useOriginCacheControl" : false,
       "defaultMaxAge": 86400,
+      "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",
       "referrers" : ["test.com"],
       "origins" : [
@@ -415,6 +425,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | description           | String  | 任意   |        | 最大255文字                                             | 説明                                                  |
 | domainAlias           | List    | 任意  |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメインを使用) |
 | defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647                                            | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。              |
+| cacheKeyQueryParam    | String  | 選択    | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                               | キャッシュキーにリクエストクエリ文字列を含めるかの設定("INCLUDE_ALL"：全て含める、"EXCLUDE_ALL"：全て含めない) |
 | origins               | List    | 必須   |        |                                                              | オリジンサーバー                                             |
 | origins[0].origin     | String  | 必須   |        | 最大255文字                                             | オリジンサーバー(ドメインまたはIP)                                      |
 | origins[0].originPath | String  | 任意   |        | 最大8192文字                                            | オリジンサーバーの下層パス                                   |
@@ -645,6 +656,7 @@ CDNサービスにコールバック機能が設定されている場合、作�
       "region" :  "GLOBAL",
       "status" : "OPEN",
       "defaultMaxAge" : 86400,
+      "cacheKeyQueryParam": "INCLUDE_ALL",
       "status" :  "OPENING",
       "referrerType" :  "BLACKLIST",
       "referrers" :  ["test.com"],    
@@ -689,6 +701,7 @@ CDNサービスにコールバック機能が設定されている場合、作�
 | distribution.region                | String  | サービス地域("GLOBAL"：グローバル)             |
 | distribution.status                | String  | CDNステータスコード([表] CDNステータスコード参照)                                 |
 | distribution.defaultMaxAge         | Integer  | キャッシュ満了時間(秒)                                           |
+| distribution.cacheKeyQueryParam    | String  | キャッシュキーにリクエストクエリ文字列を含めるかの設定("INCLUDE_ALL"：全て含める、"EXCLUDE_ALL"：全て含めない) |
 | distribution.referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distribution.referrers             | List    | 正規表現形式のリファラーヘッダリスト                             |
 | distribution.useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザーを設定) |
