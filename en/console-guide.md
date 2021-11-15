@@ -775,7 +775,7 @@ When certificate is fully integration with CDN, the certificate status shows 'Ac
 > IdenTrust DST Root CA x3, one of the root certificates among the certificates provided by NHN Cloud CDN, expired on September 30, 2021, and users of some older devices or browsers may experience problems.
 > If an issue occurs due to an ERR_CERT_DATE_INVALID error on the client, refer to the following and take measures such as updating after changing the OS settings or manually installing the root certificate.
 > 1. ISRG x1 certificate download link: [Download link](https://letsencrypt.org/certs/isrgrootx1.pem)
-> 2. Windows OS settings change reference guide: [Link](https://cert.crosscert.com/windows-windows-operating system-pc-root certificate-installation method/)
+> 2. Windows OS settings change reference guide: [Link](https://docs.microsoft.com/en-us/skype-sdk/sdn/articles/installing-the-trusted-root-certificate)
 > 3. Chrome browser reference guide: [Link](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for- VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
 
 ## Statistics
