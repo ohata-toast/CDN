@@ -205,6 +205,7 @@ CDN cache operations and expiration time can be set.
   You can set whether to include the request query string in the cache key generated based on the URL.
     - Include All: Include the entire query string included in the request in the cache key. Because the cache key contains the request query string, a new cache key is generated whenever the query string is changed for the same content request. Select if you want to cache the content newly by changing the request query string. The **Include All** option is the default.
     - Exclude All: Generates a cache key using only the URL, excluding all query strings included in the request. If the request query string needs to be changed constantly, you must set this option for caching to work.
+    
 > **[Note] Default value and valid range of cache expiration time**
 > The default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds) = 1 week.
 > Cache expiration time is available from 0 (default) to 2,147,483,647 (seconds).

@@ -101,8 +101,10 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
       "description" : "sample-cdn",
       "useOriginCacheControl" : false,      
       "defaultMaxAge": 86400,
-      "referrerType" : "BLACKLIST",      
-      "referrers" : ["cloud.toast.com"],
+      "cacheKeyQueryParam": "INCLUDE_ALL",
+      "referrerType" : "BLACKLIST",     
+      "referrers" : ["cloud.nhn.com"],
+      "isAllowWhenEmptyReferrer" : true,
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -111,6 +113,12 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
           "httpsPort": 443
         }
       ],
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },
       "callback": {
           "httpMethod": "GET",
           "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -134,16 +142,22 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].description           | String  | 선택      |        | 최대 255자                  | 설명                                                         |
 | distributions[0].domainAlias           | List    | 선택      |        |                           | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용) |
 | distributions[0].defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647             | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.             |
+| distributions[0].cacheKeyQueryParam    | String  | 선택      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | distributions[0].origins               | List    | 필수      |        |                             | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 필수      |        | 최대 255자                  | 원본 서버(도메인 또는 IP)                                     |
 | distributions[0].origins[0].originPath | String  | 선택      |        | 최대 8192자                 | 원본 서버 하위 경로(/를 포함한 경로로 입력해 주세요.)        |
 | distributions[0].origins[0].httpPort   | Integer  | 선택      |        | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
 | distributions[0].origins[0].httpsPort  | Integer  | 선택      |        | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
+| distributions[0].rootPathAccessControl  | Object  | 선택      |        |                             | CDN 서비스의 루트 경로에 대한 접근 제어 설정 |
+| distributions[0].rootPathAccessControl.enable | Boolean | 필수      | true      | true/false             | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
+| distributions[0].rootPathAccessControl.controlType  | String  | 선택      |        | DENY, REDIRECT    | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) |
+| distributions[0].rootPathAccessControl.redirectPath | String | 선택      |       |       |   controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | 선택      |       | 301, 302, 303, 307             |  controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드          |
 | distributions[0].callback              | Object  | 선택      |        |                             | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |
 | distributions[0].callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                | 콜백의 HTTP 메서드                                           |
 | distributions[0].callback.url          | String  | 필수      |        | 최대 1024자                 | 콜백 URL                                                     |
 
-- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다. 
+- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다.
 
 
 
@@ -169,10 +183,12 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
             "description": "sample-cdn",
             "status": "OPENING",
             "defaultMaxAge": 0,
+            "cacheKeyQueryParam": "INCLUDE_ALL",
             "referrerType": "BLACKLIST",
             "referrers": [
-                "cloud.toast.com"
+                "cloud.nhn.com"
             ],
+            "isAllowWhenEmptyReferrer" : true,
             "useOriginCacheControl": true,
             "origins": [
                 {
@@ -184,6 +200,12 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
             ],
             "forwardHostHeader": "ORIGIN_HOSTNAME",
             "useOriginHttpProtocolDowngrade": false,
+            "rootPathAccessControl" : {
+                "enable": true,
+                "controlType": "REDIRECT",
+                "redirectPath": "/default.png",
+                "redirectStatusCode": 302
+            },
             "callback": {
                 "httpMethod": "GET",
                 "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -209,8 +231,10 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].description           | String  | 설명                                                         |
 | distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
 | distributions[0].defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
+| distributions[0].cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                  |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
 | distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
@@ -219,6 +243,11 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                               |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트헤더로 설정 |
+| distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 |
+| distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
+| distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) |
+| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드          |
 | distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보받을 콜백                        |
 | distributions[0].callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
 | distributions[0].callback.url          | String  | 콜백 URL                                                     |
@@ -268,19 +297,26 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "region" :  "GLOBAL",
     "status" : "OPEN",
     "defaultMaxAge" : 86400,
+    "cacheKeyQueryParam": "INCLUDE_ALL",
     "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
     "referrers" :  ["test.com"],    
     "useOriginCacheControl" :  false,
     "origins" : [
         {
-            "origin" :  "static.toastoven.net",
+            "origin" :  "static.resource.com",
             "httpPort" :  80,
             "httpsPort" : 443
         }
     ],
     "forwardHostHeader": "ORIGIN_HOSTNAME",
-    "useOriginHttpProtocolDowngrade": false,    
+    "useOriginHttpProtocolDowngrade": false,   
+    "rootPathAccessControl" : {
+        "enable": true,
+        "controlType": "REDIRECT",
+        "redirectPath": "/default.png",
+        "redirectStatusCode": 302
+    },
     "callback": {
         "httpMethod": "GET",
         "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -303,8 +339,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
 | distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
 | distributions[0].defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
+| distributions[0].cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
 | distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
@@ -314,6 +352,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].forwardHostHeader     | String  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트헤더로 설정 |
+| distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 |
+| distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
+| distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) |
+| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드          |
 | distributions[0].callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distributions[0].callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
 | distributions[0].callback.url          | String  | 콜백 URL                                                     |
@@ -340,6 +383,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
       "domain" : "sample.toastcdn.net",
       "useOriginCacheControl" : false,
       "defaultMaxAge": 86400,
+      "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",
       "referrers" : ["test.com"],
       "origins" : [
@@ -352,6 +396,12 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
       ],
       "useOriginHttpProtocolDowngrade": false,
       "forwardHostHeader": "ORIGIN_HOSTNAME",
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },
       "callback": {
           "httpMethod": "GET",
           "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -375,6 +425,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
 | domainAlias           | List    | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 혹은 회사가 소유한 도메인 사용) |
 | defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647                                            | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.              |
+| cacheKeyQueryParam    | String  | 선택      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                               | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(도메인 또는 IP)                                      |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
@@ -383,11 +434,16 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
 | useOrigin             | String  | 필수      |        | Y/N                                                          | 캐시 만료 설정(Y: 원본 설정 사용, "N":사용자 설정 사용)      |
+| rootPathAccessControl  | Object  | 선택 |  |  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 |
+| rootPathAccessControl.enable | Boolean | 필수 | false | true/false | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
+| rootPathAccessControl.controlType  | String  | 선택 |  | DENY, REDIRECT | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) |
+| rootPathAccessControl.redirectPath | String | 선택 |  | | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
+| rootPathAccessControl.redirectStatusCode | Integer | 선택 | | 301, 302, 303, 307 |controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드          |
 | callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
 | callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP 메서드                                           |
 | callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                                                     |
 
-- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다. 
+- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다.
 
 #### 응답
 
@@ -601,6 +657,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
       "region" :  "GLOBAL",
       "status" : "OPEN",
       "defaultMaxAge" : 86400,
+      "cacheKeyQueryParam": "INCLUDE_ALL",
       "status" :  "OPENING",
       "referrerType" :  "BLACKLIST",
       "referrers" :  ["test.com"],    
@@ -609,13 +666,19 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
       "deleteTime": 1498613094692,
       "origins" : [
           {
-              "origin" :  "static.toastoven.net",
+              "origin" :  "static.resource.com",
               "httpPort" :  80,
               "httpsPort" : 443
           }
       ],
       "forwardHostHeader": "ORIGIN_HOSTNAME",
       "useOriginHttpProtocolDowngrade": false,    
+      "rootPathAccessControl" : {
+          "enable": true,
+          "controlType": "REDIRECT",
+          "redirectPath": "/default.png",
+          "redirectStatusCode": 302
+      },
       "callback": {
           "httpMethod": "GET",
           "url": "http"
@@ -639,6 +702,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
 | distribution.status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
 | distribution.defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
+| distribution.cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | distribution.referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distribution.referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
 | distribution.useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
@@ -649,9 +713,13 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.origins[0].originPath | String  | 원본 서버 하위 경로                                          |
 | distribution.origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                               |
 | distribution.origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                               |
-| distribution.forwardHostHeader     | String  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distribution.forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트헤더로 설정 |
+| distribution.rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 |
+| distribution.rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
+| distribution.rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) |
+| distribution.rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력해 주세요.)        |
+| distribution.rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트시 전달되는 HTTP 응답 코드         |
 | distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distribution.callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
 | distribution.callback.url          | String  | 콜백 URL                                                     |
