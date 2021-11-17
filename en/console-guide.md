@@ -777,7 +777,7 @@ When certificate is fully integration with CDN, the certificate status shows 'Ac
 > If an issue occurs due to an ERR_CERT_DATE_INVALID error on the client, refer to the following and take measures such as updating after changing the OS settings or manually installing the root certificate.
 > 1. ISRG x1 certificate download link: [Download link](https://letsencrypt.org/certs/isrgrootx1.pem)
 > 2. Windows OS settings change reference guide: [Link](https://docs.microsoft.com/en-us/skype-sdk/sdn/articles/installing-the-trusted-root-certificate)
-> 3. Chrome browser reference guide: [Link](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for- VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
+> 3. Chrome browser reference guide: [Link](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for-VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
 
 ## Statistics
 
