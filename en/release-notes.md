@@ -48,7 +48,7 @@
 	* For more details, see [Console User Guide](./console-guide/).
 * Added Certificate Management Features
 	* To use CDN service with your own domain, HTTPS protocol service is provided as part of certificate management features. With certificate management, certificates can be easily issued and automatically renewed before expired.
-	* For more details, see [Console User Guide > Certificate Management](./console-guide/#_5).
+	* For more details, see [Console User Guide > Certificate Management](./console-guide/#_6).
 * API Support for (Old) Service Domain (*.cdn.toastcloud.com) and (New) Service Domain (*.toastcdn.net)
 	* (Old) [ServiceID].cdn.toastcloud.com is available without changing the old API (lower than v1.5). However, newly added features are not available.
 	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications that are higher than v1.5.
