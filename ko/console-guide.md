@@ -13,7 +13,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 
 ### 기본 정보 
 기본 정보를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202105.png)
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202112.png)
 
 - **서비스 지역**
   GLOBAL 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
@@ -49,13 +49,22 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 
 ### 원본 서버
 CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202105.png)
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202112.png)
+
+- **원본 타입**
+    - 오브젝트 스토리지: NHN Cloud Object Storage 서비스에서 생성한 컨테이너를 원본 서버로 설정합니다.
+        - 리전: 오브젝트 스토리지의 컨테이너 정보를 조회할 리전을 선택합니다.
+        - 이름: 원본 서버로 설정하고자 하는 컨테이너의 이름을 입력합니다. 컨테이너 접근 정책이 **PUBLIC**인 컨테이너만을 원본 서버로 사용할 수 있습니다. 컨테이너가 원본 서버로 사용 가능할 경우, 원본 서버와 원본 경로에 컨테이너 정보가 자동으로 입력됩니다.
+    - 인스턴스: NHN Cloud Instance 서비스에서 생성한 인스턴스를 원본 서버로 설정합니다.
+        - 리전: 인스턴스 목록을 조회할 리전을 선택합니다.
+        - 인스턴스: 리전을 선택하여 조회된 인스턴스 목록에서 원본 서버로 설정할 인스턴스를 선택합니다. 선택한 인스턴스의 IP가 원본 서버에 자동으로 입력되며, 사용할 원본 서버의 포트는 직접 입력해야 합니다. 플로팅 IP가 연결된 인스턴스만을 원본 서버로 사용할 수 있습니다.
+    - 직접 입력: 별도로 운영 중인 원본 서버를 설정합니다.
 
 - **원본 서버**  
   원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
-  운영 중인 원본 서버가 없다면, NHN Cloud Compute 서비스의 인스턴스를 사용하거나 NHN Cloud Storage 서비스의 Object Storage를 이용할 수 있습니다.  
-  CDN 서비스 도메인으로 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.  
-  이는 원본 서버에 NHN Cloud CDN이 신뢰하는 인증서가 설치돼 있어야한다는 뜻입니다.
+  운영 중인 원본 서버가 없다면, **원본 타입**의 **인스턴스** 옵션을 선택하여 NHN Cloud Instance 서비스의 인스턴스를 사용하거나 **오브젝트 스토리지** 옵션을 선택하여 NHN Cloud Object Storage 서비스의 컨테이너를 이용할 수 있습니다.  
+  CDN 서비스 도메인으로 보안 전송(HTTPS)을 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.  
+  이는 원본 서버에 NHN Cloud CDN이 신뢰하는 인증서가 설치돼 있어야 한다는 뜻입니다.
   신뢰하는 인증서는 다음 표를 참고하시기 바랍니다.  
   만일, 원본 서버가 HTTPS 응답을 지원할 수 없다면 **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용하시기 바랍니다.  
   단, **원본 요청 HTTP 프로토콜 다운그레이드**는 제약 사항이 있으므로 원본 서버가 HTTPS 프로토콜을 지원하는 것을 권장합니다.  
