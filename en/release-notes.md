@@ -1,5 +1,12 @@
 ## Content Delivery > CDN > Release Notes
 
+### December 28, 2021
+
+#### Feature Updates
+* Enabled HTTP/2 protocol support for the CDN service. HTTP/2 is supported by default.
+* Added the origin type setting feature
+	* You can set as the origin server by retrieving object storage and instance information from NHN Cloud. For more information, refer to [Console Guide > Origin Server](./console-guide/#_2).
+
 ### November 23, 2021
 
 #### Feature Updates

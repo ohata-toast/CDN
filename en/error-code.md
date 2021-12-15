@@ -27,7 +27,7 @@
 | 10020 | The requested domain alias has duplicated values. | This is a domain alias that has already been registered, and new registration is not available. |
 | 10021 | Already deleted distribution. | This is CDN service that has already been deleted. |
 | 10023 | The port field cannot be set with either httpPort or httpsPort. | Port, httpPort and httpsPort cannot be entered at the same time. Please enter port, or enter httpPort and httpsPort.  |
-| 10024 | The origin server port is not set. | origin server port is the required input value. Please enter the source server port in the port or httpPort or httpsPort. |
+| 10024 | The origin server port is not set. | origin server port is the required input value. Please enter the origin server port in the port or httpPort or httpsPort. |
 | 10025 | Invalid origin port. The httpPort equals httpsPort. | Please enter a different input value for httpPort and httpsPort. |
 | 10027 | The description's maximum length is limited to 255 characters. | Maximum of 255 characters can be entered for CDN service description. |
 | 10028 | The Root Path Control 'controlType' is not set. Please enter type 'DENY' or 'REDIRECT' | controlType is a required input value. Please enter either "DENY" or "REDIRECT." |

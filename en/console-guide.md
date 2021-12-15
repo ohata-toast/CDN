@@ -13,7 +13,7 @@ It takes up to 2 hours to complete deployment after service is requested for cre
 
 ### Basic Information
 Set basic information.
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202105.png)
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202112.png)
 
 - **Service Region**
   GLOBAL service is provided via CDN edge servers located around the globe.
@@ -48,17 +48,27 @@ Set basic information.
 
 ### Origin Server
 Set server providing original files to be deployed to CDN.
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202105.png)
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202112.png)
+
+- **Origin Type**
+    - Object storage: Set the container created in the NHN Cloud Object Storage service as the origin server.
+        - Region: Select a region to query object storage container information.
+        - Name: Enter the name of the container you want to set as the origin server. Only containers with a container access policy of **PUBLIC** can be used as the origin server. If the container can be used as the origin server, the container information is automatically entered in the origin server and origin path.
+    - Instance: Set the instance created in the NHN Cloud Instance service as the origin server.
+        - Region: Select a region to retrieve a list of instances.
+        - Instance: From the list of retrieved instances from the selected region, select an instance to set as the origin server. The IP of the selected instance is automatically entered in the origin server, and the port of the origin server to be used must be entered manually. Only instances that are associated with floating IPs can be used as the origin server.
+    - Enter Manually: Configure a separate running origin server.
 
 - **Origin Server**  
-  The origin server provides original files to be deployed for CDN service. You may use IPv4 or the entire domain address (FQDN: Fully Qualified Domain Name) type for the origin server. Since IP address is highly likely to be changed, it is recommended to set with domain.  
-  If there is no operating origin server, use an instance of NHN Cloud Compute or object storage of NHN Cloud Storage.  
-  To support secured transfer (HTTPS) via CDN domain, the origin server must support HTTPS response.  
-  This means a certificate credited by NHN Cloud CDN must be installed at the origin server. Refer to the following table for credible certificates.  
+  The origin server is the server that provides original files to be distributed by the CDN service. The origin server can be entered in IPv4 or fully qualified domain name (FQDN) format. It is recommended to set the server as a domain because an IP address is likely to change.  
+  If there is no running origin server, select the **Instance** option in **Original Type** to use an instance of the NHN Cloud Instance service, or select the **Object Storage** option to use a container in the NHN Cloud Object Storage service.  
+  To support secure transport (HTTPS) via the CDN service domain, the origin server must support HTTPS response.  
+  This means that the origin server must have a certificate trusted by NHN Cloud CDN installed.
+  Refer to the following table for trusted certificates.  
   If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting.  
-  Nevertheless, since **Downgrading HTTP Protocols Requesting Originals** has constraints, it is recommended that the origin server support HTTPS protocol.  
+  However, **Downgrading HTTP Protocols Requesting Originals** has constraints, so it is recommended that the origin server support HTTPS protocol.  
 
-**[Table 1] List of Credible Certificates**
+**[Table 1] List of Trusted Certificates**
 
 | Common Name| Expiry Date |SHA-1 Fingerprint |
 |---|---|---|
@@ -169,7 +179,7 @@ Set server providing original files to be deployed to CDN.
 > **[Caution] Validation of host header and origin server certificate when using secure transport (HTTPS)**
 > When a client requests content over secure transport (HTTPS), the CDN server checks whether the origin server's certificate is valid.
 > The origin server must have a certificate of Common Name (CN) or Subject Alternate Name (SAN) that matches the host request header installed.
-> A secure transfer error occurs if the certificate matching the host request header is not installed on the origin server.
+> A secure transport error occurs if the certificate matching the host request header is not installed on the origin server.
 > Note that the host request header is set as the request host header or the original host name according to the Forward Host Header setting.
 
 ### Controlling the access of root path
@@ -664,7 +674,7 @@ Take caution that cache purge does not exceed the capacity limit, in reference o
 > Cache purge request may fail within about an hour after CDN service is created. If failure continues afterwards, contact Customer Center.
 
 ## Managing Certificates
-To use secure transfer (HTTPS) via your own domain, certificate of your own domain must be deployed to CDN server. Without a certificate, secured communication (HTTPS) is unavailable between client (browser) and CDN edge server, causing error of certificate.
+To use secure transport (HTTPS) via your own domain, certificate of your own domain must be deployed to CDN server. Without a certificate, secured communication (HTTPS) is unavailable between client (browser) and CDN edge server, causing error of certificate.
 Certificate management of NHN Cloud CDN provides the following features:
 
 - Issue single domain-type certificates

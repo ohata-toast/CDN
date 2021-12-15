@@ -38,15 +38,15 @@ To continue to use CDN service, please execute migration in reference of the gui
             - For more details on certificates, see [User Console Guide > Certificate Management](./console-guide/#_5).
 
     3. **Origin Server**
-        - Previsouly CDN service supported HTTP protocol transfer only, but new CDN service supports transfer of HTTP/HTTPS protocol for the **[ServiceID].toastcdn.net** domain.
+        - Previously CDN service supported HTTP protocol transfer only, but new CDN service supports transfer of HTTP/HTTPS protocol for the **[ServiceID].toastcdn.net** domain.
         - **Origin Server Port** sets HTTP/HTTPS port number under operation of the origin server. If not set, Not Set shows and it is set with default port (HTTP:80, HTTPS:443).
             - Only allowed ports can be used for origin servers. For allowed ports, see **[Table2] Avalable Port Numbers for Origin Server** of [User Console Guide > Origin Server](./console-guide/#_2).
         - To support secured transfer (HTTPS) via CDN service domain (or domain alias), origin servers must support HTTPS response.
-            - The CDN edge server checks certificate validity of an origin server to prevent 'man-in-the-middle(MITM)' attacks.
-            - The origin server must have a certificate credited by TOAST CDN or one by certificate authority.
-            - Regarding certificates or certificate authorities credited by TOAST CDN, go to [Console User Guide > Origin Server](./console-guide/#_2) and see **[Table1] List of Credible Certificates**.
+            - The CDN edge server checks certificate validity of an origin server to prevent 'man-in-the-middle (MITM)' attacks.
+            - The origin server must have a certificate trusted by TOAST CDN or one by certificate authority (CA).
+            - Regarding certificates or certificate authorities trusted by TOAST CDN, go to [Console User Guide > Origin Server](./console-guide/#_2) and see **[Table1] List of Trusted Certificates**.
         - If origin server is not available for the support of HTTPS response, enable the **Downgrade Request Original HTTP Protocol** setting.
-            - Neveretheless, since the **Downgrade Request Original HTTP Protocol** setting has constraints, make sure to check details.
+            - Nevertheless, since the **Downgrade Request Original HTTP Protocol** setting has constraints, make sure to check details.
     4. **Downgrading Request Original HTTP Protocol**
         - When the origin server can support for HTTP response only, set **Enable** for the setting of Downgrade Request Original HTTP Protocol.
         - When the downgrade setting is **Enabled**, the origin request via HTTP protocol at CDN edge server must be made by downgrading the protocol to HTTP.
