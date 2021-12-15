@@ -13,7 +13,7 @@ When delivering content to end users, it is possible to provide much higher qual
 - Set the cache expiration time as you like.
 - Cache purging<br/>
   When the original content changes, the cache is updated with the new content after the previously specified cache expiration time. However, the 'cache purging' feature lets you quickly update an existing cache with new content.
-- Global Network<br/>
+- Global network<br/>
 We provide high-speed service using worldwide cache servers.
 - HTTP/2 protocol support<br/>
   The HTTP/2 protocol is supported by default for any CDN service you create. You can use HTTP/1, HTTP/1.1, and HTTP/2 protocols without any additional setting.

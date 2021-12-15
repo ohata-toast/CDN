@@ -70,7 +70,7 @@ Set server providing original files to be deployed to CDN.
 
 **[Table 1] List of Trusted Certificates**
 
-| Common Name| Expiry Date |SHA-1 Fingerprint |
+| Common Name| Expiration Date |SHA-1 Fingerprint |
 |---|---|---|
 |SecureTrust CA|1.Jan.30|8782c6c304353bcfd29692d2593e7d44d934ff11|
 |Entrust.net Certification Authority (2048)|24.Jul.29|503006091d97d4f5ae39f7cbe7927d7d652d3431|
