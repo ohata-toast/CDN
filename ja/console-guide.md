@@ -13,7 +13,7 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
 
 ### 基本情報
 基本情報を設定します。
-![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202112.png)
+![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-default_ja_202112.png)
 
 - **サービス地域**
   GLOBALサービス地域は、全世界の拠点にあるCDNエッジサーバーを通してCDNサービスを提供します。
@@ -48,7 +48,7 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
 
 ### オリジンサーバー
 CDNサービスへ配布する原本ファイルを提供するサーバーを設定します。
-![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202112.png)
+![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-origin_ja_202112.png)
 
 - **原本タイプ**
     - オブジェクトストレージ：NHN Cloud Object Storageサービスで作成したコンテナをオリジンサーバーに設定します。
