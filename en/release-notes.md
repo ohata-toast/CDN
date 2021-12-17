@@ -5,12 +5,12 @@
 #### Feature Updates
 * Enabled HTTP/2 protocol support for the CDN service. HTTP/2 is supported by default.
 * Added the origin type setting feature
-	* You can set as the origin server by retrieving object storage and instance information from NHN Cloud. For more information, refer to [Console Guide > Origin Server](./console-guide/#_2).
+	* You can set as the origin server by retrieving object storage and instance information from NHN Cloud. For more information, refer to [Console Guide > Origin Server](./console-guide/#origin-server).
 
 ### November 23, 2021
 
 #### Feature Updates
-* Added a feature to set whether to include a query string in cache key. For more information, refer to [Console Guide > Cache](./console-guide/#_4).
+* Added a feature to set whether to include a query string in cache key. For more information, refer to [Console Guide > Cache](./console-guide/#cache).
 
 ### July 27, 2021
 
@@ -22,7 +22,7 @@
 ### May 25, 2021
 
 #### Feature Updates
-* The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#_3).
+* The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#controlling-the-access-of-root-path).
 
 ### October 6, 2020
 
@@ -55,7 +55,7 @@
 	* For more details, see [Console User Guide](./console-guide/).
 * Added Certificate Management Features
 	* To use CDN service with your own domain, HTTPS protocol service is provided as part of certificate management features. With certificate management, certificates can be easily issued and automatically renewed before expired.
-	* For more details, see [Console User Guide > Certificate Management](./console-guide/#_6).
+	* For more details, see [Console User Guide > Certificate Management](./console-guide/#managing-certificates).
 * API Support for (Old) Service Domain (*.cdn.toastcloud.com) and (New) Service Domain (*.toastcdn.net)
 	* (Old) [ServiceID].cdn.toastcloud.com is available without changing the old API (lower than v1.5). However, newly added features are not available.
 	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications that are higher than v1.5.
