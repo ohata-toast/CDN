@@ -60,13 +60,13 @@ Set server providing original files to be deployed to CDN.
     - Enter Manually: Configure a separate running origin server.
 
 - **Origin Server**  
-  The origin server is the server that provides original files to be distributed by the CDN service. The origin server can be entered in IPv4 or fully qualified domain name (FQDN) format. It is recommended to set the server as a domain because an IP address is likely to change.  
-  If there is no running origin server, select the **Instance** option in **Original Type** to use an instance of the NHN Cloud Instance service, or select the **Object Storage** option to use a container in the NHN Cloud Object Storage service.  
-  To support secure transport (HTTPS) via the CDN service domain, the origin server must support HTTPS response.  
+  The origin server is the server that provides original files to be distributed by the CDN service. The origin server can be entered in IPv4 or fully qualified domain name (FQDN) format. It is recommended to set the server as a domain because an IP address is likely to change.
+  If there is no running origin server, select the **Instance** option in **Original Type** to use an instance of the NHN Cloud Instance service, or select the **Object Storage** option to use a container in the NHN Cloud Object Storage service.
+  To support secure transport (HTTPS) via the CDN service domain, the origin server must support HTTPS response.
   This means that the origin server must have a certificate trusted by NHN Cloud CDN installed.
-  Refer to the following table for trusted certificates.  
-  If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting.  
-  However, **Downgrading HTTP Protocols Requesting Originals** has constraints, so it is recommended that the origin server support HTTPS protocol.  
+  Refer to the following table for trusted certificates.
+  If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting.
+  However, **Downgrading HTTP Protocols Requesting Originals** has constraints, so it is recommended that the origin server support HTTPS protocol.
 
 **[Table 1] List of Trusted Certificates**
 
