@@ -59,7 +59,7 @@ Set server providing original files to be deployed to CDN.
         - Instance: From the list of retrieved instances from the selected region, select an instance to set as the origin server. The IP of the selected instance is automatically entered in the origin server, and the port of the origin server to be used must be entered manually. Only instances that are associated with floating IPs can be used as the origin server.
     - Enter Manually: Configure a separate running origin server.
 
-- **Origin Server**  
+- **Origin Server**
   The origin server is the server that provides original files to be distributed by the CDN service. The origin server can be entered in IPv4 or fully qualified domain name (FQDN) format. It is recommended to set the server as a domain because an IP address is likely to change.
   If there is no running origin server, select the **Instance** option in **Original Type** to use an instance of the NHN Cloud Instance service, or select the **Object Storage** option to use a container in the NHN Cloud Object Storage service.
   To support secure transport (HTTPS) via the CDN service domain, the origin server must support HTTPS response.
