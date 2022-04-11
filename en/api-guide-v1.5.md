@@ -567,7 +567,7 @@ Apply partial modification API to change a part of the service setting.
 | Name      | Type   | Required | Default | Valid Range           | Description                                                  |
 | --------- | ------ | -------- | ------- | --------------------- | ------------------------------------------------------------ |
 | domain    | String | Required |         | Up to 255 characters  | Domain (service) name to purge                               |
-| purgeType | List   | Required |         | ITEM / WILDCARD / ALL | Purge type ("ITEM", "WILDCARD", or "ALL")                    |
+| purgeType | List   | Required |         | ITEM / ALL | Purge type ("ITEM", or "ALL")                    |
 | purgeList | String | Optional |         |                       | List of items to purge (delimit by \n tokens; not required, if the purge type is ALL.) |
 
 #### Response
@@ -598,7 +598,7 @@ Apply partial modification API to change a part of the service setting.
 
 - Cache redeployment may fail within about an hour after CDN service is newly created. If it still fails afterwards, contact Customer Center.
 - Purge API has usage restriction policy. For more details, go to [Console User Guide > CDN Cache Redeployment](./console-guide/#cdn_3) and check 'Cache Redeployment Usage Restriction'.
-- ITEM and WILDCARD types are restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response.
+- ITEM type is restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response.
 
 ### Get Cache Purges
 
@@ -682,7 +682,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
 | purges[0].progress      | Integer | Purge progress rate |
 | purges[0].purgeTime     | Long    | Purge requesting time |
 | purges[0].lastCheckTime | Long    | Last confirmed purge time |
-| purges[0].type          | String  | Purge type ("ITEM", "WILDCARD",or "ALL") |
+| purges[0].type          | String  | Purge type ("ITEM" or "ALL") |
 | purges[0].path          | String  | Requested purge items |
 
 ## Callback Response

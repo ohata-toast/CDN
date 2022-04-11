@@ -1,8 +1,8 @@
 ## Content Delivery > CDN > API v1.5 Guide
 
-This document describes Public API v1.5 provided by NHN Cloud CDN. 
+This document describes Public API v1.5 provided by NHN Cloud CDN.
 
-## Common API Information  
+## Common API Information
 
 ### Domain
 
@@ -12,7 +12,7 @@ This document describes Public API v1.5 provided by NHN Cloud CDN.
 
 ### Prerequisites
 
-Requires Appkey and SecretKey API, which are available in **URL & Appkey** on top right of the console.  
+Requires Appkey and SecretKey API, which are available in **URL & Appkey** on top right of the console.
 
 ### Common Request Information
 
@@ -22,7 +22,7 @@ Requires Appkey and SecretKey API, which are available in **URL & Appkey** on to
 | ------------- | ----------------------------- |
 | Authorization | SecretKey issued on a console |
 
-#### Path Parameter  
+#### Path Parameter
 
 In all APIs, the appKey must be specified in the path parameter.
 * e.g.) /v1.5/appKeys/**{appKey}**/distributions
@@ -59,7 +59,7 @@ Respond with **200 OK** to all API requests. For more details, see the header at
 
 #### CDN Status Codes
 
-Below shows the status codes of CDN service, which are available at the query of service.  
+Below shows the status codes of CDN service, which are available at the query of service.
 
 | Value      | Description                           |
 | ---------- | ------------------------------------- |
@@ -76,7 +76,7 @@ Below shows the status codes of CDN service, which are available at the query of
 
 ## Service API
 
-### Create  
+### Create
 
 #### Request
 
@@ -101,7 +101,8 @@ Below shows the status codes of CDN service, which are available at the query of
 			"referrerType" : "BLACKLIST",
 			"description" : "sample-cdn",
 			"maxAge": 86400,
-			"referrers" : "cloud.toast.com",
+			"referrers" : "cloud.nhn.com",
+            "isAllowWhenEmptyReferrer" : true,
 			"origins" : [
 				{
 					"origin" : "static.origin.com",
@@ -144,6 +145,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].callback.url          | String  | Required |         | Up to 1024 characters                        | Callback URL                                                 |
 
 
+
 #### Response
 
 
@@ -169,7 +171,7 @@ Below shows the status codes of CDN service, which are available at the query of
             "maxAge" :  100,
             "origins" : [
                 {
-                    "origin" :  "static.toastoven.net",
+                    "origin" :  "cloud.nhn.com",
                     "port" :  80
                 }
             ],
@@ -260,7 +262,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
     "referrers" :  "test.com",
     "origins" : [
         {
-            "origin" :  "static.toastoven.net",
+            "origin" :  "static.resource.com",
             "port" :  80
         }
     ],
@@ -334,7 +336,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
         },
-        "description" : "change contents"   
+        "description" : "change contents"
 }
 ```
 
@@ -351,6 +353,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | domainAlias           | String  | Optional |         | Up to 255 characters                                         | Domain alias (Personal or company-owned domains; delimit by \n tokens.) |
 | maxAge                | Integer | Optional | 0       | 0 ~ 2,147,483,647                                            | Cache expiration time (second); default 0 refers to 604,800 seconds. |
 | referrers             | String  | Optional |         | Up to 1024 characters, including '\n\' tokens                | Referrers (delimit by \n tokens. )                           |
+| isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
 | origins               | List    | Required |         |                                                              | Origin server                                                |
 | origins[0].origin     | String  | Required |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
 | origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
@@ -360,7 +363,6 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
 | callback.httpMethod   | String  | Required |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
 | callback.url          | String  | Required |         | Up to 1024 characters                                        | Callback URL                                                 |
-
 
 #### Response
 
@@ -422,7 +424,7 @@ Apply partial modification API to change a part of the service setting.
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
         },
-        "description" : "change contents"       
+        "description" : "change contents"
 }
 ```
 
@@ -565,7 +567,7 @@ Apply partial modification API to change a part of the service setting.
 | Name      | Type   | Required | Default | Valid Range           | Description                                                  |
 | --------- | ------ | -------- | ------- | --------------------- | ------------------------------------------------------------ |
 | domain    | String | Required |         | Up to 255 characters  | Domain (service) name to purge                               |
-| purgeType | List   | Required |         | ITEM / WILDCARD / ALL | Purge type ("ITEM", "WILDCARD", or "ALL")                    |
+| purgeType | List   | Required |         | ITEM / ALL | Purge type ("ITEM", or "ALL")                    |
 | purgeList | String | Optional |         |                       | List of items to purge (delimit by \n tokens; not required, if the purge type is ALL.) |
 
 #### Response
@@ -594,9 +596,9 @@ Apply partial modification API to change a part of the service setting.
 | header.resultMessage | String  | Result message          |
 | purgeSeq             | Integer | Purge requesting number |
 
-- Cache redeployment may fail within about an hour after CDN service is newly created. If it still fails afterwards, contact Customer Center. 
+- Cache redeployment may fail within about an hour after CDN service is newly created. If it still fails afterwards, contact Customer Center.
 - Purge API has usage restriction policy. For more details, go to [Console User Guide > CDN Cache Redeployment](./console-guide/#cdn_3) and check 'Cache Redeployment Usage Restriction'.
-- ITEM and WILDCARD types are restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response. 
+- ITEM type is restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response.
 
 ### Get Cache Purges
 
@@ -680,11 +682,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
 | purges[0].progress      | Integer | Purge progress rate |
 | purges[0].purgeTime     | Long    | Purge requesting time |
 | purges[0].lastCheckTime | Long    | Last confirmed purge time |
-| purges[0].type          | String  | Purge type ("ITEM", "WILDCARD",or "ALL") |
+| purges[0].type          | String  | Purge type ("ITEM" or "ALL") |
 | purges[0].path          | String  | Requested purge items |
 
 ## Callback Response
-With callback enabled for CDN service, when tasks are completed, such as Create/Modify/Suspend/Resume/Delete, response values are delivered to callback URL as below.   
+With callback enabled for CDN service, when tasks are completed, such as Create/Modify/Suspend/Resume/Delete, response values are delivered to callback URL as below.
 
 [Response Body]
 ``` json
@@ -709,7 +711,7 @@ With callback enabled for CDN service, when tasks are completed, such as Create/
       "deleteTime": "DateTime",
       "origins":[
          {
-            "origin": "static.toastoven.net",
+            "origin": "static.resource.com",
             "originPath": "/path",
             "port": "80"
          }
@@ -736,7 +738,7 @@ With callback enabled for CDN service, when tasks are completed, such as Create/
 | distribution.domainAlias           | String  | Owned domain                                                  |
 | distribution.region                | String  | Service region ("GLOBAL": Global service)             |
 | distribution.description           | String  | Description                                                         |
-| distribution.status                | String  | CDN status code ([Table] See CDN Statud Code)                                 |
+| distribution.status                | String  | CDN status code ([Table] See CDN Status Code)                                 |
 | distribution.createTime            | String  | Date and time of creation                                                    |
 | distribution.deleteTime            | String  | Date and time of deletion                                                    |
 | distribution.useOrigin             | String  | Whether to use origin server setting ("Y": Enable origin server setting, "N": User-configured) |
