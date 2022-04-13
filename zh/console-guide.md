@@ -1,73 +1,76 @@
-## Content Delivery > CDN > 콘솔 사용 가이드
+## Content Delivery > CDN > Console User Guide
 
-이 문서는 NHN Cloud CDN 콘솔에서 CDN 서비스를 구성하고 이용하는 방법을 설명합니다.
+This document describes how CDN service is configured and applied on NHN Cloud CDN console.
 
-## CDN 서비스 생성
+## Creating CDN Service
 
-**Contents Delivery > CDN**의 **CDN 서비스** 탭에서 **생성** 버튼을 클릭하면 **CDN 서비스 생성** 대화 상자가 나타납니다.
-CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(domain alias) 기능을 이용할 수 있습니다.
-생성을 요청한 후 서비스 배포가 완료될 때까지 최대 2시간이 걸립니다. 배포가 완료된 후 서비스를 이용할 수 있습니다.
+Go to **Content Delivery > CDN** and to **CDN Service** and click **Create**, and the **Creating CDN** window pops up.
+CDN service domain is automatically created in the **[ServiceID].toastcdn.net** format. To use your own domain, enable **Domain Alias**.
+It takes up to 2 hours to complete deployment after service is requested for creation. Service becomes available after it is completely deployed.
 
-### 기본 정보 
-기본 정보를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202112.png)
+> **[Note] Duration for download optimization when creating a CDN for the first time**
+> Download speed might become slightly slower for up to 3 days after CDN is first created.
 
-- **서비스 지역**
-  GLOBAL 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
-  단, **중국과 러시아**는 서비스 지역에서 제외됩니다.
+### Basic Information
+Set basic information.
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202112.png)
 
-- **설명**
-  CDN 서비스의 설명을 추가합니다.
+- **Service Region**
+  GLOBAL service is provided via CDN edge servers located around the globe.
+  Note, however, **China and Russia** are excluded from service regions.
 
-- **도메인 별칭**
-  TOSAT CDN은 기본으로 **[서비스ID].toastcdn.net** 형식의 서비스 도메인 주소를 제공하고 있습니다.
-  기본 서비스 도메인 주소가 아닌 소유한 도메인으로 CDN 서비스를 이용하려면 **도메인 별칭**에서 설정하면 됩니다.
-  소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 **인증서 관리** 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
-  도메인 별칭 설정 후에는 도메인의 DNS 서비스 제공 업체에서 CNAME 레코드를 다음과 같이 등록해야 합니다. DNS 설정 관련 문의는 DNS 서비스 제공 업체에 하시기 바랍니다.
-    - 레코드 타입: **CNAME**
-    - 레코드 이름: **[도메인 별칭에 등록한 도메인]**
-    - 레코드값(Rdata): **[서비스ID].toastcdn.net**
-    - TTL: 임의의 값
+- **Description**
+  More description is added on CDN service.
 
-- **콜백**
-  CDN 서비스 생성과 변경 작업(수정, 일시정지/재시작, 삭제)은 몇 시간이 걸립니다. 
-  작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하시기 바랍니다. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#_23)를 참고하시기 바랍니다.
-    1. **HTTP Method**와 **콜백 URL**을 입력합니다.
-    2. Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 전달받으려면 **콜백 URL**에 다음의 경로(path) 변수를 포함해 입력해 주세요. 
-         예: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
+- **Domain Alias**
+  The default service domain address of NHN Cloud CDN is provided in the **[ServiceID].toastcdn.net** format.
+  To use CDN service with your own domain, enable **Domain Alias**.
+  To use HTTPS protocol with your own domain, get a certificate issued from **Certificate Management** and set domain alias.
+  After domain alias is set, register CNAME record at DNS provider of domain, like follows. Please consult your DNS provider regarding DNS settings.
+    - Record Type: **CNAME**
+    - Record Name: **[Registered domain for domain alias]**
+    - Record Value (Rdata): **[ServiceID].toastcdn.net**
+    - TTL: Randomly selected
 
-| 경로(path) 변수 | 설명 | 예시 전달 값 |
+- **Callback**
+ It takes hours to create and change CDN service. (e.g. Modify, Suspend/Resume, and Delete).
+ After a task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#_23) to find information sent to callback.
+    1. Enter **HTTP Method** and **Callback URL**.
+    2. To receive results on the change of CDN via query parameter, include the following path variable to **Callback URL**.
+         e.g.: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
+
+| Path Variables | Description | Delivered Value|
 | ------------- | --- | ------- |
-| {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급한 앱 키 |
-| {domain} | CDN 서비스 이름 | [서비스ID].toastcdn.net |
-| {status} | 현재 CDN 서비스 상태 | OPEN, SUSPEND, CLOSE, ERROR |
-| {isSuccessful} | 서비스 변경 작업 성공 여부(API v1.0은 지원하지 않습니다.) | "true" 또는 "false" |
+| {appKey} | Appkey of CDN Service | Appkey issued on console |
+| {domain} | Name of CDN Service | [ServiceID].toastcdn.net |
+| {status} | Current status of CDN | OPEN, SUSPEND, CLOSE, ERROR |
+| {isSuccessful} | Whether service change is successful (API v1.0 is not supported.) | "true" or "false" |
 
-### 원본 서버
-CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202112.png)
+### Origin Server
+Set server providing original files to be deployed to CDN.
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202112.png)
 
-- **원본 타입**
-    - 오브젝트 스토리지: NHN Cloud Object Storage 서비스에서 생성한 컨테이너를 원본 서버로 설정합니다.
-        - 리전: 오브젝트 스토리지의 컨테이너 정보를 조회할 리전을 선택합니다.
-        - 이름: 원본 서버로 설정하고자 하는 컨테이너의 이름을 입력합니다. 컨테이너 접근 정책이 **PUBLIC**인 컨테이너만을 원본 서버로 사용할 수 있습니다. 컨테이너가 원본 서버로 사용 가능할 경우, 원본 서버와 원본 경로에 컨테이너 정보가 자동으로 입력됩니다.
-    - 인스턴스: NHN Cloud Instance 서비스에서 생성한 인스턴스를 원본 서버로 설정합니다.
-        - 리전: 인스턴스 목록을 조회할 리전을 선택합니다.
-        - 인스턴스: 리전을 선택하여 조회된 인스턴스 목록에서 원본 서버로 설정할 인스턴스를 선택합니다. 선택한 인스턴스의 IP가 원본 서버에 자동으로 입력되며, 사용할 원본 서버의 포트는 직접 입력해야 합니다. 플로팅 IP가 연결된 인스턴스만을 원본 서버로 사용할 수 있습니다.
-    - 직접 입력: 별도로 운영 중인 원본 서버를 설정합니다.
+- **Origin Type**
+    - Object storage: Set the container created in the NHN Cloud Object Storage service as the origin server.
+        - Region: Select a region to query object storage container information.
+        - Name: Enter the name of the container you want to set as the origin server. Only containers with a container access policy of **PUBLIC** can be used as the origin server. If the container can be used as the origin server, the container information is automatically entered in the origin server and origin path.
+    - Instance: Set the instance created in the NHN Cloud Instance service as the origin server.
+        - Region: Select a region to retrieve a list of instances.
+        - Instance: From the list of retrieved instances from the selected region, select an instance to set as the origin server. The IP of the selected instance is automatically entered in the origin server, and the port of the origin server to be used must be entered manually. Only instances that are associated with floating IPs can be used as the origin server.
+    - Enter Manually: Configure a separate running origin server.
 
-- **원본 서버**
-  원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.
-  운영 중인 원본 서버가 없다면, **원본 타입**의 **인스턴스** 옵션을 선택하여 NHN Cloud Instance 서비스의 인스턴스를 사용하거나 **오브젝트 스토리지** 옵션을 선택하여 NHN Cloud Object Storage 서비스의 컨테이너를 이용할 수 있습니다.
-  CDN 서비스 도메인으로 보안 전송(HTTPS)을 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다.
-  이는 원본 서버에 NHN Cloud CDN이 신뢰하는 인증서가 설치돼 있어야 한다는 뜻입니다.
-  신뢰하는 인증서는 다음 표를 참고하시기 바랍니다.
-  만일, 원본 서버가 HTTPS 응답을 지원할 수 없다면 **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용하시기 바랍니다.
-  단, **원본 요청 HTTP 프로토콜 다운그레이드**는 제약 사항이 있으므로 원본 서버가 HTTPS 프로토콜을 지원하는 것을 권장합니다.
+- **Origin Server**
+  The origin server is the server that provides original files to be distributed by the CDN service. The origin server can be entered in IPv4 or fully qualified domain name (FQDN) format. It is recommended to set the server as a domain because an IP address is likely to change.
+  If there is no running origin server, select the **Instance** option in **Original Type** to use an instance of the NHN Cloud Instance service, or select the **Object Storage** option to use a container in the NHN Cloud Object Storage service.
+  To support secure transport (HTTPS) via the CDN service domain, the origin server must support HTTPS response.
+  This means that the origin server must have a certificate trusted by NHN Cloud CDN installed.
+  Refer to the following table for trusted certificates.
+  If the origin server cannot support HTTPS response, use the **Downgrading HTTP Protocols Requesting Originals** setting.
+  However, **Downgrading HTTP Protocols Requesting Originals** has constraints, so it is recommended that the origin server support HTTPS protocol.
 
-**[표 1] 신뢰하는 인증서 목록**
+**[Table 1] List of Trusted Certificates**
 
-| Common name| Expire Date |SHA-1 Fingerprint |
+| Common Name| Expiration Date |SHA-1 Fingerprint |
 |---|---|---|
 |SecureTrust CA|1.Jan.30|8782c6c304353bcfd29692d2593e7d44d934ff11|
 |Entrust.net Certification Authority (2048)|24.Jul.29|503006091d97d4f5ae39f7cbe7927d7d652d3431|
@@ -126,14 +129,14 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 |GeoTrust Global CA|21.May.22|de28f4a4ffe5b92fa3c503d1a349a7f9962a8212|
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
-- **원본 서버 포트**  
-  원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
-  원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.  
-  원본 서버 포트는 제한된 포트만 설정할 수 있습니다. 설정 가능한 포트 번호는 다음 표를 참고하시기 바랍니다.  
+- **Origin Server Port**  
+  An origin server must be operated by a web-protocol support service. Service port numbers can be set for HTTP/HTTPS protocols under operations.  
+  Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.  
+  Only limited number of ports are available as the original port. Refer to the following table for available port numbers.  
 
-**[표 2] 사용 가능한 원본 서버 포트 번호**
+**[Table 2] Available Origin Server Port Numbers**
 
-|포트 번호|
+|Port Number|
 |---|
 |72, 488, 1080, 1443, 7070|
 |8000-9001|
@@ -145,164 +148,174 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 |9901-9908|
 |45002|
 
-- **원본 경로**  
-  원본 파일의 경로 중 하위 경로를 설정합니다. 콘텐츠를 요청할 때 원본 경로를 생략하고 요청할 수 있습니다.
+- **Original Path**  
+  Set the lower paths of an original file. Content may be requested without the original path.
 
-> **[예시] 원본 경로를 /files/images로 설정한 경우** 
+> **[Example] When the original path is set with /files/images**
 >
-> - 원본 파일 URL: http://your.origin.com/**files/images**/logo.png 
-> - CDN 서비스 URL: http://[서비스ID].toastcdn.net/logo.png
-> - CDN 서비스 URL에서 원본 경로(/files/images)를 생략하여 요청할 수 있습니다. 
+> - URL of Original File: http://your.origin.com/**files/images**/logo.png
+> - URL of CDN Service: http://[ServiceID].toastcdn.net/logo.png
+> - Origin paths may be missing from URL of CDN service when it is requested.
 
-- **원본 요청 HTTP 프로토콜 다운그레이드**  
-  CDN 에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클라이언트의 원본 요청(request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.  
-  즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않으면, CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜로 요청하기 때문에 원본 파일을 응답받을 수 없습니다.  
-  원본 서버에서 HTTP 프로토콜만 운영한다면, **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용해 CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜을 HTTP 프로토콜로 다운그레이드해서 요청할 수 있습니다.  
-  즉, 클라이언트에서 CDN 에지 서버 구간은 보안 통신(HTTPS)으로 통신하고, CDN 에지 서버에서 원본 서버 구간은 비보안 통신(HTTP)으로 통신하게 됩니다.  
-  원본 요청 HTTP 프로토콜을 다운그레이드할 때는 다음과 같은 제약 사항이 있습니다.  
-> **[주의] 원본 요청 HTTP 프로토콜 다운그레이드 제약 사항**
-> 1. 전체 사이트 주소는 프로토콜 다운그레이드를 할 수 없습니다. 예를 들어 원본 서버의 전체 사이트 주소인 **www.toast.com**는 다운그레이드할 수 없습니다.
-> 2. GET, HEAD 및 OPTIONS 메서드 외 메서드는 지원되지 않습니다. 
-> 3. CDN 서버에서 원본 서버로 다운그레이드를 요청할 때 다음의 헤더는 제외될 수 있습니다.
+- **Downgrading HTTP Protocols Requesting Originals**  
+  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.  
+  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, original files do not come as response.  
+  If the origin server operates HTTPS protocols only, enable the **Downgrading HTTP Protocols Requesting Originals** setting and make a request from CDN edge server to origin server by downgrading HTTPS to HTTP protocol.  
+  In short, the CDN edge server section of client is communicated via HTTPS, while the origin server section of CDN edge server is communicated via HTTP.  
+  Note the following constraints when downgrading HTTP protocols requesting originals:  
+
+> **[Caution] Constraints for Downgrading HTTP Protocols Requesting Originals**
+> 1. Protocol downgrade is not applied to the entire website address. For instance, **www.nhn.com**, which is the entire site address of the origin server, cannot be downgraded.
+> 2. No other methods than GET, HEAD, or OPTIONS, are supported.
+> 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
-- **Forward Host Header**
-  CDN 서버가 원본 서버에 원본 파일을 요청할 때 전달할 **Host** 헤더값을 설정합니다.  
-  원본 서버가 Name-based virtual host로 운영 중이라면 **요청 호스트 헤더** 설정이 필요할 수 있습니다. 원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하시기 바랍니다.
-  - **원본 호스트 이름**: 원본 서버의 호스트 이름을 Host 헤더로 설정합니다. 
-    - **요청 호스트 헤더**: 클라이언트 요청의 Host 헤더로 설정합니다.
+- **Forward Host Header**  
+  Set **Host** header value to be sent along with a request of CDN server for original files to origin server.  
+  If the origin server is run as name-based virtual host, **Request Host Header** setting may be required. Select an appropriate value depending on the operating type of an origin server.  
+    - **Original Host Name**: Set the host name of origin server as the host header.
+    - **Request Host Header**: Set as the host header of client request.
 
-### 루트 경로 접근 관리
-CDN 서비스의 루트 경로에 대한 접근 제어를 설정할 수 있습니다.
-![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path.png)
+> **[Caution] Validation of host header and origin server certificate when using secure transport (HTTPS)**
+> When a client requests content over secure transport (HTTPS), the CDN server checks whether the origin server's certificate is valid.
+> The origin server must have a certificate of Common Name (CN) or Subject Alternate Name (SAN) that matches the host request header installed.
+> A secure transport error occurs if the certificate matching the host request header is not installed on the origin server.
+> Note that the host request header is set as the request host header or the original host name according to the Forward Host Header setting.
 
-- **루트 경로 접근 설정**
-    - **사용**: 루트 경로 접근 관리 기능을 활성화하여 루트 경로에 대한 요청을 차단하거나, 다른 페이지로 리다이렉트하도록 설정합니다.
-    - **미사용**: 루트 경로 접근 관리 기능을 비활성화 합니다.
-- **접근 제어 방식**
-    - **Deny**: 루트 경로에 대한 요청에 HTTP Response Code 403을 응답합니다.
-    - **Redirect**: 루트 경로에 대한 요청을 사용자가 지정한 경로로 리다이렉트 합니다.
-- **Redirect 경로**
-  루트 경로에 대한 요청을 리다이렉트할 경로를 입력합니다. Redirect 경로는 '/'로 시작해야 하고, CDN 서비스의 하위에 존재하는 경로여야 합니다.
+### Controlling the access of root path
+You can set the access control for the root path of the CDN service.
+![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path.png)
+
+- **Setting the access of root path**
+    - **Enable**: Activates the access management function for root path, banning requests for root path and setting up to redirect to a different page.
+    - **Disable**: Deactivates the access management function for root path.
+- **Method of Access Control**
+    - **Deny**: Replies with HTTP Response Code 403 when receiving request for root path.
+    - **Redirect**: Redirects to a path designated by the User when receiving a root path request.
+- **Redirect Path**
+  Enter the redirection path for root path request. The redirection path must start with a "/," and must be a path that exists in the lower-level CDN service.
 - **Redirect HTTP Response Code**
-    - 루트 경로에 대한 요청을 리다이렉트하고 전달할 HTTP Response Code를 설정합니다. 
-    - Redirect HTTP Response Code는 301, 302, 303, 307 중에서 선택할 수 있습니다.
-  
-### 캐시
+    - Set up the HTTP Response Code that will send and redirect the root path request.
+    - Redirect HTTP Response Code can be selected among 301, 302, 303, and 307.
 
-CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202111.png)
+### Cache
 
-- **캐시 만료 설정**
-  원본 서버의 Cache Control 응답 헤더를 통해 캐시를 설정할 수 있습니다. 
-    - **원본 설정 사용**: 원본 서버의 응답에서 제공한 캐시 제어 헤더(Cache-Control, Expires)를 우선 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(Cache-Control, Expires)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐시됩니다.  **원본 설정 사용** 옵션이 기본값입니다.
-    - **사용자 설정 사용**: 캐시 만료 시간(초)에 지정한 시간 동안 캐시됩니다.
+CDN cache operations and expiration time can be set.
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202111.png)
 
-- **캐시 만료 시간(초)**
-  캐시 만료 시간을 지정하려면 **사용자 설정 사용** 버튼을 클릭하고 **캐시 만료 시간(초)**에서 캐시 만료 시간을 변경합니다.
+- **Configuration of Cache Expiration**
+  Cache can be configured from the response header of cache control at the origin server.
+    - **Use Original Configuration**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Use Original Configuration** is default.
+    - **Use User Configuration**: Cached during specified cache expiration time (seconds).
 
-- **캐시 키 쿼리 문자열 포함 설정**
-  URL 기반으로 생성되는 캐시 키에 요청 쿼리 문자열을 포함할지 설정할 수 있습니다.
-    - 전체 포함: 요청에 포함된 전체 쿼리 문자열을 캐시 키에 포함합니다. 캐시 키에 요청 쿼리 문자열이 포함되므로, 동일한 컨텐츠 요청에 대해 쿼리 문자열이 변경될 때마다 새로운 캐시 키가 생성됩니다. 요청 쿼리 문자열을 변경하여 컨텐츠를 새로 캐싱하고자 할 경우 선택합니다. **전체 포함** 옵션이 기본값입니다.
-    - 전체 제외: 요청에 포함된 쿼리 문자열을 모두 제외하고 URL만을 이용하여 캐시 키를 생성합니다. 요청 쿼리 문자열이 지속적으로 변경되어야 하는 경우, 해당 옵션을 설정해야 캐싱이 동작합니다.
+- **Cache Expiration Time (seconds)**
+  To specify a cache expiration time, click the **Use User Configuration** button and change the cache expiration time in **Cache Expiration Time (seconds)**.
 
-> **[참고] 캐시 만료 시간 기본값과 유효 범위**
-> 캐시 만료 시간 기본값은 0입니다. 기본값을 0으로 설정하면 캐시 만료 시간은 604,800(단위/초)=1주일입니다.
-> 캐시 만료 시간은 기본값인 0부터 2,147,483,647(단위/초)까지 입력할 수 있습니다.
+- **Set Inclusion of Query String in Cache Key**
+  You can set whether to include the request query string in the cache key generated based on the URL.
+    - Include All: Include the entire query string included in the request in the cache key. Because the cache key contains the request query string, a new cache key is generated whenever the query string is changed for the same content request. Select if you want to cache the content newly by changing the request query string. The **Include All** option is the default.
+    - Exclude All: Generates a cache key using only the URL, excluding all query strings included in the request. If the request query string needs to be changed constantly, you must set this option for caching to work.
 
-### 리퍼러(referer) 헤더 접근 관리
-리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202111.png)
+> **[Note] Default value and valid range of cache expiration time**
+> The default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds) = 1 week.
+> Cache expiration time is available from 0 (default) to 2,147,483,647 (seconds).
 
-리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
-정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
+### Access Management for Referer Header
+Content access management is set with the referer request header.
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202111.png)
 
-- **블랙리스트(blacklist) 타입**:
-    * 특정 리퍼러 요청 헤더만 접근을 제한할 때 적합합니다.
-    * 리퍼러 요청 헤더값이 설정한 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 제한됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 허용됩니다.
-- **화이트리스트(whitelist) 타입**:
-    * 특정 리퍼러 요청 헤더만 접근을 허용할 때 적합합니다.
-    * 리퍼러 요청 헤더값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
+The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content.
+Enter in regex, and break the lines to enter many.
 
-> **[주의]**
-> 리퍼러 요청 헤더가 없는 경우 접근 제어는 동작하지 않습니다.
+- **Access control types**
+    - **Blacklist type**:
+        * Suitable for restricting the access of particular referer request headers only.
+        * Content access is restricted if a referer request header matches regex setup. If not, content access is allowed.
+    - **Whitelist type**:
+        * Suitable for allowing the access of particular referer request headers only.
+        * Content access is allowed if a referer request header matches regex setup. If not, content access is not allowed.
+
+- **Content Access if Referer Header is Unavailable**
+  Allow Access if Referer Header is UnavailableSelect whether to allow access to content if referer request header is not available.
+    - **Allow**: If referer request header is not available, content access is allowed and the control of referer access does not operate.
+    - **Deny**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.
+
+> **[Example]**
 >
-> **[예시]**
+> * Typ: Whitelist
+> * Regex:`^https://[a-zA-Z0-9._-]*\.nhn\.com/.*`
+> Content access is allowed only when resources are requested from lower paths of a nhn.com sub-domain.
 >
-> * 타입: 화이트리스트(whitelist)
-> * 정규 표현식: `^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
-> 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용합니다.
+> **[Note] Regex Escape Characters**
+> Some characters are used as special characters for regex.
+> For instance, a period (`.`) indicates agreement with all characters for regex.
+> To understand a special character as a general one, add backlash before it.(e.g.: `\.`).
+> Regex special characters include `^, ., [, ], $, (, ), |, *, +, ?, {, }, and \`.
+> To control many referrers, enter in consecutive lines.
+> To set many referrers with APIs, delimit with \n tokens.
+
+### Access Management for Auth Token Authentication
+The access management for Auth Token authentication is a security feature that allows only verified tokens to access content from CDN edge server, by adding authentication token to a content request.
+You may control by allowing one-time access to content or only restricted users to access content.
+If content is requested with an invalid token, 403 Forbidden is sent as response and access to content is forbidden.
+
+To apply the access of Auth Token Authentication to CDN, following process is required.
+
+> **[Caution]**
 >
-> **[참고] 정규 표현식의 이스케이프 문자**
-> 일부 문자는 정규 표현식에서 특수 문자로 사용됩니다. 
-> 점(`.`)을 예로 들자면, 정규 표현식에서 점(`.`)은 모든 문자와 일치함을 나타내는 특수 문자입니다. 
-> 특수 문자로의 의미가 아닌 일반 문자 그대로 해석해야 한다면 이스케이프 문자 백슬래시(`\`)를 특수 문자 앞에 추가하면 됩니다(예: `\.`).
-> 정규 표현식의 특수 문자에는 `^ . [ ] $ ( ) | * + ? { } \` 등이 있습니다.
-> 여러 개의 리퍼러를 제어할 때는 다음 줄에 연속해 입력합니다.
-> API를 이용해 여러 개의 리퍼러를 설정할 때는 \n 토큰으로 구분해 입력합니다.
-
-### Auth Token 인증 접근 관리
-Auth Token 인증 접근 관리는 콘텐츠 요청에 인증 토큰을 추가하여 CDN 에지 서버에서 검증된 토큰만 콘텐츠 접근을 허용하는 보안 기능입니다.
-일회성으로 콘텐츠 접근 허용하거나 제한된 사용자만 콘텐츠를 접근 할 수 있도록 제어할 수 있습니다.
-토큰이 없거나 유효하지 않은 토큰으로 콘텐츠를 요청한 경우, 403 Forbidden 응답이 전송되며 콘텐츠에 접근할 수 없습니다.
-
-Auth Token 인증 접근을 CDN 서비스에 적용하려면 다음의 단계에 따라 작업이 필요합니다.
-
-> **[주의]** 
->
-> Auth Token 인증 접근 관리는 NHN Cloud CDN을 이용해 서비스 중인 애플리케이션에서도 다음의 구현이 필요합니다.
-> 1. 콘텐츠 접근에 필요한 토큰을 생성해야 합니다.
-> 2. 클라이언트(최종 콘텐츠 소비자)가 생성된 토큰을 포함하여 콘텐츠를 요청할 수 있도록 해야합니다.
-> 이 작업을 하지 않고 Auth Token 인증 접근 관리를 설정할 경우, 토큰 검증 실패로 인해 콘텐츠 요청이 실패될 수 있으므로 주의하시기 바랍니다.
+> Access management for Auth Token authentication requires the following implementation, even on applications using NHN Cloud CDN.
+> 1. Create a token required to access content.
+> 2. Client (final content consumer) must request content including created token.
+> If access management is configured without this process, content request may fail due to failed token authentication.
 
 
-#### 1. NHN Cloud CDN 콘솔 > Auth Token 인증 접근 관리 설정
+#### 1. NHN Cloud CDN Console > Setting for Access Management for Auth Token Authentication
 
-CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관리를 설정합니다.
+On CDN console, set access management for Auth Token authentication, in reference of the following.
 
-![CDN서비스생성-Auth Token 인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token_202105.png)
+![Create CDN Service-Access Management for Auth Token Authentication](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token_202105.png)
 
-- **토큰 인증 사용 여부**
-    - **사용**: Auth Token 인증 접근 관리 기능을 활성화하여 토큰 검증한 후 콘텐츠에 접근할 수 있도록 합니다.
-    - **미사용**: Auth Token 인증 접근 관리 기능을 비활성화 합니다.
-- **토큰 위치**: 콘텐츠 요청 시 토큰을 전달할 위치를 선택합니다.  
-    - **쿠키(Cookie)**: 표준 쿠키로 토큰을 전달합니다. 쿠키 사용을 지원하지 않는 장치 및 브라우저는 토큰 인증이 정상적으로 동작하지 않을 수 있으므로 주의하시기 바랍니다.  
-    - **요청 헤더(Request header)**: 요청 헤더에 토큰을 전달합니다.  
-    - **쿼리 문자열(Query string)**: 쿼리 문자열에 토큰을 전달합니다.  
-- **토큰 이름**
-    - 토큰값을 전달할 토큰의 이름입니다. **token** 으로 고정된 값이며 콘솔 설정에서 변경이 불가합니다.
-- **토큰 암호화 키**
-    - 토큰 생성에 필요한 암호화키 입니다. CDN 서비스를 생성 또는 수정하면 암호화 키는 자동으로 생성됩니다.
-    - 암호화키는 외부로 노출되지 않도록 주의하시기 바랍니다.  
-- **토큰 인증 대상 설정**  
-  콘텐츠 접근 시 토큰을 인증할 파일 대상을 설정합니다.  
-  토큰 인증 대상 파일인 경우에만 토큰을 검증하며, 인증 대상 파일이 아닌 경우에는 토큰 검증을 수행하지 않으므로 토큰 없이 콘텐츠 접근이 가능합니다.  
-  지정된 요청 URL 경로 또는 파일 확장자만 토큰 검증을 하려면 요청 URL 경로와 확장자를 입력해주세요. 입력하지 않은 경우 모든 파일에 대해 토큰을 검증합니다.  
-    - **인증 대상 설정**: 설정된 요청 URL 경로와 파일 확장자의 파일만 토큰을 검증합니다.
-    - **인증 예외 대상 설정**: 설정된 요청 URL 경로와 파일 확장자를 제외한 파일의 토큰을 검증합니다.
-    - **요청 URL 경로**: 콘텐츠 URL이 요청 URL 경로와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
-        - 요청 URL 경로는 '/'로 시작해야 하며 와일드카드 문자(여러 문자열: \*, 단일 문자: ?)를 사용할 수 있습니다(예: /toast/\*).
-        - 요청 URL 경로는 쿼리 문자열은 포함하지 않습니다.
-        - 요청 URL 경로는 아스키(ascii) 코드 문자만 입력 가능합니다.
-        - 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
-        - 파일 확장자와 함께 입력한 경우에는 파일 확장자 조건이 일치해도 토큰 접근 제어가 동작합니다.
-    - **파일 확장자**: 콘텐츠 URL이 파일 확장자와 일치되는 경우 토큰 인증 대상 또는 예외 대상으로 설정합니다.
-        - '.'을 포함하지 않은 파일 확장자를 입력합니다(예: pdf, png).
-        - 여러 개를 입력하려면 다음 줄에 입력하세요. 여러 개를 입력한 경우 하나만 일치해도 토큰 접근 제어가 동작합니다.  
-        - 요청 경로 URL과 함께 입력한 경우에는 요청 경로 URL 조건이 일치해도 토큰 접근 제어가 동작합니다.
+- **Enabling Token Authentication**
+    - **Enable**: Activate access management for Auth Token authentication and verify token so as to allow access to content.
+    - **Disable**: Deactivate access management for Auth Token authentication.
+- **Token Location**: Select a location to deliver token when content is requested.
+    - **Cookie**: Deliver token with a standard cookie. Note that devices or browsers that do not support cookies may not run properly.
+    - **Request Header**: Deliver token to the request header.
+    - **Query String**: Deliver token to the query string.
+- **Token Name**
+    - Name of token to deliver token value. It is fixed as **token** which cannot be changed from console setting.
+- **Token Encryption Key**
+    - Encryption key required to create a token. By creating or modifying CDN, an encryption key is automatically created.
+    - Please take caution of not disclosing the encryption key.
+- **Target Setting for Token Authentication**  
+  Set a target of file for token authentication when accessing content.  
+  Verify token only for files with their tokens to be authenticated; for other files, token is not verified, allowing content access without a token.  
+  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.  
+    - **Set Authentication Target**: Verify tokens only for the files of configured request URL path and file extension.
+    - **Set Exception from Authentication**: Verify tokens for files excluding request URL path and file extension.
+    - **Path of Request URL**: If content URL has same path as that of request URL, set it for or against token authentication.
+        - The path of a request URL must start with '/' and wildcard characters (Many strings: \*, Single string: ?) are available (e.g.: /nhn/\*).
+        - The request URL path does not include a query string.
+        - Only ascii code characters are available for a request URL path.
+        - To enter many, change lines; with many inputs, only a single match enables token access control.
+        - When it is entered along with file extension, a matching condition of file extension enables token access control.
+    - **File Extension**: If content URL is same as file extension, it is set for or against token authentication.
+        - Enter file extension excluding '.' (e.g: pdf, png).
+        - To enter many, change lines; with many inputs, only a single match enables token access control.
+        - When it is entered along with request path URL, a matching condition of request path URL enables token access control.
 
-> **[주의] 요청 URL 경로와 파일 확장자**
-> 요청 URL 경로와 파일 확장자 모두 설정한 경우, 두 조건 중 하나만 일치해도 토큰 접근 제어가 동작합니다.
-> [예시] 요청 URL 경로 **/toast/\***, 파일 확장자 **png** 가 설정된 경우: /toast 하위의 모든 파일 또는 파일 확장자가 png인 콘텐츠에 대해 토큰을 검증합니다.
+> **[Caution] Path of Request URL and File Extension**
+> When request URL path and file extension are all set, only one match of the two conditions enables token access control.
+> [Example] When the setting for request URL path is **/nhn/\***, with **png** as file extension: Verify token for all files under /nhn or content with png as file extension.
 
-#### 2. 토큰 생성 
-최종 콘텐츠 사용자가 콘텐츠에 접근하려면 토큰과 함께 콘텐츠를 요청해야 합니다. 따라서, 토큰을 생성해 최종 콘텐츠 사용자에게 발급해야 합니다.
-토큰 생성은 NHN Cloud CDN을 이용해 서비스 중인 애플리케이션에서 구현되어야 합니다.
-토큰 생성 방법은 다음의 샘플 코드를 참고하여 토큰을 생성합니다.
+#### 2. Create Token
+To allow the final content user to access content, content must be requested along with a token. Therefore, a token must be created to get issued to the final content user.
+Token creation must be implemented on an application using NHN Cloud CDN.
+To create a token, refer to the following sample code:
 
-##### Java 샘플 코드
-- 이 샘플 코드는 아래와 같은 제약 사항이 있습니다.  
-- JDK 7 이상, org.projectlombok:lombok, org.apache.commons:commons-lang3 라이브러리와 의존성이 있습니다.  
+##### Java Sample Code
+- This sample code has the following restrictions.
+- JDK 7 or higher, with dependency on the org.projectlombok:lombok, or org.apache.commons:commons-lang3 library.
 
 ```java
 import org.apache.commons.lang3.StringUtils;
@@ -319,63 +332,63 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ToastAuthTokenAccessControlExample {
+public class NhnCloudAuthTokenAccessControlExample {
 
-    // TOAST 콘솔에서 확인한 인증 토큰 암호화 키
-    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{TOAST CDN 서비스의 토큰 암호화 키}";
-    // 토큰 유효 시간(seconds)
+    // Token encryption key for authentication verified on NHN Cloud console
+    private static final String AUTH_TOKEN_ENCRYPT_KEY = "{Token encryption key of NHN Cloud CDN}";
+    // Valid token time (seconds)
     private static final Long TOKEN_DURATION_SECONDS = 3600L;
 
 
     public static void main(String[] args) throws AuthTokenException {
 
-        String path = "/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
-        String singleWildcardPath = "/toast/%EC%9D%B8%EC%A6%9D/*";
-        String[] multipleWildcardPath = {"/toast/%EC%9D%B8%EC%A6%9D*", "/toast/auth/*"};
+        String path = "/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png";
+        String singleWildcardPath = "/nhn/%EC%9D%B8%EC%A6%9D/*";
+        String[] multipleWildcardPath = {"/nhn/%EC%9D%B8%EC%A6%9D*", "/nhn/auth/*"};
 
         System.out.println(" ----------------- ");
-        System.out.println(" 기본 토큰 발급 ");
+        System.out.println(" Issue Default Token ");
         System.out.println(" ----------------- ");
 
         AuthToken authToken = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS);
 
-        System.out.println("단일 URL 토큰: token=" + authToken.generateURLToken(path));
-        System.out.println("와일드카드 토큰: token=" + authToken.generateWildcardPathToken(singleWildcardPath));
-        System.out.println("멀티 와일드카드 토큰: token=" + authToken.generateWildcardPathToken(multipleWildcardPath));
+        System.out.println("Single URL Token: token=" + authToken.generateURLToken(path));
+        System.out.println("Wildcard Token: token=" + authToken.generateWildcardPathToken(singleWildcardPath));
+        System.out.println("Multiple Wildcard Token: token=" + authToken.generateWildcardPathToken(multipleWildcardPath));
 
         System.out.println(" ----------------- ");
-        System.out.println(" 세션 식별자를 포함한 토큰 발급 ");
+        System.out.println("Issue token including session identifier ");
         System.out.println(" ----------------- ");
 
         AuthToken authTokenWithSession = new AuthToken(AUTH_TOKEN_ENCRYPT_KEY, TOKEN_DURATION_SECONDS, "example-sessionId");
-        System.out.println("단일 URL 토큰: token=" + authTokenWithSession.generateURLToken(path));
-        System.out.println("와일드카드 토큰: token=" + authTokenWithSession.generateWildcardPathToken(singleWildcardPath));
-        System.out.println("복수 와일드카드 토큰: token=" + authTokenWithSession.generateWildcardPathToken(multipleWildcardPath));
+        System.out.println("Single URL Token: token=" + authTokenWithSession.generateURLToken(path));
+        System.out.println("Wildcard Token: token=" + authTokenWithSession.generateWildcardPathToken(singleWildcardPath));
+        System.out.println("Multiple Wildcard Token: token=" + authTokenWithSession.generateWildcardPathToken(multipleWildcardPath));
 
     }
 
 
     public static class AuthToken {
 
-        /** 토큰 암호화 알고리즘(SHA256 고정) **/
+        /** Token Encryption Algorithm (fixed with SHA256) **/
         private static final String HMAC_SHA_256 = "HmacSHA256";
 
-        /** 토큰 암호화 키 (TOAST CDN 콘솔 > Auth Token 인증 접근 관리 > 암호화 키) **/
+        /** Token Encryption Key (NHN Cloud CDN Console > Access management for Auth Token authentication  > Encryption key) **/
         private String key;
 
-        /**  세션 식별자 */
+        /**  Session Identifier */
         private String sessionId;
 
-        /** 토큰의 유효 시간(단위: 초) */
+        /** Token Valid Time (Unit: Second) */
         private Long durationSeconds;
 
-        /** 토큰 생성 전 url encode 적용 여부 */
+        /** Enable url encode application before token is created */
         private Boolean escapeEarly;
 
-        /** 토큰 Body 필드의 구분자 */
+        /** Delimiter of Body Field of Token */
         private final String fieldDelimiter = "~";
 
-        /** wildcardPath 구분자 */
+        /** wildcardPath Delimiter */
         private final String aclDelimiter = "!";
 
 
@@ -397,7 +410,7 @@ public class ToastAuthTokenAccessControlExample {
 
 
         /**
-        * 단일 URL에 대한 토큰을 생성합니다.
+        * Create a token for a single URL.
         * @param path : contents url (example: /auth/contents/example.png)
         * @return created token
         * @throws AuthTokenException
@@ -409,9 +422,9 @@ public class ToastAuthTokenAccessControlExample {
 
 
         /**
-        * 와일드카드 경로에 대한 토큰을 생성합니다.
+        * Create token for wildcard path.
         * @param wildcardPath : "/auth/contents/*"
-        * @return 생성된 토큰값
+        * @return Created token value
         * @throws AuthTokenException
         */
         public String generateWildcardPathToken(String wildcardPath) throws AuthTokenException {
@@ -419,9 +432,9 @@ public class ToastAuthTokenAccessControlExample {
         }
 
         /**
-        * 복수 개의 와일드카드 경로에 대한 토큰을 생성합니다.
+        * Create token for multiple wildcard paths.
         * @param wildcardPaths (example: ["/auth/contents/*", "/auth/*/images/*"])
-        * @return 생성된 토큰값
+        * @return Created token value
         * @throws AuthTokenException
         */
         public String generateWildcardPathToken(String... wildcardPaths) throws AuthTokenException {
@@ -521,269 +534,269 @@ public class ToastAuthTokenAccessControlExample {
 
 }
 ```
-- **AuthToken 클래스의 멤버 변수 설명**
-  - **key**: NHN Cloud CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키를 입력합니다.  
-  - **sessionId**: 단일 접근 요청에 대한 고유 식별자를 포함하여 토큰을 생성하려면 sessionId를 입력합니다.  
-      - 세션 ID 별로 유효한 토큰을 생성하여 일회성 토큰을 생성하거나 다양한 사례에 활용할 수 있습니다.  
-      - 세션 ID는 [출력 가능 아스키 문자표](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.)로 구성해야 합니다.  
-      - 세션 ID는 문자열의 길이는 최대 36바이트를 초과할 수 없습니다.  
-  - **durationSeconds**: 생성된 토큰이 유효한 시간(초), 유효 시간이 지난 토큰은 토큰 인증에 실패합니다.  
-      - 토큰 유효 시간을 너무 작게 설정하면 CDN 에지 서버에서 토큰 검증하기 전에 토큰이 만료될 수 있으니 유의하시기 바랍니다. 기대하는 토큰 유효 시간보다 10초이상 크게 설정하기를 권장합니다.  
-      - 토큰 생성 서버의 시간 동기화 설정 NTP (Network Time Protocol, NTP)이 유효한지 반드시 검증하시기 바랍니다. 동기화 되지 않은 시간 정보로 인해 토큰 유효 시간 검증이 실패할 수 있습니다.  
-- **AuthToken 클래스의 공개 메서드(Public Method)**
-  - **public String generateURLToken(String path)**
-      - 단일 경로에 대한 토큰을 생성합니다.  
-      - [예시] path: authToken.generateURLToken("/auth/contents/example.png")  
-      - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).  
-      - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.  
-  - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
-      - 와일드카드 경로와 매핑되는 경로의 토큰을 생성합니다. 경로의 패턴이 일치하는 경우, 와일드카드 토큰 하나로 여러 콘텐츠 URL의 토큰을 인증할 수 있습니다.
-          - [예시1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*") : /auth/contents 하위의 모든 파일에 대해 토큰을 발급합니다.
-          - [예시2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png") : /auth/contents 경로의 png 파일에 대한 토큰을 발급합니다.
-          - [예시3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png") : /auth/contents 경로의 example 와 단일 문자가 결합된 png 파일에 대한 토큰을 발급합니다.
-          - [주의] 경로 또는 세션 ID는 URL 인코딩 문자열로 변경한 후에 토큰을 생성하시기 바랍니다(예: **/toast/인증/파일.png** => **/toast/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
-          - [주의] **!**, **~** 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함하지 않도록 합니다.
-      - 생성된 토큰은 **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}** 형식으로 생성됩니다.
-          - [예시] 생성된 토큰: **exp=1600331503~acl=%2ftoast%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
-#### 3. 생성된 토큰을 콘텐츠 요청에 포함
-클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청시 콘솔에서 설정한 토큰 위치에 생성된 토큰값을 포함하여 요청하도록 합니다.
+- **Description of Member Variables of AuthToken Class**
+    - **key**: Go to NHN Cloud CDN console, Access Management for Auth Token Authentication > and enter Token Encryption Key.
+    - **sessionId**: To create a token including origin identifier for the request of a single access, enter sessionId.
+        - With a valid token created for each session ID, you may create one-time tokens or apply it to many purposes.
+        - Session ID must be configured with [List of Available Ascii Characters](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.).
+        - Session ID cannot be larger than 36 bytes for the length of character string.
+    - **durationSeconds**: Valid time (seconds) for created token; authentication for invalid tokens shall fail.
+        - If valid token time is set too short, token may be expired even before verified on the CDN edge server. It is recommended to set longer than 10 seconds than expected valid time.
+        - Make sure to validate NTP (Network Time Protocol) synchronization on the token creation server; if time is not synchronized, it may fail to validate token time.
+- **Public Method of AuthToken Class**
+    - **public String generateURLToken(String path)**
+        - Create token for a single path.
+        - [Example] path: authToken.generateURLToken("/auth/contents/example.png")
+        - [Caution] For path or session ID, change it into encoded character strings before creating a token. (e.g: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF.png**).
+        - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID.
+    - **public String generateWildcardPathToken(String wildcardPath), public String generateWildcardPathToken(String... wildcardPaths)**
+        - Create token of the path mapped with the wildcard path. If their patterns of path match, it only takes a single wildcard token to authenticate tokens of URLs of many contents.
+            - [Example1] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*"): Issue token for all files under /auth/contents.
+            - [Example2] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/*.png"): Issue token for the png file on the auth/contents path.
+            - [Example3] wildcardPath: authToken.generateWildcardPathToken("/auth/contents/exmaple?.png"): Issue token for the png file that combines example on the /auth/contents path and single characters.
+            - [Caution] For path or session ID, change it into encoded character strings before creating a token(e.g: **/nhn/인증/파일.png** => **/nhn/%EC%9D%B8%EC%A6%9D/%E1%84%91%E1%)**.
+            - [Caution] Since **!** and **~** are used as reserved characters, do not include them into path or session ID.
+        - Created token is created in the format of **exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}**.
+            - [Example] Created token: **exp=1600331503~acl=%2fnhn%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91**
 
-  - **토큰 위치: 쿠키**
+#### 3. Include created token to the request of content
+Client (final content consumer) must request content including the token value which is created from the location as configured on the console.
+
+  - **Location of Token: Cookie**
     ```
-    curl --cookie "token={생성된 토큰값}" \
+    curl --cookie "token={Created token value}" \
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
-  - **토큰 위치: 요청 헤더**
+  - **Location of Token: Request header**
     ```
-    curl -H "token: {생성된 토큰값}" \
+    curl -H "token: {Created token value}" \
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
-  - **토큰 위치: 쿼리 문자열**
+  - **Location of Token: Query string**
     ```
-    curl -d "token={생성된 토큰값}" \
+    curl -d "token={Created token value}" \
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
 
-## 설정
+## Settings
 
-### CDN 서비스 설정 변경
-서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경할 수 있습니다.
-![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202105.png)
+### Modify CDN Service Setting
+CDN service setting can be modified, except the name and region of service domain.
+![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202105.png)
 
-1. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
-2. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
+1. Select a CDN service to modify from the list.
+2. Click **Modify** from the **Setting** at the bottom of the page.
 
-다음과 같이 변경할 수 있는 항목이 활성화됩니다.
-![CDN서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2_202105.png)
+Then, items that are modifiable are activated like below.
+![Checking CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2_202105.png)
 
-* 변경할 설정 내용을 수정합니다. 
-* **확인** 버튼을 클릭해 변경을 완료합니다.
-* 설명과 콜백 설정을 제외한 다른 설정을 변경하려면 전체 CDN 서버에 반영돼야 해서 시간이 오래 걸릴 수 있습니다. 
+* Modify the setting.
+* Click **OK** to complete with changes.
+* To edit other settings, except description and callback setting, it may take more time than usual since changes must be applied throughout the whole CDN server.
 
-**수정 작업은 몇 십분 내 완료되며, 도메인 별칭 설정이 변경된 경우에는 몇 시간이 걸릴 수 있습니다.**
+**Modification takes dozens of minutes, but change of domain alias may take a few hours.**
 
-> **[참고] CDN 서비스 수정 중 배포 상태와 서비스 상태** 
-> 서비스 수정 작업이 진행 중이면 기존 CDN 서비스 설정으로 운영됩니다.
-> 만약 수정 작업에 실패하면 기존 설정 정보로 롤백되며, CDN 서비스 목록의 배포 상태가 빨간색 원으로 표시됩니다. 설정 정보에 오류가 있거나 내부적으로 오류가 발생했을 때 수정 작업에 실패합니다. 
+> **[Note] Deployment Status while Modifying CDN and Service Status**
+> If service is under modification, CDN runs in the existing service setting.
+> If it fails to modify, it is rolled back to the existing setting information and the deployment status shows red circle on CDN list.  Modification fails if there is error in setting information, or internal error occurs.
 
-### CDN 서비스 일시 정지와 재시작
-CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
-
-
-1. 일시 정지할 CDN 서비스의 선택합니다.
-2. **일시 정지** 버튼을 클릭합니다.
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2_202105.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다.
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2_202105.png)
-4. 일시 정지 상태의 CDN 서비스를 재시작하려면 재시작할 CDN 서비스를 선택합니다.
-5. **재시작** 버튼을 클릭합니다.
+### Suspend and Resume CDN
+CDN service can be suspended or resumed.
 
 
+1. Select a CDN service to suspend.
+2. Click **Suspend**.
+![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2_202105.png)
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal.
+![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2_202105.png)
+4. To resume suspended CDN service, select a CDN service to resume.
+5. Click **Resume**.
 
 
-> **[참고] 일시 정지와 재시작 동작의 지연**
-> CDN 서비스 일시정지와 재시작은 CDN 서비스 도메인의 DNS 레코드를 변경하여 동작됩니다. 
-> 따라서 캐시 DNS 서버에서 TTL 동안 캐시되어 있거나 DNS 전파에 따라 일시정지/재시작이 완료 되어도 즉시 일시정지/재시작이 동작되지 않을 수 있습니다.
-
-> **[주의] 발급된 인증서가 연동된 CDN서비스의 일시정지**
-> 인증서가 연동된 CDN 서비스를 일시정지 하는 경우, 인증서 갱신이 불가합니다. 
-> **인증서 관리** > 인증서 목록의 **인증서 갱신 시작일** 이전에 CDN 서비스를 재시작하시기 바랍니다. 
-> 인증서 갱신 시작일로 부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 일시정지를 하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
 
 
-### CDN 서비스 삭제 
-CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 유의하시기 바랍니다. 
+> **[Note] Delays in Suspension and Resumption**
+> Suspension and resumption of CDN service operates by changing DNS records of CDN domain.
+> Accordingly, even if it is cached during TTL at cache DNS server or suspension/resumption is completed, immediate suspension/resumption may not work depending on DNS transfer.
 
-1. 삭제할 CDN 서비스를 선택합니다.
-2. **삭제** 버튼을 클릭합니다.
-![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2_202105.png)
-3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다.
-
-
-> **[참고] CDN 서비스 삭제 소요 시간**
-> CDN 서비스 삭제 작업은 몇 시간(최대 2~3시간)이 걸릴 수 있습니다.
-
-> **[주의] 발급된 인증서가 연동된 CDN 서비스의 삭제**
-> 인증서가 연동된 CDN 서비스를 삭제하면, 인증서를 갱신할 수 없습니다. 
-> **인증서 관리**의 인증서 목록에서 **인증서 갱신 시작일** 이전에 서비스 중인 다른 CDN 서비스로 연동하시기 바랍니다.
-> 인증서 갱신 시작일로부터 5일 동안은 인증서 갱신 기간이므로 해당 기간에 삭제하면 인증서가 만료될 수 있으므로 유의하시기 바랍니다.
+> **[Caution] Suspending CDN Service Integrated with Issued Certificate**
+> When a CDN service integrated with certificate is suspended, the certificate cannot be renewed.
+> Please resume CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List.
+> A certificate is allowed to be renewed for 5 days after start day of renewal, and a suspension during the period may cause the certificate to get expired.
 
 
-## CDN 캐시 재배포(purge)
-CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원본 서버의 파일을 캐시합니다. 파일을 캐시하면 원본 파일이 변경되어도 캐시가 만료되기 전까지는 변경전 원본 파일을 유지합니다. 
-변경된 원본 파일로 콘텐츠가 즉시 업데이트되려면 **캐시 재배포**를 요청해야 합니다.
-캐시 재배포를 하면 요청한 콘텐츠의 오래된 캐시 데이터를 삭제하고 원본 서버에서 새 원본 파일을 다시 캐시합니다. 
+### Delete CDN
+CDN service can be deleted. Once deleted, however, a service cannot be recovered.
 
-1. 변경하려는 서비스를 CDN 서비스 목록에서 선택합니다.
-2. **캐시 재배포** 탭을 클릭합니다.
-![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_202105.png)
+1. Select a CDN service to delete.
+2. Click **Delete**.
+![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2_202105.png)
+3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service.
 
-3. 캐시 재배포 타입을 선택합니다.
-  - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다.
-  - 재배포 타입과 요청 양식
-    * 특정 파일: 재배포할 콘텐츠의 URL을 입력합니다. 요청한 URL만 캐시가 재배포되므로 도메인 별칭으로 여러 서비스 도메인 주소가 있다면 각 URL 주소로 요청해야 합니다.
-      * 예) 기본 서비스 도메인 주소: http://[서비스ID].toastcdn.net/path/to/file1.jpg
-      * 예) 도메인 별칭 도메인 주소: http://customer.domain.com/path/to/file1.jpg
-    * 전체 파일: 캐시 파일을 모두 삭제합니다. 원본 서버에 과도한 트래픽이 유입될 수 있으므로 주의하시기 바랍니다.
-4. 선택한 캐시 재배포 타입에 맞게 재배포할 파일을 지정합니다.
-5. **캐시 재배포** 버튼을 클릭해 재배포를 요청합니다.
+> **[Note] Required Time to Delete CDN**
+> It may take a few hours (up to 3) to delete CDN service.
 
-캐시 재배포는 사용량 제한이 있으므로 아래의 표를 참고하시고 사용량이 초과되지 않도록 유의하시기 바랍니다.
+> **[Caution] Deleting CDN Service Integrated with Issued Certificate**
+> When a CDN service integrated with certificate is deleted, the certificate cannot be renewed.
+> Please integrate the certificate with another running CDN before **Start Day of Certificate Renewal** from **Certificate Management** > Certificate List.
+> A certificate is allowed to be renewed for 5 days after start day of renewal, and deletion during the period may cause the certificate to get expired.
 
-|분류 |[서비스ID].toastcdn.net |
+
+## Purging CDN Cache
+CDN cache server caches origin server files during specified expiration time depending on the cache setting. When a file is cached, the original file before change shall be maintained until cache is expired, even if there is a change in the original file.
+To immediately update content to changed original file, **Purge Cache** must be requested.
+By purging cache, outdated cache data are deleted from requested content while a new original file is cached again at the origin server.
+
+1.  Select a service to change from the list of CDN services.
+2. Click **Purge Cache**.
+![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_202105.png)
+
+3. Select a purge type.
+    - Note that each CDN service domain may support different purge type and request format of cache.
+    - Purge type and request format
+        * Particular Files: Enter URL of content to purge. Since cache purge is applied for a requested URL only, purge must be requested to each URL address if there are many service domain addresses.
+            * e.g.) Domain address for default service: http://[ServiceID].toastcdn.net/path/to/file1.jpg
+            * e.g.) Domain address for domain alias: http://customer.domain.com/path/to/file1.jpg
+        * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server.
+4. Specify a file to purge depending on the selected cache purge type.
+5. Click **Purge Cache** to request for a purge.
+
+Take caution that cache purge does not exceed the capacity limit, in reference of the table as below:
+
+|Category |[ServiceID].toastcdn.net |
 |---|---|
-| 제한 단위 | 프로젝트별(Appkey) |
-| 특정 파일 | 1초당 요청 가능: 1회, 요청당 URL 수 제한: 200 URL |
-| 와일드카드 | 미지원 |
-| 전체 파일 타입 | 5분당 요청 가능: 1회 |
+| Unit of Restrictions | Per project (Appkey) |
+| Particular Files | Requests per second: 1 time, URLs per request: 200 URLs |
+| All File Types | Requests per 5 minutes: 1 time |
 
-> **[주의] [서비스ID].toastcdn.net 서비스를 생성한 후 캐시 재배포 실패 오류**
-> CDN 서비스를 생성한 후 약 1시간 이내에는 캐시 재배포 요청에 실패할 수 있습니다. 이후에도 계속 실패하면  고객 센터로 문의해주시기 바랍니다.
+> **[Caution] Failed Cache Purge after [ServiceID].toastcdn.net is created**
+> Cache purge request may fail within about an hour after CDN service is created. If failure continues afterwards, contact Customer Center.
 
-## 인증서 관리 
-소유한 도메인으로 콘텐츠를 보안 전송(HTTPS)하려면 CDN 서버에 소유한 도메인의 인증서를 배포해야 합니다. 인증서가 없으면 클라이언트(브라우저)와 CDN 에지 서버 간 보안 통신(HTTPS)을 할 수 없어 인증서 오류가 발생합니다.
-NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
+## Managing Certificates
+To use secure transport (HTTPS) via your own domain, certificate of your own domain must be deployed to CDN server. Without a certificate, secured communication (HTTPS) is unavailable between client (browser) and CDN edge server, causing error of certificate.
+Certificate management of NHN Cloud CDN provides the following features:
 
-- 단일 도메인 타입의 인증서 발급
-- 전 세계 거점의 CDN 서버에 인증서 배포(중국과 러시아 지역은 제외)
-- 인증서 만료 전 자동 갱신
+- Issue single domain-type certificates
+- Deploy certificates to CDN servers at global points (except China and Russia)
+- Auto-renew certificates before expired
 
-### 신규 인증서 발급 
-**인증서 관리** 탭에서 인증서를 발급할 수 있습니다.
-![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create_202105.png)
+### Issue New Certificates
+Certificates can be issued from the **Certificate Management** tab.
+![Getting New CDN Certificates](https://static.toastoven.net/prod_cdn/v2/console-certificate-create_202105.png)
 
-1. **인증서 관리** 탭의 **신규 인증서 발급** 버튼을 클릭합니다.
-2. 발급할 인증서의 도메인을 전체 도메인 주소(FQDN, fully qualified domain name)형식으로 입력합니다.
-3. 인증서 발급 안내 내용을 확인하고 **확인** 버튼을 클릭합니다.
-4. 신규 발급 인증서를 요청하면 **인증서 관리** 탭의 인증서 도메인이 표시됩니다. 인증서 상태가 **도메인 검증** 상태로 변경되면 이후 도메인 검증 작업을 진행하시기 바랍니다. 
+1. Go to **Certificate Management** and click **Issue New Certificates**.
+2. Enter domain of certificate to get, in the format of full domain address(FQDN, fully qualified domain name).
+3. Check the guide to issue certificates and click **OK**.
+4. When a new certificate is requested, certificate domain shows on the **Certificate Management** tab. When the certificate status is changed to **Validate Domain**, domain can be validated.
 
-> **[주의] 인증서 발급 전 확인 사항**
-> 1. 소유한 도메인만 인증서를 발급할 수 있으므로 먼저 도메인을 구매하신 후 진행하시기 바랍니다. 
-> 2. 다른 인증 기관(CA, certificate authority)에서 발급한 인증서는 이용할 수 없습니다. 
-> 3. 단일 도메인의 인증서 발급만 가능합니다. 와일드카드, 멀티 도메인 등의 인증서는 지원하지 않습니다.
-> 4. 인증서 발급은 프로젝트당 5개로 제한됩니다. 한도 조정이 필요한 경우 NHN Cloud 고객 센터로 문의하시기 바랍니다.
-> 5. 신규 인증서 발급 요청 후 도메인 검증 단계는 몇 십분(최대 1~2시간) 후 변경될 수 있습니다. 인증서 상태가 도메인 검증 상태로 변경되면 NHN Cloud 프로젝트 멤버를 대상으로 이메일 발송됩니다. 만일 시스템 오류로 이메일이 발송되지 않는다면 콘솔에서 상태를 확인하시기 바랍니다. 
+> **[Caution] Checkpoints before Getting a Certificate**
+> 1. Purchase a domain first, if not owned, because certificates can be issued to owned domains only.
+> 2. Certificates issued from other certificate authorities are not allowed.
+> 3. Only single-domain certificates can be issued. Wildcard or multi-domain certificates are not supported.
+> 4. Each project allows no more than 5 certificates. If you need more than that, contact NHN Cloud Customer Center.
+> 5. After certificate issuance is requested, the Validate Domain phase may be activated in several tens of minutes (up to 2 hours). If your certificate changes status to Validate Domain, email shall be sent to NHN Cloud project members. If email is not sent due to system error, check status on console.
 
-### 도메인 검증 
-신규 인증서 발급을 요청한 후 인증서 상태가 '도메인 검증'이 되면 도메인을 검증하시기 바랍니다.
-도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다.
+### Validate Domain
+You're ready to validate domain, after a new certificate is requested, when certificate status is changed to 'Validate Domain'.
+You may select a domain on console or refer to domain validation guide via email sent to project members.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation_202105.png)
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation_202105.png)
 
-도메인 검증은 발급 요청한 인증서 도메인의 실제 소유자인지 확인하는 단계 입니다. 도메인 검증을 진행하지 않으면 인증서를 발급할 수 없습니다.
-도메인 소유자인지 확인하기 위해 도메인 검증 방식으로 도메인의 제어 권한을 확인합니다. 
-도메인 검증 방식에는 **DNS TXT 레코드 추가** 또는 **HTTP 페이지 추가** 방식이 있으며 **두 가지 방식 중 하나만 진행**하면 됩니다.
+Domain validation is required to see if the requester for certificate is the actual owner of its domain. Without this process, certificate cannot be issued.
+As part of a domain validation method to check domain owner, domain control role must be validated.
+Domain validation can be carried out by **Adding DNS TXT Recors** or **Adding HTTP Pages**, and you can **Choose Either of the Two Methods**.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2_202105.png)
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2_202105.png)
 
-#### DNS TXT 레코드 추가 방식 
-도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다. 
+#### Adding DNS TXT Records
+Check DNS control role of domain to validate domain.
 
-1. 도메인의 DNS 서비스 제공 업체의 DNS 관리 페이지에서 TXT 레코드를 추가합니다. 
-   DNS 설정 방법은 DNS 서비스 제공 업체에 따라 다를 수 있습니다. 관련 설정은 해당 서비스 업체로 문의하시기 바랍니다.
-  - 레코드 타입: **TXT**
-  - TTL: **60**. 60으로 설정할 수 없다면 되도록 작게 설정하시기 바랍니다.
-  - 레코드 이름: **_acme-challenge.[발급 요청한 인증서 도메인].**  콘솔 또는 발송된 이메일 가이드의 **레코드 이름**을 작성합니다.
-  - 레코드값: **임의의 문자열** (콘솔 또는 발송된 이메일 가이드의 **레코드값**을 작성합니다.)
+1. Add TXT record on the DNS management page of domain's DNS service provider.
+   Each DNS service provider may provide different configuration method. Consult your service provider regarding DNS setting.
+  - Record Type: **TXT**
+  - TTL: **60**. If 60 is unavailable, set the smallest possible number.
+  - Record Name: **_acme-challenge.[Certificate Domain Requested of Issuance].** Fill in the **Record Name** of console or email guide as sent.
+  - Record Value: **Random Character String** (fill in the **Record Value** of console or email guide as sent.)
 
-2. nslookup 명령어로 추가한 TXT 레코드가 질의되는지 확인합니다. DNS 전파 시간에 따라 질의되기까지 시간이 소요될 수 있습니다.
-    `nslookup -type=TXT _acme-challenge.[발급 요청한 인증서 도메인].`
-
-다음 화면은 NHN Cloud DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns_202105.png)
+2. See if TXT record, added for nslookup command, is well queried. It may take some time to query depending on the DNS transfer time.
+    `nslookup -type=TXT _acme-challenge.[Certificate Domain Requested of Issuance].`
 
 
-#### HTTP 페이지 추가 방식 
-도메인이 연결된 웹 서버에 HTTP 페이지를 추가해 도메인을 검증합니다. 
+Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method.
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns_202105.png)
 
-1. 웹 서버의 **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** 경로에 HTTP 페이지를 추가합니다. 
-2. HTTP 페이지의 본문에 콘솔 또는 발송된 이메일 가이드의 **페이지 콘텐츠(토큰) **값으로 설정합니다. 
-3. 웹 브라우저에서  **http://[발급 요청한 인증서 도메인]/.well-known/acme-challenge/[임의의 문자열]** URL로 접속하면  **페이지 콘텐츠(토큰)** 값이 화면에 표시되는지 확인합니다. 
 
-> **[주의] 도메인 검증 주의 사항**
-> 1. 도메인 검증은 인증서 발급 요청일로부터 **5일 이내**에 진행해야 합니다. **기간 내 진행하지 않으면 인증서 발급은 자동으로 취소**됩니다.
-> 2. 도메인 검증 작업 완료 후 검증에 성공하면 몇 시간 내 인증서 발급 및 배포 작업이 진행됩니다. 하루 이상 진행되지 않으면 도메인 검증 작업 내용이 올바른지 확인합니다. 문제가 없는데도 진행되지 않으면 NHN Cloud 고객 센터로 문의해 주시기 바랍니다.
-> 3. 도메인 검증 방식 중 HTTP 페이지 추가 방식은 HTTP 서버가 기본 포트 80 포트로 운영 중일 때만 가능합니다. 포트를 변경할 수 없다면 DNS TXT 레코드 추가 방식을 이용하시기 바랍니다.
+#### Adding HTTP Pages
+Add an HTTP page to a web server connected with domain to validate the domain.
 
-### 인증서 발급 및 배포
-도메인 검증을 통과하면 몇 시간 내 인증서 발급 및 배포 작업이 진행됩니다. 
-콘솔의 인증서 상태가  **인증서 발급 및 배포** 단계로 표시되며, NHN Cloud 프로젝트 멤버 대상으로 알림 메일이 발송됩니다. 
-이 단계에서는 별도로 작업할 내용은 없습니다.
+1. Add an HTTP page to the path of **http://[Certificate Domain Requested of Issuance]/.well-known/acme-challenge/[random character string]** on the web server.
+2. Set **Page Content (Token)** of console or email guide as sent for the main body of the HTTP page.
+3. On a web browser, access the URL of **http://[Certificate Domain Requested of Issuance]/.well-known/acme-challenge/[random character string]**, and see if **Page Content (Token)** shows on the page.
 
->  **[참고] 인증서 발급과 배포 단계의 작업 시간**
-> 인증서 발급 및 배포 작업은 최대 9시간 이상 걸릴 수 있습니다. 
+> **[Caution] Cautions for Domain Validation**
+> 1. Domain must be validated **within 5 days** since when a certificate is requested of issuance. **Otherwise, getting a certificate shall be automatically revoked**.
+> 2. When domain is successfully validated, certificate is to be issued and deployed within hours. Unless it proceeds more than a day, check if domain has been properly validated. If it still does not proceed, contact NHN Cloud Customer Center.
+> 3. Adding HTTP Pages is available only when the HTTP server runs on 80 ports. If port change is unavailable, please take another option of Adding DNS TXT Records.
 
-### CDN 서비스 연동 
-발급된 인증서를 이용하려면 CDN 서비스와 연동해야 합니다. 
-이 작업을 진행하지 않거나 작업 내용을 유지하지 않으면 발급된 인증서가 만료될 수 있으므로 주의하시기 바랍니다. 
+### Issue and Deploy Certificates
+Once domain is validated, a certificate shall be issued and deployed within hours.
+Certificate status on console shows the phase of **Issue and Deploy Certificates**, and notification mail is sent to project members.
+This phase requires no specific tasks.
 
-1. **CNAME 레코드 설정**: 인증서 도메인의 DNS 서비스 제공 업체의 DNS 관리에서 다음의 CNAME 레코드를 추가합니다. 
-    - 레코드 타입:  **CNAME**
-    - TTL: 임의의 값. 자주 변경해야 한다면 작게 설정하시기를 권장합니다. 레코드 변경 시 캐시 DNS 서버에 TTL 시간 동안 캐시될 수 있습니다.
-    - 레코드 이름:  **[인증서 도메인].** (예시: test.alias.com.com.)
-    - 레코드값:  **[연동할 CDN 서비스 도메인]** (예시: xxxxxxxx.toastcdn.net)
-다음 화면은 NHN Cloud DNS+ 서비스에서 설정한 예시입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
-![CDN서비스연동-CNAME위임](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname_202105.png)
+>  **[Note] Time Required to Issue and Deploy Certificates**
+> It may take up to 9 hours to issue and deploy a certificate.
 
-2. **도메인 별칭 설정**: 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
-    -  **CDN 서비스** 탭에서 연동할 CDN 서비스를 선택하고  **수정** 버튼을 클릭합니다. 도메인 별칭에 인증서 도메인을 추가한 후  **확인** 버튼을 클릭합니다.
-![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2_202105.png)
+### Integrate with CDN Service
+A certificate must be integrated with CDN service to be enabled.
+If this task is undone or not maintained, issued certificate may expire.
 
->  **[참고] CNAME 레코드 전파 시간**
-> CNAME 레코드 설정 시 다양한 요인에 따라 DNS 전파에 시간이 소요될 수 있습니다. 따라서 서비스 연동 과정을 올바르게 수행한 뒤에도 일정 시간 동안 인증서 발급 상태가 [CDN 서비스 연동 대기]로 표시될 수 있습니다.
-> 설정을 올바르게 하였는데도 24시간 이상 [CDN 서비스 연동 대기] 상태가 지속될 경우 NHN Cloud 고객 센터로 문의해 주시기 바랍니다.
+1. **CNAME Record Setting**: Add the following CNAME record to DNS management of DNS service provider of certificate domain.
+    - Record Type:  **CNAME**
+    - TTL: Random. Small count is recommended if frequent changes are expected. When there is change in the record, it may be cached during TTL at the cache DNS server.
+    - Record Name:  **[Certificate Domain].** (Example: test.alias.com.com.)
+    - Record Value:  **[CDN Service Domain to be Integrated]** (Example: xxxxxxxx.toastcdn.net)
+Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method.
+![Integrating CDN Services-Assign CNAME](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname_202105.png)
 
->  **[주의] 인증서 만료 주의 사항**
-> NHN Cloud CDN에서 제공하는 인증서는 인증서 만료 전 자동으로 인증서를 갱신합니다. 
-> 자동으로 인증서를 갱신하려면 반드시 사용 중인 인증서가 CDN 서비스와 연동돼 있어야 합니다. 
-> CDN 서비스와 연동돼 있지 않으면 인증서 갱신 기간에 갱신되지 않아 인증서가 만료될 수 있습니다.
-> 인증서 갱신은 **인증서 관리**의 목록에 표시된 인증서 갱신 시작일로부터 **5일 이내** 진행됩니다. 
-> 인증서가 만료되지 않도록 다음의 설정 사항을 항상 유지하시기 바랍니다.
-> 
-> 1. 인증서의 도메인은 CNAME 레코드로 연동할 CDN 서비스 도메인 주소로 위임해야 합니다. 
-> 2. 연동할 CDN 서비스의 도메인 별칭에 인증서 도메인이 설정되어 있어야 합니다.
-> 3. 인증서가 연동된 CDN 서비스를 일시 정지하면 인증서를 갱신할 수 없습니다. 인증서 갱신 시작일 이전에 재시작하거나 다른 운영 중인 CDN 서비스에 인증서를 연동하시기 바랍니다.
-> 4. 인증서가 연동된 CDN 서비스를 삭제하면 인증서를 갱신할 수 없습니다. 삭제하기 전에 운영 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
+2. **Domain Alias Setting**: Add domain alias setting for the CDN to use certificate.
+    -  Select CDN to be integrated from **CDN Service** and click **Modify**. Add certificate domain to domain alias and click **OK**.
+![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2_202105.png)
 
-CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
-![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active_202105.png)
+> **[Note] CNAME record propagation time**
+> When setting the CNAME record, DNS propagation can take time depending on various factors. Therefore, the certificate issuance status may be displayed as [Waiting for CDN service integration] for a certain period of time even after performing the service integration process correctly.
+> If the [Waiting for CDN service integration] status persists for more than 24 hours even though the settings are correct, please contact the NHN Cloud Customer Center.
 
->  **[참고] 발급된 인증서 오류 발생 시 조치 사항**
-> NHN Cloud CDN에서 제공하는 인증서의 Root 인증서 중 하나인 IdenTrust DST Root CA x3가 2021년 9월 30일에 만료되어, 일부 오래된 단말 또는 구형 브라우저에서 문제가 발생할 수 있습니다.
-> 클라이언트에서 ERR_CERT_DATE_INVALID 오류로 문제가 발생하는 경우, 아래의 내용을 참고하여 OS 설정 변경 후 업데이트 또는 Root 인증서 수동 설치 등의 조치가 필요합니다.
-> 1. ISRG x1 인증서 다운로드 링크: [다운로드 링크](https://letsencrypt.org/certs/isrgrootx1.pem)
-> 2. Windows OS 설정 변경 참고 가이드: [링크](https://cert.crosscert.com/윈도우windows-운영체제-pc에서-루트인증서-설치방법/)
-> 3. 크롬 브라우저 참고 가이드: [링크](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for-VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
+>  **[Caution] Caution for certificate expiration**
+> Certificates provided by NHN Cloud CDN are automatically renewed before expired.
+> For auto-renewal, user's certificate must be integrated with CDN service.
+> Otherwise, certificates may not be renewed during specific period and get expired.
+> A certificate shall be renewed within **5 days** after a renewal start day as indicated on the list of **Certificate Management**.
+> To prevent certificates from expired, maintain the following settings at all times:
+>
+> 1. Assign domain of a certificate to the domain address of CDN service which is to be integrated with CNAME record.
+> 2. Set certificate domain for domain alias of CDN service to be integrated with.
+> 3. When a CDN service integrated with certificate is suspended, the certificate cannot be renewed. Resume before a renewal start day or integrate it to another running CDN service.
+> 4. When a CDN service integrated with certificate is deleted, the certificate cannot be renewed: integrate it to another running CDN service before deleting.
 
-## 통계
+When certificate is fully integration with CDN, the certificate status shows 'Activated'.
+![Activated Status of Certificate](https://static.toastoven.net/prod_cdn/v2/console-certificate-active_202105.png)
 
-네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 확인할 수 있습니다.
-7일 이내 통계 데이터는 정확하지 않으므로 참고용으로만 이용하시기 바랍니다. 정확한 통계 데이터는 7일 이후에 확인하시기 바랍니다. 
+> **[Note] Measures required when an error occurs in the issued certificate**
+> IdenTrust DST Root CA x3, one of the root certificates among the certificates provided by NHN Cloud CDN, expired on September 30, 2021, and users of some older devices or browsers may experience problems.
+> If an issue occurs due to an ERR_CERT_DATE_INVALID error on the client, refer to the following and take measures such as updating after changing the OS settings or manually installing the root certificate.
+> 1. ISRG x1 certificate download link: [Download link](https://letsencrypt.org/certs/isrgrootx1.pem)
+> 2. Windows OS settings change reference guide: [Link](https://docs.microsoft.com/en-us/skype-sdk/sdn/articles/installing-the-trusted-root-certificate)
+> 3. Chrome browser reference guide: [Link](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for-VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
 
-1. **Contents Delivery > CDN**의 **통계** 탭을 클릭합니다.
+## Statistics
+
+Check statistics on the network transfer volume, HTTP status code, most downloaded content, and more.
+Statistical data within 7 days are recommended only as reference, since they may not be precise: precise data are available after 7 days.
+
+1. Click **Statistics** from **Content Delivery > CDN**.
 ![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_202105.png)
-2. 통계를 확인하려면 CDN 서비스를 선택합니다.
-3. 검색 기간을 입력합니다.
-4. 검색 기간 내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.
-5. **검색** 버튼을 클릭합니다.
+2. Select a CDN service to check statistics.
+3. Enter search period.
+4. Data cycle within a search period is automatically selected depending on the period.
+5. Click **Search**.

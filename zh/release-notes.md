@@ -1,145 +1,145 @@
 ## Content Delivery > CDN > Release Notes
 
-### 2021. 12. 28.
+### December 28, 2021
 
-#### 기능 개선/변경
-* CDN 서비스에 HTTP/2 프로토콜 지원을 활성화하였습니다. 기본 설정으로 HTTP/2가 지원됩니다.
-* 원본 타입 설정 기능 추가
-	* NHN Cloud의 오브젝트 스토리지와 인스턴스 정보를 조회하여 원본 서버로 설정할 수 있습니다. 자세한 내용은 [콘솔 가이드 > 원본 서버](./console-guide/#_2)를 참고하시기 바랍니다.
+#### Feature Updates
+* Enabled HTTP/2 protocol support for the CDN service. HTTP/2 is supported by default.
+* Added the origin type setting feature
+	* You can set as the origin server by retrieving object storage and instance information from NHN Cloud. For more information, refer to [Console Guide > Origin Server](./console-guide/#origin-server).
 
-### 2021. 11. 23.
+### November 23, 2021
 
-#### 기능 개선/변경
-* 캐시 키 쿼리 문자열 포함 설정 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > 캐시](./console-guide/#_4)를 참고하시기 바랍니다.
+#### Feature Updates
+* Added a feature to set whether to include a query string in cache key. For more information, refer to [Console Guide > Cache](./console-guide/#cache).
 
-### 2021. 07. 27.
+### July 27, 2021
 
-#### 기능 개선/변경
-* CDN Public API 도메인이 변경되었습니다.
-    * 기존 : https://api-gw.cloud.toast.com/tc-cdn
-    * 변경 후 : https://kr1-cdn.api.nhncloudservice.com
+#### Feature Updates
+*  The CDN Public API domain has been changed.
+    * AS-IS : https://api-gw.cloud.toast.com/tc-cdn
+    * TO-BE : https://kr1-cdn.api.nhncloudservice.com
 
-### 2021. 05. 25.
+### May 25, 2021
 
-#### 기능 개선/변경
-* 루트 경로 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > 루트 경로 접근 관리](./console-guide/#_3)를 참고하시기 바랍니다.
+#### Feature Updates
+* The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#controlling-the-access-of-root-path).
 
-### 2020. 10. 06.
+### October 6, 2020
 
-#### 기능 개선/변경
-* 토큰 인증 방식의 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > Auth Token 접근 관리](./console-guide/#auth-token)를 참고하시기 바랍니다.
-* 리퍼러(referer)헤더 접근 관리: 리퍼러(referer)요청 헤더가 없는 경우 콘텐츠 접근 허용 여부를 선택할 수 있는 설정이 추가되었습니다.
+#### Feature Updates
+* Access management by token authentication has been added. For more details, visit [Console Guide > Auth Token Access Management](./console-guide/#access-management-for-auth-token-authentication).
+* Access Management for Referrer Header: Added the setting to enable or disable content access, when there is no referrer request header.
 
-### 2020. 06. 23.
+### June 23, 2020
 
-#### 기능 개선/변경
-* [서비스ID].cdn.toastcloud.com 서비스 도메인의 지원이 종료되었습니다.
-
-
-### 2020. 03. 24.
-
-#### 기능 개선/변경
-* CDN 서비스 지역 : GLOBAL 서비스 지역만 제공됩니다.
-	* CDN 서비스 지역을 KOREA(한국) 지역만 대상으로 제공하는 기능이 종료됩니다.
-	* 한국 지역을 포함하는 전체 서비스 지역(GLOBAL)을 이용하시기 바랍니다.
-* 신규 CDN 서비스 도메인의 변경
-	* 신규 CDN 서비스 생성 시 [서비스ID].toastcdn.net 도메인으로 서비스 도메인 주소가 제공됩니다.
-	* 기존 [서비스ID].cdn.toastcloud.com 서비스 도메인은 새로 발급할 수 없으며, [서비스ID].cdn.toastcloud.com 도메인은 2020-05-26 10:00:00 KST까지 제공되므로 마이그레이션으로 신규 CDN 서비스로 이전해야 합니다.
-	* 마이그레이션 방법은 [마이그레이션 가이드](./migration/)를 참고합니다.
-* HTTP/HTTPS 서비스 프로토콜 지원
-	* 신규 생성 시 발급되는 [서비스ID].toastcdn.net은 HTTP/HTTPS 프로토콜을 기본으로 지원합니다.
-* CDN 서비스 설정 옵션 추가
-	* 원본 서버의 HTTP/HTTPS 포트 설정: 원본 서버의 HTTP/HTTPS 프로토콜별 서비스 포트를 설정할 수 있습니다.
-	* HTTP 프로토콜 다운그레이드: CDN 서버 -> 원본 서버로의 HTTPS 요청을 HTTP 프로토콜로 다운그레이드할 수 있습니다.
-	* Forward Host Header: CDN 서버에서 원본 서버로 콘텐츠 요청 시 Host Header를 원본 서버의 호스트 이름 또는 요청의 Host 헤더 중 선택할 수 있습니다.
-	* 상세한 내용은 [사용자 콘솔 가이드](./console-guide/)를 참고합니다.
-* 인증서 관리 기능 추가
-	* 소유한 도메인으로 CDN 서비스를 이용하는 경우, HTTPS 프로토콜로 서비스할 수 있는 인증서 관리 기능이 제공됩니다. 인증서 관리 기능으로 손쉽게 인증서를 발급할 수 있으며, 만료 이전에 인증서도 자동으로 갱신됩니다.
-	* 상세한 내용은 [사용자 콘솔 가이드 > 인증서 관리](./console-guide/#_6)를 참고합니다.
-* (구)서비스 도메인(*.cdn.toastcloud.com)과  (신규)서비스 도메인 (*.toastcdn.net)의 API 지원
-	* (구) [서비스ID].cdn.toastcloud.com 서비스 도메인은 기존 API(v1.5 이하 버전)를 변경하지 않고 사용할 수 있습니다. 단, 신규 추가된 기능은 사용할 수 없습니다.
-	* (신규) [서비스ID].toastcdn.net 서비스 도메인은 기존 API(v1.5 이하 버전)를 변경하지 않고 사용할 수 있습니다. 신규 추가된 기능은 v1.5 버전 이상의 API 사양에 추가하여 제공됩니다.
-* 캐시 재배포(purge)
-	* 고속 캐시 재배포 지원 : 캐시 재배포를 요청한 후 몇 초 이내 캐시 재배포가 완료됩니다. 고속 캐시 재배포를 이용해 변경된 콘텐츠를 바로 반영해 콘텐츠의 신뢰성을 높일 수 있습니다.
-	* 특정 파일 타입의 캐시 재배포 요청 방식 변경: 캐시 재배포를 할 파일의 전체 URL 주소를 입력하도록 변경되었습니다.
-		* 예) 기존: /images/toast.png -> 변경: http://[서비스ID].toastcdn.net/images/toast.png
-	* 와일드카드 타입 캐시 재배포 기능 종료
-	* 사용량 제한 정책 변경
-		* 상세한 내용은 [사용자 콘솔 가이드 > CDN 캐시 재배포](./console-guide/#cdn-purge)를 참고합니다.
-* 감시 설정 기능이 종료됩니다.
-
-### 2019. 02. 26.
-
-#### 기능 개선/변경
-* 특정 CDN 서비스 퍼지 오류 수정
-	* 원본 서버의 원본 경로가 설정된 경우, 원본 경로를 포함한 퍼지 경로를 작성하지 않을 경우 퍼지가 정상적으로 수행되지 않는 오류를 수정하였습니다.
-		* 퍼지 경로는 원본 서버의 원본 경로는 제외한 경로를 입력해야합니다.
-	* 복수 개의 도메인 별칭을 등록한 경우 퍼지가 정상적으로 수행되지 않는 오류를 수정하였습니다.
-
-* 도메인 별칭 제한
-	* 도메인 별칭이 최대 3개까지 입력할 수 있도록 제한되었습니다.
+#### Feature Updates
+* Support for the following service domain has been closed:[ServiceID].cdn.toastcloud.com
 
 
-### 2019. 01. 15.
+### March 24, 2020
 
-#### 기능 개선/변경
-* CDN 서비스 부분 수정 API 추가
-	* 서비스 일부 설정만 변경할 수 있는 부분 수정 API를 추가하였습니다.
+#### Feature Updates
+* CDN Service Regions: Provided for the GLOBAL region only.
+	* Korea-only CDN service is to be closed.
+	* Please use the Global Service region that includes the Korea region.
+* Change of New CDN Service Domain
+	* When a new CDN service is created, [ServiceID].toastcdn.net is provided as service domain address
+	* Previous [ServiceID].cdn.toastcloud.com service domain cannot be issued anew; since [ServiceID].cdn.toastcloud.com is valid until 10:00:00 KST of May 26, 2020, it must be migrated to a new CDN service.
+	* Regarding migration method, see [Migration Guide](./migration/).
+* Support of HTTP/HTTPS Service Protocols
+	* [Service ID].toastcdn.net, which is issued for a new service, supports HTTP/HTTPS by default.
+* Added CDN Service Setup Option
+	* Setting HTTP/HTTPS Port at Origin Server: Service port can be set for each HTTP/HTTPS protocol at the origin server.
+	* Downgrading HTTP Protocols: HTTPS request from CDN Server to the Origin Server can be downgraded to HTTP protocol.
+	* Forward Host Header: When a content is requested from CDN server to origin server, either host name or requested host header can be selected as host header.
+	* For more details, see [Console User Guide](./console-guide/).
+* Added Certificate Management Features
+	* To use CDN service with your own domain, HTTPS protocol service is provided as part of certificate management features. With certificate management, certificates can be easily issued and automatically renewed before expired.
+	* For more details, see [Console User Guide > Certificate Management](./console-guide/#managing-certificates).
+* API Support for (Old) Service Domain (*.cdn.toastcloud.com) and (New) Service Domain (*.toastcdn.net)
+	* (Old) [ServiceID].cdn.toastcloud.com is available without changing the old API (lower than v1.5). However, newly added features are not available.
+	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications that are higher than v1.5.
+* Cache Purging
+	* High-speed Cache Purging: Cache is completely purged within seconds after it is requested. With high-speed cache purging, changed content can be applied to raise its credibility.
+	* Changed Request Method for Cache Purging of Specific File Type: It has been updated to enter the entire URL address of a file to purge a cache.
+		* e.g.) Previously: /images/img.png -> Now: http://[ServiceID].toastcdn.net/images/img.png
+	* Closed the wildcard-type cache purging service
+	* Changed usage restriction policy
+		* For more details, see [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).
+* Surveillance setting is to be closed.
 
-### 2018. 08. 28.
+### February 26, 2019
 
-#### 기능 개선/변경
-* CDN 서비스 설정 유효성 체크 추가
-	* 유효하지 않은 CDN 설정 정보를 미리 체크할 수 있도록 설정 정보에 대한 유효성 검사를 추가하였습니다.
+#### Feature Updates
+* Fixed Purging Error at Particular CDN Service
+	* With the origin path set at the origin server, it was not properly purged if the path does not include the origin path: the error has been fixed.
+		* The purging path must exclude origin path of the origin server.
+	* Fixed an error in which it was not properly purged when a multiple number of domain aliases were registered.
 
-### 2018. 05. 29.
-
-#### 기능 개선/변경
-* CDN API 1.5v 업데이트
-	* API 안정성을 강화하여 품질을 향상하였습니다.
-	* 서비스 배포(변경) 작업이 완료되면 콜백을 통하여 작업의 성공여부와 서비스 상태를 전달합니다.
-* 서비스 배포(변경) 진행 상태를 확인 할 수 있도록 대시보드에 배포 상태를 표시하도록 수정하였습니다.
-	* API를 통한 서비스 배포(변경)를 하는 경우 v1.5 이상 버전의 API를 사용한 경우에만 콘솔에서 서비스 배포 상태를 확인할 수 있습니다.
+* Domain Alias Restriction
+	* No more than 3 domain aliases are allowed.
 
 
-### 2018. 01. 25.
+### January 15, 2019
 
-#### 기능 개선/변경
-* CDN 서비스 삭제 API 추가
-* CDN 생성 및 수정에 대한 콜백 서비스 추가
-	* 콘솔 또는 API를 통해 CDN 서비스를 생성 또는 수정에 대한 콜백을 등록할 수 있습니다.
-		* 서비스 생성 또는 수정이 완료된 후 등록된 콜백을 통해  생성 또는 수정된 CDN서비스의 정보를 전달해줍니다.
+#### Feature Updates
+* APIs for Partial CDN Modification
+	* Added APIs to modify only partial service settings.
 
-### 2017. 07. 20.
+### August 28, 2018
 
-#### 기능 개선/변경
-* CDN API를 배포하였습니다. 자세한 내용은 API 가이드를 참고해주세요.  
-	* CDN 생성, 수정, 조회 API가 추가 되었습니다.
-	* 재배포, 재배포 조회 API가 추가 되었습니다.
+#### Feature Updates
+* Validity Checks for CDN Service Setting
+	* Added validity checks for setting information to check invalid CDN setting information.
 
-* 원본 서버 하위 경로 지원
-	* 기존에는 도메인 또는 ip 형식의 원본서버만 설정할 수 있었으나 원본 서버의 하위 경로도 설정할 수 있습니다.
+### May 29, 2018
 
-* 통계 기능 개선
-	* TimeUnit(시간, 일, 주, 월)단위로 편리하게 통계를 확인할 수 있도록 UI를 개선하였습니다.
-	* 검색 기간별 통계 단위가 조정되었습니다.
-		* 검색 기간이 6시간 미만인 경우 5분 단위
-		* 검색 기간이 1일 미만인 경우 1시간 단위
-		* 검색 기간이 1일 초과인 경우 1일 단위
-	* 통계는 3가지 종류의 통계를 제공하며, 통계 데이터와 실제 데이터 사이에는 지연이 발생될 수 있습니다.
-		* 트래픽 사용량: 네트워크 대역폭 및 전송량을 확인할 수 있습니다.
-		* HTTP 응답별 통계: HTTP 상태코드 별로 CDN 캐시 적중률(Cache hit raito)을 확인할 수 있습니다.
-		* Top contents : 가장 많이 조회된 콘텐츠를 확인할 수 있습니다.
+#### Feature Updates
+* Updates for CDN API 1.5v
+	* Upgraded API stability to provide better quality service.
+	* With the completion of service deployment (change), successful task and service status is sent via callback.
+* Deployment status shows on dashboard to find processing status of service deployment (change).
+	* When service deployment (change) is made via API, service status can be found on console, via v1.5 or higher APIs only.
 
-#### 버그 수정
-* 통계 > 서비스 이름 선택 UI 버그 수정
-	* 서비스 설명에 대한 문구가 길어지면 서비스 이름 선택 UI가 일부만 노출되는 현상을 수정하였습니다.
 
-### 2016. 12. 22.
+### January 25, 2018
 
-#### 기능 개선/변경
-* 서비스 생성 시 실제 접속 가능한 시점에 OPEN 으로 상태 변경 하도록 수정
-* CORS(Cross-Origin Resource Sharing) 지원
+#### Feature Updates
+* Added Delete CDN API
+* Added callback service to Create and Modify CDN
+	* Calls to create or modify CDN service can be registered via console or API.
+		* After service is completely created or modified, the newly created or modified CDN information is delivered via registered callback.
 
-#### 버그 수정
-* Global Purge 기능이 동작하지 않던 문제 수정
+### July 20, 2017
+
+#### Feature Updates
+* Deployed CDN APIs. For more details, see API Guide.
+	* Added Create, Modify, and Query CDN APIs.
+	* Added Purge, and Query Purge APIs.
+
+* Supports Lower Paths of Origin Server
+	* Only domain- or IP-based origin servers were available for setting, but lower paths of origin server can also be set now.
+
+* Upgraded Features of Statistics
+	* Upgraded UIs to easily find statistics by each time unit (hourly, daily, weekly, or monthly).
+	* Adjusted statistical unit by search period.
+		* Every 5 minutes when the search period is below 6 hours
+		* Every hour when the search period is below 1 day
+		* Every day when the search period is over 1 day
+	* Three types of statistics are provided, and delays may occur between statistical data and actual data.
+		* Traffic Usage Volume: Network bandwidth and transfer volume are available.
+		* Statistics of Each HTTP Response: CDN cache hit ratio is available by HTTP status code.
+		* Top contents: The most-searched content can be found.
+
+#### Bug Fixes
+* Fixed bugs in Statistics > Service Name Selection UI
+	* Fixed an error in which the service name selection UI is only partially exposed when service description is long.
+
+### December 22, 2016
+
+#### Feature Updates
+* Updated to change status to 'OPEN' at an available access time when creating a service
+* Supports CORS (Cross-Origin Resource Sharing)
+
+#### Bug Fixes
+* Fixed inoperability of Global Purge

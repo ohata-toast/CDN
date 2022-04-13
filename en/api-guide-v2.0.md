@@ -14,7 +14,7 @@ This document describes Public API v2.0 of NHN Cloud CDN.
 ### Prerequisites
 
 To use the API, you need Appkey and SecretKey.
-The Appkey and SecurityKey can be found in the **URL & Appkey** menu in the upper right corner of the console.
+The Appkey and SecretKey can be found in the **URL & Appkey** menu in the upper right corner of the console.
 
 ### Common Request Information
 
