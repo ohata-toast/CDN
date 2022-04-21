@@ -144,6 +144,7 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].callback.httpMethod   | String  | Required |         | GET/POST/PUT                                 | HTTP method of callback                                      |
 | distributions[0].callback.url          | String  | Required |         | Up to 1024 characters                        | Callback URL                                                 |
 
+- The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
 
 #### Response
@@ -363,6 +364,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
 | callback.httpMethod   | String  | Required |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
 | callback.url          | String  | Required |         | Up to 1024 characters                                        | Callback URL                                                 |
+
+- The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
+
 
 #### Response
 
