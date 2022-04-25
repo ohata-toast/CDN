@@ -631,7 +631,7 @@ CDN service can be deleted. Once deleted, however, a service cannot be recovered
 
 1. Select a CDN service to delete.
 2. Click **Delete**.
-![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-delete2_202105.png)
+![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-delete2_202105_1.png)
 3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service.
 
 > **[Note] Required Time to Delete CDN**
