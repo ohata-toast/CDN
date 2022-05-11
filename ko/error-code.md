@@ -37,10 +37,10 @@
 | 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | redirectStatusCode 입력값이 올바르지 않습니다. 301, 302, 303, 307 중에 입력해주세요.  |
 | 10033 | Auth Token 'encryptKey' is not set. | encryptKey는 필수 입력값입니다. NHN Cloud CDN 콘솔에 표시되는 [Auth Token 인증 제어 관리 > 토큰 암호화 키] 값을 입력해주세요. |
 | 10034 | Auth Token 'durationSeconds' is not set. | durationSeconds는 필수 입력값입니다. 토큰 유효 시간으로 설정할 값을 초 단위로 입력해주세요. |
-| 10035 | Invalid 'sessionId'. Please enter smaller than 36 bytes for the length of character string. | sessionId 문자열의 길이는 최대 36바이트를 초과할 수 없습니다. |
+| 10035 | Invalid 'sessionId'. Please enter smaller than 36 bytes for the length of character string. | sessionId 문자열의 길이는 36바이트를 초과할 수 없습니다. |
 | 10036 | There is no path to generate token. Please enter 'singlePath' or 'singleWildcardPath' or 'multipleWildcardPath'. | singlePath, singleWildcardPath, multipleWildcardPath 중 하나 이상의 값이 필수로 존재해야 합니다. |
-| 10037 | Auth token paths('singlePath', 'singleWildcardPath', 'multipleWildcardPath') must starts with a slash(/) | singlePath, singleWildcardPath, multipleWildcardPath는 '/'로 시작해야 합니다. |
-| 10038 | Invalid character exists. Since ! and ~ are used as reserved characters, do not include them into path or session ID. | !, ~ 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함할 수 없습니다. |
+| 10037 | Auth token paths ('singlePath', 'singleWildcardPath', 'multipleWildcardPath') must start with a slash(/). | singlePath, singleWildcardPath, multipleWildcardPath는 '/'로 시작해야 합니다. |
+| 10038 | Invalid character exists. Since ! and ~ are used as reserved characters, do not include them in path or session ID. | !, ~ 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함할 수 없습니다. |
 | 20001 | Failed to authenticate with AppKey. | AppKey가 유효하지 않습니다. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey가 유효하지 않습니다. |
 | 30000 | Failed to process request. Please try again later. | 요청 처리에 실패했습니다. |

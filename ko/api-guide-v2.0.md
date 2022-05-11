@@ -529,7 +529,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 ## Auth Token API
 
-### Auth Token 생성 API
+### Auth Token 생성
 
 #### 요청
 
@@ -546,7 +546,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 {
   "encryptKey" : "AUTH_TOKEN_ENCRYPT_KEY",
   "durationSeconds": 3600,
-	"singlePath": "/sample.png",
+  "singlePath": "/sample.png",
   "singleWildcardPath": "/dir/*",
   "multipleWildcardPath": ["/dir/*", "/dir2/*"],
   "sessionId": "sampleSessionId"
@@ -566,7 +566,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | sessionId |           String | 선택 |    |  문자열 길이 최대 36바이트           | 단일 접근 요청에 대해 sessionId를 포함하여 토큰을 생성 |
 
 * singlePath, singleWildcardPath, multipleWildcardPath 중 하나 이상의 값이 필수로 존재해야 합니다.
-* 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide/#auth-token)를 참고하시기 바랍니다.
+* 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide/#auth-token)을 참고하시기 바랍니다.
 
 
 #### 응답
