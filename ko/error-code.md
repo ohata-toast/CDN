@@ -14,7 +14,7 @@
 | 10007 | Alreay exists domain alias. | 이미 다른 CDN 서비스 도메인에 등록된 Domain Alias(도메인 별칭)입니다. |
 | 10008 | Origin path must starts with a slash('/). | 원본 경로는 '/'부터 입력해주세요. |
 | 10009 | Origin path must not end with a slash('/). | 원본 경로의 마지막 문자로 '/'를 입력할 수 없습니다. |
-| 10010 | Origin domain is requried. | 원본 서버는 필수 입력 사항입니다. |
+| 10010 | Origin domain is required. | 원본 서버는 필수 입력 사항입니다. |
 | 10011 | Please enter origin domain without scheme. | 원본 서버에는 http://와 같은 스키마(scheme) 정보를 입력할 수 없습니다. |
 | 10012 | Please enter the origin domain in public IP or domain format. | 원본 서버 형식이 올바르지 않습니다. 도메인 또는 IP 형식으로 입력해 주세요. |
 | 10013 | Domain alias is invalid. | Domain Alias 형식이 올바르지 않습니다. |
@@ -35,6 +35,12 @@
 | 10030 | 'redirectPath' must starts with a slash('/). | redirectPath는 '/'부터 입력해주세요. |
 | 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | controlType이 'REDIRECT'일 경우, redirectStatusCode는 필수 입력값입니다. 301, 302, 303, 307 중에 입력해주세요. |
 | 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | redirectStatusCode 입력값이 올바르지 않습니다. 301, 302, 303, 307 중에 입력해주세요.  |
+| 10033 | Auth Token 'encryptKey' is not set. | encryptKey는 필수 입력값입니다. NHN Cloud CDN 콘솔에 표시되는 [Auth Token 인증 제어 관리 > 토큰 암호화 키] 값을 입력해주세요. |
+| 10034 | Auth Token 'durationSeconds' is not set. | durationSeconds는 필수 입력값입니다. 토큰 유효 시간으로 설정할 값을 초 단위로 입력해주세요. |
+| 10035 | Invalid 'sessionId'. Please enter smaller than 36 bytes for the length of character string. | sessionId 문자열의 길이는 최대 36바이트를 초과할 수 없습니다. |
+| 10036 | There is no path to generate token. Please enter 'singlePath' or 'singleWildcardPath' or 'multipleWildcardPath'. | singlePath, singleWildcardPath, multipleWildcardPath 중 하나 이상의 값이 필수로 존재해야 합니다. |
+| 10037 | Auth token paths('singlePath', 'singleWildcardPath', 'multipleWildcardPath') must starts with a slash(/) | singlePath, singleWildcardPath, multipleWildcardPath는 '/'로 시작해야 합니다. |
+| 10038 | Invalid character exists. Since ! and ~ are used as reserved characters, do not include them into path or session ID. | !, ~ 문자는 예약된 문자로 사용되므로 경로 또는 세션 ID에 포함할 수 없습니다. |
 | 20001 | Failed to authenticate with AppKey. | AppKey가 유효하지 않습니다. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey가 유효하지 않습니다. |
 | 30000 | Failed to process request. Please try again later. | 요청 처리에 실패했습니다. |
