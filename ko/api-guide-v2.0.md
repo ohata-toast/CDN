@@ -527,6 +527,83 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | header.resultMessage | String  | 결과 메시지 |
 
 
+## Auth Token API
+
+### Auth Token 생성
+
+#### 요청
+
+[URI]
+
+| 메서드  | URI                           |
+| ---- | ----------------------------- |
+| POST | /v2.0/appKeys/{appKey}/auth-token |
+
+
+[요청 본문]
+
+```json
+{
+  "encryptKey" : "AUTH_TOKEN_ENCRYPT_KEY",
+  "durationSeconds": 3600,
+  "singlePath": "/sample.png",
+  "singleWildcardPath": "/dir/*",
+  "multipleWildcardPath": ["/dir/*", "/dir2/*"],
+  "sessionId": "sampleSessionId"
+}
+```
+
+
+[필드]
+
+| 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| encryptKey    | String | 필수   |        |             | NHN Cloud CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키 |
+| durationSeconds | Integer | 필수 |        | 0~2,147,483,647 | 생성된 토큰이 유효한 시간(초) |
+| singlePath      | String | 선택 |        |             | 생성된 토큰을 이용하여 접근할 단일 경로 |
+| singleWildcardPath | String | 선택 |     |             | 생성된 토큰을 이용하여 접근할 단일 와일드카드 경로 |
+| multipleWildcardPath | String | 선택 |   |             | 생성된 토큰을 이용하여 접근할 여러 개의 와일드카드 경로 |
+| sessionId |           String | 선택 |    |  문자열 길이 최대 36바이트           | 단일 접근 요청에 대해 sessionId를 포함하여 토큰을 생성 |
+
+* singlePath, singleWildcardPath, multipleWildcardPath 중 하나 이상의 값이 필수로 존재해야 합니다.
+* 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide/#auth-token)을 참고하시기 바랍니다.
+
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "authToken": {
+        "singlePathToken": "exp=1652247396~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=c743fcdb2c35c7c97455c18f6d354eef89743f556d3b82df3861ef9cb67eec94",
+        "singleWildcardPathToken": "exp=1652247396~acl=%2fdir%2f*~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=160acb24795daf63a7b0628420f8d7f4a37f014c01b73ad388ee5efaca17d663",
+        "multipleWildcardPathToken": "exp=1652247396~acl=%2fdir%2f*~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=160acb24795daf63a7b0628420f8d7f4a37f014c01b73ad388ee5efaca17d663"
+    }
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명        |
+| -------------------- | ------- | --------- |
+| header               | Object  | 헤더 영역     |
+| header.isSuccessful  | Boolean | 성공 여부     |
+| header.resultCode    | Integer | 결과 코드     |
+| header.resultMessage | String  | 결과 메시지    |
+| authToken             | Object    | 생성된 Auth Token 오브젝트 |
+| authToken.singlePathToken | String    | 단일 경로에 접근할 수 있도록 생성된 인증 토큰                                 |
+| authToken.singleWildcardPathToken | String    | 단일 와일드카드 경로에 접근할 수 있도록 생성된 인증 토큰                 |
+| authToken.multipleWildcardPathToken | String  | 여러 개의 와일드카드 경로에 접근할 수 있도록 생성된 인증 토큰             |
+
+
+
 ## 캐시 재배포 API
 
 ### 캐시 재배포(Purge) -  ITEM(특정 파일 타입)
