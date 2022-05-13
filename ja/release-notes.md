@@ -1,6 +1,12 @@
 
 ## Content Delivery > CDN > Release Notes
 
+### 2022. 05. 24.
+
+#### 機能改善/変更
+* Auth Token作成API追加
+	* Auth Token認証アクセス管理機能が設定されたコンテンツにアクセスするための認証トークンを作成するAPIが追加されました。詳細については[API v2.0ガイド > Auth Token作成](./api-guide-v2.0/#_17)を参照してください。
+
 ### 2021. 12. 28.
 
 #### 機能改善/変更
