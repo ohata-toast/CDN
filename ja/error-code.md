@@ -16,7 +16,7 @@
 | 10008 | Origin path must starts with a slash('/). | ソースパスは'/'から入力してください。| 
 | 10009 | Origin path must not end with a slash('/). | ソースパスの最後の文字に'/'を入力できません。 | 
 | 10010 | Origin domain is requried. | 原本サーバーは必須入力事項です。 | 
-| 10011 | Please enter origin domain without scheme. | 原本サーバーにはhttp://などのスキーマ(scheme)情報を入力できません。 | 
+| 10011 | Please enter origin domain without scheme. | 原本サーバーには http:// などのスキーマ(scheme)情報を入力できません。 | 
 | 10012 | Please enter the origin domain in public IP or domain format. | 原本サーバー形式が正しくありません。ドメインまたはIP形式で入力してください。 | 
 | 10013 | Domain alias is invalid. | Domain Alias形式が正しくありません。 | 
 | 10014 | Referrers is invalid. Enter referrers regular expression. | リファラー(referrer)形式が正しくありません。有効な正規表現かを確認してください。 |
@@ -36,6 +36,12 @@
 | 10030 | 'redirectPath' must starts with a slash('/). | redirectPathは'/'から入力してください。 |
 | 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | controlTypeが'REDIRECT'の場合、redirectStatusCodeは必須入力値です。301、302、303、307のいずれかを入力してください。 |
 | 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | redirectStatusCodeの入力値が正しくありません。301、302、303、307のいずれかを入力してください。  |
+| 10033 | Auth Token 'encryptKey' is not set. | encryptKeyは必須入力値です。 NHN Cloud CDNコンソールに表示される[Auth Token認証制御管理 > トークン暗号化キー]値を入力してください。 |
+| 10034 | Auth Token 'durationSeconds' is not set. | durationSecondsは必須入力値です。トークン有効時間として設定する値を秒単位で入力してください。 |
+| 10035 | Invalid 'sessionId'. Please enter smaller than 36 bytes for the length of character string. | sessionId文字列の長さは36バイトを超えられません。 |
+| 10036 | There is no path to generate token. Please enter 'singlePath' or 'singleWildcardPath' or 'multipleWildcardPath'. | singlePath、singleWildcardPath、multipleWildcardPathのうち1つ以上の値が必ず存在する必要があります。 |
+| 10037 | Auth token paths ('singlePath', 'singleWildcardPath', 'multipleWildcardPath') must start with a slash(/). | singlePath、singleWildcardPath、multipleWildcardPathは(/)で始まる必要があります。 |
+| 10038 | Invalid character exists. Since ! and ~ are used as reserved characters, do not include them in path or session ID. | !, ~文字は予約文字として使用されるため、パスまたはセッションIDに含められません。 |
 | 20001 | Failed to authenticate with AppKey. | AppKeyが有効ではありません。 |
 | 20002 | Failed to authenticate with the secret key. | SecretKeyが有効ではありません。 |
 | 30000 | Failed to process request. Please try again later. | 要求された処理に失敗しました。 |
