@@ -149,7 +149,7 @@ Set server providing original files to be deployed to CDN.
 |45002|
 
 - **Original Path**  
-  Set the lower paths of an original file. Content may be requested without the original path.
+  Set the a sub-path of an original file. Content may be requested without the original path.
 
 > **[Example] When the original path is set with /files/images**
 >
@@ -157,22 +157,21 @@ Set server providing original files to be deployed to CDN.
 > - URL of CDN Service: http://[ServiceID].toastcdn.net/logo.png
 > - Origin paths may be missing from URL of CDN service when it is requested.
 
-- **Downgrading HTTP Protocols Requesting Originals**  
-  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.  
-  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, original files do not come as response.  
-  If the origin server operates HTTPS protocols only, enable the **Downgrading HTTP Protocols Requesting Originals** setting and make a request from CDN edge server to origin server by downgrading HTTPS to HTTP protocol.  
-  In short, the CDN edge server section of client is communicated via HTTPS, while the origin server section of CDN edge server is communicated via HTTP.  
-  Note the following constraints when downgrading HTTP protocols requesting originals:  
-
+- **Downgrading HTTP Protocols Requesting Originals**
+  The CDN edge server requests origin server of the original files via service protocol (HTTP/HTTPS) of client's original request.
+  That is, when a client requests via HTTPS but if the origin server does not support HTTPS response, original files do not come as response.
+  If the origin server operates HTTPS protocols only, enable the **Downgrading HTTP Protocols Requesting Originals** setting and make a request from CDN edge server to origin server by downgrading HTTPS to HTTP protocol.
+  In short, the CDN edge server section of client is communicated via HTTPS, while the origin server section of CDN edge server is communicated via HTTP.
+  Note the following constraints when downgrading HTTP protocols requesting originals:
 > **[Caution] Constraints for Downgrading HTTP Protocols Requesting Originals**
 > 1. Protocol downgrade is not applied to the entire website address. For instance, **www.nhn.com**, which is the entire site address of the origin server, cannot be downgraded.
 > 2. No other methods than GET, HEAD, or OPTIONS, are supported.
 > 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
-- **Forward Host Header**  
-  Set **Host** header value to be sent along with a request of CDN server for original files to origin server.  
-  If the origin server is run as name-based virtual host, **Request Host Header** setting may be required. Select an appropriate value depending on the operating type of an origin server.  
+- **Forward Host Header**
+  Set **Host** header value to be sent along with a request of CDN server for original files to origin server.
+  If the origin server is run as name-based virtual host, **Request Host Header** setting may be required. Select an appropriate value depending on the operating type of an origin server.
     - **Original Host Name**: Set the host name of origin server as the host header.
     - **Request Host Header**: Set as the host header of client request.
 
@@ -186,16 +185,16 @@ Set server providing original files to be deployed to CDN.
 You can set the access control for the root path of the CDN service.
 ![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path.png)
 
-- **Setting the access of root path**
-    - **Enable**: Activates the access management function for root path, banning requests for root path and setting up to redirect to a different page.
-    - **Disable**: Deactivates the access management function for root path.
-- **Method of Access Control**
-    - **Deny**: Replies with HTTP Response Code 403 when receiving request for root path.
-    - **Redirect**: Redirects to a path designated by the User when receiving a root path request.
+- **Set Root Path Access**
+    - **Enable**: Activates the access control for the root path, blocking requests for the root path or configuring such requests to be redirected to a different page.
+    - **Disable**: Deactivates the access control for the root path.
+- **Access Control Method**
+    - **Deny**: Replies with HTTP Response Code 403 when receiving request for the root path.
+    - **Redirect**: Redirects the request for the root path to a path specified by the User.
 - **Redirect Path**
-  Enter the redirection path for root path request. The redirection path must start with a "/," and must be a path that exists in the lower-level CDN service.
+  Enter the path to redirect the request for the root path to. The redirect path must start with a "/," and must be a path that exists in CDN service.
 - **Redirect HTTP Response Code**
-    - Set up the HTTP Response Code that will send and redirect the root path request.
+    - Set up the HTTP Response Code to be sent after redirecting the request for the root path.
     - Redirect HTTP Response Code can be selected among 301, 302, 303, and 307.
 
 ### Cache
@@ -236,7 +235,7 @@ Enter in regex, and break the lines to enter many.
         * Content access is allowed if a referer request header matches regex setup. If not, content access is not allowed.
 
 - **Content Access if Referer Header is Unavailable**
-  Allow Access if Referer Header is UnavailableSelect whether to allow access to content if referer request header is not available.
+  Select whether to allow access to content if referer request header is not available.
     - **Allow**: If referer request header is not available, content access is allowed and the control of referer access does not operate.
     - **Deny**: If referer request header is not available, content access is rejected and access is allowed only for registered referers.
 
@@ -244,7 +243,7 @@ Enter in regex, and break the lines to enter many.
 >
 > * Typ: Whitelist
 > * Regex:`^https://[a-zA-Z0-9._-]*\.nhn\.com/.*`
-> Content access is allowed only when resources are requested from lower paths of a nhn.com sub-domain.
+> Content access is allowed only when resources are requested from a sub-path of a nhn.com sub-domain.
 >
 > **[Note] Regex Escape Characters**
 > Some characters are used as special characters for regex.
@@ -254,30 +253,30 @@ Enter in regex, and break the lines to enter many.
 > To control many referrers, enter in consecutive lines.
 > To set many referrers with APIs, delimit with \n tokens.
 
-### Access Management for Auth Token Authentication
-The access management for Auth Token authentication is a security feature that allows only verified tokens to access content from CDN edge server, by adding authentication token to a content request.
+### Access Control for Auth Token Authentication
+The Access Control for Auth Token authentication is a security feature that allows only verified tokens to access content from CDN edge server, by adding authentication token to a content request.
 You may control by allowing one-time access to content or only restricted users to access content.
 If content is requested with an invalid token, 403 Forbidden is sent as response and access to content is forbidden.
 
-To apply the access of Auth Token Authentication to CDN, following process is required.
+To apply the access of Auth Token Authentication to the CDN service, you need to follow the steps below.
 
 > **[Caution]**
 >
-> Access management for Auth Token authentication requires the following implementation, even on applications using NHN Cloud CDN.
+> Access Control for Auth Token authentication requires the following implementation, even on applications using NHN Cloud CDN.
 > 1. Create a token required to access content.
 > 2. Client (final content consumer) must request content including created token.
 > If access management is configured without this process, content request may fail due to failed token authentication.
 
 
-#### 1. NHN Cloud CDN Console > Setting for Access Management for Auth Token Authentication
+#### 1. NHN Cloud CDN Console > Access Control Settings for Auth Token Authentication
 
-On CDN console, set access management for Auth Token authentication, in reference of the following.
+On CDN console, set Access Control for Auth Token authentication by referring to the following.
 
-![Create CDN Service-Access Management for Auth Token Authentication](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-auth-token_202105.png)
+![Create CDN Service-Access Control for Auth Token Authentication](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-auth-token_202105.png)
 
-- **Enabling Token Authentication**
-    - **Enable**: Activate access management for Auth Token authentication and verify token so as to allow access to content.
-    - **Disable**: Deactivate access management for Auth Token authentication.
+- **Enable Token Authentication**
+    - **Enable**: Activate Access Control for Auth Token authentication and verify token so as to allow access to content.
+    - **Disable**: Deactivate Access Control for Auth Token authentication.
 - **Token Location**: Select a location to deliver token when content is requested.
     - **Cookie**: Deliver token with a standard cookie. Note that devices or browsers that do not support cookies may not run properly.
     - **Request Header**: Deliver token to the request header.
@@ -287,7 +286,7 @@ On CDN console, set access management for Auth Token authentication, in referenc
 - **Token Encryption Key**
     - Encryption key required to create a token. By creating or modifying CDN, an encryption key is automatically created.
     - Please take caution of not disclosing the encryption key.
-- **Target Setting for Token Authentication**  
+- **Set Target for Token Authentication**  
   Set a target of file for token authentication when accessing content.  
   Verify token only for files with their tokens to be authenticated; for other files, token is not verified, allowing content access without a token.  
   To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.  
@@ -308,7 +307,7 @@ On CDN console, set access management for Auth Token authentication, in referenc
 > When request URL path and file extension are all set, only one match of the two conditions enables token access control.
 > [Example] When the setting for request URL path is **/nhn/\***, with **png** as file extension: Verify token for all files under /nhn or content with png as file extension.
 
-#### 2. Create Token
+#### 2. Create a Token
 To allow the final content user to access content, content must be requested along with a token. Therefore, a token must be created to get issued to the final content user.
 Token creation must be implemented on an application using NHN Cloud CDN.
 To create a token, refer to the following sample code:
@@ -373,7 +372,7 @@ public class NhnCloudAuthTokenAccessControlExample {
         /** Token Encryption Algorithm (fixed with SHA256) **/
         private static final String HMAC_SHA_256 = "HmacSHA256";
 
-        /** Token Encryption Key (NHN Cloud CDN Console > Access management for Auth Token authentication  > Encryption key) **/
+        /** Token Encryption Key (NHN Cloud CDN Console > Access Control for Auth Token authentication  > Encryption key) **/
         private String key;
 
         /**  Session Identifier */
@@ -536,7 +535,7 @@ public class NhnCloudAuthTokenAccessControlExample {
 ```
 
 - **Description of Member Variables of AuthToken Class**
-    - **key**: Go to NHN Cloud CDN console, Access Management for Auth Token Authentication > and enter Token Encryption Key.
+    - **key**: Go to NHN Cloud CDN console, Access Control for Auth Token Authentication > and enter Token Encryption Key.
     - **sessionId**: To create a token including origin identifier for the request of a single access, enter sessionId.
         - With a valid token created for each session ID, you may create one-time tokens or apply it to many purposes.
         - Session ID must be configured with [List of Available Ascii Characters](https://ko.wikipedia.org/wiki/ASCII#%EC%B6%9C%EB%A0%A5_%EA%B0%80%EB%8A%A5_%EC%95%84%EC%8A%A4%ED%82%A4_%EB%AC%B8%EC%9E%90%ED%91%9C.).
@@ -662,7 +661,7 @@ By purging cache, outdated cache data are deleted from requested content while a
 4. Specify a file to purge depending on the selected cache purge type.
 5. Click **Purge Cache** to request for a purge.
 
-Take caution that cache purge does not exceed the capacity limit, in reference of the table as below:
+Cache purge has a usage limit, so refer to the table below and be careful not to exceed the usage limit.
 
 |Category |[ServiceID].toastcdn.net |
 |---|---|
