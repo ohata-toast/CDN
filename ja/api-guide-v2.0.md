@@ -526,6 +526,81 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | header.resultMessage | String | 結果メッセージ |
 
 
+## Auth Token API
+
+### Auth Token作成
+
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                           |
+| ---- | ----------------------------- |
+| POST | /v2.0/appKeys/{appKey}/auth-token |
+
+
+[リクエスト本文]
+
+```json
+{
+  "encryptKey" : "AUTH_TOKEN_ENCRYPT_KEY",
+  "durationSeconds": 3600,
+  "singlePath": "/sample.png",
+  "singleWildcardPath": "/dir/*",
+  "multipleWildcardPath": ["/dir/*", "/dir2/*"],
+  "sessionId": "sampleSessionId"
+}
+```
+
+
+[フィールド]
+
+| 名前    | タイプ | 必須かどうか | デフォルト値 | 有効範囲           | 説明                                                       |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| encryptKey    | String | 必須 |        |             | NHN Cloud CDNコンソールに表示されたAuth Token認証制御管理 > トークン暗号化キー |
+| durationSeconds | Integer | 必須 |        | 0～2,147,483,647 | 作成されたトークンが有効な時間(秒) |
+| singlePath      | String | 任意 |        |             | 作成されたトークンを利用してアクセスする単一パス |
+| singleWildcardPath | String | 任意 |     |             | 作成されたトークンを利用してアクセスする単一ワイルドカードパス |
+| multipleWildcardPath | String | 任意 |   |             | 作成されたトークンを利用してアクセスする複数のワイルドカードパス |
+| sessionId |           String | 任意 |    | 文字列の長さ最大36バイト         | 単一アクセスリクエストに対してsessionIdを含めてトークンを作成 |
+
+* singlePath、singleWildcardPath、multipleWildcardPathのうち1つ以上の値が必ず存在する必要があります。
+* トークン作成および使用についての詳細は[コンソール使用ガイド > Auth Token認証アクセス管理 > 2. トークン作成](./console-guide/#auth-token)を参照してください。
+
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "authToken": {
+        "singlePathToken": "exp=1652247396~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=c743fcdb2c35c7c97455c18f6d354eef89743f556d3b82df3861ef9cb67eec94",
+        "singleWildcardPathToken": "exp=1652247396~acl=%2fdir%2f*~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=160acb24795daf63a7b0628420f8d7f4a37f014c01b73ad388ee5efaca17d663",
+        "multipleWildcardPathToken": "exp=1652247396~acl=%2fdir%2f*~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=160acb24795daf63a7b0628420f8d7f4a37f014c01b73ad388ee5efaca17d663"
+    }
+}
+```
+
+
+[フィールド]
+
+| フィールド                 | タイプ    | 説明      |
+| -------------------- | ------- | --------- |
+| header               | Object  | ヘッダ領域   |
+| header.isSuccessful  | Boolean | 成否   |
+| header.resultCode    | Integer | 結果コード   |
+| header.resultMessage | String  | 結果メッセージ  |
+| authToken             | Object    | 作成されたAuth Tokenオブジェクト |
+| authToken.singlePathToken | String    | 単一パスにアクセスできるように作成された認証トークン                               |
+| authToken.singleWildcardPathToken | String    | 単一ワイルドカードパスにアクセスできるように作成された認証トークン               |
+| authToken.multipleWildcardPathToken | String  | 複数のワイルドカードパスにアクセスできるように作成された認証トークン           |
+
 ## キャッシュ再配布API
 
 ### キャッシュ再配布(Purge) -  ITEM(特定ファイルタイプ)
