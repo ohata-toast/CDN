@@ -1,5 +1,11 @@
 ## Content Delivery > CDN > Release Notes
 
+### May 24, 2022
+
+#### Feature Updates
+* Added an API to create an Auth Token
+	* Added an API to create an authentication token that is required to access content for which access control for Auth Token authentication is enabled. For more information, refer to [API v2.0 Guide > Create an Auth Token](./api-guide-v2.0/#auth-token).
+
 ### December 28, 2021
 
 #### Feature Updates
@@ -15,7 +21,7 @@
 ### July 27, 2021
 
 #### Feature Updates
-*  The CDN Public API domain has been changed.
+* The CDN Public API domain has been changed.
     * AS-IS : https://api-gw.cloud.toast.com/tc-cdn
     * TO-BE : https://kr1-cdn.api.nhncloudservice.com
 

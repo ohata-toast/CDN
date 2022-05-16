@@ -7,7 +7,7 @@
 | -2 | ASSERT | Failed |
 | 10000 | Domain does not exist. | Service does not exist. |
 | 10001 | There is no path to purge. | Enter path to purge. |
-| 10002 | The HTTP Method or url of Callback URL is not valid. | HTTP method or url of callback URL is not entered. |
+| 10002 | The HTTP Method or url of Callback URL is not valid. | HTTP method or URL of callback URL is not entered. |
 | 10003 | Callback url format is not valid. | Callback url format is not valid. |
 | 10004 | Exist a creating service. Please retry after it is finished. | Cannot execute requested task. Try again after previous request is completed. |
 | 10006 | Not found resource | Resource is not found as requested, or the request is invalid. |
@@ -32,9 +32,15 @@
 | 10027 | The description's maximum length is limited to 255 characters. | Maximum of 255 characters can be entered for CDN service description. |
 | 10028 | The Root Path Control 'controlType' is not set. Please enter type 'DENY' or 'REDIRECT' | controlType is a required input value. Please enter either "DENY" or "REDIRECT." |
 | 10029 | The Root Path Control 'redirectPath' is not set. | If the controlType is "REDIRECT," the redirectPath is a required input value. |
-| 10030 | 'redirectPath' must starts with a slash('/). |  redirectPath must be entered starting with a "/." |
-| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 |  If the controlType is "REDIRECT," redirectStatusCode is a required input value. Please enter one of 301, 302, 303, or 307. |
-| 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 |  The input value of redirectStatusCode is not correct. Please enter one of 301, 302, 303 or 307.  |
+| 10030 | 'redirectPath' must starts with a slash('/). | redirectPath must be entered starting with a "/." |
+| 10031 | The Root Path Control 'redirectStatusCode' is not set. Please enter Code 301 or 302 or 303 or 307 | If the controlType is "REDIRECT," redirectStatusCode is a required input value. Please enter one of 301, 302, 303, or 307. |
+| 10032 | Invalid 'redirectStatusCode'. Please enter Code 301 or 302 or 303 or 307 | The input value of redirectStatusCode is not correct. Please enter one of 301, 302, 303 or 307.  |
+| 10033 | Auth Token 'encryptKey' is not set. | encryptKey is a required input. Enter the [Access Control for Auth Token Authentication > Token Encryption Key] value displayed on the NHN Cloud CDN console. |
+| 10034 | Auth Token 'durationSeconds' is not set. | durationSeconds is a required input. Enter the value to set as the token expiration time in seconds. |
+| 10035 | Invalid 'sessionId'. Please enter smaller than 36 bytes for the length of character string. | The length of the sessionId string cannot exceed 36 bytes. |
+| 10036 | There is no path to generate token. Please enter 'singlePath' or 'singleWildcardPath' or 'multipleWildcardPath'. | At least one of singlePath, singleWildcardPath, or multipleWildcardPath must exist. |
+| 10037 | Auth token paths ('singlePath', 'singleWildcardPath', 'multipleWildcardPath') must start with a slash(/). | singlePath, singleWildcardPath, and multipleWildcardPath must start with '/'. |
+| 10038 | Invalid character exists. Since ! and ~ are used as reserved characters, do not include them in path or session ID. | The !, ~ characters are used as reserved characters, so they cannot be included in a path or session ID. |
 | 20001 | Failed to authenticate with AppKey. | Appkey is not valid. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey is not valid. |
 | 30000 | Failed to process request. Please try again later. | Failed to process request. |

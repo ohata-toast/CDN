@@ -2,7 +2,6 @@
 
 This document describes Public API v2.0 of NHN Cloud CDN.
 
-
 ## Common API Information
 
 ### Domain
@@ -65,15 +64,15 @@ The following shows the status codes of CDN service, which are available at the 
 
 | Value         | Description                     |
 | ---------- | ------------------------ |
-| OPENING    | Starting service            |
-| OPEN       | In service                 |
-| MODIFYING  | Under modification         |
+| OPENING    | Starting service           |
+| OPEN       | In service                |
+| MODIFYING  | Under modification                  |
 | RESUME     | Resumed                     |
-| SUSPENDING | Under suspension            |
-| SUSPEND    | Suspended                   |
-| CLOSING    | Closing service              |
-| CLOSE      | Closed                 |
-| ERROR      | Error occurred while creating service  |
+| SUSPENDING | Under suspension             |
+| SUSPEND    | Suspended                     |
+| CLOSING    | Closing service             |
+| CLOSE      | Closed                |
+| ERROR      | Error occurred while creating service |
 
 
 ## Service API
@@ -134,27 +133,27 @@ The following shows the status codes of CDN service, which are available at the 
 | Name                                   | Type    | Required | Default | Valid Range                   | Description                                                         |
 | -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
 | distributions                          | List    | Required      |        |                              | List of CDN objects to create                                   |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP|
-| distributions[0].forwardHostHeader     | String  | Required      | When domain alias setting is enabled: REQUEST_HOST_HEADER, When domain alias setting is not enabled: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
-| distributions[0].useOriginCacheControl | Boolean | Required      |        | true/false                  | Cache expiration setting (true: Original setting, false: User-configured)   |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
+| distributions[0].forwardHostHeader     | String  | Required      |   | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request)|
+| distributions[0].useOriginCacheControl | Boolean | Required      |        | true/false                  | Cache expiration setting (true: Use the origin server setting, false: User-configured setting)   |
 | distributions[0].referrerType          | String  | Required      |        | BLACKLIST/WHITELIST         | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | Optional      |        |                           | List of regex referrer headers   |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header             |
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
-| distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (Use personal or company-owned domain) |
-| distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds); default is 0 with 604,800 seconds.             |
-| distributions[0].cacheKeyQueryParam    | String  | Optional      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
+| distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (using domains owned by individuals or companies) |
+| distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds), the default value 0 is 604,800 seconds.             |
+| distributions[0].cacheKeyQueryParam    | String  | Optional      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].origins               | List    | Required      |        |                             | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Required      |        | Up to 255 characters                  | Origin server (domain or IP)                                     |
-| distributions[0].origins[0].originPath | String  | Optional      |        | Up to 8192 characters                 | Lower paths of origin server (path must include /.)        |
-| distributions[0].origins[0].httpPort   | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Number' of [Console User Guide > Origin Server](./console-guide/#_2) | HTTP protocol port of origin server(must enter either origins[0].httpPort or origins[0].httpsPort.)  |
-| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Number' of[Console User Guide > Origin Server](./console-guide/#_2) | HTTPS protocol port of origin server (must enter either origins[0].httpPort or origins[0].httpsPort.) |
-| distributions[0].rootPathAccessControl  | Object  | Optional      |        |                             | Setting the access control for the CDN service root path |
-| distributions[0].rootPathAccessControl.enable | Boolean | Required      | true      | true/false             | Whether the access control for the root path is enabled (true)/disabled (false)           |
-| distributions[0].rootPathAccessControl.controlType  | String  | Optional      |        | DENY, REDIRECT    | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path)) |
-| distributions[0].rootPathAccessControl.redirectPath | String | Optional      |       |       |   If the controlType is “REDIRECT,” entry is required.( Please enter the path) including the redirection path for requesting root path.        |
-| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | Optional      |       | 301, 302, 303, 307             |  If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting           |
-| distributions[0].callback              | Object  | Optional      |        |                             | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
+| distributions[0].origins[0].originPath | String  | Optional      |        | Up to 8192 characters                 | Sub-path of the origin server (Enter a path including /.)        |
+| distributions[0].origins[0].httpPort   | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Numbers' of [Console User Guide > Origin Server](./console-guide/#origin-server) | HTTP protocol port of the origin server (one of origins[0].httpPort and origins[0].httpsPort must be entered.)  |
+| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Numbers' of [Console User Guide > Origin Server](./console-guide/#origin-server) | HTTPS protocol port of the origin server (one of origins[0].httpPort and origins[0].httpsPort must be entered.) |
+| distributions[0].rootPathAccessControl  | Object  | Optional      |        |                             | Set the access control for the CDN service root path |
+| distributions[0].rootPathAccessControl.enable | Boolean | Required      | true      | true/false             | Whether the access control for the root path is enabled (true) or disabled (false)          |
+| distributions[0].rootPathAccessControl.controlType  | String  | Optional      |        | DENY, REDIRECT    | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| distributions[0].rootPathAccessControl.redirectPath | String | Optional      |       |       |   Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | Optional      |       | 301, 302, 303, 307             |  Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.          |
+| distributions[0].callback              | Object  | Optional      |        |                             | Callback URL to receive the processing result of CDN creation (callback setting is optional.) |
 | distributions[0].callback.httpMethod   | String  | Required      |        | GET/POST/PUT                | HTTP method of callback                                           |
 | distributions[0].callback.url          | String  | Required      |        | Up to 1024 characters                 | Callback URL                                                     |
 
@@ -221,35 +220,35 @@ The following shows the status codes of CDN service, which are available at the 
 
 | Field                                   | Type    | Description                                                         |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | Header area                                                   |
+| header                                 | Object  | Header area                                                    |
 | header.isSuccessful                    | Boolean | Successful or not                                                    |
 | header.resultCode                      | Integer | Result code                                                    |
 | header.resultMessage                   | String  | Result message                                                  |
-| distributions                          | List    | List of created CDN objects                                    |
-| distributions[0].domain                | String  | Name of created domain (service)                               |
-| distributions[0].domainAlias           | List    | List of domain aliases (use personal or company-owned domain)              |
+| distributions                          | List    | List of created CDN objects                                   |
+| distributions[0].domain                | String  | Name of the created domain (service)                                   |
+| distributions[0].domainAlias           | List    | List of domain aliases (using domains owned by individuals or companies)              |
 | distributions[0].region                | String  | Service region ("GLOBAL": Global service)            |
-| distributions[0].description           | String  | Description                                                     |
-| distributions[0].status                | String  | CDN status code (see [Table] CDN Status Code)                                 |
-| distributions[0].defaultMaxAge         | Integer | Cache expiration time (seconds)                                           |
-| distributions[0].cacheKeyQueryParam    | String  |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
+| distributions[0].description           | String  | Description                                                         |
+| distributions[0].status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
+| distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
+| distributions[0].cacheKeyQueryParam    | String  | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
-| distributions[0].referrers             | List    | List of regex referrer headers                                   |
+| distributions[0].referrers             | List    | List of regex referrer headers                                  |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | Whether to allow (true) or deny (false) access to content when there is no referer header |
-| distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Enable origin server setting, false: User-configured setting) |
+| distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Use the origin server setting, false: User-configured setting) |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
-| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                           |
+| distributions[0].origins[0].originPath | String  | Sub-path of origin server                                          |
 | distributions[0].origins[0].httpPort   | Integer | HTTP protocol port of origin server                                               |
-| distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                              |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean |Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP  |
-| distributions[0].forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
-| distributions[0].rootPathAccessControl  | Object  | Setting the access control for the CDN service root path |
-| distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true)/disabled (false)          |
-| distributions[0].rootPathAccessControl.controlType  | String  | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path) |
-| distributions[0].rootPathAccessControl.redirectPath | String | If the controlType is "REDIRECT,” entry is required. (Please enter the path ) including the redirection path for requesting root path.        |
-| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting          |
-| distributions[0].callback              | Object  | Callback to receive service creation result                 |
+| distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                               |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
+| distributions[0].forwardHostHeader     | String  | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request) |
+| distributions[0].rootPathAccessControl  | Object  | Set the access control for the CDN service root path |
+| distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true) or disabled (false)          |
+| distributions[0].rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| distributions[0].rootPathAccessControl.redirectPath | String | Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.          |
+| distributions[0].callback              | Object  | Callback to receive service creation result                        |
 | distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
 | distributions[0].callback.url          | String  | Callback URL                                                     |
 
@@ -272,7 +271,7 @@ The following shows the status codes of CDN service, which are available at the 
 | Name   | Type   | Required | Valid Range     | Description                         |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
 | domain | String | Optional      | Up to 255 characters    | Domain to query (service name)   |
-| status | String | Optional      | CDN status code | CDN Status Code (see [Table] CDN Status Code) |
+| status | String | Optional      | CDN Status Codes | CDN status code (See [Table] CDN Status Code) |
 
 [Example]
 ```
@@ -331,34 +330,34 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | Field                                   | Type    | Description                                                         |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
 | header                                 | Object  | Header area                                                    |
-| header.isSuccessful                    | Boolean | Successful or not                                                   |
-| header.resultCode                      | Integer | Result code                                                   |
+| header.isSuccessful                    | Boolean | Successful or not                                                    |
+| header.resultCode                      | Integer | Result code                                                    |
 | header.resultMessage                   | String  | Result message                                                  |
 | distributions                          | List    | List of created CDN objects                                     |
 | distributions[0].domain                | String  | Domain name (service name)                                     |
-| distributions[0].domainAlias           | List  | List of domain aliases (use personal or company-owned domain)                                                  |
+| distributions[0].domainAlias           | List  | List of domain aliases (using domains owned by individuals or companies)                                                  |
 | distributions[0].region                | String  | Service region ("GLOBAL": Global service)             |
 | distributions[0].status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
-| distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                          |
-| distributions[0].cacheKeyQueryParam    | String  |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
+| distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
+| distributions[0].cacheKeyQueryParam    | String  | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                 |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | Whether to allow (true) or deny (false) access to content when there is no referer header |
-| distributions[0].useOriginCacheControl | Boolean | Whether to enable origin server setting or not (true: Enable origin server setting, false: User-configured) |
+| distributions[0].useOriginCacheControl | Boolean | Whether to use origin server setting or not (true: Use the origin server setting, false: User-configured setting) |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
-| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                          |
+| distributions[0].origins[0].originPath | String  | Sub-path of origin server                                          |
 | distributions[0].origins[0].httpPort   | Integer | HTTP protocol port of origin server                                  |
 | distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                 |
-| distributions[0].forwardHostHeader     | String  | Callback to receive service deployment result                         |
+| distributions[0].forwardHostHeader     | String  | Callback to receive service deployment result                        |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
-| distributions[0].forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
-| distributions[0].rootPathAccessControl  | Object  | Setting the access control for the CDN service root path |
-| distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true)/disabled (false)           |
-| distributions[0].rootPathAccessControl.controlType  | String  | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path) |
-| distributions[0].rootPathAccessControl.redirectPath | String |  If the controlType is "REDIRECT,” entry is required. (Please enter the path) including the redirection path for requesting root path.        |
-| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting          |
-| distributions[0].callback              | Object  | Callback to receive service deployment result                         |
+| distributions[0].forwardHostHeader     | String  | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request) |
+| distributions[0].rootPathAccessControl  | Object  | Set the access control for the CDN service root path |
+| distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true) or disabled (false)          |
+| distributions[0].rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| distributions[0].rootPathAccessControl.redirectPath | String | Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.          |
+| distributions[0].callback              | Object  | Callback to receive service deployment result                        |
 | distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
 | distributions[0].callback.url          | String  | Callback URL                                                     |
 
@@ -416,40 +415,40 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 [Field]
 
-| Name                  | Type    | Required | Default | Valid Range                                                    | Description                                                        |
+| Name                  | Type    | Required | Default | Valid Range                                                    | Description                                                         |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| domain                | String  | Required |        | Up to 255 characters                              | Domain (service name) to modify                       |
-| useOriginCacheControl | Boolean | Required      |        | true/false                              | Cache expiration setting (true: Enable origin server setting, false: User-configured)      |
-| referrerType          | String  | Required      |        | BLACKLIST/WHITELIST                     | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
-| referrers             | List    | Optional    |        |                                           | List of regex referrer headers |
+| domain                | String  | Required      |        | Up to 255 characters                                                   | Domain (service name) to modify                                   |
+| useOriginCacheControl | Boolean | Required      |        | true/false                                                        | Cache expiration setting (true: Use the origin server setting, false: User-configured setting)      |
+| referrerType          | String  | Required      |        | BLACKLIST/WHITELIST                                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| referrers             | List    | Optional      |        |                                                              | List of regex referrer headers |
 | isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header             |
-| description           | String  | Optional    |        | Up to 255 characters                      | Description                                                         |
-| domainAlias           | List    | Optional    |        | Up to 255 characters                      | Domain alias (Use personal or company-owned domain) |
-| defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647                         | Cache expiration time (seconds), Default is 0 with 604,800 seconds.              |
-| cacheKeyQueryParam    | String  | Optional      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                               |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
-| origins               | List    | Required      |        |                                         | Origin server                                                   |
-| origins[0].origin     | String  | Required     |        | Up to 255 characters                     | Origin server (domain or IP)                                      |
-| origins[0].originPath | String  | Optional      |        | UP to 8192 characters                   | Lower paths of origin server                                          |
-| origins[0].httpPort   | Integer  | Optional      |       |See '[Table 2] Available Origin Server Port Number' of [Console User Guide > Origin Server](./console-guide/#_2) | HTTP protocol port of origin server(must enter either origins[0].httpPort or origins[0].httpsPort.) |
-| origins[0].httpsPort  | Integer  | Optional      |        |See '[Table 2] Available Origin Server Port Number' of[Console User Guide > Origin Server](./console-guide/#_2) | HTTPS protocol port of origin server (must enter either origins[0].httpPort or origins[0].httpsPort.)  |
+| description           | String  | Optional      |        | Up to 255 characters                                                   | Description                                                         |
+| domainAlias           | List    | Optional      |        | Up to 255 characters                                                   | Domain alias (using a domain owned by individuals or companies) |
+| defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647                                            | Cache expiration time (seconds), the default value 0 is 604,800 seconds.              |
+| cacheKeyQueryParam    | String  | Optional      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                               | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
+| origins               | List    | Required      |        |                                                              | Origin server                                                    |
+| origins[0].origin     | String  | Required      |        | Up to 255 characters                                                   | Origin server (domain or IP)                                      |
+| origins[0].originPath | String  | Optional      |        | Up to 8192 characters                                                  | Sub-path of origin server                                          |
+| origins[0].httpPort   | Integer  | Optional      |        |See '[Table 2] Available Origin Server Port Numbers' of [Console User Guide > Origin Server](./console-guide/#origin-server)| HTTP protocol port of the origin server (one of origins[0].httpPort and origins[0].httpsPort must be entered.)  |
+| origins[0].httpsPort  | Integer  | Optional      |        |See '[Table 2] Available Origin Server Port Numbers' of [Console User Guide > Origin Server](./console-guide/#origin-server) | HTTPS protocol port of the origin server (one of origins[0].httpPort and origins[0].httpsPort must be entered.) |
 | useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
-| forwardHostHeader     | String  | Required      | When domain alias setting is enabled: REQUEST_HOST_HEADER, When domain alias setting is not enabled: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
-| useOrigin             | String  | Required      |        | Y/N                                                          | Cache expiration setting (Y: Enable original setting, "N":User-configured)      |
-| rootPathAccessControl  | Object  | Optional |  |  | Setting the access control for the CDN service root path |
-| rootPathAccessControl.enable | Boolean | Required | false | true/false | Whether the access control for the root path is enabled (true)/disabled (false)          |
-| rootPathAccessControl.controlType  | String  | Optional |  | DENY, REDIRECT | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path) |
-| rootPathAccessControl.redirectPath | String | Optional |  | | If the controlType is "REDIRECT,” entry is required. (Please enter the path) including the redirection path for requesting root path.        |
-| rootPathAccessControl.redirectStatusCode | Integer | Optional | | 301, 302, 303, 307 |If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting          |
+| forwardHostHeader     | String  | Required      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request)|
+| useOrigin             | String  | Required      |        | Y/N                                                          | Cache expiration setting (Y: Use the original setting, "N": Use the user-configured setting)      |
+| rootPathAccessControl  | Object  | Optional |  |  | Set the access control for the CDN service root path |
+| rootPathAccessControl.enable | Boolean | Required | false | true/false | Whether the access control for the root path is enabled (true) or disabled (false)          |
+| rootPathAccessControl.controlType  | String  | Optional |  | DENY, REDIRECT | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| rootPathAccessControl.redirectPath | String | Optional |  | | Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
+| rootPathAccessControl.redirectStatusCode | Integer | Optional | | 301, 302, 303, 307 |Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.          |
 | callback              | Object  | Optional      |        | Callback URL to receive CDN service deployment result (Callback setting is optional.) |                                                              |
 | callback.httpMethod   | String  | Required      |        | GET/POST/PUT                                                 | HTTP method of callback                                           |
-| callback.url          | String  | Required      |        | Up to 1024 characters                                       | Callback URL                                                     |
+| callback.url          | String  | Required      |        | Up to 1024 characters                                                  | Callback URL                                                     |
 
 - The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
 #### Response
 
 
-[Rseponse Body]
+[Response Body]
 
 ```json
 {
@@ -498,7 +497,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 | Name      | Type     | Required | Default  | Valid Range | Description                    |
 | ------- | ------ | ----- | ---- | ----- | --------------------- |
-| domains | String | Required    |      |       | Domains to delete; multiple domains allowed  |
+| domains | String | Required    |      |       | Domains to delete; multiple domains allowed |
 
 **\* When multiple domains are provided as input, all corresponding services are closed.**
 
@@ -528,6 +527,83 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | header.resultMessage | String  | Result message |
 
 
+## Auth Token API
+
+### Create an Auth Token
+
+#### Request
+
+[URI]
+
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| POST | /v2.0/appKeys/{appKey}/auth-token |
+
+
+[Request Body]
+
+```json
+{
+  "encryptKey" : "AUTH_TOKEN_ENCRYPT_KEY",
+  "durationSeconds": 3600,
+  "singlePath": "/sample.png",
+  "singleWildcardPath": "/dir/*",
+  "multipleWildcardPath": ["/dir/*", "/dir2/*"],
+  "sessionId": "sampleSessionId"
+}
+```
+
+
+[Field]
+
+| Name      | Type   | Required | Default | Valid Range             | Description                                                         |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| encryptKey    | String | Required   |        |             | Access Control for Auth Token Authentication > Token Encryption Key displayed on NHN Cloud CDN console  |
+| durationSeconds | Integer | Required |        | 0~2,147,483,647 | Duration, in seconds, for which the generated token is valid |
+| singlePath      | String | Optional |        |             | Single path to access using the generated token |
+| singleWildcardPath | String | Optional |     |             | Single wildcard path to access using generated token |
+| multipleWildcardPath | String | Optional |   |             | Multiple wildcard paths to access using the generated token |
+| sessionId |           String | Optional |    |  String length is up to 36 bytes           | Generates token including sessionId for a single access request |
+
+* At least one of singlePath, singleWildcardPath, or multipleWildcardPath must exist.
+* For details on creating and using tokens, refer to [Console User Guide > Access Control for Auth Token Authentication > 2. Create a Token](./console-guide/#access-control-for-auth-token-authentication).
+
+
+#### Response
+
+[Response Body]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "authToken": {
+        "singlePathToken": "exp=1652247396~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=c743fcdb2c35c7c97455c18f6d354eef89743f556d3b82df3861ef9cb67eec94",
+        "singleWildcardPathToken": "exp=1652247396~acl=%2fdir%2f*~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=160acb24795daf63a7b0628420f8d7f4a37f014c01b73ad388ee5efaca17d663",
+        "multipleWildcardPathToken": "exp=1652247396~acl=%2fdir%2f*~id=fjdklfjklsdfjklsdjflksdjfkls~hmac=160acb24795daf63a7b0628420f8d7f4a37f014c01b73ad388ee5efaca17d663"
+    }
+}
+```
+
+
+[Field]
+
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
+| authToken             | Object    | Created Auth Token object |
+| authToken.singlePathToken | String    | Auth token generated to allow access to a single path                                 |
+| authToken.singleWildcardPathToken | String    | Auth token generated to allow access to a single wildcard path                 |
+| authToken.multipleWildcardPathToken | String  | Auth token generated to access multiple wildcard paths             |
+
+
+
 ## Purge Cache API
 
 ### Purge Cache -  ITEM (particular file type)
@@ -554,10 +630,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 [Field]
 
-| Name     | Type   | Required | Default | Valid Range            | Description                                                  |
+| Name      | Type   | Required | Default | Valid Range             | Description                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | Required      |        | Up to 255 characters     | Domain (service) name to be redeployed                      |
-| purgeList | List | Required     |        |                       | List o URL for redeployment |
+| domain    | String | Required      |        | Up to 255 characters            | Domain (service) name to be purged                                 |
+| purgeList | List | Required      |        |                       | List of purge target URLs |
 
 #### Response
 
@@ -605,9 +681,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 [Field]
 
-| Name      | Type  | Required | Default | Valid Range             | Description                                                       |
+| Name      | Type   | Required | Default | Valid Range             | Description                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | Required      |        | Up to 255 characters            | Domain (service) name to be redeployed         |
+| domain    | String | Required      |        | Up to 255 characters            | Domain (service) name to be purged                                 |
 
 #### Response
 
@@ -633,10 +709,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | header.resultCode    | Integer | Result code     |
 | header.resultMessage | String  | Result message    |
 
-- Request for cache redeployment may fail within an hour after CDN service is newly created. If failure continues, contact Customer Center.
-- Capacity restriction policy exists for Purge APIs. For more details, see Restriction of Cache Redeployment Capacity of [Console User Guide > CDN Cache Redeployment](./console-guide/#cdn_4)].
+- Cache purge requests may fail within an hour after the CDN service is newly created. If the failure continues, contact Customer Center.
+- A usage limit policy exists for Purge APIs. For more details, see the cache purge usage limit of [Console User Guide > Purging CDN Cache](./console-guide/#purging-cdn-cache).
 
-### Query Purge Cache
+### Query Cache Purge
 - In case of purging cache through API v2.0, high-speed cache purge is performed and completed within a few seconds after request, so an API to query cache purge status is not provided separately.
 
 ## Callback Response
@@ -698,29 +774,29 @@ When a callback is called, the request body includes CDN service setting informa
 | header.resultMessage                   | String  | Result message                                                  |
 | distribution                          | Object    | CDN objects completed with changes                                   |
 | distribution.appKey                   | String    | Appkey                                  |
-| distribution.domain                | String  | Domain name (Service name)                                     |
-| distribution.domainAlias           | List  | List of domain aliases (use personal or company-owned domain)                                 |
+| distribution.domain                | String  | Domain name (service name)                                     |
+| distribution.domainAlias           | List  | List of domain aliases (using domains owned by individuals or companies)                                 |
 | distribution.region                | String  | Service region ("GLOBAL": Global service)             |
 | distribution.status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
 | distribution.defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
-| distribution.cacheKeyQueryParam    | String  |  Set whether to include the request query string in cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
+| distribution.cacheKeyQueryParam    | String  | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distribution.referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distribution.referrers             | List    | List of regex referrer headers                                 |
-| distribution.useOriginCacheControl | Boolean | Whether to enable origin server setting (true: Enable origin server setting, false: User-configured) |
+| distribution.useOriginCacheControl | Boolean | Whether to use origin server setting or not (true: Use the origin server setting, false: User-configured setting) |
 | distribution.createTime            | DateTime | Date and time of creation                                         |
 | distribution.deleteTime            | DateTime | Date and time of deletion                                         |
 | distribution.origins               | List    | List of origin server objects                                      |
 | distribution.origins[0].origin     | String  | Origin server (domain or IP)                                      |
-| distribution.origins[0].originPath | String  | Lower paths of origin server                                          |
-| distribution.origins[0].httpPort   | Integer | HTTP protocol port of origin server                                       |
-| distribution.origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                      |
+| distribution.origins[0].originPath | String  | Sub-path of origin server                                          |
+| distribution.origins[0].httpPort   | Integer | HTTP protocol port of origin server                                               |
+| distribution.origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                               |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
-| distribution.forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
-| distribution.rootPathAccessControl  | Object  | Setting the access control for the CDN service root path |
-| distribution.rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true)/disabled (false)          |
-| distribution.rootPathAccessControl.controlType  | String  | If enable is true, entry is required. The method of access control for root path ("DENY": reject approach, "REDIRECT": redirect to specified path) |
-| distribution.rootPathAccessControl.redirectPath | String | If the controlType is "REDIRECT,” entry is required. (Please enter the path) including the redirection path for requesting root path.        |
-| distribution.rootPathAccessControl.redirectStatusCode | Integer | If the controlType is "REDIRECT,” entry is required. The HTTP Response Code transferred when redirecting         |
+| distribution.forwardHostHeader     | String  | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request) |
+| distribution.rootPathAccessControl  | Object  | Set the access control for the CDN service root path |
+| distribution.rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true) or disabled (false)          |
+| distribution.rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| distribution.rootPathAccessControl.redirectPath | String | Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
+| distribution.rootPathAccessControl.redirectStatusCode | Integer | Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.         |
 | distribution.callback              | Object  | Callback to receive service deployment result                        |
 | distribution.callback.httpMethod   | String  | HTTP method of callback                                           |
 | distribution.callback.url          | String  | Callback URL                                                     |
