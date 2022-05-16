@@ -1,5 +1,11 @@
 ## Content Delivery > CDN > Release Notes
 
+### May 24, 2022
+
+#### Feature Updates
+* Added an API to create an Auth Token
+	* Added an API to create an authentication token that is required to access content for which access control for Auth Token authentication is enabled. For more information, refer to [API v2.0 Guide > Create an Auth Token](./api-guide-v2.0/#create-an-auth-token).
+
 ### December 28, 2021
 
 #### Feature Updates
@@ -15,7 +21,7 @@
 ### July 27, 2021
 
 #### Feature Updates
-*  The CDN Public API domain has been changed.
+* The CDN Public API domain has been changed.
     * AS-IS : https://api-gw.cloud.toast.com/tc-cdn
     * TO-BE : https://kr1-cdn.api.nhncloudservice.com
 
@@ -68,52 +74,53 @@
 		* For more details, see [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).
 * Surveillance setting is to be closed.
 
+
 ### February 26, 2019
 
 #### Feature Updates
-* Fixed Purging Error at Particular CDN Service
+* Fixed Purging Error at Particular CDN Service 
 	* With the origin path set at the origin server, it was not properly purged if the path does not include the origin path: the error has been fixed.
 		* The purging path must exclude origin path of the origin server.
-	* Fixed an error in which it was not properly purged when a multiple number of domain aliases were registered.
-
+	* Fixed an error in which it was not properly purged when a multiple number of domain aliases were registered. 
+	
 * Domain Alias Restriction
-	* No more than 3 domain aliases are allowed.
+	* No more than 3 domain aliases are allowed. 
 
 
 ### January 15, 2019
 
 #### Feature Updates
-* APIs for Partial CDN Modification
+* APIs for Partial CDN Modification 
 	* Added APIs to modify only partial service settings.
 
 ### August 28, 2018
 
 #### Feature Updates
-* Validity Checks for CDN Service Setting
-	* Added validity checks for setting information to check invalid CDN setting information.
+* Validity Checks for CDN Service Setting 
+	* Added validity checks for setting information to check invalid CDN setting information. 
 
 ### May 29, 2018
 
 #### Feature Updates
-* Updates for CDN API 1.5v
+* Updates for CDN API 1.5v 
 	* Upgraded API stability to provide better quality service.
 	* With the completion of service deployment (change), successful task and service status is sent via callback.
 * Deployment status shows on dashboard to find processing status of service deployment (change).
-	* When service deployment (change) is made via API, service status can be found on console, via v1.5 or higher APIs only.
+	* When service deployment (change) is made via API, service status can be found on console, via v1.5 or higher APIs only. 
 
 
 ### January 25, 2018
 
 #### Feature Updates
-* Added Delete CDN API
-* Added callback service to Create and Modify CDN
+* Added Delete CDN API 
+* Added callback service to Create and Modify CDN 
 	* Calls to create or modify CDN service can be registered via console or API.
-		* After service is completely created or modified, the newly created or modified CDN information is delivered via registered callback.
+		* After service is completely created or modified, the newly created or modified CDN information is delivered via registered callback. 
 
 ### July 20, 2017
 
 #### Feature Updates
-* Deployed CDN APIs. For more details, see API Guide.
+* Deployed CDN APIs. For more details, see API Guide.  
 	* Added Create, Modify, and Query CDN APIs.
 	* Added Purge, and Query Purge APIs.
 
@@ -125,11 +132,11 @@
 	* Adjusted statistical unit by search period.
 		* Every 5 minutes when the search period is below 6 hours
 		* Every hour when the search period is below 1 day
-		* Every day when the search period is over 1 day
-	* Three types of statistics are provided, and delays may occur between statistical data and actual data.
-		* Traffic Usage Volume: Network bandwidth and transfer volume are available.
-		* Statistics of Each HTTP Response: CDN cache hit ratio is available by HTTP status code.
-		* Top contents: The most-searched content can be found.
+		* Every day when the search period is over 1 day 
+	* Three types of statistics are provided, and delays may occur between statistical data and actual data. 
+		* Traffic Usage Volume: Network bandwidth and transfer volume are available. 
+		* Statistics of Each HTTP Response: CDN cache hit ratio is available by HTTP status code. 
+		* Top contents: The most-searched content can be found. 
 
 #### Bug Fixes
 * Fixed bugs in Statistics > Service Name Selection UI
@@ -138,7 +145,7 @@
 ### December 22, 2016
 
 #### Feature Updates
-* Updated to change status to 'OPEN' at an available access time when creating a service
+* Updated to change status to 'OPEN' at an available access time when creating a service 
 * Supports CORS (Cross-Origin Resource Sharing)
 
 #### Bug Fixes
