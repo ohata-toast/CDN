@@ -4,7 +4,7 @@
 
 #### Feature Updates
 * Added an API to create an Auth Token
-	* Added an API to create an authentication token that is required to access content for which access control for Auth Token authentication is enabled. For more information, refer to [API v2.0 Guide > Create an Auth Token](./api-guide-v2.0/#auth-token).
+	* Added an API to create an authentication token that is required to access content for which access control for Auth Token authentication is enabled. For more information, refer to [API v2.0 Guide > Create an Auth Token](./api-guide-v2.0/#create-an-auth-token).
 
 ### December 28, 2021
 

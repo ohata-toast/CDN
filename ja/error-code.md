@@ -11,14 +11,14 @@
 | 10002 | The HTTP Method or url of Callback URL is not valid. | Callback URLのHTTP MethodまたはURLが入力されていません。 |
 | 10003 | Callback url format is not valid. | Callback URLのURL形式が正しくありません。 |
 | 10004 | Exist a creating service. Please retry after it is finished. | 要求した作業を実行できない状態です。以前に要求した作業が完了した後に再度お試しください。
-| 10006 | Not found resource | 要求したリソースが見つからないか、無効な要求情報です。 | 
-| 10007 | Alreay exists domain alias. | すでに他のCDNサービスドメインに登録されているドメインエイリアス(Domain Alias)です。 | 
-| 10008 | Origin path must starts with a slash('/). | ソースパスは'/'から入力してください。| 
-| 10009 | Origin path must not end with a slash('/). | ソースパスの最後の文字に'/'を入力できません。 | 
-| 10010 | Origin domain is requried. | 原本サーバーは必須入力事項です。 | 
-| 10011 | Please enter origin domain without scheme. | 原本サーバーには http:// などのスキーマ(scheme)情報を入力できません。 | 
-| 10012 | Please enter the origin domain in public IP or domain format. | 原本サーバー形式が正しくありません。ドメインまたはIP形式で入力してください。 | 
-| 10013 | Domain alias is invalid. | Domain Alias形式が正しくありません。 | 
+| 10006 | Not found resource | 要求したリソースが見つからないか、無効な要求情報です。 |
+| 10007 | Alreay exists domain alias. | すでに他のCDNサービスドメインに登録されているドメインエイリアス(Domain Alias)です。 |
+| 10008 | Origin path must starts with a slash('/). | ソースパスは'/'から入力してください。|
+| 10009 | Origin path must not end with a slash('/). | ソースパスの最後の文字に'/'を入力できません。 |
+| 10010 | Origin domain is required. | 原本サーバーは必須入力事項です。 | 
+| 10011 | Please enter origin domain without scheme. | 原本サーバーには http:// などのスキーマ(scheme)情報を入力できません。 |
+| 10012 | Please enter the origin domain in public IP or domain format. | 原本サーバー形式が正しくありません。ドメインまたはIP形式で入力してください。 |
+| 10013 | Domain alias is invalid. | Domain Alias形式が正しくありません。 |
 | 10014 | Referrers is invalid. Enter referrers regular expression. | リファラー(referrer)形式が正しくありません。有効な正規表現かを確認してください。 |
 | 10015 | Please enter use orgin 'Y' or 'N'. | キャッシュ満了設定の原本設定を使用するかは、'Y'または'N'を入力してください。  |
 | 10016 | Please enter origin. | 原本サーバー設定がないか、正しくありません。 |
