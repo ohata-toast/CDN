@@ -74,6 +74,23 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | CLOSE      | 사용 종료                |
 | ERROR      | 서비스 생성 중 오류 발생 |
 
+#### 인증서 발급 상태 코드
+
+다음은 도메인의 인증서 발급 상태를 나타내는 상태 코드로, 인증서 조회 시 발급 상태를 확인할 수 있습니다.
+
+| 값         | 설명                     |
+| ---------- | ------------------------ |
+| PENDING_NEW        | 인증서 신규 발급이 요청되어 처리 대기 중   |
+| PENDING_CANCEL     | 인증서 발급이 취소 요청되어 도메인 검증 취소 처리 대기 중   |
+| PENDING_DELETE     | 발급된 인증서가 삭제 요청되어 처리 대기 중  |
+| PENDING_EXPIRE     | 발급된 인증서가 만료되어 만료 처리 대기 중  |
+| VALIDATED          | 도메인 검증 완료                     |
+| DEPLOYED           | 인증서 배포 완료                     |
+| WAITING_VALIDATION | 도메인 검증 대기 중                  |
+| CANCELED           | 도메인 검증 취소 완료                 |
+| DELETED            | 도메인 인증서 삭제 완료               |
+| EXPIRED            | 도메인 인증서 만료                   |
+
 
 ## 서비스 API
 
@@ -715,7 +732,405 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 ### 캐시 재배포(Purge) 조회
 - API v2.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
 
+## 인증서 API
+### 신규 인증서 발급
+#### 요청
+
+[URI]
+
+| 메서드  | URI                           |
+| ---- | ----------------------------- |
+| POST | /v2.0/appKeys/{appKey}/certificates|
+
+
+[요청 본문]
+
+```json
+{
+    "certificateDomain": "example.domain.com",
+    "callbackHttpMethod": "POST",
+    "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}"   
+}
+```
+
+
+[필드]
+
+| 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| certificateDomain    | String | 필수      |        | 최대 255자            | 신규 인증서를 발급하고자하는 도메인(전체 도메인 주소 형식으로 입력)|
+| callbackHttpMethod  | String | 선택      |        | GET/POST/PUT        | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
+| callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보받을 콜백 URL       |
+
+* 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide/#_7)을 참고하시기 바랍니다.
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "certificates": [
+        {
+            "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+            "dnsName": "example.domain.com",        
+            "dnsStatus": "PENDING_NEW",
+            "callbackHttpMethod": "POST",
+            "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}",
+            "createDatetime": "2022-06-07T16:51:32.000+09:00",
+            "updateDatetime": "2022-06-07T16:51:32.000+09:00",
+            "hasCname": false,
+            "hasDistributionDomain": false,
+            "renewalStartDate": "2022-08-26T00:00:00.000+09:00",
+            "renewalEndDate": "2022-08-30T00:00:00.000+09:00"            
+        }
+    ]
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명        |
+| -------------------- | ------- | --------- |
+| header               | Object  | 헤더 영역     |
+| header.isSuccessful  | Boolean | 성공 여부     |
+| header.resultCode    | Integer | 결과 코드     |
+| header.resultMessage | String  | 결과 메시지    |
+| certificates         | List    | 발급된 인증서 목록 |
+| certificates[0].sanDnsId | String | 인증서 ID    |
+| certificates[0].dnsName  | String | 인증서 도메인  |
+| certificates[0].dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
+| certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
+| certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
+| certificates[0].createDatetime | DateTime | 인증서 생성 일시 |
+| certificates[0].updateDatetime | DateTime | 인증서 변경 일시 |
+| certificates[0].hasCname | Boolean | CNAME 레코드 설정 여부 |
+| certificates[0].hasDistributionDomain | Boolean | CDN 서비스 연동 여부 |
+| certificates[0].renewalStartDate | DateTime | 인증서 갱신 시작 일시 |
+| certificates[0].renewalEndDate | DateTime | 인증서 갱신 종료 일시 |
+
+### 인증서 목록 조회
+#### 요청
+
+[URI]
+
+| 메서드  | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/certificates|
+
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "certificates": [
+        {
+            "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+            "dnsName": "example.domain.com",        
+            "dnsStatus": "PENDING_NEW",
+            "callbackHttpMethod": "POST",
+            "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}",
+            "createDatetime": "2022-06-07T16:51:32.000+09:00",
+            "updateDatetime": "2022-06-07T16:51:32.000+09:00",
+            "hasCname": false,
+            "hasDistributionDomain": false,
+            "renewalStartDate": "2022-08-26T00:00:00.000+09:00",
+            "renewalEndDate": "2022-08-30T00:00:00.000+09:00"            
+        }
+    ]
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명        |
+| -------------------- | ------- | --------- |
+| header               | Object  | 헤더 영역     |
+| header.isSuccessful  | Boolean | 성공 여부     |
+| header.resultCode    | Integer | 결과 코드     |
+| header.resultMessage | String  | 결과 메시지    |
+| certificates         | List    | 발급된 인증서 목록 |
+| certificates[0].sanDnsId | String | 인증서 ID    |
+| certificates[0].dnsName  | String | 인증서 도메인  |
+| certificates[0].dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
+| certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
+| certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
+| certificates[0].createDatetime | DateTime | 인증서 생성 일시 |
+| certificates[0].updateDatetime | DateTime | 인증서 생성 일시 |
+| certificates[0].hasCname | Boolean | CNAME 레코드 설정 여부 |
+| certificates[0].hasDistributionDomain | Boolean | CDN 서비스 연동 여부 |
+| certificates[0].renewalStartDate | DateTime | 인증서 갱신 시작 일시 |
+| certificates[0].renewalEndDate | DateTime | 인증서 갱신 종료 일시 |
+
+### 인증서 삭제
+#### 요청
+
+[URI]
+
+| 메서드  | URI                           |
+| ---- | ----------------------------- |
+| DELETE | /v2.0/appKeys/{appKey}/certificates|
+
+
+[파라미터]
+
+| 이름   | 타입   | 필수 여부 | 유효 범위     | 설명                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| dnsIdList | String | 필수      |     | 삭제할 인증서 ID(sanDnsId) 목록 (,로 연결된 인증서 ID 목록)   |
+
+[예]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    }
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명        |
+| -------------------- | ------- | --------- |
+| header               | Object  | 헤더 영역     |
+| header.isSuccessful  | Boolean | 성공 여부     |
+| header.resultCode    | Integer | 결과 코드     |
+| header.resultMessage | String  | 결과 메시지    |
+
+## 통계 API
+### 트래픽 통계 조회
+#### 요청
+
+[URI]
+
+| 메서드  | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/traffic|
+
+
+[파라미터]
+
+| 이름   | 타입   | 필수 여부 | 유효 범위     | 설명                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | 필수      | 최대 255자    | 조회할 도메인(서비스 이름)   |
+| fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
+| toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
+
+- stageTime, endTime 필드는 ISO8601형식의 날짜 문자열 형식으로 입력합니다.
+  - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[예]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/traffic?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "dateTime": "2022-05-01T09:00:00.000+09:00",
+            "bandwidth": 0.0,
+            "transferred": 0.0
+        }
+    ]
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명        |
+| -------------------- | ------- | --------- |
+| header               | Object  | 헤더 영역     |
+| header.isSuccessful  | Boolean | 성공 여부     |
+| header.resultCode    | Integer | 결과 코드     |
+| header.resultMessage | String  | 결과 메시지    |
+| statistics         | List    | 트래픽 통계 데이터 목록 |
+| statistics[0].dateTime | DateTime | 통계 시간    |
+| statistics[0].bandwidth  | String | 통계 시간의 대역폭(Mbps)  |
+| statistics[0].transferred | String | 통계 시간의 전송량(bytes) |
+
+### HTTP 상태 코드별 통계 조회
+#### 요청
+
+[URI]
+
+| 메서드  | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/http|
+
+
+[파라미터]
+
+| 이름   | 타입   | 필수 여부 | 유효 범위     | 설명                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | 필수      | 최대 255자    | 조회할 도메인(서비스 이름)   |
+| fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
+| toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
+
+- stageTime, endTime 필드는 ISO8601형식의 날짜 문자열 형식으로 입력합니다.
+  - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[예]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/http?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "dateTime": "2022-05-01T09:00:00.000+09:00",
+            "successHits": 10,
+            "notModifiedHits": 2,
+            "redirectsHits": 0,
+            "notFoundHits": 5,
+            "permissionHits": 0,
+            "serverErrorHits": 0,
+            "etcHits": 0
+        }
+    ]
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명        |
+| -------------------- | ------- | --------- |
+| header               | Object  | 헤더 영역     |
+| header.isSuccessful  | Boolean | 성공 여부     |
+| header.resultCode    | Integer | 결과 코드     |
+| header.resultMessage | String  | 결과 메시지    |
+| statistics         | List    | 트래픽 통계 데이터 목록 |
+| statistics[0].dateTime | DateTime | 통계 시간    |
+| statistics[0].successHits  | Long | 응답 HTTP 상태코드가 2xx인 호출 수  |
+| statistics[0].notModifiedHits | Long | 응답 HTTP 상태코드가 304인 호출 수 |
+| statistics[0].redirectsHits | Long | 응답 HTTP 상태코드가 301/302인 호출 수 |
+| statistics[0].notFoundHits | Long | 응답 HTTP 상태코드가 404인 호출 수 |
+| statistics[0].permissionHits | Long | 응답 HTTP 상태코드가 401/403/415인 호출 수 |
+| statistics[0].serverErrorHits | Long | 응답 HTTP 상태코드가 5xx인 호출 수 |
+| statistics[0].etcHits | Long | 2xx, 3xx, 4xx, 5xx 외 응답 HTTP 상태코드 API 호출 수 |
+
+### 다운로드가 가장 많은 콘텐츠의 순위 통계
+#### 요청
+
+[URI]
+
+| 메서드  | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/topcontent|
+
+
+[파라미터]
+
+| 이름   | 타입   | 필수 여부 | 유효 범위     | 설명                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | 필수      | 최대 255자    | 조회할 도메인(서비스 이름)   |
+| fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
+| toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
+
+- stageTime, endTime 필드는 ISO8601형식의 날짜 문자열 형식으로 입력합니다.
+  - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[예]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/topcontent?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "rank": 1,
+            "contentName": "top.png",
+            "successHits": 700,
+            "succDataTransferred": 4696.546738176
+        }
+    ]
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명        |
+| -------------------- | ------- | --------- |
+| header               | Object  | 헤더 영역     |
+| header.isSuccessful  | Boolean | 성공 여부     |
+| header.resultCode    | Integer | 결과 코드     |
+| header.resultMessage | String  | 결과 메시지    |
+| statistics         | List    | 트래픽 통계 데이터 목록 |
+| statistics[0].rank | Integer | 통계 시간    |
+| statistics[0].successHits  | Long | 응답 HTTP 상태코드가 2xx인 호출 수  |
+| statistics[0].succDataTransferred  | Long | 응답 HTTP 상태코드가 2xx인 호출 트래픽 전송량(MBytes)  |
+
+
+
 ## 콜백 응답
+### CDN 서비스
 CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정지, 재개, 삭제 변경이 완료되면 설정된 콜백 URL을 호출합니다.
 콜백 호출시 요청 본문에는 다음과 같은 CDN 서비스 설정 정보가 포함됩니다.
 
@@ -800,3 +1215,58 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distribution.callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
 | distribution.callback.url          | String  | 콜백 URL                                                     |
+
+### 인증서
+인증서 발급 요청 시 콜백 정보가 설정된 경우, 도메인 검증/도메인 검증 완료/인증서 발급 완료로 상태 변경이 완료되면 설정된 콜백 URL을 호출합니다.
+콜백 호출시 요청 본문에는 다음과 같은 인증서 설정 정보가 포함됩니다.
+
+[응답 본문]
+```json
+{
+  "header" : {
+    "resultCode" :  0,
+    "resultMessage" :  "SUCCESS",
+    "isSuccessful" :  true
+  },
+  "certificate": {
+      "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+      "distributionSeq": null,
+      "dnsName": "example.domain.com",
+      "dnsStatus": "WAITING_VALIDATION",
+      "validationDnsRecordName": "_acme-challenge.example.domain.com.",
+      "validationDnsToken": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+      "validationHtmlUrl": "http://example.domain.com/.well-known/acme-challenge/NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg",
+      "validationHtmlToken": "NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg.tL4C5fu32Q5A81pbFTAgUeNiv9rorD-rUQYb7kQJvHc",
+      "validationExpireDatetime": null,
+      "createDatetime": 1654588292000,
+      "updateDatetime": 1654588758056,
+      "deleteDatetime": null,
+      "callbackHttpMethod": "POST",
+      "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}"
+  }
+}
+```
+
+[필드]
+
+| 필드                                   | 타입    | 설명                                                         |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | 헤더 영역                                                    |
+| header.isSuccessful                    | Boolean | 성공 여부                                                    |
+| header.resultCode                      | Integer | 결과 코드                                                    |
+| header.resultMessage                   | String  | 결과 메시지                                                  |
+| certificate                          | Object    | 변경 작업이 완료된 인증서 오브젝트                                  |
+| certificate.sanDnsId                   | String    | 인증서 ID                                  |
+| certificate.distributionSeq                   | String    | 연동된 CDN 서비스 ID                                  |
+| certificate.dnsName  | String | 인증서 도메인  |
+| certificate.dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
+| certificate.validationDnsRecordName | String | 도메인 검증 정보 (DNS TXT 레코드 추가 방식의 레코드 이름)  |
+| certificate.validationDnsToken | String | 도메인 검증 정보 (DNS TXT 레코드 추가 방식의 레코드값)  |
+| certificate.validationHtmlUrl | String | 도메인 검증 정보 (HTTP 페이지 추가 방식의 HTTP 페이지 URL)  |
+| certificate.validationHtmlToken | String | 도메인 검증 정보 (HTTP 페이지 추가 방식의 HTTP 페이지 본문 콘텐츠값)  |
+| certificate.validationExpireDatetime | DateTime | 도메인 검증 만료 일시  |
+| certificate.createDatetime | DateTime | 인증서 생성 일시 |
+| certificate.updateDatetime | DateTime | 인증서 변경 일시 |
+| certificate.deleteDatetime | DateTime | 인증서 삭제 일시 |
+| certificate.callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
+| certificate.callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
