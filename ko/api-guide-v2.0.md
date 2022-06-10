@@ -870,7 +870,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
 | certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
 | certificates[0].createDatetime | DateTime | 인증서 생성 일시 |
-| certificates[0].updateDatetime | DateTime | 인증서 생성 일시 |
+| certificates[0].updateDatetime | DateTime | 인증서 변경 일시 |
 | certificates[0].hasCname | Boolean | CNAME 레코드 설정 여부 |
 | certificates[0].hasDistributionDomain | Boolean | CDN 서비스 연동 여부 |
 | certificates[0].renewalStartDate | DateTime | 인증서 갱신 시작 일시 |
