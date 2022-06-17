@@ -758,9 +758,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 | 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| certificateDomain    | String | 필수      |        | 최대 255자            | 신규 인증서를 발급하고자하는 도메인(전체 도메인 주소 형식으로 입력)|
+| certificateDomain    | String | 필수      |        | 최대 255자            | 신규 인증서를 발급하고자 하는 도메인(전체 도메인 주소 형식으로 입력)|
 | callbackHttpMethod  | String | 선택      |        | GET/POST/PUT        | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
-| callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보받을 콜백 URL       |
+| callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보받을 콜백 URL       |
 
 * 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide/#_7)을 참고하시기 바랍니다.
 
@@ -890,7 +890,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 | 이름   | 타입   | 필수 여부 | 유효 범위     | 설명                         |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
-| dnsIdList | String | 필수      |     | 삭제할 인증서 ID(sanDnsId) 목록 (,로 연결된 인증서 ID 목록)   |
+| dnsIdList | String | 필수      |     | 삭제할 인증서 ID(sanDnsId) 목록(,로 연결된 인증서 ID 목록)   |
 
 [예]
 ```
@@ -942,7 +942,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certi
 | fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
 | toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
 
-- stageTime, endTime 필드는 ISO8601형식의 날짜 문자열 형식으로 입력합니다.
+- stageTime, endTime 필드는 ISO8601 형식의 날짜 문자열 형식으로 입력합니다.
   - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
@@ -1006,7 +1006,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
 | toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
 
-- stageTime, endTime 필드는 ISO8601형식의 날짜 문자열 형식으로 입력합니다.
+- stageTime, endTime 필드는 ISO8601 형식의 날짜 문자열 형식으로 입력합니다.
   - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
@@ -1054,13 +1054,13 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | header.resultMessage | String  | 결과 메시지    |
 | statistics         | List    | 트래픽 통계 데이터 목록 |
 | statistics[0].dateTime | DateTime | 통계 시간    |
-| statistics[0].successHits  | Long | 응답 HTTP 상태코드가 2xx인 호출 수  |
-| statistics[0].notModifiedHits | Long | 응답 HTTP 상태코드가 304인 호출 수 |
-| statistics[0].redirectsHits | Long | 응답 HTTP 상태코드가 301/302인 호출 수 |
-| statistics[0].notFoundHits | Long | 응답 HTTP 상태코드가 404인 호출 수 |
-| statistics[0].permissionHits | Long | 응답 HTTP 상태코드가 401/403/415인 호출 수 |
-| statistics[0].serverErrorHits | Long | 응답 HTTP 상태코드가 5xx인 호출 수 |
-| statistics[0].etcHits | Long | 2xx, 3xx, 4xx, 5xx 외 응답 HTTP 상태코드 API 호출 수 |
+| statistics[0].successHits  | Long | 응답 HTTP 상태 코드가 2xx인 호출 수  |
+| statistics[0].notModifiedHits | Long | 응답 HTTP 상태 코드가 304인 호출 수 |
+| statistics[0].redirectsHits | Long | 응답 HTTP 상태 코드가 301, 302인 호출 수 |
+| statistics[0].notFoundHits | Long | 응답 HTTP 상태 코드가 404인 호출 수 |
+| statistics[0].permissionHits | Long | 응답 HTTP 상태 코드가 401, 403, 415인 호출 수 |
+| statistics[0].serverErrorHits | Long | 응답 HTTP 상태 코드가 5xx인 호출 수 |
+| statistics[0].etcHits | Long | 2xx, 3xx, 4xx, 5xx 외 응답 HTTP 상태 코드 API 호출 수 |
 
 ### 다운로드가 가장 많은 콘텐츠의 순위 통계
 #### 요청
@@ -1080,7 +1080,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
 | toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
 
-- stageTime, endTime 필드는 ISO8601형식의 날짜 문자열 형식으로 입력합니다.
+- stageTime, endTime 필드는 ISO8601 형식의 날짜 문자열 형식으로 입력합니다.
   - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
@@ -1124,15 +1124,15 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | header.resultMessage | String  | 결과 메시지    |
 | statistics         | List    | 트래픽 통계 데이터 목록 |
 | statistics[0].rank | Integer | 통계 시간    |
-| statistics[0].successHits  | Long | 응답 HTTP 상태코드가 2xx인 호출 수  |
-| statistics[0].succDataTransferred  | Long | 응답 HTTP 상태코드가 2xx인 호출 트래픽 전송량(MBytes)  |
+| statistics[0].successHits  | Long | 응답 HTTP 상태 코드가 2xx인 호출 수  |
+| statistics[0].succDataTransferred  | Long | 응답 HTTP 상태 코드가 2xx인 호출 트래픽 전송량(MBytes)  |
 
 
 
 ## 콜백 응답
 ### CDN 서비스
 CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정지, 재개, 삭제 변경이 완료되면 설정된 콜백 URL을 호출합니다.
-콜백 호출시 요청 본문에는 다음과 같은 CDN 서비스 설정 정보가 포함됩니다.
+콜백 호출 시 요청 본문에는 다음과 같은 CDN 서비스 설정 정보가 포함됩니다.
 
 [응답 본문]
 ```json
@@ -1218,7 +1218,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 
 ### 인증서
 인증서 발급 요청 시 콜백 정보가 설정된 경우, 도메인 검증/도메인 검증 완료/인증서 발급 완료로 상태 변경이 완료되면 설정된 콜백 URL을 호출합니다.
-콜백 호출시 요청 본문에는 다음과 같은 인증서 설정 정보가 포함됩니다.
+콜백 호출 시 요청 본문에는 다음과 같은 인증서 설정 정보가 포함됩니다.
 
 [응답 본문]
 ```json
@@ -1260,10 +1260,10 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | certificate.distributionSeq                   | String    | 연동된 CDN 서비스 ID                                  |
 | certificate.dnsName  | String | 인증서 도메인  |
 | certificate.dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
-| certificate.validationDnsRecordName | String | 도메인 검증 정보 (DNS TXT 레코드 추가 방식의 레코드 이름)  |
-| certificate.validationDnsToken | String | 도메인 검증 정보 (DNS TXT 레코드 추가 방식의 레코드값)  |
-| certificate.validationHtmlUrl | String | 도메인 검증 정보 (HTTP 페이지 추가 방식의 HTTP 페이지 URL)  |
-| certificate.validationHtmlToken | String | 도메인 검증 정보 (HTTP 페이지 추가 방식의 HTTP 페이지 본문 콘텐츠값)  |
+| certificate.validationDnsRecordName | String | 도메인 검증 정보(DNS TXT 레코드 추가 방식의 레코드 이름)  |
+| certificate.validationDnsToken | String | 도메인 검증 정보(DNS TXT 레코드 추가 방식의 레코드 값)  |
+| certificate.validationHtmlUrl | String | 도메인 검증 정보(HTTP 페이지 추가 방식의 HTTP 페이지 URL)  |
+| certificate.validationHtmlToken | String | 도메인 검증 정보(HTTP 페이지 추가 방식의 HTTP 페이지 본문 콘텐츠 값)  |
 | certificate.validationExpireDatetime | DateTime | 도메인 검증 만료 일시  |
 | certificate.createDatetime | DateTime | 인증서 생성 일시 |
 | certificate.updateDatetime | DateTime | 인증서 변경 일시 |
