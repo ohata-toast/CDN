@@ -942,7 +942,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certi
 | fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
 | toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
 
-- stageTime, endTime 필드는 ISO8601 형식의 날짜 문자열 형식으로 입력합니다.
+- stageTime, endTime 필드는 ISO 8601 형식의 날짜 문자열 형식으로 입력합니다.
   - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
@@ -1006,7 +1006,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
 | toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
 
-- stageTime, endTime 필드는 ISO8601 형식의 날짜 문자열 형식으로 입력합니다.
+- stageTime, endTime 필드는 ISO 8601 형식의 날짜 문자열 형식으로 입력합니다.
   - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
@@ -1080,7 +1080,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | 필수      |  | 통계 조회 시작 일시 |
 | toDate | DateTime | 필수      |  | 통계 조회 종료 일시 |
 
-- stageTime, endTime 필드는 ISO8601 형식의 날짜 문자열 형식으로 입력합니다.
+- stageTime, endTime 필드는 ISO 8601 형식의 날짜 문자열 형식으로 입력합니다.
   - UTC 표기: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC 기준 타임 오프셋 표기: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
