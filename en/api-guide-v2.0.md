@@ -74,6 +74,23 @@ The following shows the status codes of CDN service, which are available at the 
 | CLOSE      | Closed                |
 | ERROR      | Error occurred while creating service |
 
+#### Certificate Issuance Status Codes
+
+The following are status codes that indicate the certificate issuance status of the domain. You can check the issuance status when querying the certificate.
+
+| Value         | Description                     |
+| ---------- | ------------------------ |
+| PENDING_NEW        | Issuance of a new certificate has been requested, and processing is pending   |
+| PENDING_CANCEL     | The issuance of a certificate has been requested to be cancelled, and domain validation cancellation is pending   |
+| PENDING_DELETE     | The issued certificate has been requested to be deleted, and processing is pending  |
+| PENDING_EXPIRE     | The issued certificate has expired, and expiration is pending  |
+| VALIDATED          | Domain validated                     |
+| DEPLOYED           | Certificate deployed                     |
+| WAITING_VALIDATION | Waiting for domain validation                  |
+| CANCELED           | Domain validation canceled                 |
+| DELETED            | Domain certificate deleted               |
+| EXPIRED            | Domain certificate expired                   |
+
 
 ## Service API
 
@@ -229,7 +246,7 @@ The following shows the status codes of CDN service, which are available at the 
 | distributions[0].domainAlias           | List    | List of domain aliases (using domains owned by individuals or companies)              |
 | distributions[0].region                | String  | Service region ("GLOBAL": Global service)            |
 | distributions[0].description           | String  | Description                                                         |
-| distributions[0].status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
+| distributions[0].status                | String  | CDN status code (See [Table] CDN Status Codes)                                 |
 | distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
 | distributions[0].cacheKeyQueryParam    | String  | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
@@ -271,7 +288,7 @@ The following shows the status codes of CDN service, which are available at the 
 | Name   | Type   | Required | Valid Range     | Description                         |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
 | domain | String | Optional      | Up to 255 characters    | Domain to query (service name)   |
-| status | String | Optional      | CDN Status Codes | CDN status code (See [Table] CDN Status Code) |
+| status | String | Optional      | CDN Status Codes | CDN status code (See [Table] CDN Status Codes) |
 
 [Example]
 ```
@@ -337,7 +354,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].domain                | String  | Domain name (service name)                                     |
 | distributions[0].domainAlias           | List  | List of domain aliases (using domains owned by individuals or companies)                                                  |
 | distributions[0].region                | String  | Service region ("GLOBAL": Global service)             |
-| distributions[0].status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
+| distributions[0].status                | String  | CDN status code (See [Table] CDN Status Codes)                                 |
 | distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
 | distributions[0].cacheKeyQueryParam    | String  | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
@@ -715,9 +732,407 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 ### Query Cache Purge
 - In case of purging cache through API v2.0, high-speed cache purge is performed and completed within a few seconds after request, so an API to query cache purge status is not provided separately.
 
+## Certificate API
+### Issue New Certificates
+#### Request
+
+[URI]
+
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| POST | /v2.0/appKeys/{appKey}/certificates|
+
+
+[Request Body]
+
+```json
+{
+    "certificateDomain": "example.domain.com",
+    "callbackHttpMethod": "POST",
+    "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}"   
+}
+```
+
+
+[Field]
+
+| Name      | Type   | Required | Default | Valid Range             | Description                                                         |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| certificateDomain    | String | Required      |        | Up to 255 characters            | Domain for which you want to issue a new certificate (enter in full domain address format)|
+| callbackHttpMethod  | String | Optional      |        | GET/POST/PUT        | HTTP method of callback to be notified of certificate generation processing result |
+| callbackUrl         | String | Optional      |        | Up to 1024 characters           | Callback URL to be notified of certificate generation processing result       |
+
+* For details on issuing a certificate, refer to [Console User Guide > Certificate Management > Issue New Certificates](./console-guide/#_7).
+
+#### Response
+
+[Response Body]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "certificates": [
+        {
+            "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+            "dnsName": "example.domain.com",        
+            "dnsStatus": "PENDING_NEW",
+            "callbackHttpMethod": "POST",
+            "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}",
+            "createDatetime": "2022-06-07T16:51:32.000+09:00",
+            "updateDatetime": "2022-06-07T16:51:32.000+09:00",
+            "hasCname": false,
+            "hasDistributionDomain": false,
+            "renewalStartDate": "2022-08-26T00:00:00.000+09:00",
+            "renewalEndDate": "2022-08-30T00:00:00.000+09:00"            
+        }
+    ]
+}
+```
+
+
+[Field]
+
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
+| certificates         | List    | List of issued certificates |
+| certificates[0].sanDnsId | String | Certificate ID    |
+| certificates[0].dnsName  | String | Certificate domain  |
+| certificates[0].dnsStatus | String | Certificate issuance status codes (Refer to [Table] Certificate Issuance Status Codes) |
+| certificates[0].callbackHttpMethod | String | HTTP method of callback to be notified of certificate generation processing result |
+| certificates[0].callbackUrl | String | Callback URL to be notified of certificate generation processing result |
+| certificates[0].createDatetime | DateTime | Certificate creation date |
+| certificates[0].updateDatetime | DateTime | Certificate update date |
+| certificates[0].hasCname | Boolean | Whether to set up a CNAME record |
+| certificates[0].hasDistributionDomain | Boolean | Whether to integrate with the CDN service |
+| certificates[0].renewalStartDate | DateTime | Certificate renewal start date |
+| certificates[0].renewalEndDate | DateTime | Certificate renewal end date |
+
+### List Certificates
+#### Request
+
+[URI]
+
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/certificates|
+
+
+#### Response
+
+[Response Body]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "certificates": [
+        {
+            "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+            "dnsName": "example.domain.com",        
+            "dnsStatus": "PENDING_NEW",
+            "callbackHttpMethod": "POST",
+            "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}",
+            "createDatetime": "2022-06-07T16:51:32.000+09:00",
+            "updateDatetime": "2022-06-07T16:51:32.000+09:00",
+            "hasCname": false,
+            "hasDistributionDomain": false,
+            "renewalStartDate": "2022-08-26T00:00:00.000+09:00",
+            "renewalEndDate": "2022-08-30T00:00:00.000+09:00"            
+        }
+    ]
+}
+```
+
+
+[Field]
+
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
+| certificates         | List    | List of issued certificates |
+| certificates[0].sanDnsId | String | Certificate ID    |
+| certificates[0].dnsName  | String | Certificate domain  |
+| certificates[0].dnsStatus | String | Certificate issuance status codes (Refer to [Table] Certificate Issuance Status Codes) |
+| certificates[0].callbackHttpMethod | String | HTTP method of callback to be notified of certificate generation processing result |
+| certificates[0].callbackUrl | String | Callback URL to be notified of certificate generation processing result |
+| certificates[0].createDatetime | DateTime | Certificate creation date |
+| certificates[0].updateDatetime | DateTime | Certificate update date |
+| certificates[0].hasCname | Boolean | Whether to set up a CNAME record |
+| certificates[0].hasDistributionDomain | Boolean | Whether to integrate with the CDN service |
+| certificates[0].renewalStartDate | DateTime | Certificate renewal start date |
+| certificates[0].renewalEndDate | DateTime | Certificate renewal end date |
+
+### Delete Certificates
+#### Request
+
+[URI]
+
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| DELETE | /v2.0/appKeys/{appKey}/certificates|
+
+
+[Parameter]
+
+| Name   | Type   | Required | Valid Range     | Description                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| dnsIdList | String | Required      |     | List of IDs (sanDnsId) of certificates to delete (list of certificate IDs concatenated by ,)   |
+
+[Example]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### Response
+
+[Response Body]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    }
+}
+```
+
+
+[Field]
+
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
+
+## Statistics API
+### Query Traffic Statistics
+#### Request
+
+[URI]
+
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/traffic|
+
+
+[Parameter]
+
+| Name   | Type   | Required | Valid Range     | Description                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | Required      | Up to 255 characters    | Domain to query (service name)   |
+| fromDate | DateTime | Required      |  | Start date and time of statistics query |
+| toDate | DateTime | Required      |  | End date and time of statistics query |
+
+- The stageTime and endTime fields must be entered in ISO 8601 format date string format.
+  - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[Example]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/traffic?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### Response
+
+[Response Body]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "dateTime": "2022-05-01T09:00:00.000+09:00",
+            "bandwidth": 0.0,
+            "transferred": 0.0
+        }
+    ]
+}
+```
+
+
+[Field]
+
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
+| statistics         | List    | List of traffic statistics data |
+| statistics[0].dateTime | DateTime | Statistics time    |
+| statistics[0].bandwidth  | String | Bandwidth of statistics time (Mbps)  |
+| statistics[0].transferred | String | Transfer volume of statistics time (bytes) |
+
+### Query Statistics by HTTP Status Code
+#### Request
+
+[URI]
+
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/http|
+
+
+[Parameter]
+
+| Name   | Type   | Required | Valid Range     | Description                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | Required      | Up to 255 characters    | Domain to query (service name)   |
+| fromDate | DateTime | Required      |  | Start date and time of statistics query |
+| toDate | DateTime | Required      |  | End date and time of statistics query |
+
+- The stageTime and endTime fields must be entered in ISO 8601 format date string format.
+  - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[Example]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/http?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### Response
+
+[Response Body]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "dateTime": "2022-05-01T09:00:00.000+09:00",
+            "successHits": 10,
+            "notModifiedHits": 2,
+            "redirectsHits": 0,
+            "notFoundHits": 5,
+            "permissionHits": 0,
+            "serverErrorHits": 0,
+            "etcHits": 0
+        }
+    ]
+}
+```
+
+
+[Field]
+
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
+| statistics         | List    | List of traffic statistics data |
+| statistics[0].dateTime | DateTime | Statistics time    |
+| statistics[0].successHits  | Long | Number of calls with response HTTP status code 2xx  |
+| statistics[0].notModifiedHits | Long | Number of calls with response HTTP status code 304 |
+| statistics[0].redirectsHits | Long | Number of calls with response HTTP status codes 301, 302 |
+| statistics[0].notFoundHits | Long | Number of calls with response HTTP status code 404 |
+| statistics[0].permissionHits | Long | Number of calls with response HTTP status codes 401, 403, 415 |
+| statistics[0].serverErrorHits | Long | Number of calls with response HTTP status code 5xx |
+| statistics[0].etcHits | Long | Number of API calls with response HTTP status code other than 2xx, 3xx, 4xx, 5xx |
+
+### Query Ranking Statistics for Content with the Most Downloads
+#### Request
+
+[URI]
+
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/topcontent|
+
+
+[Parameter]
+
+| Name   | Type   | Required | Valid Range     | Description                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | Required      | Up to 255 characters    | Domain to query (service name)   |
+| fromDate | DateTime | Required      |  | Start date and time of statistics query |
+| toDate | DateTime | Required      |  | End date and time of statistics query |
+
+- The stageTime and endTime fields must be entered in ISO 8601 format date string format.
+  - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[Example]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/topcontent?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### Response
+
+[Response Body]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "rank": 1,
+            "contentName": "top.png",
+            "successHits": 700,
+            "succDataTransferred": 4696.546738176
+        }
+    ]
+}
+```
+
+
+[Field]
+
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
+| statistics         | List    | List of traffic statistics data |
+| statistics[0].rank | Integer | Statistics time    |
+| statistics[0].successHits  | Long | Number of calls with response HTTP status code 2xx  |
+| statistics[0].succDataTransferred  | Long | Traffic transfer volume of calls with response HTTP status code 2xx (MBytes)  |
+
+
+
 ## Callback Response
-If the callback function is set on the CDN service, the configured callback URL is called when creation, modification, pause, resume, and deletion changes are completed.
-When a callback is called, the request body includes CDN service setting information as follows:
+### CDN Service
+If the callback function is set in the CDN service, the configured callback URL is called when creation, modification, pause, resume, deletion change is completed.
+When the callback is called, the request body contains the following CDN service settings information.
 
 [Response Body]
 ```json
@@ -777,7 +1192,7 @@ When a callback is called, the request body includes CDN service setting informa
 | distribution.domain                | String  | Domain name (service name)                                     |
 | distribution.domainAlias           | List  | List of domain aliases (using domains owned by individuals or companies)                                 |
 | distribution.region                | String  | Service region ("GLOBAL": Global service)             |
-| distribution.status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
+| distribution.status                | String  | CDN status code (See [Table] CDN Status Codes)                                 |
 | distribution.defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
 | distribution.cacheKeyQueryParam    | String  | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distribution.referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
@@ -800,3 +1215,58 @@ When a callback is called, the request body includes CDN service setting informa
 | distribution.callback              | Object  | Callback to receive service deployment result                        |
 | distribution.callback.httpMethod   | String  | HTTP method of callback                                           |
 | distribution.callback.url          | String  | Callback URL                                                     |
+
+### Certificate
+If callback information is set when requesting issuance of a certificate, the configured callback URL is called when the status changes to domain validation, domain validated, or certificate issued.
+When the callback is called, the request body contains the following certificate settings information.
+
+[Response Body]
+```json
+{
+  "header" : {
+    "resultCode" :  0,
+    "resultMessage" :  "SUCCESS",
+    "isSuccessful" :  true
+  },
+  "certificate": {
+      "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+      "distributionSeq": null,
+      "dnsName": "example.domain.com",
+      "dnsStatus": "WAITING_VALIDATION",
+      "validationDnsRecordName": "_acme-challenge.example.domain.com.",
+      "validationDnsToken": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+      "validationHtmlUrl": "http://example.domain.com/.well-known/acme-challenge/NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg",
+      "validationHtmlToken": "NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg.tL4C5fu32Q5A81pbFTAgUeNiv9rorD-rUQYb7kQJvHc",
+      "validationExpireDatetime": null,
+      "createDatetime": 1654588292000,
+      "updateDatetime": 1654588758056,
+      "deleteDatetime": null,
+      "callbackHttpMethod": "POST",
+      "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}"
+  }
+}
+```
+
+[Field]
+
+| Field                                   | Type    | Description                                                         |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | Header area                                                    |
+| header.isSuccessful                    | Boolean | Successful or not                                                    |
+| header.resultCode                      | Integer | Result code                                                    |
+| header.resultMessage                   | String  | Result message                                                  |
+| certificate                          | Object    | Certificate object for which changes have been completed                                  |
+| certificate.sanDnsId                   | String    | Certificate ID                                  |
+| certificate.distributionSeq                   | String    | Integrated CDN service ID                                  |
+| certificate.dnsName  | String | Certificate domain  |
+| certificate.dnsStatus | String | Certificate issuance status codes (Refer to [Table] Certificate Issuance Status Codes) |
+| certificate.validationDnsRecordName | String | Domain validation information (record name for the method of adding DNS TXT records)  |
+| certificate.validationDnsToken | String | Domain validation information (record value for the method of adding DNS TXT records)  |
+| certificate.validationHtmlUrl | String | Domain validation information (HTTP page URL for the method of adding HTTP page)  |
+| certificate.validationHtmlToken | String | Domain validation information (HTTP page body content value for the method of adding HTTP page)  |
+| certificate.validationExpireDatetime | DateTime | Domain validation expiration date  |
+| certificate.createDatetime | DateTime | Certificate creation date |
+| certificate.updateDatetime | DateTime | Certificate update date |
+| certificate.deleteDatetime | DateTime | Certificate deletion date |
+| certificate.callbackHttpMethod | String | HTTP method of callback to be notified of certificate generation processing result |
+| certificate.callbackUrl | String | Callback URL to be notified of certificate generation processing result |

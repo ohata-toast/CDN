@@ -1,5 +1,14 @@
 ## Content Delivery > CDN > Release Notes
 
+### June 30, 2022
+
+#### Feature Updates
+* Added Certificate API
+	* Added certificate issue/query/delete API. For more information, refer to [API v2.0 Guide > Certificate API](./api-guide-v2.0/---).
+* Added Statistics API
+	* Added API to query network traffic volume, statistics by HTTP status code, and ranking statistics for content with the most downloads. For more information, refer to [API v2.0 Guide > Statistics API](./api-guide-v2.0/---).
+
+
 ### May 24, 2022
 
 #### Feature Updates
