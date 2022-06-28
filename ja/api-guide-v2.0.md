@@ -74,6 +74,22 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | CLOSE      | 使用終了          |
 | ERROR      | サービス作成中にエラーが発生 |
 
+#### 証明書発行ステータスコード
+
+以下はドメインの証明書発行ステータスを表すステータスコードで、証明書の照会時に発行ステータスを確認できます。
+
+| 値    | 説明                |
+| ---------- | ------------------------ |
+| PENDING_NEW        | 証明書新規発行が要求され処理待機中 |
+| PENDING_CANCEL     | 証明書の発行がキャンセル要求され、ドメイン検証キャンセル処理待機中 |
+| PENDING_DELETE     | 発行された証明書が削除要求され、処理待機中 |
+| PENDING_EXPIRE     | 発行された証明書が期限切れになり、期限切れ処理待機中 |
+| VALIDATED          | ドメイン検証完了                |
+| DEPLOYED           | 証明書の配布完了                |
+| WAITING_VALIDATION | ドメイン検証待機中             |
+| CANCELED           | ドメイン検証キャンセル完了            |
+| DELETED            | ドメイン証明書の削除完了          |
+| EXPIRED            | ドメイン証明書の期限切れ               |
 
 ## サービスAPI
 
@@ -712,7 +728,403 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 ### キャッシュ再配布(Purge)照会
 - API v2.0を通してキャッシュを再配布する時、高速キャッシュ再配布が実行され、リクエスト後、数秒以内に完了するため、キャッシュ再配布状態を照会するAPIが別途提供されません。
 
+## 証明書API
+### 新規証明書の発行
+#### リクエスト
+
+[URI]
+
+| メソッド  | URI                           |
+| ---- | ----------------------------- |
+| POST | /v2.0/appKeys/{appKey}/certificates|
+
+
+[リクエスト本文]
+
+```json
+{
+    "certificateDomain": "example.domain.com",
+    "callbackHttpMethod": "POST",
+    "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}"   
+}
+```
+
+
+[フィールド]
+
+| 名前 | タイプ | 必須かどうか | デフォルト | 有効範囲        | 説明                                                    |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| certificateDomain    | String | 必須 |        | 最大255文字        | 新規証明書を発行したいドメイン(フルドメインアドレス形式で入力)|
+| callbackHttpMethod  | String | 任意 |        | GET/POST/PUT        | 証明書作成処理結果の通知を受けるコールバックのHTTPメソッド |
+| callbackUrl         | String | 任意 |        | 最大1024文字       | 証明書作成処理結果の通知を受けるコールバックURL       |
+
+* 証明書発行の詳細については、[コンソール使用ガイド > 証明書管理 > 新規証明書の発行](./console-guide/#_7)を参照してください。
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "certificates": [
+        {
+            "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+            "dnsName": "example.domain.com",        
+            "dnsStatus": "PENDING_NEW",
+            "callbackHttpMethod": "POST",
+            "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}",
+            "createDatetime": "2022-06-07T16:51:32.000+09:00",
+            "updateDatetime": "2022-06-07T16:51:32.000+09:00",
+            "hasCname": false,
+            "hasDistributionDomain": false,
+            "renewalStartDate": "2022-08-26T00:00:00.000+09:00",
+            "renewalEndDate": "2022-08-30T00:00:00.000+09:00"            
+        }
+    ]
+}
+```
+
+
+[フィールド]
+
+| フィールド              | タイプ | 説明   |
+| -------------------- | ------- | --------- |
+| header               | Object  | ヘッダ領域   |
+| header.isSuccessful  | Boolean | 成否   |
+| header.resultCode    | Integer | 結果コード   |
+| header.resultMessage | String  | 結果メッセージ  |
+| certificates         | List    | 発行された証明書リスト |
+| certificates[0].sanDnsId | String | 証明書ID    |
+| certificates[0].dnsName  | String | 証明書ドメイン |
+| certificates[0].dnsStatus | String | 証明書発行ステータスコード([表]証明書発行ステータスコード参考) |
+| certificates[0].callbackHttpMethod | String | 証明書作成処理結果の通知を受けるコールバックのHTTPメソッド |
+| certificates[0].callbackUrl | String | 証明書作成処理結果の通知を受けるコールバックURL |
+| certificates[0].createDatetime | DateTime | 証明書作成日時 |
+| certificates[0].updateDatetime | DateTime | 証明書変更日時 |
+| certificates[0].hasCname | Boolean | CNAMEレコードを設定有無 |
+| certificates[0].hasDistributionDomain | Boolean | CDNサービス連動を行うかどうか |
+| certificates[0].renewalStartDate | DateTime | 証明書更新開始日時 |
+| certificates[0].renewalEndDate | DateTime | 証明書更新終了日時 |
+
+### 証明書リスト照会
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/certificates|
+
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "certificates": [
+        {
+            "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+            "dnsName": "example.domain.com",        
+            "dnsStatus": "PENDING_NEW",
+            "callbackHttpMethod": "POST",
+            "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}",
+            "createDatetime": "2022-06-07T16:51:32.000+09:00",
+            "updateDatetime": "2022-06-07T16:51:32.000+09:00",
+            "hasCname": false,
+            "hasDistributionDomain": false,
+            "renewalStartDate": "2022-08-26T00:00:00.000+09:00",
+            "renewalEndDate": "2022-08-30T00:00:00.000+09:00"            
+        }
+    ]
+}
+```
+
+
+[フィールド]
+
+| フィールド              | タイプ | 説明   |
+| -------------------- | ------- | --------- |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否    |
+| header.resultCode    | Integer | 結果コード |
+| header.resultMessage | String  | 結果メッセージ |
+| certificates         | List    | 発行された証明書リスト |
+| certificates[0].sanDnsId | String | 証明書ID    |
+| certificates[0].dnsName  | String | 証明書ドメイン |
+| certificates[0].dnsStatus | String | 証明書発行ステータスコード([表]証明書発行ステータスコード参考) |
+| certificates[0].callbackHttpMethod | String | 証明書作成処理結果の通知を受けるコールバックのHTTPメソッド |
+| certificates[0].callbackUrl | String | 証明書作成処理結果の通知を受けるコールバックURL |
+| certificates[0].createDatetime | DateTime | 証明書作成日時 |
+| certificates[0].updateDatetime | DateTime | 証明書変更日時 |
+| certificates[0].hasCname | Boolean | CNAMEレコード設定を行うかどうか |
+| certificates[0].hasDistributionDomain | Boolean | CDNサービス連動を行うかどうか |
+| certificates[0].renewalStartDate | DateTime | 証明書更新開始日時 |
+| certificates[0].renewalEndDate | DateTime | 証明書更新終了日時 |
+
+### 証明書の削除
+#### 要請
+
+[URI]
+
+| メソッド | URI                           |
+| ---- | ----------------------------- |
+| DELETE | /v2.0/appKeys/{appKey}/certificates|
+
+
+[パラメータ]
+
+| 名前 | タイプ | 必須かどうか | 有効範囲 | 説明                    |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| dnsIdList | String | 必須 |     | 削除する証明書ID(sanDnsId)リスト(,で区切られた証明書IDリスト)   |
+
+[例]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    }
+}
+```
+
+
+[フィールド]
+
+| フィールド              | タイプ | 説明   |
+| -------------------- | ------- | --------- |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否    |
+| header.resultCode    | Integer | 結果コード |
+| header.resultMessage | String  | 結果メッセージ |
+
+## 統計API
+### トラフィック統計照会
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/traffic|
+
+
+[パラメータ]
+
+| 名前 | タイプ | 必須かどうか | 有効範囲 | 説明                    |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | 必須 | 最大255文字 | 照会するドメイン(サービス名)   |
+| fromDate | DateTime | 必須 |  | 統計照会開始日時 |
+| toDate | DateTime | 必須 |  | 統計照会終了日時 |
+
+- stageTime、endTimeフィールドはISO 8601形式の日付文字列形式で入力します。
+  - UTC表記：yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC基準タイムオフセット表記：yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[例]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/traffic?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "dateTime": "2022-05-01T09:00:00.000+09:00",
+            "bandwidth": 0.0,
+            "transferred": 0.0
+        }
+    ]
+}
+```
+
+
+[フィールド]
+
+| フィールド              | タイプ | 説明   |
+| -------------------- | ------- | --------- |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否    |
+| header.resultCode    | Integer | 結果コード |
+| header.resultMessage | String  | 結果メッセージ |
+| statistics         | List    | トラフィック統計データリスト |
+| statistics[0].dateTime | DateTime | 統計時間 |
+| statistics[0].bandwidth  | String | 統計時間の帯域幅(Mbps)  |
+| statistics[0].transferred | String | 統計時間の転送量(bytes) |
+
+### HTTPステータスコード別の統計照会
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/http|
+
+
+[パラメータ]
+
+| 名前 | タイプ | 必須かどうか | 有効範囲 | 説明                    |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | 必須 | 最大255文字 | 照会するドメイン(サービス名)   |
+| fromDate | DateTime | 必須 |  | 統計照会開始日時 |
+| toDate | DateTime | 必須 |  | 統計照会終了日時 |
+
+- stageTime, endTimeフィールドはISO 8601形式の日付文字列形式で入力します。
+  - UTC表記：yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC基準タイムオフセット表記：yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[例]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/http?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "dateTime": "2022-05-01T09:00:00.000+09:00",
+            "successHits": 10,
+            "notModifiedHits": 2,
+            "redirectsHits": 0,
+            "notFoundHits": 5,
+            "permissionHits": 0,
+            "serverErrorHits": 0,
+            "etcHits": 0
+        }
+    ]
+}
+```
+
+
+[フィールド]
+
+| フィールド              | タイプ | 説明   |
+| -------------------- | ------- | --------- |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否    |
+| header.resultCode    | Integer | 結果コード |
+| header.resultMessage | String  | 結果メッセージ |
+| statistics         | List    | トラフィック統計データリスト |
+| statistics[0].dateTime | DateTime | 統計時間 |
+| statistics[0].successHits  | Long | レスポンスHTTPステータスコードが2xxの呼び出し数 |
+| statistics[0].notModifiedHits | Long | レスポンスHTTPステータスコードが304の呼び出し数 |
+| statistics[0].redirectsHits | Long | レスポンスHTTPステータスコードが301、302の呼び出し数 |
+| statistics[0].notFoundHits | Long | レスポンスHTTPステータスコードが404の呼び出し数 |
+| statistics[0].permissionHits | Long | レスポンスHTTPステータスコードが401、403、415の呼び出し数 |
+| statistics[0].serverErrorHits | Long | レスポンスHTTPステータスコードが5xxの呼び出し数 |
+| statistics[0].etcHits | Long | 2xx、3xx、4xx、5xx以外のレスポンスHTTPステータスコードAPI呼び出し数 |
+
+### ダウンロードが最も多いコンテンツの順位統計
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                           |
+| ---- | ----------------------------- |
+| GET | /v2.0/appKeys/{appKey}/statistics/topcontent|
+
+
+[パラメータ]
+
+| 名前 | タイプ | 必須かどうか | 有効範囲 | 説明                    |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | 必須 | 最大255文字 | 照会するドメイン(サービス名)   |
+| fromDate | DateTime | 必須 |  | 統計照会開始日時 |
+| toDate | DateTime | 必須 |  | 統計照会終了日時 |
+
+- stageTime, endTimeフィールドはISO 8601形式の日付文字列形式で入力します。
+  - UTC表記：yyyy-MM-dd'T'HH:mm:ssZ
+  - UTC基準タイムオフセット表記：yyyy-MM-dd'T'HH:mm:ss±hh:mm
+
+[例]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/statistics/topcontent?domain={domain}&fromDate={fromDate}&toDate={toDate}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    },
+    "statistics": [
+        {
+            "rank": 1,
+            "contentName": "top.png",
+            "successHits": 700,
+            "succDataTransferred": 4696.546738176
+        }
+    ]
+}
+```
+
+
+[フィールド]
+
+| フィールド              | タイプ | 説明   |
+| -------------------- | ------- | --------- |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否    |
+| header.resultCode    | Integer | 結果コード |
+| header.resultMessage | String  | 結果メッセージ |
+| statistics         | List    | トラフィック統計データリスト |
+| statistics[0].rank | Integer | 統計時間 |
+| statistics[0].successHits  | Long | レスポンスHTTPステータスコードが2xxの呼び出し数  |
+| statistics[0].succDataTransferred  | Long | レスポンスHTTPステータスコードが2xxの呼び出しトラフィック転送量(MBytes)  |
+
 ## コールバックレスポンス
+### CDNサービス
 CDNサービスにコールバック機能が設定されている場合、作成、修正、一時停止、再開、削除変更の完了時に設定されたコールバックURLを呼び出します。
 コールバック呼び出し時、リクエスト本文には次のようなCDNサービス設定情報が含まれます。
 
@@ -798,3 +1210,58 @@ CDNサービスにコールバック機能が設定されている場合、作�
 | distribution.callback              | Object  | サービス配布処理結果を受け取るコールバック                    |
 | distribution.callback.httpMethod   | String  | コールバックのHTTPメソッド                                           |
 | distribution.callback.url          | String  | コールバックURL                                                     |
+
+### 証明書
+証明書発行リクエスト時、コールバック情報が設定されている場合、ドメイン検証/ドメイン検証完了/証明書発行完了にステータス変更が完了すると、設定されたコールバックURLを呼び出します。
+コールバック呼び出し時、リクエスト本文には次のような証明書設定情報が含まれます。
+
+[レスポンス本文]
+```json
+{
+  "header" : {
+    "resultCode" :  0,
+    "resultMessage" :  "SUCCESS",
+    "isSuccessful" :  true
+  },
+  "certificate": {
+      "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+      "distributionSeq": null,
+      "dnsName": "example.domain.com",
+      "dnsStatus": "WAITING_VALIDATION",
+      "validationDnsRecordName": "_acme-challenge.example.domain.com.",
+      "validationDnsToken": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+      "validationHtmlUrl": "http://example.domain.com/.well-known/acme-challenge/NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg",
+      "validationHtmlToken": "NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg.tL4C5fu32Q5A81pbFTAgUeNiv9rorD-rUQYb7kQJvHc",
+      "validationExpireDatetime": null,
+      "createDatetime": 1654588292000,
+      "updateDatetime": 1654588758056,
+      "deleteDatetime": null,
+      "callbackHttpMethod": "POST",
+      "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}"
+  }
+}
+```
+
+[フィールド]
+
+| フィールド                              | タイプ | 説明                                                    |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | ヘッダ領域                                                 |
+| header.isSuccessful                    | Boolean | 成否                                                   |
+| header.resultCode                      | Integer | 結果コード                                               |
+| header.resultMessage                   | String  | 結果メッセージ                                             |
+| certificate                          | Object    | 変更作業が完了した証明書オブジェクト                                 |
+| certificate.sanDnsId                   | String    | 証明書ID                                  |
+| certificate.distributionSeq                   | String    | 連動したCDNサービスID                                  |
+| certificate.dnsName  | String | 証明書ドメイン |
+| certificate.dnsStatus | String | 証明書発行ステータスコード([表]証明書発行ステータスコード参考) |
+| certificate.validationDnsRecordName | String | ドメイン検証情報(DNS TXTレコード追加方式のレコード名)  |
+| certificate.validationDnsToken | String | ドメイン検証情報(DNS TXTレコード追加方式のレコード値)  |
+| certificate.validationHtmlUrl | String | ドメイン検証情報(HTTPページ追加方式のHTTPページURL)  |
+| certificate.validationHtmlToken | String | ドメイン検証情報(HTTPページ追加方式のHTTPページ本文コンテンツ値)  |
+| certificate.validationExpireDatetime | DateTime | ドメイン検証の有効期限 |
+| certificate.createDatetime | DateTime | 証明書の作成日時 |
+| certificate.updateDatetime | DateTime | 証明書の変更日時 |
+| certificate.deleteDatetime | DateTime | 証明書の削除日時 |
+| certificate.callbackHttpMethod | String | 証明書作成処理結果の通知を受けるコールバックのHTTPメソッド |
+| certificate.callbackUrl | String | 証明書作成処理結果の通知を受けるコールバックURL |
