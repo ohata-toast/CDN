@@ -40,11 +40,11 @@ The API responds with **200 OK** to all API requests. For more details, see the 
 
 ```json
 {
-    "header": {
-        "isSuccessful": true,
-        "resultCode": 0,
-        "resultMessage": "Success"
-    }
+  "header": {
+    "isSuccessful": true,
+    "resultCode": 0,
+    "resultMessage": "Success"
+  }
 }
 ```
 
@@ -165,9 +165,9 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].origins[0].originPath | String  | Optional      |        | Up to 8192 characters                 | Sub-path of the origin server (Enter a path including /.)        |
 | distributions[0].origins[0].httpPort   | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Numbers' of [Console User Guide > Origin Server](./console-guide/#origin-server) | HTTP protocol port of the origin server (one of origins[0].httpPort and origins[0].httpsPort must be entered.)  |
 | distributions[0].origins[0].httpsPort  | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Numbers' of [Console User Guide > Origin Server](./console-guide/#origin-server) | HTTPS protocol port of the origin server (one of origins[0].httpPort and origins[0].httpsPort must be entered.) |
-| distributions[0].rootPathAccessControl  | Object  | Optional      |        |                             | Set the access control for the CDN service root path |
+| distributions[0].rootPathAccessControl  | Object  | Optional      |        |                             | Set the access control for the CDN service root path | 
 | distributions[0].rootPathAccessControl.enable | Boolean | Required      | true      | true/false             | Whether the access control for the root path is enabled (true) or disabled (false)          |
-| distributions[0].rootPathAccessControl.controlType  | String  | Optional      |        | DENY, REDIRECT    | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| distributions[0].rootPathAccessControl.controlType  | String  | Optional      |        | DENY, REDIRECT    | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) | 
 | distributions[0].rootPathAccessControl.redirectPath | String | Optional      |       |       |   Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
 | distributions[0].rootPathAccessControl.redirectStatusCode | Integer | Optional      |       | 301, 302, 303, 307             |  Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.          |
 | distributions[0].callback              | Object  | Optional      |        |                             | Callback URL to receive the processing result of CDN creation (callback setting is optional.) |
@@ -260,9 +260,9 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                               |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | distributions[0].forwardHostHeader     | String  | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request) |
-| distributions[0].rootPathAccessControl  | Object  | Set the access control for the CDN service root path |
+| distributions[0].rootPathAccessControl  | Object  | Set the access control for the CDN service root path | 
 | distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true) or disabled (false)          |
-| distributions[0].rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| distributions[0].rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) | 
 | distributions[0].rootPathAccessControl.redirectPath | String | Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
 | distributions[0].rootPathAccessControl.redirectStatusCode | Integer | Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.          |
 | distributions[0].callback              | Object  | Callback to receive service creation result                        |
@@ -369,9 +369,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].forwardHostHeader     | String  | Callback to receive service deployment result                        |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | distributions[0].forwardHostHeader     | String  | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request) |
-| distributions[0].rootPathAccessControl  | Object  | Set the access control for the CDN service root path |
+| distributions[0].rootPathAccessControl  | Object  | Set the access control for the CDN service root path | 
 | distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true) or disabled (false)          |
-| distributions[0].rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| distributions[0].rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) | 
 | distributions[0].rootPathAccessControl.redirectPath | String | Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
 | distributions[0].rootPathAccessControl.redirectStatusCode | Integer | Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.          |
 | distributions[0].callback              | Object  | Callback to receive service deployment result                        |
@@ -451,9 +451,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | forwardHostHeader     | String  | Required      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request)|
 | useOrigin             | String  | Required      |        | Y/N                                                          | Cache expiration setting (Y: Use the original setting, "N": Use the user-configured setting)      |
-| rootPathAccessControl  | Object  | Optional |  |  | Set the access control for the CDN service root path |
+| rootPathAccessControl  | Object  | Optional |  |  | Set the access control for the CDN service root path | 
 | rootPathAccessControl.enable | Boolean | Required | false | true/false | Whether the access control for the root path is enabled (true) or disabled (false)          |
-| rootPathAccessControl.controlType  | String  | Optional |  | DENY, REDIRECT | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| rootPathAccessControl.controlType  | String  | Optional |  | DENY, REDIRECT | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) | 
 | rootPathAccessControl.redirectPath | String | Optional |  | | Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
 | rootPathAccessControl.redirectStatusCode | Integer | Optional | | 301, 302, 303, 307 |Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.          |
 | callback              | Object  | Optional      |        | Callback URL to receive CDN service deployment result (Callback setting is optional.) |                                                              |
@@ -762,7 +762,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | callbackHttpMethod  | String | Optional      |        | GET/POST/PUT        | HTTP method of callback to be notified of certificate generation processing result |
 | callbackUrl         | String | Optional      |        | Up to 1024 characters           | Callback URL to be notified of certificate generation processing result       |
 
-* For details on issuing a certificate, refer to [Console User Guide > Certificate Management > Issue New Certificates](./console-guide/#_7).
+* For details on issuing a certificate, refer to [Console User Guide > Certificate Management > Issue New Certificates](./console-guide/#issue-new-certificates).
 
 #### Response
 
@@ -942,7 +942,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certi
 | fromDate | DateTime | Required      |  | Start date and time of statistics query |
 | toDate | DateTime | Required      |  | End date and time of statistics query |
 
-- The stageTime and endTime fields must be entered in ISO 8601 format date string format.
+- The fromDate and toDate fields must be entered in ISO 8601 format date string format.
   - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
@@ -1006,7 +1006,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | Required      |  | Start date and time of statistics query |
 | toDate | DateTime | Required      |  | End date and time of statistics query |
 
-- The stageTime and endTime fields must be entered in ISO 8601 format date string format.
+- The fromDate and toDate fields must be entered in ISO 8601 format date string format.
   - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
@@ -1080,7 +1080,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | Required      |  | Start date and time of statistics query |
 | toDate | DateTime | Required      |  | End date and time of statistics query |
 
-- The stageTime and endTime fields must be entered in ISO 8601 format date string format.
+- The fromDate and toDate fields must be entered in ISO 8601 format date string format.
   - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
 
@@ -1207,9 +1207,9 @@ When the callback is called, the request body contains the following CDN service
 | distribution.origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                               |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | distribution.forwardHostHeader     | String  | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request) |
-| distribution.rootPathAccessControl  | Object  | Set the access control for the CDN service root path |
+| distribution.rootPathAccessControl  | Object  | Set the access control for the CDN service root path | 
 | distribution.rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true) or disabled (false)          |
-| distribution.rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) |
+| distribution.rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) | 
 | distribution.rootPathAccessControl.redirectPath | String | Required if controlType is "REDIRECT". The path to redirect requests for the root path to. (Enter a path including /.)        |
 | distribution.rootPathAccessControl.redirectStatusCode | Integer | Required when controlType is "REDIRECT". The HTTP response code sent when redirecting.         |
 | distribution.callback              | Object  | Callback to receive service deployment result                        |
@@ -1229,20 +1229,20 @@ When the callback is called, the request body contains the following certificate
     "isSuccessful" :  true
   },
   "certificate": {
-      "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
-      "distributionSeq": null,
-      "dnsName": "example.domain.com",
-      "dnsStatus": "WAITING_VALIDATION",
-      "validationDnsRecordName": "_acme-challenge.example.domain.com.",
-      "validationDnsToken": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
-      "validationHtmlUrl": "http://example.domain.com/.well-known/acme-challenge/NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg",
-      "validationHtmlToken": "NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg.tL4C5fu32Q5A81pbFTAgUeNiv9rorD-rUQYb7kQJvHc",
-      "validationExpireDatetime": null,
-      "createDatetime": 1654588292000,
-      "updateDatetime": 1654588758056,
-      "deleteDatetime": null,
-      "callbackHttpMethod": "POST",
-      "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}"
+    "sanDnsId": "628bb15d-fe0a-46cf-9b63-8cdba80cbc1a",
+    "distributionSeq": null,
+    "dnsName": "example.domain.com",
+    "dnsStatus": "WAITING_VALIDATION",
+    "validationDnsRecordName": "_acme-challenge.example.domain.com.",
+    "validationDnsToken": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+    "validationHtmlUrl": "http://example.domain.com/.well-known/acme-challenge/NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg",
+    "validationHtmlToken": "NDUxotnSnKAIJQrhDOUp1s3AC4zjyU1i_BEvLI3wmvg.tL4C5fu32Q5A81pbFTAgUeNiv9rorD-rUQYb7kQJvHc",
+    "validationExpireDatetime": null,
+    "createDatetime": 1654588292000,
+    "updateDatetime": 1654588758056,
+    "deleteDatetime": null,
+    "callbackHttpMethod": "POST",
+    "callbackUrl": "http://test.callback.com/cdn-certificate?appKey={appKey}&status={status}&domain={domain}"
   }
 }
 ```
