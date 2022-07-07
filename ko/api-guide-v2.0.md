@@ -221,6 +221,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
             "isAllowPatch" : true,
             "isAllowDelete" : false,
             "useOriginCacheControl": true,
+            "cacheType": "BYPASS",
             "origins": [
                 {
                     "origin": "static.origin.com",
