@@ -157,7 +157,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions                          | List    | 필수      |        |                              | 생성할 CDN의 오브젝트 목록                                   |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | 필수      |   | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
-| distributions[0].useOriginCacheControl | Boolean | 선택      |        | true/false                  | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정). useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.   |
+| distributions[0].useOriginCacheControl | Boolean | 선택      |        | true/false                  | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정 사용). useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.   |
 | distributions[0].cacheType             | String  | 선택      |        | BYPASS, NO_STORE            | 캐시 타입 설정. useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.     |
 | distributions[0].referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST         | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 선택      |        |                           | 정규 표현식 형태의 리퍼러 헤더 목록   |
@@ -271,7 +271,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].isAllowPut | Boolean | PUT 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowPatch | Boolean | PATCH 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowDelete | Boolean | DELETE 메서드 허용(true)/거부(false) 여부             |
-| distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
+| distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
 | distributions[0].cacheType             | String  | 캐시 타입 설정                                          |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
@@ -390,7 +390,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].isAllowPut           | Boolean | PUT 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowPatch         | Boolean | PATCH 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowDelete        | Boolean | DELETE 메서드 허용(true)/거부(false) 여부             |
-| distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
+| distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
 | distributions[0].cacheType             | String  | 캐시 타입 설정                                          |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
@@ -472,7 +472,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | 이름                  | 타입    | 필수 여부 | 기본값 | 유효 범위                                                    | 설명                                                         |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 필수      |        | 최대 255자                                                   | 수정할 도메인(서비스 이름)                                   |
-| useOriginCacheControl | Boolean | 선택      |        | true/false                                                        | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정). useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.      |
+| useOriginCacheControl | Boolean | 선택      |        | true/false                                                        | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정 사용). useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.      |
 | cacheType             | String  | 선택      |        | BYPASS, NO_STORE            | 캐시 타입 설정. useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.                                          |
 | referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST                                          | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | referrers             | List    | 선택      |        |                                                              | 정규 표현식 형태의 리퍼러 헤더 목록 |
@@ -1239,12 +1239,12 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | distribution.referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distribution.referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
-| distribution.useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
+| distribution.useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
 | distribution.createTime            | DateTime | 생성 일시                                         |
 | distribution.deleteTime            | DateTime | 삭제 일시                                         |
 | distribution.origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distribution.origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
-| distribution.origins[0].originPath | String  | 원본 서버 하위 경로                                          |
+| distribution.origins[0].originPath | String  | 원본 서버 하위 경로     용                                     |
 | distribution.origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                               |
 | distribution.origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                               |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
