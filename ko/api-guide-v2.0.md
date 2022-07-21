@@ -1244,7 +1244,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.deleteTime            | DateTime | 삭제 일시                                         |
 | distribution.origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distribution.origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
-| distribution.origins[0].originPath | String  | 원본 서버 하위 경로     용                                     |
+| distribution.origins[0].originPath | String  | 원본 서버 하위 경로                                          |
 | distribution.origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                               |
 | distribution.origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                               |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
