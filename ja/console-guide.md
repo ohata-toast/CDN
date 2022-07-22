@@ -175,7 +175,7 @@ CDNサービスへ配布する原本ファイルを提供するサーバーを�
 
 ### ルートパスアクセス管理
 CDNサービスのルートパスに対するアクセス制御を設定できます。
-![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_ja_202207.png)
 
 - **ルートパスアクセス設定**
     - **使用**:ルートパスアクセス管理機能を有効にしてルートパスに対するリクエストを遮断するか、他のページにリダイレクトするように設定します。
@@ -192,7 +192,7 @@ CDNサービスのルートパスに対するアクセス制御を設定でき�
 ### メソッド
 CDNで基本的に許可するメソッドはGET、HEAD、OPTIONSで、それ以外のメソッドをリクエストすると拒否されます。
 該当メソッド以外のメソッドを許可するには、メソッドを選択して設定します。
-![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_ja_202207.png)
 
 - **メソッド許可設定**
  許可設定したメソッドリクエストはキャッシュされず、オリジンサーバーに伝達されます。
@@ -200,7 +200,7 @@ CDNで基本的に許可するメソッドはGET、HEAD、OPTIONSで、それ以
 
 ### キャッシュ
 CDNキャッシュ動作設定とキャッシュ時間を設定できます。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202207.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_ja_202207.png)
 
 - **キャッシュ設定**
   CDNサーバーが原本ファイルをキャッシュするときに使用するキャッシュ設定を選択できます。
@@ -223,7 +223,7 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 
 ### リファラー(Referer)ヘッダアクセス管理
 リファラーリクエストヘッダーにコンテンツのアクセス管理を設定します。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202207.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_202207.png)
 
 リファラーリクエストヘッダーは、現在リクエストされたページリンクより前のウェブページアドレスを含みます。リファラーリクエストヘッダーにより、どの経路でリクエストが流入したかを把握できます。リファラーヘッダアクセス管理では、特定のリファラーリクエストヘッダーのみユーザーコンテンツにアクセスできるよう設定できます。
 正規表現形式で入力できます。複数入力する場合は改行して入力します。
