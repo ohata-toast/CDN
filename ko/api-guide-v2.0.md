@@ -116,12 +116,17 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
       "forwardHostHeader": "ORIGIN_HOSTNAME",
       "domainAlias": ["alias.test.net"],
       "description" : "sample-cdn",
-      "useOriginCacheControl" : false,      
+      "useOriginCacheControl" : false,  
+      "cacheType": "BYPASS",    
       "defaultMaxAge": 86400,
       "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",     
       "referrers" : ["cloud.nhn.com"],
-      "isAllowWhenEmptyReferrer" : true, 
+      "isAllowWhenEmptyReferrer" : true,
+      "isAllowPost" : true,
+      "isAllowPut" : false,
+      "isAllowPatch" : true,
+      "isAllowDelete" : false,
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -152,10 +157,15 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions                          | List    | 필수      |        |                              | 생성할 CDN의 오브젝트 목록                                   |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | 필수      |   | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
-| distributions[0].useOriginCacheControl | Boolean | 필수      |        | true/false                  | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정)   |
+| distributions[0].useOriginCacheControl | Boolean | 선택      |        | true/false                  | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정 사용). useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.   |
+| distributions[0].cacheType             | String  | 선택      |        | BYPASS, NO_STORE            | 캐시 타입 설정. useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.     |
 | distributions[0].referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST         | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 선택      |        |                           | 정규 표현식 형태의 리퍼러 헤더 목록   |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | 선택      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowPost           | Boolean | 선택      | false      | true/false             | POST 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowPut            | Boolean | 선택      | false      | true/false             | PUT 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowPatch          | Boolean | 선택      | false      | true/false             | PATCH 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowDelete         | Boolean | 선택      | false      | true/false             | DELETE 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].description           | String  | 선택      |        | 최대 255자                  | 설명                                                         |
 | distributions[0].domainAlias           | List    | 선택      |        |                           | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용) |
 | distributions[0].defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647             | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.             |
@@ -206,7 +216,12 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
                 "cloud.nhn.com"
             ],
             "isAllowWhenEmptyReferrer" : true,
+            "isAllowPost" : true,
+            "isAllowPut" : false,
+            "isAllowPatch" : true,
+            "isAllowDelete" : false,
             "useOriginCacheControl": true,
+            "cacheType": "BYPASS",
             "origins": [
                 {
                     "origin": "static.origin.com",
@@ -252,7 +267,12 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                  |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
-| distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
+| distributions[0].isAllowPost | Boolean | POST 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowPut | Boolean | PUT 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowPatch | Boolean | PATCH 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowDelete | Boolean | DELETE 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
+| distributions[0].cacheType             | String  | 캐시 타입 설정                                          |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
 | distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
@@ -317,8 +337,14 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "cacheKeyQueryParam": "INCLUDE_ALL",
     "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
-    "referrers" :  ["test.com"],    
+    "referrers" :  ["test.com"],
+    "isAllowWhenEmptyReferrer" : true,
+    "isAllowPost" : true,
+    "isAllowPut" : false,
+    "isAllowPatch" : true,
+    "isAllowDelete" : false,  
     "useOriginCacheControl" :  false,
+    "cacheType": "NO_STORE",
     "origins" : [
         {
             "origin" :  "static.resource.com",
@@ -360,7 +386,12 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
-| distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
+| distributions[0].isAllowPost          | Boolean | POST 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowPut           | Boolean | PUT 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowPatch         | Boolean | PATCH 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].isAllowDelete        | Boolean | DELETE 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
+| distributions[0].cacheType             | String  | 캐시 타입 설정                                          |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
 | distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
@@ -399,10 +430,16 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     {
       "domain" : "sample.toastcdn.net",
       "useOriginCacheControl" : false,
+      "cacheType": "BYPASS",
       "defaultMaxAge": 86400,
       "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",
       "referrers" : ["test.com"],
+      "isAllowWhenEmptyReferrer" : true,
+      "isAllowPost" : true,
+      "isAllowPut" : false,
+      "isAllowPatch" : true,
+      "isAllowDelete" : false,
       "origins" : [
           {
               "origin" : "static.resource.com",
@@ -435,10 +472,15 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | 이름                  | 타입    | 필수 여부 | 기본값 | 유효 범위                                                    | 설명                                                         |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 필수      |        | 최대 255자                                                   | 수정할 도메인(서비스 이름)                                   |
-| useOriginCacheControl | Boolean | 필수      |        | true/false                                                        | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정)      |
+| useOriginCacheControl | Boolean | 선택      |        | true/false                                                        | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정 사용). useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.      |
+| cacheType             | String  | 선택      |        | BYPASS, NO_STORE            | 캐시 타입 설정. useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.                                          |
 | referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST                                          | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | referrers             | List    | 선택      |        |                                                              | 정규 표현식 형태의 리퍼러 헤더 목록 |
 | isAllowWhenEmptyReferrer | Boolean | 선택      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
+| isAllowPost           | Boolean | 선택      | false      | true/false             | POST 메서드 허용(true)/거부(false) 여부             |
+| isAllowPut            | Boolean | 선택      | false      | true/false             | PUT 메서드 허용(true)/거부(false) 여부             |
+| isAllowPatch          | Boolean | 선택      | false      | true/false             | PATCH 메서드 허용(true)/거부(false) 여부             |
+| isAllowDelete         | Boolean | 선택      | false      | true/false             | DELETE 메서드 허용(true)/거부(false) 여부             |
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
 | domainAlias           | List    | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 혹은 회사가 소유한 도메인 사용) |
 | defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647                                            | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.              |
@@ -1197,7 +1239,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | distribution.referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distribution.referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
-| distribution.useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정) |
+| distribution.useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
 | distribution.createTime            | DateTime | 생성 일시                                         |
 | distribution.deleteTime            | DateTime | 삭제 일시                                         |
 | distribution.origins               | List    | 원본 서버 오브젝트 목록                                      |
