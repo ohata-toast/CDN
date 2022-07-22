@@ -115,12 +115,17 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
       "forwardHostHeader": "ORIGIN_HOSTNAME",
       "domainAlias": ["alias.test.net"],
       "description" : "sample-cdn",
-      "useOriginCacheControl" : false,      
+      "useOriginCacheControl" : false,  
+      "cacheType": "BYPASS",    
       "defaultMaxAge": 86400,
       "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",      
       "referrers" : ["cloud.nhn.com"],
-      "isAllowWhenEmptyReferrer" : true, 
+      "isAllowWhenEmptyReferrer" : true,
+      "isAllowPost" : true,
+      "isAllowPut" : false,
+      "isAllowPatch" : true,
+      "isAllowDelete" : false,
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -151,10 +156,15 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions                          | List    | 必須  |        |                              | 作成するCDNのオブジェクトリスト                               |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 必須 |        | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するかどうか |
 | distributions[0].forwardHostHeader     | String  | 必須  |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時、伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
-| distributions[0].useOriginCacheControl | Boolean | 必須  |        | true/false                  | キャッシュ満了設定(true：オリジンサーバー設定を使用、false：ユーザー設定)   |
+| distributions[0].useOriginCacheControl | Boolean | 任意    |        | true/false                  | キャッシュ期限設定(true：オリジンサーバー設定を使用、false：ユーザー設定を使用)。 useOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。   |
+| distributions[0].cacheType             | String  | 選択    |        | BYPASS, NO_STORE            | キャッシュタイプ設定。 useOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。    |
 | distributions[0].referrerType          | String  | 必須   |        | BLACKLIST/WHITELIST         | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 任意  |        |                           | 正規表現形式のリファラーヘッダリスト |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | 任意      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
+| distributions[0].isAllowPost           | Boolean | 選択    | false      | true/false             | POSTメソッド許可(true)/拒否(false)             |
+| distributions[0].isAllowPut            | Boolean | 選択    | false      | true/false             | PUTメソッド許可(true)/拒否(false)            |
+| distributions[0].isAllowPatch          | Boolean | 選択    | false      | true/false             | PATCHメソッド許可(true)/拒否(false)            |
+| distributions[0].isAllowDelete         | Boolean | 選択    | false      | true/false             | DELETEメソッド許可(true)/拒否(false)            |
 | distributions[0].description           | String  | 任意   |        | 最大255文字            | 説明                                                  |
 | distributions[0].domainAlias           | List    | 任意  |        |                           | ドメインエイリアスリスト(個人または会社が所有しているドメインを使用) |
 | distributions[0].defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647             | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。             |
@@ -204,7 +214,12 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
                 "cloud.nhn.com"
             ],
             "isAllowWhenEmptyReferrer" : true,
+            "isAllowPost" : true,
+            "isAllowPut" : false,
+            "isAllowPatch" : true,
+            "isAllowDelete" : false,
             "useOriginCacheControl": true,
+            "cacheType": "BYPASS",
             "origins": [
                 {
                     "origin": "static.origin.com",
@@ -250,7 +265,12 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 正規表現形式のリファラーヘッダリスト                              |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | リファラーヘッダがない場合のコンテンツアクセス許可(true)/拒否(false) |
-| distributions[0].useOriginCacheControl | Boolean  | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザー設定) |
+| distributions[0].isAllowPost | Boolean | POSTメソッド許可(true)/拒否(false)            |
+| distributions[0].isAllowPut | Boolean | PUTメソッド許可(true)/拒否(false)            |
+| distributions[0].isAllowPatch | Boolean | PATCHメソッド許可(true)/拒否(false)            |
+| distributions[0].isAllowDelete | Boolean | DELETEメソッド許可(true)/拒否(false)            |
+| distributions[0].useOriginCacheControl | Boolean  | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、 false：ユーザー設定を使用) |
+| distributions[0].cacheType             | String  | キャッシュタイプ設定                                        |
 | distributions[0].origins               | List    | オリジンサーバーオブジェクトリスト                               |
 | distributions[0].origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                      |
 | distributions[0].origins[0].originPath | String  | オリジンサーバーの下層パス                                   |
@@ -315,8 +335,14 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "cacheKeyQueryParam": "INCLUDE_ALL",
     "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
-    "referrers" :  ["test.com"],    
+    "referrers" :  ["test.com"],
+    "isAllowWhenEmptyReferrer" : true,
+    "isAllowPost" : true,
+    "isAllowPut" : false,
+    "isAllowPatch" : true,
+    "isAllowDelete" : false,  
     "useOriginCacheControl" :  false,
+    "cacheType": "NO_STORE",
     "origins" : [
         {
             "origin" :  "static.resource.com",
@@ -359,7 +385,12 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | List    | 正規表現形式のリファラーヘッダリスト                             |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | リファラーヘッダがない場合のコンテンツアクセス許可(true)/拒否(false) |
-| distributions[0].useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザー設定) |
+| distributions[0].isAllowPost          | Boolean | POSTメソッド許可(true)/拒否(false)            |
+| distributions[0].isAllowPut           | Boolean | PUTメソッド許可(true)/拒否(false)            |
+| distributions[0].isAllowPatch         | Boolean | PATCHメソッド許可(true)/拒否(false)            |
+| distributions[0].isAllowDelete        | Boolean | DELETEメソッド許可(true)/拒否(false)            |
+| distributions[0].useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、 false：ユーザー設定を使用) |
+| distributions[0].cacheType             | String  | キャッシュタイプ設定                                        |
 | distributions[0].origins               | List    | オリジンサーバーオブジェクトリスト                               |
 | distributions[0].origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                      |
 | distributions[0].origins[0].originPath | String  | オリジンサーバーの下層パス                                   |
@@ -398,10 +429,16 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     {
       "domain" : "sample.toastcdn.net",
       "useOriginCacheControl" : false,
+      "cacheType": "BYPASS",
       "defaultMaxAge": 86400,
       "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",
       "referrers" : ["test.com"],
+      "isAllowWhenEmptyReferrer" : true,
+      "isAllowPost" : true,
+      "isAllowPut" : false,
+      "isAllowPatch" : true,
+      "isAllowDelete" : false,
       "origins" : [
           {
               "origin" : "static.resource.com",
@@ -434,10 +471,15 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | 名前           | タイプ | 必須か | デフォルト値 | 有効範囲                                             | 説明                                                  |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 必須   |        | 最大255文字                                             | 修正するドメイン(サービス名)                                   |
-| useOriginCacheControl | Boolean | 必須  |        | true/false                                                        | キャッシュ満了設定(true：オリジンサーバー設定を使用、false：ユーザー設定)      |
+| useOriginCacheControl | Boolean | 選択    |        | true/false                                                        | キャッシュ期限設定(true：オリジンサーバー設定を使用、 false：ユーザー設定を使用). useOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。      |
+| cacheType             | String  | 選択    |        | BYPASS, NO_STORE            | キャッシュタイプ設定。 useOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。                                          |
 | referrerType          | String  | 必須   |        | BLACKLIST/WHITELIST                                          | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | referrers             | List    | 任意  |        |                                                              | 正規表現形式のリファラーヘッダリスト |
 | isAllowWhenEmptyReferrer | Boolean | 任意      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
+| isAllowPost           | Boolean | 選択    | false      | true/false             | POSTメソッド許可(true)/拒否(false)            |
+| isAllowPut            | Boolean | 選択    | false      | true/false             | PUTメソッド許可(true)/拒否(false)            |
+| isAllowPatch          | Boolean | 選択    | false      | true/false             | PATCHメソッド許可(true)/拒否(false)            |
+| isAllowDelete         | Boolean | 選択    | false      | true/false             | DELETEメソッド許可(true)/拒否(false)            |
 | description           | String  | 任意   |        | 最大255文字                                             | 説明                                                  |
 | domainAlias           | List    | 任意  |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメインを使用) |
 | defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647                                            | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。              |
@@ -1191,7 +1233,7 @@ CDNサービスにコールバック機能が設定されている場合、作�
 | distribution.cacheKeyQueryParam    | String  | キャッシュキーにリクエストクエリ文字列を含めるかの設定("INCLUDE_ALL"：全て含める、"EXCLUDE_ALL"：全て含めない) |
 | distribution.referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、"WHITELIST"：ホワイトリスト) |
 | distribution.referrers             | List    | 正規表現形式のリファラーヘッダリスト                             |
-| distribution.useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、false：ユーザーを設定) |
+| distribution.useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、 false：ユーザー設定を使用) |
 | distribution.createTime            | DateTime | 作成日時                                     |
 | distribution.deleteTime            | DateTime | 削除日時                                     |
 | distribution.origins               | List    | オリジンサーバーオブジェクトリスト                                  |
