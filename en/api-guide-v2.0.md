@@ -161,11 +161,11 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].cacheType             | String  | Optional      |        | BYPASS, NO_STORE            | Cache type setting. One of useOriginCacheControl or cacheType must be entered.     |
 | distributions[0].referrerType          | String  | Required      |        | BLACKLIST/WHITELIST         | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | Optional      |        |                           | List of regex referrer headers   |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header      
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header     |  
 | distributions[0].isAllowPost           | Boolean | Optional     | false      | true/false             | Whether to allow (true) or deny (false) POST method            |
 | distributions[0].isAllowPut            | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PUT method             |
 | distributions[0].isAllowPatch          | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PATCH method           |
-| distributions[0].isAllowDelete         | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) DELETE method           |       |
+| distributions[0].isAllowDelete         | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) DELETE method           |       
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
 | distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (using domains owned by individuals or companies) |
 | distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds), the default value 0 is 604,800 seconds.             |
