@@ -211,14 +211,14 @@ To allow methods other than the allowed methods, select and set a method you wan
 CDN cache operations and expiration time can be set.
 ![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202207.png)
 
-- **Cache Setting**
-  When the CDN server enables caching of the original file, you can choose which cache settings to use.
+- **Configuration of Cache**
+  When the CDN server enables caching of the original file, you can choose which cache configuration to use.
  
 **Configuration of Cache Expiration**
   Cache can be configured from the response header of cache control at the origin server.
     - **Use Original Configuration**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Use Original Configuration** is default.
     - **Use User Configuration**: Cached during specified cache expiration time (seconds).
-    - **Bypass Cache**: Maintain the cache created before the setting and do not cache content requests after the setting.
+    - **Bypass Cache**: Maintain the cache created before the configuration and do not cache content requests after the configuration.
     - **No Store**: Remove all the existing caches and disable CDN caching.
 
 - **Cache Expiration Time (seconds)**
