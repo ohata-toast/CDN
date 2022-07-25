@@ -4,9 +4,9 @@
 
 #### Feature Updates
 * Added Allow Method Settings
-	* You can set whether to allow the POST, DELETE, PUT, PATCH requests. For more information, refer to [Console Guide > Allow Method Settings](./console-guide/#_4).
+	* You can set whether to allow the POST, DELETE, PUT, PATCH requests. For more information, refer to [Console Guide > Allow Method Settings](./console-guide/#method).
 * Added Configuration of Cache
-	* Added Bypass Cache, No Store in Configuration of Cache. For more information, refer to [Console Guide > Cache](./console-guide/#_5).
+	* Added Bypass Cache, No Store in Configuration of Cache. For more information, refer to [Console Guide > Cache](./console-guide/#cache).
 
 ### June 30, 2022
 

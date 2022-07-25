@@ -1,5 +1,13 @@
 ## Content Delivery > CDN > Release Notes
 
+### July 26, 2022
+
+#### Feature Updates
+* Added Allow Method Settings
+	* You can set whether to allow the POST, DELETE, PUT, PATCH requests. For more information, refer to [Console Guide > Allow Method Settings](./console-guide/#method).
+* Added Configuration of Cache
+	* Added Bypass Cache, No Store in Configuration of Cache. For more information, refer to [Console Guide > Cache](./console-guide/#cache).
+
 ### June 30, 2022
 
 #### Feature Updates
@@ -31,8 +39,8 @@
 
 #### Feature Updates
 * The CDN Public API domain has been changed.
-    * AS-IS : https://api-gw.cloud.toast.com/tc-cdn
-    * TO-BE : https://kr1-cdn.api.nhncloudservice.com
+	* AS-IS : https://api-gw.cloud.toast.com/tc-cdn
+	* TO-BE : https://kr1-cdn.api.nhncloudservice.com
 
 ### May 25, 2021
 
@@ -129,7 +137,7 @@
 ### July 20, 2017
 
 #### Feature Updates
-* Deployed CDN APIs. For more details, see API Guide.  
+* Deployed CDN APIs. For more details, see API Guide.
 	* Added Create, Modify, and Query CDN APIs.
 	* Added Purge, and Query Purge APIs.
 

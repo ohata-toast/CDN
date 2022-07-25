@@ -33,11 +33,11 @@ Set basic information.
     - TTL: Randomly selected
 
 - **Callback**
- It takes hours to create and change CDN service. (e.g. Modify, Suspend/Resume, and Delete).
- After a task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#_23) to find information sent to callback.
+  It takes hours to create and change CDN service. (e.g. Modify, Suspend/Resume, and Delete).
+  After a task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#_23) to find information sent to callback.
     1. Enter **HTTP Method** and **Callback URL**.
     2. To receive results on the change of CDN via query parameter, include the following path variable to **Callback URL**.
-         e.g.: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
+       e.g.: http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})
 
 | Path Variables | Description | Delivered Value|
 | ------------- | --- | ------- |
@@ -132,7 +132,7 @@ Set server providing original files to be deployed to CDN.
 - **Origin Server Port**  
   An origin server must be operated by a web-protocol support service. Service port numbers can be set for HTTP/HTTPS protocols under operations.  
   Either HTTP or HTTPS must be entered for the origin server port, and if not set, a port is set by default with HTTP:80 or HTTPS:443.  
-  Only limited number of ports are available as the original port. Refer to the following table for available port numbers.  
+  Only limited number of ports are available as the original port. Refer to the following table for available port numbers.
 
 **[Table 2] Available Origin Server Port Numbers**
 
@@ -167,7 +167,7 @@ Set server providing original files to be deployed to CDN.
 > 1. Protocol downgrade is not applied to the entire website address. For instance, **www.nhn.com**, which is the entire site address of the origin server, cannot be downgraded.
 > 2. No other methods than GET, HEAD, or OPTIONS, are supported.
 > 3. When a downgrade is requested from CDN to an origin server, following headers may be excluded:
->    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
+     >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
 - **Forward Host Header**
   Set **Host** header value to be sent along with a request of CDN server for original files to origin server.
@@ -183,7 +183,7 @@ Set server providing original files to be deployed to CDN.
 
 ### Controlling the access of root path
 You can set the access control for the root path of the CDN service.
-![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path.png)
+![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path_1.png)
 
 - **Set Root Path Access**
     - **Enable**: Activates the access control for the root path, blocking requests for the root path or configuring such requests to be redirected to a different page.
@@ -197,15 +197,29 @@ You can set the access control for the root path of the CDN service.
     - Set up the HTTP Response Code to be sent after redirecting the request for the root path.
     - Redirect HTTP Response Code can be selected among 301, 302, 303, and 307.
 
+### Method
+By default, the allowed methods for CDN include GET, HEAD, and OPTIONS, the request for other methods is denied.
+To allow methods other than the allowed methods, select and set a method you want.
+![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+
+- **Allow Method Settings**
+  Allowed method requests are not cached and forwarded to the origin server.
+
+
 ### Cache
 
 CDN cache operations and expiration time can be set.
-![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202111.png)
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202207.png)
 
-- **Configuration of Cache Expiration**
-  Cache can be configured from the response header of cache control at the origin server.
-    - **Use Original Configuration**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Use Original Configuration** is default.
-    - **Use User Configuration**: Cached during specified cache expiration time (seconds).
+- **Configuration of Cache**
+  When the CDN server enables caching of the original file, you can choose which cache configuration to use.
+
+**Configuration of Cache Expiration**
+Cache can be configured from the response header of cache control at the origin server.
+- **Use Original Configuration**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Use Original Configuration** is default.
+- **Use User Configuration**: Cached during specified cache expiration time (seconds).
+- **Bypass Cache**: Maintain the cache created before the configuration and do not cache content requests after the configuration.
+- **No Store**: Remove all the existing caches and disable CDN caching.
 
 - **Cache Expiration Time (seconds)**
   To specify a cache expiration time, click the **Use User Configuration** button and change the cache expiration time in **Cache Expiration Time (seconds)**.
@@ -221,7 +235,7 @@ CDN cache operations and expiration time can be set.
 
 ### Access Management for Referer Header
 Content access management is set with the referer request header.
-![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202111.png)
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202207.png)
 
 The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content.
 Enter in regex, and break the lines to enter many.
@@ -243,7 +257,7 @@ Enter in regex, and break the lines to enter many.
 >
 > * Typ: Whitelist
 > * Regex:`^https://[a-zA-Z0-9._-]*\.nhn\.com/.*`
-> Content access is allowed only when resources are requested from a sub-path of a nhn.com sub-domain.
+    > Content access is allowed only when resources are requested from a sub-path of a nhn.com sub-domain.
 >
 > **[Note] Regex Escape Characters**
 > Some characters are used as special characters for regex.
@@ -265,7 +279,7 @@ To apply the access of Auth Token Authentication to the CDN service, you need to
 > Access Control for Auth Token authentication requires the following implementation, even on applications using NHN Cloud CDN.
 > 1. Create a token required to access content.
 > 2. Client (final content consumer) must request content including created token.
-> If access management is configured without this process, content request may fail due to failed token authentication.
+     > If access management is configured without this process, content request may fail due to failed token authentication.
 
 
 #### 1. NHN Cloud CDN Console > Access Control Settings for Auth Token Authentication
@@ -289,7 +303,7 @@ On CDN console, set Access Control for Auth Token authentication by referring to
 - **Set Target for Token Authentication**  
   Set a target of file for token authentication when accessing content.  
   Verify token only for files with their tokens to be authenticated; for other files, token is not verified, allowing content access without a token.  
-  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.  
+  To verify token for a specified request URL or file extension only, enter the path and extension of the request URL; otherwise, verify tokens for all files.
     - **Set Authentication Target**: Verify tokens only for the files of configured request URL path and file extension.
     - **Set Exception from Authentication**: Verify tokens for files excluding request URL path and file extension.
     - **Path of Request URL**: If content URL has same path as that of request URL, set it for or against token authentication.
@@ -562,21 +576,21 @@ public class NhnCloudAuthTokenAccessControlExample {
 #### 3. Include created token to the request of content
 Client (final content consumer) must request content including the token value which is created from the location as configured on the console.
 
-  - **Location of Token: Cookie**
-    ```
-    curl --cookie "token={Created token value}" \
-    -X GET http://xxx.toastcdn.net/auth/contents/example.png
-    ```
-  - **Location of Token: Request header**
-    ```
-    curl -H "token: {Created token value}" \
-    -X GET http://xxx.toastcdn.net/auth/contents/example.png
-    ```
-  - **Location of Token: Query string**
-    ```
-    curl -d "token={Created token value}" \
-    -X GET http://xxx.toastcdn.net/auth/contents/example.png
-    ```
+- **Location of Token: Cookie**
+  ```
+  curl --cookie "token={Created token value}" \
+  -X GET http://xxx.toastcdn.net/auth/contents/example.png
+  ```
+- **Location of Token: Request header**
+  ```
+  curl -H "token: {Created token value}" \
+  -X GET http://xxx.toastcdn.net/auth/contents/example.png
+  ```
+- **Location of Token: Query string**
+  ```
+  curl -d "token={Created token value}" \
+  -X GET http://xxx.toastcdn.net/auth/contents/example.png
+  ```
 
 ## Settings
 
@@ -606,9 +620,9 @@ CDN service can be suspended or resumed.
 
 1. Select a CDN service to suspend.
 2. Click **Suspend**.
-![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-pause2_202105.png)
+   ![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-pause2_202105.png)
 3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal.
-![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-restart2_202105.png)
+   ![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-restart2_202105.png)
 4. To resume suspended CDN service, select a CDN service to resume.
 5. Click **Resume**.
 
@@ -630,7 +644,7 @@ CDN service can be deleted. Once deleted, however, a service cannot be recovered
 
 1. Select a CDN service to delete.
 2. Click **Delete**.
-![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-delete2_202204.png)
+   ![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-delete2_202204.png)
 3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service.
 
 > **[Note] Required Time to Delete CDN**
@@ -649,7 +663,7 @@ By purging cache, outdated cache data are deleted from requested content while a
 
 1.  Select a service to change from the list of CDN services.
 2. Click **Purge Cache**.
-![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-purge2_202105.png)
+   ![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-purge2_202105.png)
 
 3. Select a purge type.
     - Note that each CDN service domain may support different purge type and request format of cache.
@@ -713,13 +727,13 @@ Check DNS control role of domain to validate domain.
 
 1. Add TXT record on the DNS management page of domain's DNS service provider.
    Each DNS service provider may provide different configuration method. Consult your service provider regarding DNS setting.
-  - Record Type: **TXT**
-  - TTL: **60**. If 60 is unavailable, set the smallest possible number.
-  - Record Name: **_acme-challenge.[Certificate Domain Requested of Issuance].** Fill in the **Record Name** of console or email guide as sent.
-  - Record Value: **Random Character String** (fill in the **Record Value** of console or email guide as sent.)
+- Record Type: **TXT**
+- TTL: **60**. If 60 is unavailable, set the smallest possible number.
+- Record Name: **_acme-challenge.[Certificate Domain Requested of Issuance].** Fill in the **Record Name** of console or email guide as sent.
+- Record Value: **Random Character String** (fill in the **Record Value** of console or email guide as sent.)
 
 2. See if TXT record, added for nslookup command, is well queried. It may take some time to query depending on the DNS transfer time.
-    `nslookup -type=TXT _acme-challenge.[Certificate Domain Requested of Issuance].`
+   `nslookup -type=TXT _acme-challenge.[Certificate Domain Requested of Issuance].`
 
 
 Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method.
@@ -755,12 +769,12 @@ If this task is undone or not maintained, issued certificate may expire.
     - TTL: Random. Small count is recommended if frequent changes are expected. When there is change in the record, it may be cached during TTL at the cache DNS server.
     - Record Name:  **[Certificate Domain].** (Example: test.alias.com.com.)
     - Record Value:  **[CDN Service Domain to be Integrated]** (Example: xxxxxxxx.toastcdn.net)
-Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method.
-![Integrating CDN Services-Assign CNAME](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-service-cname_202105.png)
+      Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method.
+      ![Integrating CDN Services-Assign CNAME](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-service-cname_202105.png)
 
 2. **Domain Alias Setting**: Add domain alias setting for the CDN to use certificate.
     -  Select CDN to be integrated from **CDN Service** and click **Modify**. Add certificate domain to domain alias and click **OK**.
-![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-service-alias2_202105.png)
+       ![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-service-alias2_202105.png)
 
 > **[Note] CNAME record propagation time**
 > When setting the CNAME record, DNS propagation can take time depending on various factors. Therefore, the certificate issuance status may be displayed as [Waiting for CDN service integration] for a certain period of time even after performing the service integration process correctly.
@@ -794,7 +808,7 @@ Check statistics on the network transfer volume, HTTP status code, most download
 Statistical data within 7 days are recommended only as reference, since they may not be precise: precise data are available after 7 days.
 
 1. Click **Statistics** from **Content Delivery > CDN**.
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/v2/en/cdn_08_202105.png)
+   ![cdn_08_201812](https://static.toastoven.net/prod_cdn/v2/en/cdn_08_202105.png)
 2. Select a CDN service to check statistics.
 3. Enter search period.
 4. Data cycle within a search period is automatically selected depending on the period.
