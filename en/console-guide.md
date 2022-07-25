@@ -200,7 +200,7 @@ You can set the access control for the root path of the CDN service.
 ### Method
 By default, the allowed methods for CDN include GET, HEAD, and OPTIONS, the request for other methods is denied.
 To allow methods other than the allowed methods, select and set a method you want.
-![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path_1.png)
 
 - **Allow Method Settings**
   Allowed method requests are not cached and forwarded to the origin server.
