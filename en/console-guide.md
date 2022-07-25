@@ -183,7 +183,7 @@ Set server providing original files to be deployed to CDN.
 
 ### Controlling the access of root path
 You can set the access control for the root path of the CDN service.
-![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path.png)
+![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path_1.png)
 
 - **Set Root Path Access**
     - **Enable**: Activates the access control for the root path, blocking requests for the root path or configuring such requests to be redirected to a different page.
@@ -197,15 +197,29 @@ You can set the access control for the root path of the CDN service.
     - Set up the HTTP Response Code to be sent after redirecting the request for the root path.
     - Redirect HTTP Response Code can be selected among 301, 302, 303, and 307.
 
+### Method
+By default, the allowed methods for CDN include GET, HEAD, and OPTIONS, the request for other methods is denied.
+To allow methods other than the allowed methods, select and set a method you want.
+![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+
+- **Allow Method Settings**
+  Allowed method requests are not cached and forwarded to the origin server.
+  
+
 ### Cache
 
 CDN cache operations and expiration time can be set.
-![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202111.png)
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202207.png)
 
-- **Configuration of Cache Expiration**
+- **Configuration of Cache**
+  When the CDN server enables caching of the original file, you can choose which cache configuration to use.
+ 
+**Configuration of Cache Expiration**
   Cache can be configured from the response header of cache control at the origin server.
     - **Use Original Configuration**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Use Original Configuration** is default.
     - **Use User Configuration**: Cached during specified cache expiration time (seconds).
+    - **Bypass Cache**: Maintain the cache created before the configuration and do not cache content requests after the configuration.
+    - **No Store**: Remove all the existing caches and disable CDN caching.
 
 - **Cache Expiration Time (seconds)**
   To specify a cache expiration time, click the **Use User Configuration** button and change the cache expiration time in **Cache Expiration Time (seconds)**.
@@ -221,7 +235,7 @@ CDN cache operations and expiration time can be set.
 
 ### Access Management for Referer Header
 Content access management is set with the referer request header.
-![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202111.png)
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202207.png)
 
 The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content.
 Enter in regex, and break the lines to enter many.

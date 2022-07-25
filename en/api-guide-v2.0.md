@@ -116,12 +116,17 @@ The following are status codes that indicate the certificate issuance status of 
       "forwardHostHeader": "ORIGIN_HOSTNAME",
       "domainAlias": ["alias.test.net"],
       "description" : "sample-cdn",
-      "useOriginCacheControl" : false,
+      "useOriginCacheControl" : false,  
+      "cacheType": "BYPASS",    
       "defaultMaxAge": 86400,
       "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",     
       "referrers" : ["cloud.nhn.com"],
       "isAllowWhenEmptyReferrer" : true,
+      "isAllowPost" : true,
+      "isAllowPut" : false,
+      "isAllowPatch" : true,
+      "isAllowDelete" : false,
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -152,10 +157,15 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions                          | List    | Required      |        |                              | List of CDN objects to create                                   |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
 | distributions[0].forwardHostHeader     | String  | Required      |   | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request)|
-| distributions[0].useOriginCacheControl | Boolean | Required      |        | true/false                  | Cache expiration setting (true: Use the origin server setting, false: User-configured setting)   |
+| distributions[0].useOriginCacheControl | Boolean | Optional      |        | true/false                  | Cache expiration setting (true: Use the origin server setting, false: Use the user-configured setting). One of useOriginCacheControl or cacheType must be entered.   |
+| distributions[0].cacheType             | String  | Optional      |        | BYPASS, NO_STORE            | Cache type setting. One of useOriginCacheControl or cacheType must be entered.     |
 | distributions[0].referrerType          | String  | Required      |        | BLACKLIST/WHITELIST         | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | Optional      |        |                           | List of regex referrer headers   |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header             |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header     |  
+| distributions[0].isAllowPost           | Boolean | Optional     | false      | true/false             | Whether to allow (true) or deny (false) POST method            |
+| distributions[0].isAllowPut            | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PUT method             |
+| distributions[0].isAllowPatch          | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PATCH method           |
+| distributions[0].isAllowDelete         | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) DELETE method           |       
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
 | distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (using domains owned by individuals or companies) |
 | distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds), the default value 0 is 604,800 seconds.             |
@@ -206,7 +216,12 @@ The following are status codes that indicate the certificate issuance status of 
                 "cloud.nhn.com"
             ],
             "isAllowWhenEmptyReferrer" : true,
+            "isAllowPost" : true,
+            "isAllowPut" : false,
+            "isAllowPatch" : true,
+            "isAllowDelete" : false,
             "useOriginCacheControl": true,
+            "cacheType": "BYPASS",
             "origins": [
                 {
                     "origin": "static.origin.com",
@@ -252,7 +267,12 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                  |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | Whether to allow (true) or deny (false) access to content when there is no referer header |
-| distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Use the origin server setting, false: User-configured setting) |
+| distributions[0].isAllowPost | Boolean | Whether to allow (true) or deny (false) POST method             |
+| distributions[0].isAllowPut | Boolean | Whether to allow (true) or deny (false) PUT method             |
+| distributions[0].isAllowPatch | Boolean | Whether to allow (true) or deny (false) PATCH method             |
+| distributions[0].isAllowDelete | Boolean | Whether to allow (true) or deny (false) DELETE method             |
+| distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting (true: Use the origin server setting, false: Use the user-configured setting) |
+| distributions[0].cacheType             | String  | Cache type setting                                          |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
 | distributions[0].origins[0].originPath | String  | Sub-path of origin server                                          |
@@ -318,7 +338,13 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
     "referrers" :  ["test.com"],    
+    "isAllowWhenEmptyReferrer" : true,
+    "isAllowPost" : true,
+    "isAllowPut" : false,
+    "isAllowPatch" : true,
+    "isAllowDelete" : false,  
     "useOriginCacheControl" :  false,
+    "cacheType": "NO_STORE",
     "origins" : [
         {
             "origin" :  "static.resource.com",
@@ -360,7 +386,12 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | List    | List of regex referrer headers                                 |
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | Whether to allow (true) or deny (false) access to content when there is no referer header |
-| distributions[0].useOriginCacheControl | Boolean | Whether to use origin server setting or not (true: Use the origin server setting, false: User-configured setting) |
+| distributions[0].isAllowPost          | Boolean | Whether to allow (true) or deny (false) POST method             |
+| distributions[0].isAllowPut           | Boolean | Whether to allow (true) or deny (false) PUT method            |
+| distributions[0].isAllowPatch         | Boolean | Whether to allow (true) or deny (false) PATCH method          |
+| distributions[0].isAllowDelete        | Boolean | Whether to allow (true) or deny (false) DELETE method             |
+| distributions[0].useOriginCacheControl | Boolean | Whether to use the origin server setting(true: Use the origin server settting, false: Use the user-configured setting) |
+| distributions[0].cacheType             | String  | Cache type setting                                          |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
 | distributions[0].origins[0].originPath | String  | Sub-path of origin server                                          |
@@ -399,10 +430,16 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     {
       "domain" : "sample.toastcdn.net",
       "useOriginCacheControl" : false,
+      "cacheType": "BYPASS",
       "defaultMaxAge": 86400,
       "cacheKeyQueryParam": "INCLUDE_ALL",
       "referrerType" : "BLACKLIST",
       "referrers" : ["test.com"],
+      "isAllowWhenEmptyReferrer" : true,
+      "isAllowPost" : true,
+      "isAllowPut" : false,
+      "isAllowPatch" : true,
+      "isAllowDelete" : false,
       "origins" : [
           {
               "origin" : "static.resource.com",
@@ -435,10 +472,15 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | Name                  | Type    | Required | Default | Valid Range                                                    | Description                                                         |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | Required      |        | Up to 255 characters                                                   | Domain (service name) to modify                                   |
-| useOriginCacheControl | Boolean | Required      |        | true/false                                                        | Cache expiration setting (true: Use the origin server setting, false: User-configured setting)      |
+| useOriginCacheControl | Boolean | Optional      |        | true/false                                                        | Cache expiration settingtrue: Use the origin server settting, false: Use the user-configured setting). One of useOriginCacheControl or cacheType must be entered.      |
+| cacheType             | String  | Optional      |        | BYPASS, NO_STORE            | Cache type setting. One of useOriginCacheControl or cacheType must be entered.                                          |
 | referrerType          | String  | Required      |        | BLACKLIST/WHITELIST                                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | referrers             | List    | Optional      |        |                                                              | List of regex referrer headers |
 | isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | Whether to allow (true) or deny (false) access to content when there is no referer header             |
+| isAllowPost           | Boolean | Optional     | false      | true/false             | Whether to allow (true) or deny (false) POST method             |
+| isAllowPut            | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PUT method             |
+| isAllowPatch          | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PATCH method            |
+| isAllowDelete         | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) DELETE method             |
 | description           | String  | Optional      |        | Up to 255 characters                                                   | Description                                                         |
 | domainAlias           | List    | Optional      |        | Up to 255 characters                                                   | Domain alias (using a domain owned by individuals or companies) |
 | defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647                                            | Cache expiration time (seconds), the default value 0 is 604,800 seconds.              |
@@ -1197,7 +1239,7 @@ When the callback is called, the request body contains the following CDN service
 | distribution.cacheKeyQueryParam    | String  | Set whether to include the request query string in the cache key ("INCLUDE_ALL": Include all, "EXCLUDE_ALL": Exclude all) |
 | distribution.referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distribution.referrers             | List    | List of regex referrer headers                                 |
-| distribution.useOriginCacheControl | Boolean | Whether to use origin server setting or not (true: Use the origin server setting, false: User-configured setting) |
+| distribution.useOriginCacheControl | Boolean | Whether to use origin server setting or not (true: Use the origin server setting, false: Use the user-configured setting) |
 | distribution.createTime            | DateTime | Date and time of creation                                         |
 | distribution.deleteTime            | DateTime | Date and time of deletion                                         |
 | distribution.origins               | List    | List of origin server objects                                      |
