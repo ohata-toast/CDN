@@ -197,7 +197,7 @@ CDN에서 기본적으로 허용하는 메서드는 GET, HEAD, OPTIONS로, 이�
 ### 캐시
 
 CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202111.png)
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202207.png)
 
 - **캐시 설정**
   CDN 서버가 원본 파일을 캐싱할 때 사용할 캐시 설정을 선택할 수 있습니다.
@@ -220,7 +220,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 
 ### 리퍼러(referer) 헤더 접근 관리
 리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202111.png)
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202207.png)
 
 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
