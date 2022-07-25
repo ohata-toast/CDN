@@ -271,7 +271,7 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].isAllowPut | Boolean | Whether to allow (true) or deny (false) PUT method             |
 | distributions[0].isAllowPatch | Boolean | Whether to allow (true) or deny (false) PATCH method             |
 | distributions[0].isAllowDelete | Boolean | Whether to allow (true) or deny (false) DELETE method             |
-| distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting (true: Use the origin server setting, false: Use the user-configured setting) |
+| distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Use the origin server setting, false: Use the user-configured setting) |
 | distributions[0].cacheType             | String  | Cache type setting                                          |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
@@ -390,7 +390,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].isAllowPut           | Boolean | Whether to allow (true) or deny (false) PUT method            |
 | distributions[0].isAllowPatch         | Boolean | Whether to allow (true) or deny (false) PATCH method          |
 | distributions[0].isAllowDelete        | Boolean | Whether to allow (true) or deny (false) DELETE method             |
-| distributions[0].useOriginCacheControl | Boolean | Whether to use the origin server setting(true: Use the origin server settting, false: Use the user-configured setting) |
+| distributions[0].useOriginCacheControl | Boolean | Whether to use origin server setting or not (true: Use the origin server setting, false: Use the user-configured setting) |
 | distributions[0].cacheType             | String  | Cache type setting                                          |
 | distributions[0].origins               | List    | List of origin server objects                                      |
 | distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
