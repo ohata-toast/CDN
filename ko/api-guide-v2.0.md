@@ -127,6 +127,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
       "isAllowPut" : false,
       "isAllowPatch" : true,
       "isAllowDelete" : false,
+      "useLargeFileOptimization" : false,
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -166,6 +167,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].isAllowPut            | Boolean | 선택      | false      | true/false             | PUT 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowPatch          | Boolean | 선택      | false      | true/false             | PATCH 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowDelete         | Boolean | 선택      | false      | true/false             | DELETE 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].useLargeFileOptimization | Boolean | 선택      | false      | true/false             | 대용량 파일을 최적화하기 위한 설정 사용 여부     |
 | distributions[0].description           | String  | 선택      |        | 최대 255자                  | 설명                                                         |
 | distributions[0].domainAlias           | List    | 선택      |        |                           | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용) |
 | distributions[0].defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647             | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.             |
@@ -220,6 +222,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
             "isAllowPut" : false,
             "isAllowPatch" : true,
             "isAllowDelete" : false,
+            "useLargeFileOptimization" : false,
             "useOriginCacheControl": true,
             "cacheType": "BYPASS",
             "origins": [
@@ -271,6 +274,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].isAllowPut | Boolean | PUT 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowPatch | Boolean | PATCH 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowDelete | Boolean | DELETE 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].useLargeFileOptimization | Boolean | 대용량 파일을 최적화하기 위한 설정 사용 여부     |
 | distributions[0].useOriginCacheControl | Boolean  | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
 | distributions[0].cacheType             | String  | 캐시 타입 설정                                          |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
@@ -342,7 +346,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "isAllowPost" : true,
     "isAllowPut" : false,
     "isAllowPatch" : true,
-    "isAllowDelete" : false,  
+    "isAllowDelete" : false,
+    "useLargeFileOptimization" : false,
     "useOriginCacheControl" :  false,
     "cacheType": "NO_STORE",
     "origins" : [
@@ -390,6 +395,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].isAllowPut           | Boolean | PUT 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowPatch         | Boolean | PATCH 메서드 허용(true)/거부(false) 여부             |
 | distributions[0].isAllowDelete        | Boolean | DELETE 메서드 허용(true)/거부(false) 여부             |
+| distributions[0].useLargeFileOptimization | Boolean | 대용량 파일을 최적화하기 위한 설정 사용 여부     |
 | distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
 | distributions[0].cacheType             | String  | 캐시 타입 설정                                          |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
@@ -440,6 +446,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
       "isAllowPut" : false,
       "isAllowPatch" : true,
       "isAllowDelete" : false,
+      "useLargeFileOptimization" : true,
       "origins" : [
           {
               "origin" : "static.resource.com",
@@ -481,6 +488,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | isAllowPut            | Boolean | 선택      | false      | true/false             | PUT 메서드 허용(true)/거부(false) 여부             |
 | isAllowPatch          | Boolean | 선택      | false      | true/false             | PATCH 메서드 허용(true)/거부(false) 여부             |
 | isAllowDelete         | Boolean | 선택      | false      | true/false             | DELETE 메서드 허용(true)/거부(false) 여부             |
+| useLargeFileOptimization | Boolean | 선택   | false      | true/false             | 대용량 파일을 최적화하기 위한 설정 사용 여부     |
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
 | domainAlias           | List    | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 혹은 회사가 소유한 도메인 사용) |
 | defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647                                            | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.              |
