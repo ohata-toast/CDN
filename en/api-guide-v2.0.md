@@ -127,6 +127,7 @@ The following are status codes that indicate the certificate issuance status of 
       "isAllowPut" : false,
       "isAllowPatch" : true,
       "isAllowDelete" : false,
+      "useLargeFileOptimization" : false,
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -166,6 +167,7 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].isAllowPut            | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PUT method             |
 | distributions[0].isAllowPatch          | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PATCH method           |
 | distributions[0].isAllowDelete         | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) DELETE method           |       
+| distributions[0].useLargeFileOptimization | Boolean | Optional    | false      | true/false             | Whether to use the large file optimization setting     |
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
 | distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (using domains owned by individuals or companies) |
 | distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds), the default value 0 is 604,800 seconds.             |
@@ -220,6 +222,7 @@ The following are status codes that indicate the certificate issuance status of 
             "isAllowPut" : false,
             "isAllowPatch" : true,
             "isAllowDelete" : false,
+            "useLargeFileOptimization" : false,
             "useOriginCacheControl": true,
             "cacheType": "BYPASS",
             "origins": [
@@ -270,7 +273,8 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].isAllowPost | Boolean | Whether to allow (true) or deny (false) POST method             |
 | distributions[0].isAllowPut | Boolean | Whether to allow (true) or deny (false) PUT method             |
 | distributions[0].isAllowPatch | Boolean | Whether to allow (true) or deny (false) PATCH method             |
-| distributions[0].isAllowDelete | Boolean | Whether to allow (true) or deny (false) DELETE method             |
+| distributions[0].isAllowDelete | Boolean | Whether to allow (true) or deny (false) DELETE method         |
+| distributions[0].useLargeFileOptimization | Boolean | Whether to use the large file optimization setting        |           |
 | distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Use the origin server setting, false: Use the user-configured setting) |
 | distributions[0].cacheType             | String  | Cache type setting                                          |
 | distributions[0].origins               | List    | List of origin server objects                                      |
@@ -343,6 +347,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "isAllowPut" : false,
     "isAllowPatch" : true,
     "isAllowDelete" : false,  
+    "useLargeFileOptimization" : false,
     "useOriginCacheControl" :  false,
     "cacheType": "NO_STORE",
     "origins" : [
@@ -390,6 +395,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].isAllowPut           | Boolean | Whether to allow (true) or deny (false) PUT method            |
 | distributions[0].isAllowPatch         | Boolean | Whether to allow (true) or deny (false) PATCH method          |
 | distributions[0].isAllowDelete        | Boolean | Whether to allow (true) or deny (false) DELETE method             |
+| distributions[0].useLargeFileOptimization | Boolean | Whether to use the large file optimization setting       |
 | distributions[0].useOriginCacheControl | Boolean | Whether to use origin server setting or not (true: Use the origin server setting, false: Use the user-configured setting) |
 | distributions[0].cacheType             | String  | Cache type setting                                          |
 | distributions[0].origins               | List    | List of origin server objects                                      |
@@ -440,6 +446,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
       "isAllowPut" : false,
       "isAllowPatch" : true,
       "isAllowDelete" : false,
+      "useLargeFileOptimization" : true,
       "origins" : [
           {
               "origin" : "static.resource.com",
@@ -481,6 +488,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | isAllowPut            | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PUT method             |
 | isAllowPatch          | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PATCH method            |
 | isAllowDelete         | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) DELETE method             |
+| useLargeFileOptimization | Boolean | Optional   | false      | true/false             | Whether to use the large file optimization setting       |
 | description           | String  | Optional      |        | Up to 255 characters                                                   | Description                                                         |
 | domainAlias           | List    | Optional      |        | Up to 255 characters                                                   | Domain alias (using a domain owned by individuals or companies) |
 | defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647                                            | Cache expiration time (seconds), the default value 0 is 604,800 seconds.              |
