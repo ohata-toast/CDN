@@ -273,7 +273,7 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].isAllowPost | Boolean | Whether to allow (true) or deny (false) POST method             |
 | distributions[0].isAllowPut | Boolean | Whether to allow (true) or deny (false) PUT method             |
 | distributions[0].isAllowPatch | Boolean | Whether to allow (true) or deny (false) PATCH method             |
-| distributions[0].isAllowDelete | Boolean | Whether to allow (true) or deny (false) DELETE method  
+| distributions[0].isAllowDelete | Boolean | Whether to allow (true) or deny (false) DELETE method         |
 | distributions[0].useLargeFileOptimization | Boolean | Whether to use the large file optimization setting        |           |
 | distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Use the origin server setting, false: Use the user-configured setting) |
 | distributions[0].cacheType             | String  | Cache type setting                                          |
