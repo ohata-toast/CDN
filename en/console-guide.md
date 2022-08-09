@@ -234,8 +234,7 @@ CDN cache operations and expiration time can be set.
 > Cache expiration time is available from 0 (default) to 2,147,483,647 (seconds).
 
 - **Large File Optimization**
-  Large file optimization is set to improve performance and stability when handling large files over 100 MB.
-  If not set, the maximum file size allowed for CDN is below 1.8 GB, and this setting must be used for files larger than the limit.
+  Large file optimization is set to improve performance and stability when handling large files over 100 MB. If not set, the maximum file size allowed for CDN is below 1.8 GB, and this setting must be used for files larger than the limit.
 
 ### Access Management for Referer Header
 Content access management is set with the referer request header.

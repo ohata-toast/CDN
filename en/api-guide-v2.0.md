@@ -167,7 +167,7 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].isAllowPut            | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PUT method             |
 | distributions[0].isAllowPatch          | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) PATCH method           |
 | distributions[0].isAllowDelete         | Boolean | Optional      | false      | true/false             | Whether to allow (true) or deny (false) DELETE method           |       
-| distributions[0].useLargeFileOptimization | Boolean | 선택      | false      | true/false             | Whether to use the large file optimization setting     |
+| distributions[0].useLargeFileOptimization | Boolean | Optional    | false      | true/false             | Whether to use the large file optimization setting     |
 | distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
 | distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (using domains owned by individuals or companies) |
 | distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds), the default value 0 is 604,800 seconds.             |

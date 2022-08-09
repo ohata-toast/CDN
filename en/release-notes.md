@@ -4,7 +4,7 @@
 
 #### Feature Updates
 * Added Large File Optimization
-	* You can set a feature for large file service. For more information, refer to [Console Guide > Cache](./console-guide/#_5).
+	* You can set a feature to handle large files. For more information, refer to [Console Guide > Cache](./console-guide/#_5).
 
 ### July 26, 2022
 
