@@ -209,7 +209,7 @@ To allow methods other than the allowed methods, select and set a method you wan
 ### Cache
 
 CDN cache operations and expiration time can be set.
-![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202207.png)
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202208.png)
 
 - **Configuration of Cache**
   When the CDN server enables caching of the original file, you can choose which cache configuration to use.
@@ -233,9 +233,13 @@ CDN cache operations and expiration time can be set.
 > The default cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds) = 1 week.
 > Cache expiration time is available from 0 (default) to 2,147,483,647 (seconds).
 
+- **Large File Optimization**
+  Large file optimization is set to improve performance and stability when handling large files over 100 MB.
+  If not set, the maximum file size allowed for CDN is below 1.8 GB, and this setting must be used for files larger than the limit.
+
 ### Access Management for Referer Header
 Content access management is set with the referer request header.
-![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202207.png)
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202208.png)
 
 The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content.
 Enter in regex, and break the lines to enter many.
