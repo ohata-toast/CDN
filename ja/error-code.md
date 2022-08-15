@@ -20,7 +20,7 @@
 | 10012 | Please enter the origin domain in public IP or domain format. | 原本サーバー形式が正しくありません。ドメインまたはIP形式で入力してください。 |
 | 10013 | Domain alias is invalid. | Domain Alias形式が正しくありません。 |
 | 10014 | Referrers is invalid. Enter referrers regular expression. | リファラー(referrer)形式が正しくありません。有効な正規表現かを確認してください。 |
-| 10015 | Please enter use orgin 'Y' or 'N'. | キャッシュ満了設定の原本設定を使用するかは、'Y'または'N'を入力してください。  |
+| 10015 | Please enter useOriginCacheControl or cacheType. | キャッシュ設定を行うにはuseOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。 |
 | 10016 | Please enter origin. | 原本サーバー設定がないか、正しくありません。 |
 | 10017 | Invalid Purge Type. Please enter purge type 'ITEM' or 'ALL' | 再配布(Purge)タイプが正しくありません。タイプは'ITEM'または'ALL'を入力してください。 |
 | 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | 原本サーバーのポートが正しくありません。0～65,536の数字を入力してください。 |
