@@ -126,6 +126,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
       "isAllowPut" : false,
       "isAllowPatch" : true,
       "isAllowDelete" : false,
+      "useLargeFileOptimization" : false,
       "origins" : [
         {
           "origin" : "static.origin.com",
@@ -165,6 +166,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].isAllowPut            | Boolean | 選択    | false      | true/false             | PUTメソッド許可(true)/拒否(false)            |
 | distributions[0].isAllowPatch          | Boolean | 選択    | false      | true/false             | PATCHメソッド許可(true)/拒否(false)            |
 | distributions[0].isAllowDelete         | Boolean | 選択    | false      | true/false             | DELETEメソッド許可(true)/拒否(false)            |
+| distributions[0].useLargeFileOptimization | Boolean | 選択    | false      | true/false             | 大容量ファイル最適化設定使用有無    |
 | distributions[0].description           | String  | 任意   |        | 最大255文字            | 説明                                                  |
 | distributions[0].domainAlias           | List    | 任意  |        |                           | ドメインエイリアスリスト(個人または会社が所有しているドメインを使用) |
 | distributions[0].defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647             | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。             |
@@ -218,6 +220,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
             "isAllowPut" : false,
             "isAllowPatch" : true,
             "isAllowDelete" : false,
+            "useLargeFileOptimization" : false,
             "useOriginCacheControl": true,
             "cacheType": "BYPASS",
             "origins": [
@@ -269,6 +272,7 @@ APIを使用するにはアプリキー(Appkey)とセキュリティキー(Secre
 | distributions[0].isAllowPut | Boolean | PUTメソッド許可(true)/拒否(false)            |
 | distributions[0].isAllowPatch | Boolean | PATCHメソッド許可(true)/拒否(false)            |
 | distributions[0].isAllowDelete | Boolean | DELETEメソッド許可(true)/拒否(false)            |
+| distributions[0].useLargeFileOptimization | Boolean | 大容量ファイル最適化設定使用有無    |
 | distributions[0].useOriginCacheControl | Boolean  | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、 false：ユーザー設定を使用) |
 | distributions[0].cacheType             | String  | キャッシュタイプ設定                                        |
 | distributions[0].origins               | List    | オリジンサーバーオブジェクトリスト                               |
@@ -340,7 +344,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "isAllowPost" : true,
     "isAllowPut" : false,
     "isAllowPatch" : true,
-    "isAllowDelete" : false,  
+    "isAllowDelete" : false,
+    "useLargeFileOptimization" : false,
     "useOriginCacheControl" :  false,
     "cacheType": "NO_STORE",
     "origins" : [
@@ -389,6 +394,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].isAllowPut           | Boolean | PUTメソッド許可(true)/拒否(false)            |
 | distributions[0].isAllowPatch         | Boolean | PATCHメソッド許可(true)/拒否(false)            |
 | distributions[0].isAllowDelete        | Boolean | DELETEメソッド許可(true)/拒否(false)            |
+| distributions[0].useLargeFileOptimization | Boolean | 大容量ファイル最適化設定使用有無    |
 | distributions[0].useOriginCacheControl | Boolean | オリジンサーバー設定を使用するか(true：オリジンサーバー設定を使用、 false：ユーザー設定を使用) |
 | distributions[0].cacheType             | String  | キャッシュタイプ設定                                        |
 | distributions[0].origins               | List    | オリジンサーバーオブジェクトリスト                               |
@@ -439,6 +445,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
       "isAllowPut" : false,
       "isAllowPatch" : true,
       "isAllowDelete" : false,
+      "useLargeFileOptimization" : true,
       "origins" : [
           {
               "origin" : "static.resource.com",
@@ -480,6 +487,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | isAllowPut            | Boolean | 選択    | false      | true/false             | PUTメソッド許可(true)/拒否(false)            |
 | isAllowPatch          | Boolean | 選択    | false      | true/false             | PATCHメソッド許可(true)/拒否(false)            |
 | isAllowDelete         | Boolean | 選択    | false      | true/false             | DELETEメソッド許可(true)/拒否(false)            |
+| useLargeFileOptimization | Boolean | 選択 | false      | true/false             | 大容量ファイル最適化設定使用有無    |
 | description           | String  | 任意   |        | 最大255文字                                             | 説明                                                  |
 | domainAlias           | List    | 任意  |        | 最大255文字                                               | ドメインエイリアス(個人または会社が所有しているドメインを使用) |
 | defaultMaxAge         | Integer | 任意  | 0      | 0～2,147,483,647                                            | キャッシュ満了時間(秒)、デフォルト値0は604,800秒です。              |
