@@ -237,7 +237,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 
 > **[참고] NHN Cloud Object Storage 서비스에서 생성한 컨테이너를 원본 서버로 사용하는 경우**
 > Large File Optimization 기능이 정상적으로 동작하기 위해서는 원본 서버에서 전달되는 ETag 응답 헤더가 큰따옴표로 묶인 형태여야 합니다.
-> NHN Cloud Object Storage 컨테이너에 ETag 응답 헤더 형식 설정에 대한 자세한 내용은 Object Storage 서비스의 API 가이드 내 [컨테이너 설정 변경 > RFC를 준수하는 ETag 형식 사용 설정](../../../../Storage/Object%20Storage/ko/api-guide/#_24)을 참고하시기 바랍니다.
+> NHN Cloud Object Storage 컨테이너에 ETag 응답 헤더 형식 설정에 대한 자세한 내용은 Object Storage 서비스의 API 가이드 내 [컨테이너 설정 변경 > RFC를 준수하는 ETag 형식 사용 설정](../../../../ko/Storage/Object%20Storage/ko/api-guide/#_24)을 참고하시기 바랍니다.
 
 
 ### 리퍼러(referer) 헤더 접근 관리

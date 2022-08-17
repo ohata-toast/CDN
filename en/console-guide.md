@@ -238,7 +238,7 @@ CDN cache operations and expiration time can be set.
 
 > **[Note] Using the container created by the NHN Cloud Object Storage service as the origin server**
 > For the Large File Optimization feature to work normally, the ETag response header delivered from the origin server must be enclosed in double quotation marks.
-> For more information about setting the ETag response header format for NHN Cloud Object Storage containers, see [Change Container Settings > Use the RFC-compliant ETag Format](../../../../Storage/Object%20Storage/ko/api-guide/#_24) in the API guide of Object Storage.
+> For more information about setting the ETag response header format for NHN Cloud Object Storage containers, see [Change Container Settings > Use the RFC-compliant ETag Format](../../../../en/Storage/Object%20Storage/en/api-guide/#change-container-settings) in the API guide of Object Storage.
 
 
 ### Access Management for Referer Header

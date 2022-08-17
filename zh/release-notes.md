@@ -1,5 +1,11 @@
 ## Content Delivery > CDN > Release Notes
 
+### August 23, 2022
+
+#### Feature Updates
+* Added Large File Optimization
+	* You can set a feature to handle large files. For more information, refer to [Console Guide > Cache](./console-guide/#cache).
+
 ### July 26, 2022
 
 #### Feature Updates

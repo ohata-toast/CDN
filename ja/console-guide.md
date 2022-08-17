@@ -200,7 +200,7 @@ CDNで基本的に許可するメソッドはGET、HEAD、OPTIONSで、それ以
 
 ### キャッシュ
 CDNキャッシュ動作設定とキャッシュ時間を設定できます。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202208.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_ja_202207.png)
 
 - **キャッシュ設定**
   CDNサーバーが原本ファイルをキャッシュするときに使用するキャッシュ設定を選択できます。
@@ -221,17 +221,17 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 > キャッシュ時間のデフォルト値は0です。デフォルト値を0に設定すると、キャッシュ時間は604,800(単位/秒)=1週間です。
 > キャッシュ時間は、デフォルト値の0から2,147,483,647(単位/秒)まで入力できます。
 
-'- **Large File Optimization**
+- **Large File Optimization**
   100MB以上の大容量ファイルをサービスするとき、性能と安定性を高めるための設定です。設定していない場合はCDNで許可するファイルの最大容量は1.8GB未満で、1.8GB以上の大容量ファイルをサービスするにはこの設定を必ず使用する必要があります。
-
-### リファラー(Referer)ヘッダアクセス管理
-リファラーリクエストヘッダーにコンテンツのアクセス管理を設定します。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202208.png)
 
 > **[参考] NHN Cloud Object Storageサービスで作成したコンテナをオリジンサーバーとして使用する場合**
 > Large File Optimization機能が正常に動作するにはオリジンサーバーから渡されるETagレスポンスヘッダが二重引用符で囲まれている必要があります。
-> NHN Cloud Object StorageコンテナのETagレスポンスヘッダ形式設定の詳細についてはObject StorageサービスのAPIガイド内の[コンテナ設定変更 > RFCを遵守するETag形式使用設定](../../../../Storage/Object%20Storage/ko/api-guide/#_24)を参照してください。
+> NHN Cloud Object StorageコンテナのETagレスポンスヘッダ形式設定の詳細についてはObject StorageサービスのAPIガイド内の[コンテナ設定変更 > RFCを遵守するETag形式使用設定](../../../../ja/Storage/Object%20Storage/ja/api-guide/#_24)を参照してください。
 
+
+### リファラー(Referer)ヘッダアクセス管理
+リファラーリクエストヘッダーにコンテンツのアクセス管理を設定します。
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_202208.png)
 
 リファラーリクエストヘッダーは、現在リクエストされたページリンクより前のウェブページアドレスを含みます。リファラーリクエストヘッダーにより、どの経路でリクエストが流入したかを把握できます。リファラーヘッダアクセス管理では、特定のリファラーリクエストヘッダーのみユーザーコンテンツにアクセスできるよう設定できます。
 正規表現形式で入力できます。複数入力する場合は改行して入力します。
