@@ -236,6 +236,11 @@ CDN cache operations and expiration time can be set.
 - **Large File Optimization**
   Large file optimization is set to improve performance and stability when handling large files of 100 MB or more. If not set, the maximum file size allowed for CDN is below 1.8 GB, and this setting must be used for files larger than the limit.
 
+> **[Note] Using the container created by the NHN Cloud Object Storage service as the origin server**
+> For the Large File Optimization feature to work normally, the ETag response header delivered from the origin server must be enclosed in double quotation marks.
+> For more information about setting the ETag response header format for NHN Cloud Object Storage containers, see [Change Container Settings > Use the RFC-compliant ETag Format](../../../../Storage/Object%20Storage/ko/api-guide/#_24) in the API guide of Object Storage.
+
+
 ### Access Management for Referer Header
 Content access management is set with the referer request header.
 ![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202208.png)
