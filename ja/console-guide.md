@@ -200,7 +200,7 @@ CDNで基本的に許可するメソッドはGET、HEAD、OPTIONSで、それ以
 
 ### キャッシュ
 CDNキャッシュ動作設定とキャッシュ時間を設定できます。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_ja_202207.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_202208.png)
 
 - **キャッシュ設定**
   CDNサーバーが原本ファイルをキャッシュするときに使用するキャッシュ設定を選択できます。
