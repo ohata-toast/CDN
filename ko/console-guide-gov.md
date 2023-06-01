@@ -586,6 +586,31 @@ public class NhnCloudAuthTokenAccessControlExample {
     -X GET http://xxx.toastcdn.net/auth/contents/example.png
     ```
 
+
+### HTTP 응답 헤더
+CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제하는 기능입니다.
+헤더는 중복되지 않은 헤더 이름으로 최대 10개 까지 설정할 수 있습니다.
+![CDN서비스생성-응답헤더(이미지수정필요)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+
+- **HTTP 응답 헤더 설정**
+    - **사용**: HTTP 응답 헤더를 추가/변경/삭제하는 설정을 사용합니다.
+    - **미사용**: HTTP 응답 헤더를 설정하지 않습니다.
+- **Action**: HTTP 응답 헤더를 변경하는 방식을 선택합니다.
+    - Add: 설정된 헤더 이름을 추가하여 사용자에게 응답합니다.
+    - Modify: 설정된 헤더 이름이 컨텐츠에 존재할 경우 헤더값을 변경하고, 존재하지 않을 경우 추가하여 사용자에게 응답합니다.
+    - Delete: 설정된 헤더 이름을 삭제하여 사용자에게 응답합니다.
+- **헤더 이름**: Access-Control-Allow-Origin, Cache-Control, Content-Type 등의 헤더 이름을 목록에서 선택하거나 "직접 입력"을 선택하여 사용자가 정의한 커스텀 헤더 이름을 설정할 수 있습니다.
+- **커스텀 헤더 이름**: 사용자가 정의한 헤더 이름을 입력합니다. 영문자와 숫자, '-', '_'만 입력 가능합니다.
+- **헤더 값**: 헤더 이름의 값을 설정할 수 있으며 필수 입력값입니다.
+
+> **[참고] CORS(교차 출처 리소스 공유) 설정**
+> 아래와 같이 HTTP 응답 헤더를 설정하여 CORS를 허용할 수 있습니다.
+> - Action: Modify
+> - 헤더 이름: Access-Control-Allow-Origin
+> - 헤더 값: *(와일드카드) 혹은 허용할 원본 URI
+
+
+
 ## 설정
 
 ### CDN 서비스 설정 변경
