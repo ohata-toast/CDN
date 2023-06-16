@@ -131,7 +131,7 @@ The following are status codes that indicate the certificate issuance status of 
       "origins" : [
         {
           "origin" : "static.origin.com",
-          "originPath" : "/resources",       
+          "originPath" : "/resources",
           "httpPort": 80,
           "httpsPort": 443
         }
@@ -382,7 +382,6 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "domain" :  "lhcsxuo0.toastcdn.net",
     "domainAlias" :  ["test.domain.com"],
     "region" :  "GLOBAL",
-    "status" : "OPEN",
     "defaultMaxAge" : 86400,
     "cacheKeyQueryParam": "INCLUDE_ALL",
     "status" :  "OPENING",

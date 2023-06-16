@@ -1289,7 +1289,6 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
       "domain" :  "lhcsxuo0.toastcdn.net",
       "domainAlias" :  ["test.domain.com"],
       "region" :  "GLOBAL",
-      "status" : "OPEN",
       "defaultMaxAge" : 86400,
       "cacheKeyQueryParam": "INCLUDE_ALL",
       "status" :  "OPENING",
