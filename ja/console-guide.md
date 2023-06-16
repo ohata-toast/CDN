@@ -535,7 +535,7 @@ public class NhnCloudAuthTokenAccessControlExample {
 ### HTTPレスポンスヘッダ
 CDNからユーザーにレスポンスする際に伝達されるヘッダを追加/変更/削除する機能です。
 ヘッダは重複していないヘッダー名で最大10個まで設定できます。
-![CDNサービス作成-レスポンスヘッダ(イメージ修正必要)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+![CDNサービス作成-レスポンスヘッダ(イメージ修正必要)](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-auth-token_ja_202105.png)
 
 - **HTTPレスポンスヘッダ設定**
     - **使用**: HTTPレスポンスヘッダを追加/変更/削除する設定を使用します。

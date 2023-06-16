@@ -603,7 +603,7 @@ Client (final content consumer) must request content including the token value w
 ### HTTP Response Header
 This is a feature to add, modify, and delete the headers sent when CDN responds to users.
 You can set up to 10 headers with non-duplicate header names.
-![Create CDN service - Response Header](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+![Create CDN service - Response Header](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-http-response-header.png)
 
 - **HTTP Response Header Settings**
     - **Use**: Use the setting to add, modify, and delete HTTP response headers.

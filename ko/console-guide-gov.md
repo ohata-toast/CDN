@@ -590,7 +590,7 @@ public class NhnCloudAuthTokenAccessControlExample {
 ### HTTP 응답 헤더
 CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제하는 기능입니다.
 헤더는 중복되지 않은 헤더 이름으로 최대 10개까지 설정할 수 있습니다.
-![CDN서비스생성-응답헤더(이미지수정필요)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+![CDN서비스생성-응답헤더(이미지수정필요)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-http-response-header.png)
 
 - **HTTP 응답 헤더 설정**
     - **사용**: HTTP 응답 헤더를 추가/변경/삭제하는 설정을 사용합니다.
