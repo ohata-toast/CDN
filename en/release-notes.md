@@ -4,7 +4,7 @@
 
 #### Feature Updates
 * Added a featrue to set HTTP response headers
-  * You can add, change, and delete headers that are passed when the CDN responds to the user. For more information, see [Console User Guide > HTTP Response Header](./console-guide/링크수정필요).
+  * You can add, change, and delete headers that are passed when the CDN responds to the user. For more information, see [Console User Guide > HTTP Response Header](./console-guide/#http).
 
 ### August 23, 2022
 

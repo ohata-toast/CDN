@@ -617,7 +617,7 @@ You can set up to 10 headers with non-duplicate header names.
 - **Header Value**: Set a header name value that is required.
 
 > **[Note] Set CORS (Cross-Origin Resource Sharing)**
-You can allow CORS by setting HTTP response headers as follows.
+> You can allow CORS by setting HTTP response headers as follows.
 > - **Action**: Modify
 > - **Header Name**: Access-Control-Allow-Origin
 > - **Header Value**:  * (wildcard) or the original URI to be allowed
