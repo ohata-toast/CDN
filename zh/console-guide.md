@@ -600,6 +600,30 @@ Client (final content consumer) must request content including the token value w
   -X GET http://xxx.toastcdn.net/auth/contents/example.png
   ```
 
+### HTTP Response Header
+This is a feature to add, modify, and delete the headers sent when CDN responds to users.
+You can set up to 10 headers with non-duplicate header names.
+![Create CDN service - Response Header](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-http-response-header.png)
+
+- **HTTP Response Header Settings**
+    - **Use**: Use the setting to add, modify, and delete HTTP response headers.
+    - **Not use**: Do not set up HTTP response headers.
+- **Action**: Select how to modify HTTP response headers.
+    - **Add**: Add the set header name to respond to the user.
+    - **Modify**: Respond to the user by changing the header value if the set header name exists in the content, or adding it if it doesn't.
+    - **Delete**: Respond to the user by deleting the set header name.
+- **Header Name**: Select a header name from the list, such as Access-Control-Allow-Origin, Cache-Control, Content-Type, or select "Enter manually" to set a custom header name defined by users.
+- **Custom Header Name**: Enter a user-defined header name. You can only enter alphanumeric characters, '-', and '_'.
+- **Header Value**: Set a header name value that is required.
+
+> **[Note] Set CORS (Cross-Origin Resource Sharing)**
+> You can allow CORS by setting HTTP response headers as follows.
+> - **Action**: Modify
+> - **Header Name**: Access-Control-Allow-Origin
+> - **Header Value**:  * (wildcard) or the original URI to be allowed
+
+
+
 ## Settings
 
 ### Modify CDN Service Setting
