@@ -55,6 +55,7 @@
 | 10105     | Invalid domain or not in a deletable state.  | 인증서를 삭제할 수 없습니다. 잘못된 도메인 입력이거나 삭제할 수 있는 상태가 아닙니다.                                                        |
 | 10110     | You have exceeded the number of certificates you can issue. Please contact customer service to issue more certificates.  | 발급할 수 있는 최대 인증서 개수를 초과하였습니다. 추가로 인증서 발급이 필요할 경우 서비스 제공자에게 문의해 주세요.                                       |
 | 10111     | No certificate available Please try again in a few minutes.  | 인증서를 발급할 수 없습니다. 잠시 후 시도해 주세요.                                                                           |
+| 10114     | Invalid statistics search period. fromDate or toDate can be set within 90 days.  | 잘못된 통계 조회 기간입니다. fromDate와 toDate는 90일 이내의 날짜로만 설정할 수 있습니다.      |
 | 20001     | Failed to authenticate with AppKey. | 앱키(appkey)가 유효하지 않습니다.                                                                                   |
 | 20002     | Failed to authenticate with the secret key. | 비밀 키(secret key)가 유효하지 않습니다.                                                                                  |
 | 30000     | Failed to process request. Please try again later. | 요청 처리에 실패했습니다.                                                                                           |
