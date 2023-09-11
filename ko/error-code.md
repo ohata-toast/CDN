@@ -58,10 +58,10 @@
 | 10114     | Invalid statistics search period. fromDate or toDate can be set within 90 days.  | 잘못된 통계 조회 기간입니다. fromDate와 toDate는 90일 이내의 날짜로만 설정할 수 있습니다.      |
 | 20001     | Failed to authenticate with AppKey. | 앱키(appkey)가 유효하지 않습니다.                                                                                   |
 | 20002     | Failed to authenticate with the secret key. | 비밀 키(secret key)가 유효하지 않습니다.                                                                                  |
-| 21000     | OpenStack Api fail.| 기본 인프라 서비스 정보 조회에 실패하였습니다. 잠시 후 시도해 주세요. |
-| 21002     | Get iaas token fail.| 기본 인프라 서비스 토큰 발급에 실패하였습니다. 잠시 후 시도해 주세요. |
+| 21000     | OpenStack Api fail.| 기본 인프라 서비스 정보 조회에 실패했습니다. 잠시 후 다시 시도해 주세요. |
+| 21002     | Get iaas token fail.| 기본 인프라 서비스 토큰 발급에 실패했습니다. 잠시 후 다시 시도해 주세요. |
 | 21003     | IaaS not enabled.| 선택한 리전에 원본 서버로 설정 가능한 인스턴스가 존재하지 않습니다. |
-| 21004     | Object storage not enabled.| OObject Storage 서비스가 활성화 되어있지 않습니다. |
+| 21004     | Object storage not enabled.| Object Storage 서비스가 활성화되어 있지 않습니다. |
 | 30000     | Failed to process request. Please try again later. | 요청 처리에 실패했습니다.                                                                                           |
 | 30001     | Purge usage has exceeded. Please try again later. | 재배포 사용량을 초과했습니다.                                                                                         |
 | 30002     | Data not created or does not exist. Please try again later. | 데이터가 생성되지 않았거나 존재하지 않습니다.                                                                                |
