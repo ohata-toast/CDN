@@ -1,5 +1,11 @@
 ## Content Delivery > CDN > Release Notes
 
+### September 26, 2023
+
+#### Feature Updates
+* Restriction on Statistics Search Period
+  * Restricted the date range so that statistics can only be viewed within 90 days.
+
 ### June 27, 2023
 
 #### Feature Updates
