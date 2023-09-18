@@ -1,10 +1,16 @@
 ## Content Delivery > CDN > Release Notes
 
+### September 26, 2023
+
+#### Feature Updates
+* Restriction on Statistics Search Period
+  * Restricted the date range so that statistics can only be viewed within 90 days.
+
 ### June 27, 2023
 
 #### Feature Updates
 * Added a featrue to set HTTP response headers
-	* You can add, change, and delete headers that are passed when the CDN responds to the user. For more information, see [Console User Guide > HTTP Response Header](./console-guide/#http).
+  * You can add, change, and delete headers that are passed when the CDN responds to the user. For more information, see [Console User Guide > HTTP Response Header](./console-guide/#http).
 
 ### August 23, 2022
 
@@ -51,8 +57,8 @@
 
 #### Feature Updates
 * The CDN Public API domain has been changed.
-	* AS-IS : https://api-gw.cloud.toast.com/tc-cdn
-	* TO-BE : https://kr1-cdn.api.nhncloudservice.com
+    * AS-IS : https://api-gw.cloud.toast.com/tc-cdn
+    * TO-BE : https://kr1-cdn.api.nhncloudservice.com
 
 ### May 25, 2021
 
@@ -149,7 +155,7 @@
 ### July 20, 2017
 
 #### Feature Updates
-* Deployed CDN APIs. For more details, see API Guide.
+* Deployed CDN APIs. For more details, see API Guide.  
 	* Added Create, Modify, and Query CDN APIs.
 	* Added Purge, and Query Purge APIs.
 
