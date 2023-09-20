@@ -1080,6 +1080,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certi
 | fromDate | DateTime | 必須 |  | 統計照会開始日時 |
 | toDate | DateTime | 必須 |  | 統計照会終了日時 |
 
+- fromDate, toDateフィールドは過去90日まで照会できます。
 - fromDate, toDateフィールドはISO 8601形式の日付文字列形式で入力します。
   - UTC表記：yyyy-MM-dd'T'HH:mm:ssZ
   - UTC基準タイムオフセット表記：yyyy-MM-dd'T'HH:mm:ss±hh:mm
@@ -1144,6 +1145,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | 必須 |  | 統計照会開始日時 |
 | toDate | DateTime | 必須 |  | 統計照会終了日時 |
 
+- fromDate, toDateフィールドは過去90日まで照会できます。
 - fromDate, toDateフィールドはISO 8601形式の日付文字列形式で入力します。
   - UTC表記：yyyy-MM-dd'T'HH:mm:ssZ
   - UTC基準タイムオフセット表記：yyyy-MM-dd'T'HH:mm:ss±hh:mm
@@ -1218,6 +1220,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | 必須 |  | 統計照会開始日時 |
 | toDate | DateTime | 必須 |  | 統計照会終了日時 |
 
+- fromDate, toDateフィールドは過去90日まで照会できます。
 - fromDate, toDateフィールドはISO 8601形式の日付文字列形式で入力します。
   - UTC表記：yyyy-MM-dd'T'HH:mm:ssZ
   - UTC基準タイムオフセット表記：yyyy-MM-dd'T'HH:mm:ss±hh:mm

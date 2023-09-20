@@ -845,3 +845,6 @@ Statistical data within 7 days are recommended only as reference, since they may
 3. Enter search period.
 4. Data cycle within a search period is automatically selected depending on the period.
 5. Click **Search**.
+
+>  **[Note] Max. Search Period**
+> Only statistical data for the last 90 days can be viewed.
