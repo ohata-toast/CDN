@@ -1083,6 +1083,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certi
 | fromDate | DateTime | Required      |  | Start date and time of statistics query |
 | toDate | DateTime | Required      |  | End date and time of statistics query |
 
+- The search period set by the fromDate and toDate fields must be within the last 90 days.
 - The fromDate and toDate fields must be entered in ISO 8601 format date string format.
   - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
@@ -1147,6 +1148,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | Required      |  | Start date and time of statistics query |
 | toDate | DateTime | Required      |  | End date and time of statistics query |
 
+- The search period set by the fromDate and toDate fields must be within the last 90 days.
 - The fromDate and toDate fields must be entered in ISO 8601 format date string format.
   - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
@@ -1221,6 +1223,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/stati
 | fromDate | DateTime | Required      |  | Start date and time of statistics query |
 | toDate | DateTime | Required      |  | End date and time of statistics query |
 
+- The search period set by the fromDate and toDate fields must be within the last 90 days.
 - The fromDate and toDate fields must be entered in ISO 8601 format date string format.
   - UTC notation: yyyy-MM-dd'T'HH:mm:ssZ
   - UTC time offset notation: yyyy-MM-dd'T'HH:mm:ss±hh:mm
