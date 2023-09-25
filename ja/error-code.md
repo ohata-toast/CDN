@@ -56,8 +56,13 @@
 | 10105     | Invalid domain or not in a deletable state.  | 証明書を削除できません。 間違ったドメインを入力したか、削除できる状態ではありません。                                                        |
 | 10110     | You have exceeded the number of certificates you can issue. Please contact customer service to issue more certificates.  | 発行できる最大証明書数を超過しました。 追加の証明書発行が必要な場合は、サービスプロバイダーにお問い合わせください。                                       |
 | 10111     | No certificate available Please try again in a few minutes.  | 証明書を発行することができません。 もう一度お試しください。                                                                           |
+| 10114     | Invalid statistics search period. fromDate or toDate can be set within 90 days.  | 誤った統計照会期間です。fromDateとtoDateは90日以内の日付にのみ設定できます。      |
 | 20001     | Failed to authenticate with AppKey. | アプリケーションキー(appkey)が有効ではありません。                                                                                   |
 | 20002     | Failed to authenticate with the secret key. | 秘密鍵(secret key)が有効ではありません。                                                                                  |
+| 21000     | OpenStack Api fail.| 基本インフラサービスの情報照会に失敗しました。しばらくしてからもう一度お試しください。 |
+| 21002     | Get iaas token fail.| 基本インフラサービストークンの発行に失敗しました。しばらくしてからもう一度お試しください。 |
+| 21003     | IaaS not enabled.| 選択したリージョンにオリジンサーバーとして設定可能なインスタンスが存在しません。 |
+| 21004     | Object storage not enabled.| Object Storageサービスが有効化されていません。 |
 | 30000     | Failed to process request. Please try again later. | 要求された処理に失敗しました。                                                                                           |
 | 30001     | Purge usage has exceeded. Please try again later. | 再配布使用量を越えました。                                                                                         |
 | 30002     | Data not created or does not exist. Please try again later. | データが作成されていないか、存在しません。                                                                                |

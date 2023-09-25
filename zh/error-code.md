@@ -55,12 +55,17 @@
 | 10105     | Invalid domain or not in a deletable state.  | You cannot delete the certificate. Invalid domain entered or not in a state to be deleted.                                                        |
 | 10110     | You have exceeded the number of certificates you can issue. Please contact customer service to issue more certificates.  | You have exceeded the maximum number of certificates that can be issued. If you need to issue additional certificates, contact the service provider.                                       |
 | 10111     | No certificate available Please try again in a few minutes.  | Could not issue the certificate. Please try again later.                                                                           |
+| 10114     | Invalid statistics search period. |  fromDate or toDate can be set within 90 days.       |
 | 20001     | Failed to authenticate with AppKey. | Appkey is not valid.                                                                                   |
 | 20002     | Failed to authenticate with the secret key. | SecretKey is not valid.                                                                                  |
+| 21000     | OpenStack Api fail.| Failed to query basic infrastructure service information. Please try again later. |
+| 21002     | Get iaas token fail.| Failed to issue token for basic infrastructure service. Please try again later. |
+| 21003     | IaaS not enabled.| No instances exist in the selected region that can be set as the origin server. |
+| 21004     | Object storage not enabled.| Object Storage service is not enabled. |
 | 30000     | Failed to process request. Please try again later. | Failed to process request.                                                                                           |
 | 30001     | Purge usage has exceeded. Please try again later. | Purge volume has been exceeded.                                                                                         |
 | 30002     | Data not created or does not exist. Please try again later. | Data has not been created or is not available.                                                                                |
 | 30003     | Request not processed in current service status. | Cannot process the request under the current service status.                                                                              |
 | 30004     | The status of the service is unknown. | The service status is unknown.                                                                                        |
 | 30005     | Resource not found. | Resource cannot be found.                                                                                          |
-| 80500     | An unknown error occurred during processing. Please contact the service provider. | Unknown error has occurred while processed. Contact service provider.                                                               |
+| 80500     | An unknown error occurred during processing. |  Please contact the service provider.                                        |
