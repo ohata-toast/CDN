@@ -57,6 +57,7 @@
 | 10110     | You have exceeded the number of certificates you can issue. Please contact customer service to issue more certificates.  | 発行できる最大証明書数を超過しました。 追加の証明書発行が必要な場合は、サービスプロバイダーにお問い合わせください。                                       |
 | 10111     | No certificate available Please try again in a few minutes.  | 証明書を発行することができません。 もう一度お試しください。                                                                           |
 | 10114     | Invalid statistics search period. fromDate or toDate can be set within 90 days.  | 誤った統計照会期間です。fromDateとtoDateは90日以内の日付にのみ設定できます。      |
+| 10115     | Invalid Top Contents By Hits statistics search period. fromDate or toDate can be set daily basis up to the previous day.  | Ton Contents By Hits統計の無効な照会期間です。fromDateとtoDateは前日までの1日以上の日付範囲のみ設定できます。 fromDateとtoDateは1日前までの日付範囲のみ設定できます。
 | 20001     | Failed to authenticate with AppKey. | アプリケーションキー(appkey)が有効ではありません。                                                                                   |
 | 20002     | Failed to authenticate with the secret key. | 秘密鍵(secret key)が有効ではありません。                                                                                  |
 | 21000     | OpenStack Api fail.| 基本インフラサービスの情報照会に失敗しました。しばらくしてからもう一度お試しください。 |
