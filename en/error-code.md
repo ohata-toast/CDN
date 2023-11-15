@@ -57,6 +57,7 @@
 | 10111     | No certificate available Please try again in a few minutes.  | Could not issue the certificate. Please try again later.                                                                           |
 | 10114     | Invalid statistics search period. |  fromDate or toDate can be set within 90 days.       |
 | 20001     | Failed to authenticate with AppKey. | Appkey is not valid.                                                                                   |
+| 10115     | Invalid Top Contents By Hits statistics search period. fromDate or toDate can be set daily basis up to the previous day.  | Invalid search period for Ton Contents By Hits statistic. FromDate and toDate can only be set to a date range of one or more days before the day.     |
 | 20002     | Failed to authenticate with the secret key. | SecretKey is not valid.                                                                                  |
 | 21000     | OpenStack Api fail.| Failed to query basic infrastructure service information. Please try again later. |
 | 21002     | Get iaas token fail.| Failed to issue token for basic infrastructure service. Please try again later. |
