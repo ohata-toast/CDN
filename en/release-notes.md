@@ -1,5 +1,12 @@
 ## Content Delivery > CDN > Release Notes
 
+### November 28, 2023
+
+#### Feature Updates
+* Improved Top Content By Hits graph
+  * 콘텐츠 순위 데이터 수가 10개 이상일 경우 원형 그래프가 깨지는 현상을 수정했습니다. 그래프에 콘텐츠 순위는 10개까지만 표시됩니다.
+  * Fixed an issue where, when the number of content rank data is more than 10, the circular graph is broken. The graph only shows up to 10 content rankings.
+
 ### September 26, 2023
 
 #### Feature Updates
