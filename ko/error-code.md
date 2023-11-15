@@ -56,7 +56,6 @@
 | 10110     | You have exceeded the number of certificates you can issue. Please contact customer service to issue more certificates.  | 발급할 수 있는 최대 인증서 개수를 초과하였습니다. 추가로 인증서 발급이 필요할 경우 서비스 제공자에게 문의해 주세요.                                       |
 | 10111     | No certificate available Please try again in a few minutes.  | 인증서를 발급할 수 없습니다. 잠시 후 시도해 주세요.                                                                           |
 | 10114     | Invalid statistics search period. fromDate or toDate can be set within 90 days.  | 잘못된 통계 조회 기간입니다. fromDate와 toDate는 90일 이내의 날짜로만 설정할 수 있습니다.      |
-| 10115     | Invalid Top Contents By Hits statistics search period. fromDate or toDate can be set daily basis up to the previous day.  | Ton Contents By Hits 통계의 잘못된 조회 기간입니다. fromDate와 toDate는 하루 전까지 하루 이상의 날짜 범위로만 설정할 수 있습니다.      |
 | 20001     | Failed to authenticate with AppKey. | 앱키(appkey)가 유효하지 않습니다.                                                                                   |
 | 20002     | Failed to authenticate with the secret key. | 비밀 키(secret key)가 유효하지 않습니다.                                                                                  |
 | 21000     | OpenStack Api fail.| 기본 인프라 서비스 정보 조회에 실패했습니다. 잠시 후 다시 시도해 주세요. |
