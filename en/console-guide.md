@@ -848,3 +848,7 @@ Statistical data within 7 days are recommended only as reference, since they may
 
 >  **[Note] Max. Search Period**
 > Only statistical data for the last 90 days can be viewed.
+
+>  **[Note] Top Contents By Hits Statistics Constraints**
+> View is available up to one day in advance, with a range of one day or more.
+> Content less than 100 KB or with less than 50 requests per day is excluded from statistics.
