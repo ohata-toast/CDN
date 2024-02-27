@@ -13,7 +13,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 
 ### 기본 정보 
 기본 정보를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202112.png)
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202403.png)
 
 - **설명**
   CDN 서비스의 설명을 추가합니다.
@@ -45,7 +45,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 
 ### 원본 서버
 CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
-![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202112.png)
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
 - **원본 타입**
     - 오브젝트 스토리지: NHN Cloud Object Storage 서비스에서 생성한 컨테이너를 원본 서버로 설정합니다.
@@ -180,7 +180,7 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 
 ### 루트 경로 접근 관리
 CDN 서비스의 루트 경로에 대한 접근 제어를 설정할 수 있습니다.
-![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
 - **루트 경로 접근 설정**
     - **사용**: 루트 경로 접근 관리 기능을 활성화하여 루트 경로에 대한 요청을 차단하거나, 다른 페이지로 리다이렉트하도록 설정합니다.
@@ -197,7 +197,7 @@ CDN 서비스의 루트 경로에 대한 접근 제어를 설정할 수 있습�
 ### 메서드
 CDN에서 기본적으로 허용하는 메서드는 GET, HEAD, OPTIONS로, 이외의 메서드를 요청하면 거절 처리됩니다.
 해당 메서드 이외의 메서드를 허용하려면 원하는 메서드를 선택해 설정합니다.
-![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_1.png)
+![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
 - **메서드 허용 설정**
   허용 설정한 메서드 요청은 캐싱되지 않고 원본 서버로 전달됩니다.
@@ -206,7 +206,7 @@ CDN에서 기본적으로 허용하는 메서드는 GET, HEAD, OPTIONS로, 이�
 ### 캐시
 
 CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202208.png)
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
 - **캐시 설정**
   CDN 서버가 원본 파일을 캐싱할 때 사용할 캐시 설정을 선택할 수 있습니다.
@@ -238,7 +238,7 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 
 ### 리퍼러(referer) 헤더 접근 관리
 리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
-![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache2_202208.png)
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
@@ -290,7 +290,7 @@ Auth Token 인증 접근을 CDN 서비스에 적용하려면 다음의 단계에
 
 CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관리를 설정합니다.
 
-![CDN서비스생성-Auth Token 인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token_202105.png)
+![CDN서비스생성-Auth Token 인증 접근 관리](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token_202403.png)
 
 - **토큰 인증 사용 여부**
     - **사용**: Auth Token 인증 접근 관리 기능을 활성화하여 토큰 검증한 후 콘텐츠에 접근할 수 있도록 합니다.
@@ -599,7 +599,7 @@ public class NhnCloudAuthTokenAccessControlExample {
 ### HTTP 응답 헤더
 CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제하는 기능입니다.
 헤더는 중복되지 않은 헤더 이름으로 최대 10개까지 설정할 수 있습니다.
-![CDN서비스생성-응답헤더(이미지수정필요)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-http-response-header.png)
+![CDN서비스생성-응답헤더(이미지수정필요)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-http-response-header_202403.png)
 
 - **HTTP 응답 헤더 설정**
     - **사용**: HTTP 응답 헤더를 추가/변경/삭제하는 설정을 사용합니다.
@@ -624,13 +624,13 @@ CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제
 
 ### CDN 서비스 설정 변경
 서비스 도메인 이름을 제외한 CDN 서비스 설정을 변경할 수 있습니다.
-![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202105.png)
+![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202403.png)
 
 1. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
 2. **수정** 버튼을 클릭합니다.
 
 다음과 같이 CDN서비스 수정 페이지로 이동합니다.
-![CDN서비스수정확인-이미지수정필요](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2_202105.png)
+![CDN서비스수정확인-이미지수정필요](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2_202403.png)
 
 * 변경할 설정 내용을 수정합니다. 
 * **확인** 버튼을 클릭해 변경을 완료합니다.
@@ -648,9 +648,9 @@ CDN 서비스를 일시적으로 중단하거나 재시작할 수 있습니다.
 
 1. 일시 정지할 CDN 서비스의 선택합니다.
 2. **일시 정지** 버튼을 클릭합니다.
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2_202105.png)
+![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2_202403.png)
 3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 인증서 갱신 시작일 이전에 CDN 서비스를 재시작해야 합니다.
-![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2_202105.png)
+![CDN서비스-일시정지](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2_202403.png)
 4. 일시 정지 상태의 CDN 서비스를 재시작하려면 재시작할 CDN 서비스를 선택합니다.
 5. **재시작** 버튼을 클릭합니다.
 
@@ -672,7 +672,7 @@ CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 �
 
 1. 삭제할 CDN 서비스를 선택합니다.
 2. **삭제** 버튼을 클릭합니다.
-![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2_202105.png)
+![CDN서비스-삭제](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2_202403.png)
 3. 인증서가 연동된 CDN 서비스에는 인증서 만료 경고 안내가 표시됩니다. 인증서가 만료되지 않게 하려면 서비스 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다.
 
 
@@ -692,7 +692,7 @@ Purge를 하면 요청한 콘텐츠의 오래된 캐시 데이터를 삭제하�
 
 1. 변경하려는 서비스를 CDN 서비스 목록에서 선택합니다.
 2. **Purge** 탭을 클릭하고 **Purge** 버튼을 클릭합니다.
-![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_202105.png)
+![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_202403.png)
 
 3. Purge 유형을 선택합니다.
     - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의하시기 바랍니다.
@@ -722,7 +722,7 @@ Purge는 사용량 제한이 있으므로 아래의 표를 참고하시고 사�
 
 1. 통계를 확인할 서비스를 CDN 서비스 목록에서 선택합니다.
 2. **통계** 탭을 클릭합니다.
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_202105.png)
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/console-statistics_202403.png)
 3. 검색 기간 혹은 날짜를 선택합니다.
 4. 검색 기간 내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.
 
@@ -744,7 +744,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
 ### 신규 인증서 발급 
 **인증서 관리** 탭에서 인증서를 발급할 수 있습니다.
-![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create_202105.png)
+![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create_202403.png)
 
 1. **인증서 관리** 탭의 **신규 인증서 발급** 버튼을 클릭합니다.
 2. 발급할 인증서의 도메인을 전체 도메인 주소(FQDN, fully qualified domain name)형식으로 입력합니다.
@@ -762,13 +762,13 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 신규 인증서 발급을 요청한 후 인증서 상태가 '도메인 검증'이 되면 도메인을 검증하시기 바랍니다.
 도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation_202105.png)
+![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation_202403.png)
 
 도메인 검증은 발급 요청한 인증서 도메인의 실제 소유자인지 확인하는 단계 입니다. 도메인 검증을 진행하지 않으면 인증서를 발급할 수 없습니다.
 도메인 소유자인지 확인하기 위해 도메인 검증 방식으로 도메인의 제어 권한을 확인합니다. 
 도메인 검증 방식에는 **DNS TXT 레코드 추가** 또는 **HTTP 페이지 추가** 방식이 있으며 **두 가지 방식 중 하나만 진행**하면 됩니다.
 
-![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2_202105.png)
+![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2_202403.png)
 
 #### DNS TXT 레코드 추가 방식 
 도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다. 
@@ -821,7 +821,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
 2. **도메인 별칭 설정**: 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
     -  **CDN 서비스** 탭에서 연동할 CDN 서비스를 선택하고  **수정** 버튼을 클릭합니다. 도메인 별칭에 인증서 도메인을 추가한 후  **확인** 버튼을 클릭합니다.
-![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2_202105.png)
+![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias2_202403.png)
 
 >  **[참고] CNAME 레코드 전파 시간**
 > CNAME 레코드 설정 시 다양한 요인에 따라 DNS 전파에 시간이 소요될 수 있습니다. 따라서 서비스 연동 과정을 올바르게 수행한 뒤에도 일정 시간 동안 인증서 발급 상태가 [CDN 서비스 연동 대기]로 표시될 수 있습니다.
@@ -840,7 +840,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 > 4. 인증서가 연동된 CDN 서비스를 삭제하면 인증서를 갱신할 수 없습니다. 삭제하기 전에 운영 중인 다른 CDN 서비스에 인증서를 연동하시기 바랍니다. 
 
 CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상'으로 표시됩니다.
-![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active_202105.png)
+![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active_202403.png)
 
 >  **[참고] 발급된 인증서 오류 발생 시 조치 사항**
 > NHN Cloud CDN에서 제공하는 인증서의 Root 인증서 중 하나인 IdenTrust DST Root CA x3가 2021년 9월 30일에 만료되어, 일부 오래된 단말 또는 구형 브라우저에서 문제가 발생할 수 있습니다.
