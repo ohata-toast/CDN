@@ -713,7 +713,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 | 전체 파일 타입 | 5분당 요청 가능: 1회 |
 
 > **[주의] [서비스ID].toastcdn.net 서비스를 생성한 후 Purge 실패 오류**
-> CDN 서비스를 생성한 후 약 1시간 이내에는 Purge 요청에 실패할 수 있습니다. 이후에도 계속 실패하면 [NHN Cloud 고객 센터](https://www.nhncloud.com/kr/support/inquiry)로 문의해주시기 바랍니다.
+> CDN 서비스를 생성한 후 약 1시간 이내에는 Purge 요청에 실패할 수 있습니다. 이후에도 계속 실패하면 [NHN Cloud 고객 센터](https://www.nhncloud.com/kr/support/inquiry)로 문의해 주시기 바랍니다.
 
 ## 통계
 
