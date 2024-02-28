@@ -13,7 +13,7 @@ It takes up to 2 hours to complete deployment after service is requested for cre
 
 ### Basic Information
 Set basic information.
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-default2_202112.png)
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-default2_202403.png)
 
 - **Service Region**
   GLOBAL service is provided via CDN edge servers located around the globe.
@@ -48,7 +48,7 @@ Set basic information.
 
 ### Origin Server
 Set server providing original files to be deployed to CDN.
-![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-origin2_202112.png)
+![Creating CDN- Basic Information](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-origin2_202403.png)
 
 - **Origin Type**
     - Object storage: Set the container created in the NHN Cloud Object Storage service as the origin server.
@@ -183,7 +183,7 @@ Set server providing original files to be deployed to CDN.
 
 ### Controlling the access of root path
 You can set the access control for the root path of the CDN service.
-![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path_1.png)
+![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path_202403.png)
 
 - **Set Root Path Access**
     - **Enable**: Activates the access control for the root path, blocking requests for the root path or configuring such requests to be redirected to a different page.
@@ -200,20 +200,20 @@ You can set the access control for the root path of the CDN service.
 ### Method
 By default, the allowed methods for CDN include GET, HEAD, and OPTIONS, the request for other methods is denied.
 To allow methods other than the allowed methods, select and set a method you want.
-![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path_1.png)
+![Creating CDN-root path](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-root-path_202403.png)
 
 - **Allow Method Settings**
   Allowed method requests are not cached and forwarded to the origin server.
-  
+
 
 ### Cache
 
 CDN cache operations and expiration time can be set.
-![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202208.png)
+![Creating CDN-Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202403.png)
 
 - **Configuration of Cache**
   When the CDN server enables caching of the original file, you can choose which cache configuration to use.
- 
+
 **Configuration of Cache Expiration**
   Cache can be configured from the response header of cache control at the origin server.
     - **Use Original Configuration**: Apply the cache control header first, as provided by the origin server's response. If cache control header is not valid or unavailable, it is cached during specified cache expiration time (seconds). **Use Original Configuration** is default.
@@ -243,7 +243,7 @@ CDN cache operations and expiration time can be set.
 
 ### Access Management for Referer Header
 Content access management is set with the referer request header.
-![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202208.png)
+![Creating CDN Service - Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-cache2_202403.png)
 
 The referer request header includes the webpage address of previous links of the currently requested page. It helps to find the paths a request comes from. With referer header access management, only particular request headers can be configured to access user content.
 Enter in regex, and break the lines to enter many.
@@ -294,7 +294,7 @@ To apply the access of Auth Token Authentication to the CDN service, you need to
 
 On CDN console, set Access Control for Auth Token authentication by referring to the following.
 
-![Create CDN Service-Access Control for Auth Token Authentication](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-auth-token_202105.png)
+![Create CDN Service-Access Control for Auth Token Authentication](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-auth-token_202403.png)
 
 - **Enable Token Authentication**
     - **Enable**: Activate Access Control for Auth Token authentication and verify token so as to allow access to content.
@@ -603,7 +603,7 @@ Client (final content consumer) must request content including the token value w
 ### HTTP Response Header
 This is a feature to add, modify, and delete the headers sent when CDN responds to users.
 You can set up to 10 headers with non-duplicate header names.
-![Create CDN service - Response Header](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-http-response-header.png)
+![Create CDN service - Response Header](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-create-http-response-header_202403.png)
 
 - **HTTP Response Header Settings**
     - **Use**: Use the setting to add, modify, and delete HTTP response headers.
@@ -628,13 +628,13 @@ You can set up to 10 headers with non-duplicate header names.
 
 ### Modify CDN Service Setting
 CDN service setting can be modified, except the name and region of service domain.
-![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-modify3_202105.png)
+![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-modify3_202403.png)
 
 1. Select a CDN service to modify from the list.
 2. Click **Modify** from the **Setting** at the bottom of the page.
 
 Then, items that are modifiable are activated like below.
-![Checking CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-modify2_202105.png)
+![Checking CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-modify2_202403.png)
 
 * Modify the setting.
 * Click **OK** to complete with changes.
@@ -652,9 +652,9 @@ CDN service can be suspended or resumed.
 
 1. Select a CDN service to suspend.
 2. Click **Suspend**.
-![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-pause2_202105.png)
+![CDN Service- Suspend](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-pause2_202403.png)
 3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, CDN service must be resumed before a start day of certificate renewal.
-![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-restart2_202105.png)
+![CDN Service-Suspend](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-restart2_202403.png)
 4. To resume suspended CDN service, select a CDN service to resume.
 5. Click **Resume**.
 
@@ -676,7 +676,7 @@ CDN service can be deleted. Once deleted, however, a service cannot be recovered
 
 1. Select a CDN service to delete.
 2. Click **Delete**.
-![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-delete2_202204.png)
+![CDN Service-Delete](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-delete2_202403.png)
 3. A warning guide will show for CDN services that are integrated with certificate. To prevent certificate expiration, please integrate certificate with another running CDN service.
 
 > **[Note] Required Time to Delete CDN**
@@ -695,7 +695,7 @@ By purging cache, outdated cache data are deleted from requested content while a
 
 1.  Select a service to change from the list of CDN services.
 2. Click **Purge Cache**.
-![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-purge2_202105.png)
+![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-purge2_202403.png)
 
 3. Select a purge type.
     - Note that each CDN service domain may support different purge type and request format of cache.
@@ -728,7 +728,7 @@ Certificate management of NHN Cloud CDN provides the following features:
 
 ### Issue New Certificates
 Certificates can be issued from the **Certificate Management** tab.
-![Getting New CDN Certificates](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-create_202105.png)
+![Getting New CDN Certificates](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-create_202403.png)
 
 1. Go to **Certificate Management** and click **Issue New Certificates**.
 2. Enter domain of certificate to get, in the format of full domain address(FQDN, fully qualified domain name).
@@ -746,13 +746,13 @@ Certificates can be issued from the **Certificate Management** tab.
 You're ready to validate domain, after a new certificate is requested, when certificate status is changed to 'Validate Domain'.
 You may select a domain on console or refer to domain validation guide via email sent to project members.
 
-![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-domain-validation_202105.png)
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-domain-validation_202403.png)
 
 Domain validation is required to see if the requester for certificate is the actual owner of its domain. Without this process, certificate cannot be issued.
 As part of a domain validation method to check domain owner, domain control role must be validated.
 Domain validation can be carried out by **Adding DNS TXT Recors** or **Adding HTTP Pages**, and you can **Choose Either of the Two Methods**.
 
-![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-domain-validation2_202105.png)
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-domain-validation2_202403.png)
 
 #### Adding DNS TXT Records
 Check DNS control role of domain to validate domain.
@@ -769,7 +769,7 @@ Check DNS control role of domain to validate domain.
 
 
 Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method.
-![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-domain-validation-dns_202105.png)
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-domain-validation-dns_202403.png)
 
 
 #### Adding HTTP Pages
@@ -825,7 +825,7 @@ Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may
 > 4. When a CDN service integrated with certificate is deleted, the certificate cannot be renewed: integrate it to another running CDN service before deleting.
 
 When certificate is fully integration with CDN, the certificate status shows 'Activated'.
-![Activated Status of Certificate](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-active_202105.png)
+![Activated Status of Certificate](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-active_202403.png)
 
 > **[Note] Measures required when an error occurs in the issued certificate**
 > IdenTrust DST Root CA x3, one of the root certificates among the certificates provided by NHN Cloud CDN, expired on September 30, 2021, and users of some older devices or browsers may experience problems.
@@ -840,7 +840,7 @@ Check statistics on the network transfer volume, HTTP status code, most download
 Statistical data within 7 days are recommended only as reference, since they may not be precise: precise data are available after 7 days.
 
 1. Click **Statistics** from **Content Delivery > CDN**.
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/v2/en/cdn_08_202105.png)
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/v2/en/console-statistics_202403.png)
 2. Select a CDN service to check statistics.
 3. Enter search period.
 4. Data cycle within a search period is automatically selected depending on the period.
