@@ -13,11 +13,7 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
 
 ### 基本情報
 基本情報を設定します。
-![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-default_ja_202112.png)
-
-- **サービス地域**
-  GLOBALサービス地域は、全世界の拠点にあるCDNエッジサーバーを通してCDNサービスを提供します。
- ただし、**中国とロシア**はサービス地域から除外されます。
+![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202403.png)
 
 - **説明**
   CDNサービスの説明を追加します。
@@ -48,7 +44,7 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
 
 ### オリジンサーバー
 CDNサービスへ配布する原本ファイルを提供するサーバーを設定します。
-![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-origin_ja_202112.png)
+![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
 - **原本タイプ**
     - オブジェクトストレージ：NHN Cloud Object Storageサービスで作成したコンテナをオリジンサーバーに設定します。
@@ -175,7 +171,7 @@ CDNサービスへ配布する原本ファイルを提供するサーバーを�
 
 ### ルートパスアクセス管理
 CDNサービスのルートパスに対するアクセス制御を設定できます。
-![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_ja_202207.png)
+![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
 - **ルートパスアクセス設定**
     - **使用**:ルートパスアクセス管理機能を有効にしてルートパスに対するリクエストを遮断するか、他のページにリダイレクトするように設定します。
@@ -192,7 +188,7 @@ CDNサービスのルートパスに対するアクセス制御を設定でき�
 ### メソッド
 CDNで基本的に許可するメソッドはGET、HEAD、OPTIONSで、それ以外のメソッドをリクエストすると拒否されます。
 該当メソッド以外のメソッドを許可するには、メソッドを選択して設定します。
-![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_ja_202207.png)
+![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
 - **メソッド許可設定**
  許可設定したメソッドリクエストはキャッシュされず、オリジンサーバーに伝達されます。
@@ -200,7 +196,7 @@ CDNで基本的に許可するメソッドはGET、HEAD、OPTIONSで、それ以
 
 ### キャッシュ
 CDNキャッシュ動作設定とキャッシュ時間を設定できます。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_202208.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
 - **キャッシュ設定**
   CDNサーバーが原本ファイルをキャッシュするときに使用するキャッシュ設定を選択できます。
@@ -231,7 +227,7 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 
 ### リファラー(Referer)ヘッダアクセス管理
 リファラーリクエストヘッダーにコンテンツのアクセス管理を設定します。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-cache_ja_202208.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
 リファラーリクエストヘッダーは、現在リクエストされたページリンクより前のウェブページアドレスを含みます。リファラーリクエストヘッダーにより、どの経路でリクエストが流入したかを把握できます。リファラーヘッダアクセス管理では、特定のリファラーリクエストヘッダーのみユーザーコンテンツにアクセスできるよう設定できます。
 正規表現形式で入力できます。複数入力する場合は改行して入力します。
@@ -277,7 +273,7 @@ Auth Token認証アクセスをCDNサービスに適用するには、次の段�
 #### 1. NHN Cloud CDNコンソール > Auth Token認証アクセス管理設定
 CDNコンソールで、次の内容を参考にしてAuth Token認証アクセス管理を設定します。
 
-![CDNサービス作成-Auth Token認証アクセス管理](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-auth-token_ja_202105.png)
+![CDNサービス作成-Auth Token認証アクセス管理](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token_202403.png)
 
 - **トークン認証を使用するかどうか**
     - **使用**：Auth Token認証アクセス管理機能を有効化してトークン検証した後、コンテンツにアクセスできるようにします。
@@ -535,7 +531,7 @@ public class NhnCloudAuthTokenAccessControlExample {
 ### HTTPレスポンスヘッダ
 CDNからユーザーにレスポンスする際に伝達されるヘッダを追加/変更/削除する機能です。
 ヘッダは重複していないヘッダー名で最大10個まで設定できます。
-![CDNサービス作成-レスポンスヘッダ(イメージ修正必要)](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-auth-token_ja_202105.png)
+![CDNサービス作成-レスポンスヘッダ(イメージ修正必要)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-http-response-header_202403.png)
 
 - **HTTPレスポンスヘッダ設定**
     - **使用**: HTTPレスポンスヘッダを追加/変更/削除する設定を使用します。
@@ -559,14 +555,14 @@ CDNからユーザーにレスポンスする際に伝達されるヘッダを�
 ## 設定
 
 ### CDNサービスの設定変更
-サービスドメイン名と地域以外のCDNサービス設定を変更できます。
-![CDNサービスの修正を有効化](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-modify1_ja_202105.png)
+サービスドメイン名を除くCDNサービス設定を変更できます。
+![CDNサービス修正有効化](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202403.png)
 
 1. 変更するCDNサービスをCDNサービスリストから選択します。
-2. 画面下、**設定**タブの**修正**ボタンをクリックします。
+2. **修正**ボタンをクリックします。
 
-次のように変更可能な項目が有効になります。
-![CDNサービスの修正を確認-イメージ修正必要](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-modify2_ja_202105.png)
+次のようにCDNサービス修正ページに移動します。
+![CDNサービス修正確認-イメージ修正必要](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2_202403.png)
 
 * 変更する設定内容を修正します。 
 * **確認**ボタンをクリックして、変更を完了します。
@@ -583,9 +579,9 @@ CDNサービスを一時的に中断または、再開することができま�
 
 1. 一時停止するCDNサービスを選択します。
 2. **一時停止**ボタンをクリックします。
-![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-pause_ja_202105.png)
+![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2_202403.png)
 3. 証明書の連携をしているCDNサービスには、証明書の無効警告案内が表示されます。証明書の無効を回避するには、証明書更新開始日の前にCDNサービスを再開する必要があります。
-![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-restart_ja_202105.png)
+![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2_202403.png)
 4. 一時停止状態のCDNサービスを再開するには再開するCDNサービスを選択します。
 5. **再開**ボタンをクリックします。
 
@@ -605,7 +601,7 @@ CDNサービスを削除します。削除すると復旧できませんので�
 
 1. 削除するCDNサービスを選択します。
 2. **削除**ボタンをクリックします。
-![CDNサービス-削除](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-delete_ja_202105.png)
+![CDNサービス-削除](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2_202403.png)
 3. 証明書が連携されているCDNサービスは、証明書無効警告案内が表示されます。証明書が無効になるのを回避するには、サービス中の他のCDNサービスに証明書を連携してください。
 
 
@@ -616,26 +612,26 @@ CDNサービスを削除します。削除すると復旧できませんので�
 > **証明書管理**の証明書リストから、**証明書更新開始日**より前にサービス中の他CDNサービスへ連携してください。
 > 証明書更新開始日から5日間は、証明書更新期間です。この期間に削除を行うと証明書が無効になる場合があるため、注意してください。
 
-## CDNキャッシュの再配布(purge)
+## Purge
 CDNキャッシュサーバーは、キャッシュ設定に従って、指定された時間オリジンサーバーのファイルをキャッシュします。ファイルをキャッシュすると、原本ファイルが変更されてもキャッシュが満了するまでは変更前の原本ファイルを維持します。 
-変更された原本ファイルへ即時にアップデートするには、**キャッシュ再配布**をリクエストする必要があります。
-キャッシュ再配布を行うと、リクエストしたコンテンツの古いキャッシュデータを削除し、オリジンサーバーから新しい原本ファイルを再度キャッシュします。 
+変更された原本ファイルでコンテンツをすぐにアップデートするには**Purge**をリクエストする必要があります。
+Purgeを行うと、リクエストしたコンテンツの古いキャッシュデータを削除し、オリジンサーバーから新しい原本ファイルを再度キャッシュします。 
 
 1. 変更したいサービスをCDNサービスリストから選択します。
-2. **キャッシュ再配布**タブをクリックします。
-![CDNキャッシュ再配布](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-purge_ja_202105.png)
+2. **Purge**タブをクリックして**Purge**ボタンをクリックします。
+![CDNキャッシュ再配布](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_202403.png)
 
-3. キャッシュ再配布タイプを選択します。
+3. Purgeタイプを選択します。
   - CDNサービスドメインに応じてサポートされるキャッシュ再配布タイプとリクエスト様式が異なるため注意してください。
-  - ドメインの再配布タイプとリクエスト様式
+    - Purgeタイプとリクエスト形式
     * 特定ファイル：再配布するコンテンツのURLを入力します。リクエストしたURLのみキャッシュが再配布されるため、ドメインエイリアスに複数のサービスドメインアドレスがある場合、各URLにリクエストする必要があります。
       * 例)基本サービスドメインアドレス： http://[サービスID].toastcdn.net/path/to/file1.jpg
       * 例)ドメインエイリアスドメインアドレス： http://customer.domain.com/path/to/file1.jpg
     * 全体ファイル：キャッシュファイルをすべて削除します。オリジンサーバーに膨大なトラフィックが流入する場合もあるため注意してください。
-4. 選択したキャッシュ再配布タイプに合わせて、再配布するファイルを指定します。
-5. **キャッシュ再配布**ボタンをクリックして、再配布をリクエストします。
+4. 選択したPurgeタイプに合わせて再配布するファイルを指定します。
+5. **確認**ボタンをクリックしてPurgeをリクエストします。
 
-キャッシュ再配布は使用量制限があるため、下記の表を参照して使用量が超過しないように注意してください。
+Purgeには使用量制限がありますので、下記の表を参考にして使用量を超えないように注意してください。
 
 |分類 |[サービスID].toastcdn.net |
 |---|---|
@@ -644,8 +640,27 @@ CDNキャッシュサーバーは、キャッシュ設定に従って、指定�
 | ワイルドカード | 未サポート |
 | 全体ファイルタイプ | 5分毎のリクエスト可能数：1回 |
 
-> **[注意] [サービスID].toastcdn.comサービスを作成した後、キャッシュ再配布失敗エラー**
-> CDNサービスを作成した後、約1時間はキャッシュ再配布リクエストが失敗する場合があります。その後も継続して失敗する場合はサポートへお問い合わせください。
+> **[注意] [サービスID].toastcdn.netサービスを作成した後、Purge失敗エラー**
+> CDNサービスを作成した後、約1時間以内はPurgeリクエストに失敗する可能性があります。その後も引き続き失敗する場合は[NHN Cloudサポート](https://www.nhncloud.com/kr/support/inquiry)にお問い合わせください。
+
+## 統計
+
+ネットワーク転送量、 HTTPステータスコード別統計及びダウンロードが最も多いコンテンツの順位統計を確認できます。
+7日以内の統計データは正確ではないため、参考用でのみ利用してください。正確ま統計データは7日以降に確認してください。
+
+1. 統計を確認するサービスをCDNサービスリストで選択します。
+2. **統計** タブをクリックします。
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/console-statistics_202403.png)
+3. 検索期間または日付を選択します。
+4. 検索期間内のデータ周期は選択した期間に基づいて自動的に選択されます。
+
+>  **[参考]最大検索期間**
+> 最近90日間の統計データのみ照会が可能です。
+>  **[参考] Top Contents By Hits統計制約事項**
+> 1日前まで、1日以上の範囲で照会が可能です。
+> 100KB以下のコンテンツ、またはリクエスト回数が1日50回未満のコンテンツは統計から除外されます。
+
+
 ## 証明書の管理
 所有しているドメインでコンテンツをHTTPSで転送するには、所有しているドメインの証明書をCDNサーバーに配布する必要があります。証明書がない場合、クライアント(ブラウザ)とCDNエッジサーバー間の暗号化通信(HTTPS)を行うことができず、証明書エラーが発生します。
 NHN Cloud CDNの証明書管理は次のような機能を提供します。
@@ -656,7 +671,7 @@ NHN Cloud CDNの証明書管理は次のような機能を提供します。
 
 ### 新規証明書の発行
 **証明書管理**タブで証明書を発行できます。
-![CDN新規証明書の発行](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-create_ja_202105.png)
+![CDN新規証明書の発行](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-create_202403.png)
 
 1. **証明書管理**タブの**新規証明書発行**ボタンをクリックします。
 2. 発行する証明書のドメインを全体ドメインアドレス(FQDN、fully qualified domain name)形式で入力します。
@@ -667,19 +682,20 @@ NHN Cloud CDNの証明書管理は次のような機能を提供します。
 > 1. 所有しているドメインのみ証明書の発行が可能なため、先にドメインを購入してから進行してください。 
 > 2. 他の認証機関(CA、certificate authority)で発行した証明書は利用できません。 
 > 3. 単一ドメインの証明書発行のみ行えます。ワイルドカード、マルチドメインなどの証明書はサポートしません。
-> 4. 証明書の発行は1つのプロジェクトにつき5個に制限されます。限度の調整が必要な場合はNHN Cloudサポートへお問い合わせください。
+> 4. 証明書の発行は1つのプロジェクトにつき5個に制限されます。限度の調整が必要な場合は[NHN Cloudサポート](https://www.nhncloud.com/kr/support/inquiry)へお問い合わせください。
 > 5. 新規証明書の発行をリクエストした後、ドメイン検証段階は数十分(最大1～2時間)後に変更される場合があります。証明書の状態がドメイン検証状態に変更されたらNHN Cloudプロジェクトメンバーを対象にメールが送信されます。もしシステムエラーによりメールが送信されない場合、コンソールで状態を確認してください。 
+
 ### ドメイン検証
 新規証明書の発行をリクエストした後、証明書の状態が｢ドメイン検証｣になったら、ドメインの検証を行ってください。
 ドメインの検証方法は、コンソールでドメインを選択して確認するか、プロジェクトメンバーに転送されたドメイン検証ガイドメールの内容を参照してください。
 
-![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation_ja_202105.png)
+![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation_202403.png)
 
 ドメイン検証は、発行をリクエストした証明書ドメインの実際の所有者であることを確認する段階です。ドメイン検証を行っていない場合、証明書の発行ができません。
 ドメインの所収者であることを確認するために、ドメイン検証方式を通してドメインの制御権限を確認します。 
 ドメイン検証方式には、**DNS TXTレコード追加**または**HTTPページ追加**方式があります。**2つの方式のうち1つを実施**してください。
 
-![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation2_ja_202105.png)
+![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation2_202403.png)
 
 #### DNS TXTレコード追加方式
 ドメインのDNS制御権限を確認してドメインを検証します。
@@ -707,8 +723,9 @@ NHN Cloud CDNの証明書管理は次のような機能を提供します。
 
 > **[注意]ドメイン検証の注意事項**
 > 1. ドメイン検証は、証明書発行リクエストを行った日から**5日以内**に実施する必要があります。**期間内に実施しなかった場合、証明書の発行は自動でキャンセル処理**が行われます。
-> 2. ドメイン検証作業完了後、検証が成功した際は、数時間で証明書の発行および配布作業が行われます。1日以上実施されない場合、ドメイン検証作業の内容が正しいかを確認します。問題がないにもかかわらず実施されない場合はNHN Cloudサポートへお問い合わせください。
+> 2. ドメイン検証作業完了後、検証が成功した際は、数時間で証明書の発行および配布作業が行われます。1日以上実施されない場合、ドメイン検証作業の内容が正しいかを確認します。問題がないにもかかわらず実施されない場合は[NHN Cloudサポート](https://www.nhncloud.com/kr/support/inquiry)へお問い合わせください。
 > 3. ドメイン検証方式のHTTPページ追加方式は、HTTPサーバーが基本ポート80で運用中の場合にのみ使用できます。ポートの変更ができない場合は、DNS TXTレコード追加方式を利用してください。
+
 ### 証明書の発行および配布
 ドメイン検証に成功したら、数時間以内に証明書の発行および配布作業が実施されます。 
 コンソールで証明書の状態が**証明書発行および配布**段階と表示され、NHN Cloudプロジェクトメンバーを対象に通知メールが送信されます。 
@@ -730,11 +747,12 @@ NHN Cloud CDNの証明書管理は次のような機能を提供します。
 
 2. **ドメインエイリアス設定**：証明書を利用するCDNサービスにドメインエイリアス設定を追加します。
     -  **CDNサービス**タブで連携するCDNサービスを選択して**修正**ボタンをクリックします。ドメインエイリアスに証明書ドメインを追加して**確認** ボタンをクリックします。
-![CDNサービス連携-ドメインエイリアス](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-service-alias_ja_202105.png)
+![CDNサービス連携-ドメインエイリアス](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-service-alias2_202403.png)
 
 >  **[参考] CNAMEレコード配信時間**
 > CNAMEレコードの設定時、さまざまな要因でDNSの配信に時間がかかることがあります。したがってサービス連動プロセスを正しく行った後も一定時間、証明書の発行状態が[CDNサービス連動待機]と表示されることがあります。
 > 設定を正しく行っても24時間以上[CDNサービス連動待機]状態が続く場合はNHN Cloudサポートへお問い合わせください。
+
 >  **[注意]証明書満了注意事項**
 > NHN Cloud CDNで提供する証明書は、証明書が無効になる前に自動で証明書の更新を実施します。
 > 自動的に証明書の更新を行うには、使用中の証明書がCDNサービスと連携している必要があります。
@@ -747,7 +765,7 @@ NHN Cloud CDNの証明書管理は次のような機能を提供します。
 > 3. 証明書が連携されたCDNサービスを一時停止すると、証明書を更新できません。証明書の更新開始日前に再開するか、運用中の他のCDNサービスに証明書を連携してください。
 > 4. 証明書が連携されたCDNサービスを削除すると、証明書を更新できません。削除する前に、運用中の他のCDNサービスに証明書を連携してください。 
 CDNサービス連携作業が完了すると、証明書の状態が｢正常｣と表示されます。
-![CDN証明書正常状態](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-active_ja_202105.png)
+![CDN証明書正常状態](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-active_202403.png)
 
 >  **[参考]発行された証明書エラー発生時の措置事項**
 > NHN Cloud CDNで提供する証明書のRoot証明書の中の1つであるIdenTrust DST Root CA x3が2021年9月30日に有効期限切れになり、一部の古い端末や旧型ブラウザで問題が発生することがあります。
@@ -755,21 +773,3 @@ CDNサービス連携作業が完了すると、証明書の状態が｢正常�
 > 1. ISRG x1証明書ダウンロードリンク： [ダウンロードリンク](https://letsencrypt.org/certs/isrgrootx1.pem)
 > 2. Windows OS設定変更参考ガイド：[リンク](https://docs.microsoft.com/en-us/skype-sdk/sdn/articles/installing-the-trusted-root-certificate)
 > 3. Chromeブラウザ参考ガイド：[リンク](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for-VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
-## 統計
-
-ネットワーク転送量、HTTP状態コード別の統計および、ダウンロードが最も多いコンテンツの順位統計を確認できます。
-7日以内の統計データは正確ではないため、参考程度に利用してください。正確な統計データは7日後に確認してください。
-
-1. **Contents Delivery > CDN**の**統計**タブをクリックします。
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_ja1_202105.png)
-2. 統計を確認するには、CDNサービスを選択します。
-3. 検索期間を入力します。
-4. 検索期間内のデータ周期は、選択した期間に応じて自動的に選択されます。
-5. **検索**ボタンをクリックします。
-
->  **[Note] 最大検索期間**
-> 過去90日間のデータのみ照会できます。
-
->  **[参考] Top Contents By Hits統計制約事項 **
-> 1日前まで、1日以上の範囲で照会が可能です。
-> 100KB以下のコンテンツまたはリクエスト回数が1日50回未満のコンテンツは統計から除外されます。
