@@ -13,7 +13,7 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
 
 ### 基本情報
 基本情報を設定します。
-![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202403.png)
+![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-default2_202403.png)
 
 - **説明**
   CDNサービスの説明を追加します。
@@ -44,7 +44,7 @@ CDNサービスドメインは**[サービスID].toastcdn.net**の形式で自�
 
 ### オリジンサーバー
 CDNサービスへ配布する原本ファイルを提供するサーバーを設定します。
-![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
+![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-origin2_202403.png)
 
 - **原本タイプ**
     - オブジェクトストレージ：NHN Cloud Object Storageサービスで作成したコンテナをオリジンサーバーに設定します。
@@ -171,7 +171,7 @@ CDNサービスへ配布する原本ファイルを提供するサーバーを�
 
 ### ルートパスアクセス管理
 CDNサービスのルートパスに対するアクセス制御を設定できます。
-![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
+![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-origin2_202403.png)
 
 - **ルートパスアクセス設定**
     - **使用**:ルートパスアクセス管理機能を有効にしてルートパスに対するリクエストを遮断するか、他のページにリダイレクトするように設定します。
@@ -188,7 +188,7 @@ CDNサービスのルートパスに対するアクセス制御を設定でき�
 ### メソッド
 CDNで基本的に許可するメソッドはGET、HEAD、OPTIONSで、それ以外のメソッドをリクエストすると拒否されます。
 該当メソッド以外のメソッドを許可するには、メソッドを選択して設定します。
-![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
+![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-origin2_202403.png)
 
 - **メソッド許可設定**
  許可設定したメソッドリクエストはキャッシュされず、オリジンサーバーに伝達されます。
@@ -196,7 +196,7 @@ CDNで基本的に許可するメソッドはGET、HEAD、OPTIONSで、それ以
 
 ### キャッシュ
 CDNキャッシュ動作設定とキャッシュ時間を設定できます。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_202403.png)
 
 - **キャッシュ設定**
   CDNサーバーが原本ファイルをキャッシュするときに使用するキャッシュ設定を選択できます。
@@ -227,7 +227,7 @@ CDNキャッシュ動作設定とキャッシュ時間を設定できます。
 
 ### リファラー(Referer)ヘッダアクセス管理
 リファラーリクエストヘッダーにコンテンツのアクセス管理を設定します。
-![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
+![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-root-path_202403.png)
 
 リファラーリクエストヘッダーは、現在リクエストされたページリンクより前のウェブページアドレスを含みます。リファラーリクエストヘッダーにより、どの経路でリクエストが流入したかを把握できます。リファラーヘッダアクセス管理では、特定のリファラーリクエストヘッダーのみユーザーコンテンツにアクセスできるよう設定できます。
 正規表現形式で入力できます。複数入力する場合は改行して入力します。
@@ -273,7 +273,7 @@ Auth Token認証アクセスをCDNサービスに適用するには、次の段�
 #### 1. NHN Cloud CDNコンソール > Auth Token認証アクセス管理設定
 CDNコンソールで、次の内容を参考にしてAuth Token認証アクセス管理を設定します。
 
-![CDNサービス作成-Auth Token認証アクセス管理](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-auth-token_202403.png)
+![CDNサービス作成-Auth Token認証アクセス管理](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-auth-token_202403.png)
 
 - **トークン認証を使用するかどうか**
     - **使用**：Auth Token認証アクセス管理機能を有効化してトークン検証した後、コンテンツにアクセスできるようにします。
@@ -531,7 +531,7 @@ public class NhnCloudAuthTokenAccessControlExample {
 ### HTTPレスポンスヘッダ
 CDNからユーザーにレスポンスする際に伝達されるヘッダを追加/変更/削除する機能です。
 ヘッダは重複していないヘッダー名で最大10個まで設定できます。
-![CDNサービス作成-レスポンスヘッダ(イメージ修正必要)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-http-response-header_202403.png)
+![CDNサービス作成-レスポンスヘッダ(イメージ修正必要)](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-create-http-response-header_202403.png)
 
 - **HTTPレスポンスヘッダ設定**
     - **使用**: HTTPレスポンスヘッダを追加/変更/削除する設定を使用します。
@@ -556,13 +556,13 @@ CDNからユーザーにレスポンスする際に伝達されるヘッダを�
 
 ### CDNサービスの設定変更
 サービスドメイン名を除くCDNサービス設定を変更できます。
-![CDNサービス修正有効化](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202403.png)
+![CDNサービス修正有効化](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-modify3_202403.png)
 
 1. 変更するCDNサービスをCDNサービスリストから選択します。
 2. **修正**ボタンをクリックします。
 
 次のようにCDNサービス修正ページに移動します。
-![CDNサービス修正確認-イメージ修正必要](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2_202403.png)
+![CDNサービス修正確認-イメージ修正必要](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-modify2_202403.png)
 
 * 変更する設定内容を修正します。 
 * **確認**ボタンをクリックして、変更を完了します。
@@ -579,9 +579,9 @@ CDNサービスを一時的に中断または、再開することができま�
 
 1. 一時停止するCDNサービスを選択します。
 2. **一時停止**ボタンをクリックします。
-![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/console-cdn-pause2_202403.png)
+![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-pause2_202403.png)
 3. 証明書の連携をしているCDNサービスには、証明書の無効警告案内が表示されます。証明書の無効を回避するには、証明書更新開始日の前にCDNサービスを再開する必要があります。
-![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/console-cdn-restart2_202403.png)
+![CDNサービス-一時停止](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-restart2_202403.png)
 4. 一時停止状態のCDNサービスを再開するには再開するCDNサービスを選択します。
 5. **再開**ボタンをクリックします。
 
@@ -601,7 +601,7 @@ CDNサービスを削除します。削除すると復旧できませんので�
 
 1. 削除するCDNサービスを選択します。
 2. **削除**ボタンをクリックします。
-![CDNサービス-削除](https://static.toastoven.net/prod_cdn/v2/console-cdn-delete2_202403.png)
+![CDNサービス-削除](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-delete2_202403.png)
 3. 証明書が連携されているCDNサービスは、証明書無効警告案内が表示されます。証明書が無効になるのを回避するには、サービス中の他のCDNサービスに証明書を連携してください。
 
 
@@ -619,7 +619,7 @@ Purgeを行うと、リクエストしたコンテンツの古いキャッシュ
 
 1. 変更したいサービスをCDNサービスリストから選択します。
 2. **Purge**タブをクリックして**Purge**ボタンをクリックします。
-![CDNキャッシュ再配布](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge2_202403.png)
+![CDNキャッシュ再配布](https://static.toastoven.net/prod_cdn/v2/ja1/console-cdn-purge2_202403.png)
 
 3. Purgeタイプを選択します。
   - CDNサービスドメインに応じてサポートされるキャッシュ再配布タイプとリクエスト様式が異なるため注意してください。
@@ -650,7 +650,7 @@ Purgeには使用量制限がありますので、下記の表を参考にして
 
 1. 統計を確認するサービスをCDNサービスリストで選択します。
 2. **統計** タブをクリックします。
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/console-statistics_202403.png)
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/ja1/console-statistics_202403.png)
 3. 検索期間または日付を選択します。
 4. 検索期間内のデータ周期は選択した期間に基づいて自動的に選択されます。
 
@@ -711,7 +711,7 @@ NHN Cloud CDNの証明書管理は次のような機能を提供します。
     `nslookup -type=TXT _acme-challenge.[発行リクエストした証明書ドメイン].`
 
 次の画面はNHN Cloud DNS+ サービスで設定した例です。DNSサービス提供業者によって設定方法は異なる場合があります。
-![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation-dns_ja_202105.png)
+![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-domain-validation-dns_ja_202403.png)
 
 
 #### HTTPページ追加方式
@@ -743,7 +743,7 @@ NHN Cloud CDNの証明書管理は次のような機能を提供します。
     - レコード名：**[証明書ドメイン].**(例：test.alias.com.com.)
     - レコード値：**[連携するCDNサービスドメイン]**(例：xxxxxxxx.toastcdn.net)
 次の画面はNHN Cloud DNS+ サービスで設定した例です。DNSサービス提供業者によって設定方法は異なる場合があります。
-![CDNサービス連携-CNAME委任](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-service-cname_ja_202105.png)
+![CDNサービス連携-CNAME委任](https://static.toastoven.net/prod_cdn/v2/ja1/console-certificate-service-cname_ja_202403.png)
 
 2. **ドメインエイリアス設定**：証明書を利用するCDNサービスにドメインエイリアス設定を追加します。
     -  **CDNサービス**タブで連携するCDNサービスを選択して**修正**ボタンをクリックします。ドメインエイリアスに証明書ドメインを追加して**確認** ボタンをクリックします。

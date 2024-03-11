@@ -722,7 +722,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 
 1. 통계를 확인할 서비스를 CDN 서비스 목록에서 선택합니다.
 2. **통계** 탭을 클릭합니다.
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/console-statistics_202403.png)
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/v2/console-statistics_202403.png)
 3. 검색 기간 혹은 날짜를 선택합니다.
 4. 검색 기간 내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.
 
