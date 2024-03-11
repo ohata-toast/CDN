@@ -786,7 +786,7 @@ Check DNS control role of domain to validate domain.
 
 
 Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may provide different configuration method.
-![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-domain-validation-dns_202403.png)
+![Validating CDN Domain](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-domain-validation-dns_202105.png)
 
 
 #### Adding HTTP Pages
