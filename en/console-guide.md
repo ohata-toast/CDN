@@ -627,13 +627,13 @@ You can set up to 10 headers with non-duplicate header names.
 ## Settings
 
 ### Modify CDN Service Setting
-CDN service setting can be modified, except the name and region of service domain.
+CDN service settings can be modified, except for the service domain name.
 ![Enabling CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-modify3_202403.png)
 
 1. Select a CDN service to modify from the list.
-2. Click **Modify** from the **Setting** at the bottom of the page.
+2. Click **Modify**.
 
-Then, items that are modifiable are activated like below.
+Then, navigates to the Modify CDN Service page as shown below.
 ![Checking CDN Service Modification](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-modify2_202403.png)
 
 * Modify the setting.
@@ -688,13 +688,13 @@ CDN service can be deleted. Once deleted, however, a service cannot be recovered
 > A certificate is allowed to be renewed for 5 days after start day of renewal, and deletion during the period may cause the certificate to get expired.
 
 
-## Purging CDN Cache
+## Purge
 CDN cache server caches origin server files during specified expiration time depending on the cache setting. When a file is cached, the original file before change shall be maintained until cache is expired, even if there is a change in the original file.
-To immediately update content to changed original file, **Purge Cache** must be requested.
+To immediately update content to changed original file, **Purge** must be requested.
 By purging cache, outdated cache data are deleted from requested content while a new original file is cached again at the origin server.
 
 1.  Select a service to change from the list of CDN services.
-2. Click **Purge Cache**.
+2. Click the **Purge** tab to click **Purge**.
 ![Purging CDN Cache](https://static.toastoven.net/prod_cdn/v2/en/console-cdn-purge2_202403.png)
 
 3. Select a purge type.
@@ -705,7 +705,7 @@ By purging cache, outdated cache data are deleted from requested content while a
             * e.g.) Domain address for domain alias: http://customer.domain.com/path/to/file1.jpg
         * All Files: Delete all cache files. Note that excessive traffic inflow may be incurred to the origin server.
 4. Specify a file to purge depending on the selected cache purge type.
-5. Click **Purge Cache** to request for a purge.
+5. Click **Confirm** to request for a purge.
 
 Cache purge has a usage limit, so refer to the table below and be careful not to exceed the usage limit.
 
@@ -716,7 +716,24 @@ Cache purge has a usage limit, so refer to the table below and be careful not to
 | All File Types | Requests per 5 minutes: 1 time |
 
 > **[Caution] Failed Cache Purge after [ServiceID].toastcdn.net is created**
-> Cache purge request may fail within about an hour after CDN service is created. If failure continues afterwards, contact Customer Center.
+> Cache purge request may fail within about an hour after CDN service is created. If failure continues afterwards, contact the [NHN Cloud Customer Center](https://www.nhncloud.com/kr/support/inquiry).
+
+## Statistics
+
+You can view network transfer volume, statistics by HTTP status code, and ranking statistics for your most downloaded content.
+Please note that statistics within 7 days are inaccurate and should be used as a guide only. For accurate statistics, check after 7 days.
+
+1. From the list of CDN services, select the service for which you want to view statistics.
+2. Click the **Statistics** tab.
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/console-statistics_202403.png)
+3. Select a search period or date.
+4. The data intervals within the search period are automatically selected based on the time period you select.
+
+>  **[Note] Maximum search period**
+> You can view statistics data for up to 90 days.
+>  **[Note] Restrictions for statistics of Top Contents By Hits**
+> Viewing is available up to one day in advance, with a range of one day or more.
+> Content that is 100 KB or smaller or has fewer than 50 requests per day is excluded from statistics.
 
 ## Managing Certificates
 To use secure transport (HTTPS) via your own domain, certificate of your own domain must be deployed to CDN server. Without a certificate, secured communication (HTTPS) is unavailable between client (browser) and CDN edge server, causing error of certificate.
@@ -739,7 +756,7 @@ Certificates can be issued from the **Certificate Management** tab.
 > 1. Purchase a domain first, if not owned, because certificates can be issued to owned domains only.
 > 2. Certificates issued from other certificate authorities are not allowed.
 > 3. Only single-domain certificates can be issued. Wildcard or multi-domain certificates are not supported.
-> 4. Each project allows no more than 5 certificates. If you need more than that, contact NHN Cloud Customer Center.
+> 4. Each project allows no more than 5 certificates. If you need more than that, contact [NHN Cloud Customer Center](https://www.nhncloud.com/kr/support/inquiry).
 > 5. After certificate issuance is requested, the Validate Domain phase may be activated in several tens of minutes (up to 2 hours). If your certificate changes status to Validate Domain, email shall be sent to NHN Cloud project members. If email is not sent due to system error, check status on console.
 
 ### Validate Domain
@@ -781,7 +798,7 @@ Add an HTTP page to a web server connected with domain to validate the domain.
 
 > **[Caution] Cautions for Domain Validation**
 > 1. Domain must be validated **within 5 days** since when a certificate is requested of issuance. **Otherwise, getting a certificate shall be automatically revoked**.
-> 2. When domain is successfully validated, certificate is to be issued and deployed within hours. Unless it proceeds more than a day, check if domain has been properly validated. If it still does not proceed, contact NHN Cloud Customer Center.
+> 2. When domain is successfully validated, certificate is to be issued and deployed within hours. Unless it proceeds more than a day, check if domain has been properly validated. If it still does not proceed, contact [NHN Cloud Customer Center](https://www.nhncloud.com/kr/support/inquiry).
 > 3. Adding HTTP Pages is available only when the HTTP server runs on 80 ports. If port change is unavailable, please take another option of Adding DNS TXT Records.
 
 ### Issue and Deploy Certificates
@@ -806,11 +823,11 @@ Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may
 
 2. **Domain Alias Setting**: Add domain alias setting for the CDN to use certificate.
     -  Select CDN to be integrated from **CDN Service** and click **Modify**. Add certificate domain to domain alias and click **OK**.
-![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-service-alias2_202105.png)
+![Integrating CDN-Domain Alias](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-service-alias2_202403.png)
 
 > **[Note] CNAME record propagation time**
 > When setting the CNAME record, DNS propagation can take time depending on various factors. Therefore, the certificate issuance status may be displayed as [Waiting for CDN service integration] for a certain period of time even after performing the service integration process correctly.
-> If the [Waiting for CDN service integration] status persists for more than 24 hours even though the settings are correct, please contact the NHN Cloud Customer Center.
+> If the [Waiting for CDN service integration] status persists for more than 24 hours even though the settings are correct, please contact the [NHN Cloud Customer Center](https://www.nhncloud.com/kr/support/inquiry).
 
 >  **[Caution] Caution for certificate expiration**
 > Certificates provided by NHN Cloud CDN are automatically renewed before expired.
@@ -833,22 +850,3 @@ When certificate is fully integration with CDN, the certificate status shows 'Ac
 > 1. ISRG x1 certificate download link: [Download link](https://letsencrypt.org/certs/isrgrootx1.pem)
 > 2. Windows OS settings change reference guide: [Link](https://docs.microsoft.com/en-us/skype-sdk/sdn/articles/installing-the-trusted-root-certificate)
 > 3. Chrome browser reference guide: [Link](https://docs.vmware.com/en/VMware-Adapter-for-SAP-Landscape-Management/2.0.1/Installation-and-Administration-Guide-for-VLA-Administrators/GUID-D60F08AD-6E54-4959-A272-458D08B8B038.html)
-
-## Statistics
-
-Check statistics on the network transfer volume, HTTP status code, most downloaded content, and more.
-Statistical data within 7 days are recommended only as reference, since they may not be precise: precise data are available after 7 days.
-
-1. Click **Statistics** from **Content Delivery > CDN**.
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/v2/en/console-statistics_202403.png)
-2. Select a CDN service to check statistics.
-3. Enter search period.
-4. Data cycle within a search period is automatically selected depending on the period.
-5. Click **Search**.
-
->  **[Note] Max. Search Period**
-> Only statistical data for the last 90 days can be viewed.
-
->  **[Note] Top Contents By Hits Statistics Constraints**
-> View is available up to one day in advance, with a range of one day or more.
-> Content less than 100 KB or with less than 50 requests per day is excluded from statistics.
