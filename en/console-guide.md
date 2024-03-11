@@ -725,7 +725,7 @@ Please note that statistics within 7 days are inaccurate and should be used as a
 
 1. From the list of CDN services, select the service for which you want to view statistics.
 2. Click the **Statistics** tab.
-![cdn_08_201812](https://static.toastoven.net/prod_cdn/console-statistics_202403.png)
+![cdn_08_201812](https://static.toastoven.net/prod_cdn/v2/en/console-statistics_202403.png)
 3. Select a search period or date.
 4. The data intervals within the search period are automatically selected based on the time period you select.
 
