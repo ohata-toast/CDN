@@ -1,5 +1,10 @@
 ## Content Delivery > CDN > Release Notes
 
+### March 12, 2024
+
+#### Feature Updates
+* Changed UI design of the console page
+
 ### November 28, 2023
 
 #### Feature Updates
