@@ -1,5 +1,16 @@
 ## Content Delivery > CDN > Release Notes
 
+### March 12, 2024
+
+#### Feature Updates
+* Changed UI design of the console page
+
+### November 28, 2023
+
+#### Feature Updates
+* Improved Top Content By Hits graph
+  * Fixed an issue where, when the number of content rank data is more than 10, the circular graph is broken. The graph only shows up to 10 content rankings.
+
 ### September 26, 2023
 
 #### Feature Updates

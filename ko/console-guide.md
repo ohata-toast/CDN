@@ -197,7 +197,7 @@ CDN 서비스의 루트 경로에 대한 접근 제어를 설정할 수 있습�
 ### 메서드
 CDN에서 기본적으로 허용하는 메서드는 GET, HEAD, OPTIONS로, 이외의 메서드를 요청하면 거절 처리됩니다.
 해당 메서드 이외의 메서드를 허용하려면 원하는 메서드를 선택해 설정합니다.
-![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
+![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
 - **메서드 허용 설정**
   허용 설정한 메서드 요청은 캐싱되지 않고 원본 서버로 전달됩니다.
