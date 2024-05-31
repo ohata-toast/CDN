@@ -3,9 +3,9 @@
 ### 2024. 06. 25.
 
 #### 기능 개선/변경
-* CDN Public API 도메인이 변경되었습니다.
-	* 기존 : https://kr1-cdn.api.nhncloudservice.com
-	* 변경 후 : https://cdn.api.nhncloudservice.com
+* CDN Public API 도메인 변경
+	* 기존: https://kr1-cdn.api.nhncloudservice.com
+	* 변경 후: https://cdn.api.nhncloudservice.com
 
 ### 2024. 03. 12.
 
