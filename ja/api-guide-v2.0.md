@@ -6,9 +6,9 @@ NHN Cloud CDNで提供するPublic API v2.0について説明します。
 
 ### ドメイン
 
-| 名前       | ドメイン                            |
-| --------------- | ------------------------------------- |
-| CDN Public APIドメイン | https://kr1-cdn.api.nhncloudservice.com |
+| 名前             | ドメイン                                |
+| --------------- | ----------------------------------- |
+| CDN Public APIドメイン | https://cdn.api.nhncloudservice.com |
 
 ### 事前準備
 
