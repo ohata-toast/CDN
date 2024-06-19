@@ -1,5 +1,12 @@
 ## Content Delivery > CDN > Release Notes
 
+### June 25, 2024
+
+#### Feature Updates
+* Changed the CDN Public API domain
+	* Previous: https://kr1-cdn.api.nhncloudservice.com
+	* Current: https://cdn.api.nhncloudservice.com
+
 ### March 12, 2024
 
 #### Feature Updates
