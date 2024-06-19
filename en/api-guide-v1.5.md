@@ -8,7 +8,7 @@ This document describes Public API v1.5 provided by NHN Cloud CDN.
 
 | Name         | Domain                             |
 | --------------- | ------------------------------------- |
-| Public API CDN Domain | https://kr1-cdn.api.nhncloudservice.com |
+| Public API CDN Domain | https://cdn.api.nhncloudservice.com |
 
 ### Prerequisites
 
