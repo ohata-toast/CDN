@@ -905,7 +905,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | callbackHttpMethod  | String | 선택      |        | GET/POST/PUT        | 인증서 생성 처리 결과를 통보 받을 콜백의 HTTP 메서드 |
 | callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보 받을 콜백 URL       |
 
-* 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide-gov/#_7)을 참고하세요.
+* 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide-gov/#_9)을 참고하세요.
 
 #### 응답
 
