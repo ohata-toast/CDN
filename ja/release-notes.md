@@ -1,5 +1,11 @@
-
 ## Content Delivery > CDN > Release Notes
+
+### 2024. 06. 25.
+
+#### 機能改善/変更
+* CDN Public APIドメイン変更
+	* 既存: https://kr1-cdn.api.nhncloudservice.com
+	* 変更後: https://cdn.api.nhncloudservice.com
 
 ### 2024. 03. 12.
 
