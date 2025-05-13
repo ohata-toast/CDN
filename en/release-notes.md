@@ -1,5 +1,14 @@
 ## Content Delivery > CDN > Release Notes
 
+### April 29, 2025
+
+#### Feature Updates
+* Ended support for the Statistics Public API 
+	* Support Ended APIs
+		* Query Traffic Statistics
+		* Query Statistics by HTTP Status Code
+		* Query Ranking Statistics for Content with the Most Downloads
+		
 ### June 25, 2024
 
 #### Feature Updates
